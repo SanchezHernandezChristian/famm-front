@@ -1,0 +1,42 @@
+.navbar-brand-full {
+  width: 170px;
+  height: 50px;
+}
+
+.nav-item {
+  font-size: 18px;
+}
+
+.col {
+  line-height: 20px;
+}
+
+.left {
+  text-align: left;
+}
+
+.btn-pink {
+  background-color: pink;
+}
+
+.logo-footer-b {
+  width: 250px;
+  height: 100px;
+}
+
+.windows-logo {
+  font-size: 50px;
+}
+
+.main-img {
+  width: 100%;
+  height: 100%;
+}
+
+.body {
+  height: 50vh;
+}
+
+footer {
+  background-color: #394f79;
+}
