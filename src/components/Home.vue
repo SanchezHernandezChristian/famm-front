@@ -2,6 +2,8 @@
   <div class="home">
     <Navbar />
     <Body />
+    <SectionArea />
+    <SectionBuy />
     <Footer />
   </div>
 </template>
@@ -10,12 +12,16 @@
 import Body from "./views/Body.vue";
 import Navbar from "./views/Navbar.vue";
 import Footer from "./views/Footer.vue";
+import SectionBuy from "./views/SectionBuy.vue";
+import SectionArea from "./views/SectionArea.vue";
 
 export default {
   name: "Home",
   components: {
     Body,
     Navbar,
+    SectionArea,
+    SectionBuy,
     Footer,
   },
 };
