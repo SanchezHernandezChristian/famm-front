@@ -40,3 +40,32 @@
 footer {
   background-color: #394f79;
 }
+
+.bannerMinText{
+  color: #ffffff;
+}
+
+.bannerBarra{
+  background-color: #22375e;
+}
+
+.bannerCentral{
+  background-color: #394f79;
+}
+
+.btnCreatAccount{
+  width:170px; 
+  height:50px;
+  border-radius: 20px;
+  background-color:#394f79;
+  border-color:rgb(255, 255, 255); 
+  color:white
+}
+
+.buttonAcountFree{
+  border-radius: 20px;
+}
+
+.sectionbuy{
+  margin-top: 100px;
+}
