@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light p-2">
     <div class="container-fluid" style="height:60px">
         <div>
           <img src="@/assets/img/logo.png" alt="FAMM" width="140" height="40"/>
@@ -59,20 +59,29 @@
               aria-describedby="basic-addon1"
             />
           </div>
-          <button class="btn btn-outline-danger m-4" type="submit" style="height:40px;width:250px">
-            Registrarse
-          </button>
-          <button class="btn btn-outline-secondary m-4" type="submit" style="height:40px;width:250px">
-            Iniciar sesión
-          </button>
         </form>
       </div>
     </div>
+    <v-row justify="center">
+      <v-col md="6">
+        <Login />
+      </v-col>
+      <v-col md="6">
+        <Registro />
+      </v-col>
+    </v-row>
   </nav>
 </template>
 
 <script>
+import Login from "../Login.vue";
+import Registro from "../Registro.vue";
+
 export default {
   name: "Navbar",
+  components: {
+    Login,
+    Registro
+  }
 };
 </script>
