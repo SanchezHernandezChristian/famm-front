@@ -1,29 +1,51 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img class="navbar-brand-full" src="@/assets/img/logo.png" alt="FAMM" />
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <div class="container-fluid" style="height:60px">
+        <div>
+          <img src="@/assets/img/logo.png" alt="FAMM" width="140" height="40"/>
+        </div>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 mt-3">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Cursos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Especialidades</a>
-          </li>
+        <ul style="margin-top: 20px;">
+        <li class="lista1 primero"><a> Cursos</a>
+          <ul>
+            <li class="lista2">TODOS LOS CURSOS <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></li>
+            <li class="lista2">Marketing</li>
+            <li class="lista2">Negocios y emprendimiento</li>
+            <li class="lista2">Diseño</li>
+            <li class="lista2">Desarrollo de sofware</li>
+            <li class="lista2">Inglés</li>
+            <li class="lista2">Recursos humanos</li>
+            <li class="lista2">Unidades de capacitación</li>
+            <li class="lista2">Campos de formación profesional</li>
+            <li class="lista2">Cursos mejor valorados</li>
+            <li class="lista2">Cursos nuevos</li>
+            <li class="lista2">Cursos cerca de tu localidad</li>
+          </ul>
+        </li>
+        <li class="lista1"> <a>Especialidades  </a>
+          <ul>
+            <li class="lista2">Gestión y Venta de Servicios Turísticos</li>
+            <li class="lista2">Hotelería</li>
+            <li class="lista2">Informática</li>
+            <li class="lista2">Estilismo y Diseño de Imagen</li>
+            <li class="lista2">Inglés</li>
+            <li class="lista2">Alimentos y Bebidas</li>
+            <li class="lista2">Diseño y Fabricación de Muebles de Madera</li>
+            <li class="lista2">Diseño y Elaboración de cerámica</li>
+            <li class="lista2">Artesanías con fibras Textiles</li>
+            <li class="lista2">Artesanías con Pastas, Pinturas y Acabados</li>
+            <li class="lista2">Administración</li>
+            <li class="lista2">Unidades de capacitación</li>
+            <li class="lista2">Campos de formación profesional</li>
+            <li class="lista2">Cursos mejor valorados</li>
+            <li class="lista2">Cursos nuevos</li>
+            <li class="lista2">Cursos cerca de tu localidad</li>
+            <li class="lista2">TODAS LAS ESPECIALIDADES <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></li>
+          </ul>
+        </li>
         </ul>
+        </div>
+        <div>
         <form class="d-flex">
           <div class="input-group m-4">
             <span class="input-group-text" id="basic-addon1"
@@ -37,10 +59,10 @@
               aria-describedby="basic-addon1"
             />
           </div>
-          <button class="btn btn-outline-danger m-4" type="submit">
+          <button class="btn btn-outline-danger m-4" type="submit" style="height:40px;width:250px">
             Registrarse
           </button>
-          <button class="btn btn-outline-secondary m-4" type="submit">
+          <button class="btn btn-outline-secondary m-4" type="submit" style="height:40px;width:250px">
             Iniciar sesión
           </button>
         </form>

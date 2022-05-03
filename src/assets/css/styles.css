@@ -69,3 +69,51 @@ footer {
 .sectionbuy{
   margin-top: 100px;
 }
+
+/*CSS Listas Cursos y Especialidades INICIO*/
+ul{
+  padding-left: 0;
+  display: flex;
+  list-style-type: none;
+  background-color: #f8f7f7;
+  column-count: 2;
+}
+
+.lista1{
+  color: rgb(15, 66, 107);
+  padding:1em;
+}
+
+.primero{
+  border-left: none;
+}
+
+li > ul {
+display: none;
+position: absolute;
+}
+
+li:hover{
+  background-color: rgb(15, 66, 107);
+  color: white;
+}
+
+li:hover ul {
+display: block;
+left: 0;
+margin-top: 1em;
+width: 100%;
+}
+
+.lista2 {
+  color: rgb(15, 66, 107);
+  padding: 1em;
+}
+
+/*Estilo botones inicio*/
+/*.btnRegister{
+  border-radius: 20px;
+  height: 50px;
+  width: 250px;
+  background-color: #f8f7f7;
+}*/
