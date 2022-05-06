@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="homeprincipal">
     <Navbar />
     <Body />
     <SectionArea />
@@ -9,11 +9,12 @@
 </template>
 
 <script>
-import Body from "./views/Body.vue";
-import Navbar from "./views/Navbar.vue";
-import Footer from "./views/Footer.vue";
-import SectionBuy from "./views/SectionBuy.vue";
-import SectionArea from "./views/SectionArea.vue";
+// @ is an alias to /src
+import Body from "@/components/views/Body.vue";
+import Navbar from "@/components/views/Navbar.vue";
+import Footer from "@/components/views/Footer.vue";
+import SectionBuy from "@/components/views/SectionBuy.vue";
+import SectionArea from "@/components/views/SectionArea.vue";
 
 export default {
   name: "Home",
