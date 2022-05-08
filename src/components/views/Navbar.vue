@@ -51,6 +51,50 @@
               </li>
             </ul>
           </li>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light p-2">
+    <div class="container-fluid" style="height:60px">
+        <div>
+          <img src="@/assets/img/logo.png" alt="FAMM" width="140" height="40"/>
+        </div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul style="margin-top: 20px;">
+        <li class="lista1 primero"><a> Cursos</a>
+          <ul>
+            <li class="lista2">TODOS LOS CURSOS <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></li>
+            <li class="lista2">Marketing</li>
+            <li class="lista2">Negocios y emprendimiento</li>
+            <li class="lista2">Diseño</li>
+            <li class="lista2">Desarrollo de sofware</li>
+            <li class="lista2">Inglés</li>
+            <li class="lista2">Recursos humanos</li>
+            <li class="lista2">Unidades de capacitación</li>
+            <li class="lista2">Campos de formación profesional</li>
+            <li class="lista2">Cursos mejor valorados</li>
+            <li class="lista2">Cursos nuevos</li>
+            <li class="lista2">Cursos cerca de tu localidad</li>
+          </ul>
+        </li>
+        <li class="lista1"> <a>Especialidades  </a>
+          <ul>
+            <li class="lista2">Gestión y Venta de Servicios Turísticos</li>
+            <li class="lista2">Hotelería</li>
+            <li class="lista2">Informática</li>
+            <li class="lista2">Estilismo y Diseño de Imagen</li>
+            <li class="lista2">Inglés</li>
+            <li class="lista2">Alimentos y Bebidas</li>
+            <li class="lista2">Diseño y Fabricación de Muebles de Madera</li>
+            <li class="lista2">Diseño y Elaboración de cerámica</li>
+            <li class="lista2">Artesanías con fibras Textiles</li>
+            <li class="lista2">Artesanías con Pastas, Pinturas y Acabados</li>
+            <li class="lista2">Administración</li>
+            <li class="lista2">Unidades de capacitación</li>
+            <li class="lista2">Campos de formación profesional</li>
+            <li class="lista2">Cursos mejor valorados</li>
+            <li class="lista2">Cursos nuevos</li>
+            <li class="lista2">Cursos cerca de tu localidad</li>
+            <li class="lista2">TODAS LAS ESPECIALIDADES <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></li>
+          </ul>
+        </li>
         </ul>
       </div>
       <div>
@@ -84,11 +128,26 @@
         </form>
       </div>
     </div>
+    <v-row justify="center">
+      <v-col md="6">
+        <Login />
+      </v-col>
+      <v-col md="6">
+        <Registro />
+      </v-col>
+    </v-row>
   </nav>
 </template>
 
 <script>
+import Login from "../Login.vue";
+import Registro from "../Registro.vue";
+
 export default {
   name: "Navbar",
+  components: {
+    Login,
+    Registro
+  }
 };
 </script>
