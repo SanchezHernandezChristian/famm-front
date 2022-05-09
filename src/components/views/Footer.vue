@@ -24,8 +24,24 @@
         <section class="md:w-5/12 left">
           <strong>SUSCRÍBETE Y RECIBE NOTICIAS</strong>
           <p>Recibe promociones y descuentos</p>
-          <input type="text" placeholder="Ingresa tu correo" />
-          <button name="button" class="btn-pink">Inscribirse</button>
+          <v-container fluid>
+            <v-layout justify-center>
+              <v-flex>
+                <v-text-field
+                  v-model="email"
+                  :rules="[rules.email]"
+                  outlined
+                  dark
+                  label="Ingresa tu correo"
+                  dense
+                >
+                </v-text-field>
+              </v-flex>
+              <v-flex>
+                <v-btn small dark color="btnInscribirse">Inscribirse</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-container>
           <p></p>
           <strong>DESCARGA LA APP DE FAMM</strong>
         </section>
@@ -33,9 +49,6 @@
     </div>
     <div class="row text-center">
       <div class="col-5" />
-      <div class="col-1">
-        <i class="fa fa-windows windows-logo mt-4" aria-hidden="true"></i>
-      </div>
       <div class="col-1">
         <img class="logo-footer-b" src="@/assets/img/icapet.png" alt="FAMM" />
       </div>
@@ -63,5 +76,17 @@
 <script>
 export default {
   name: "Footer",
+  data() {
+    return {
+      email: "",
+      rules: {
+        email: (value) => {
+          const pattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return pattern.test(value) || "E-mail inválido.";
+        },
+      },
+    };
+  },
 };
 </script>
