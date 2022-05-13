@@ -4,7 +4,7 @@
       <div>
         <img src="@/assets/img/logo.png" alt="FAMM" width="140" height="40" />
       </div>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">        
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul style="margin-top: 20px">
           <li class="lista1 primero">
             <a>Cursos</a>
@@ -13,90 +13,200 @@
                 TODOS LOS CURSOS
                 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
               </li>
-              <li class="lista2">Marketing</li>
-              <li class="lista2">Negocios y emprendimiento</li>
-              <li class="lista2">Diseño</li>
-              <li class="lista2">Desarrollo de sofware</li>
-              <li class="lista2">Inglés</li>
-              <li class="lista2">Recursos humanos</li>
-              <li class="lista2">Unidades de capacitación</li>
-              <li class="lista2">Campos de formación profesional</li>
-              <li class="lista2">Cursos mejor valorados</li>
-              <li class="lista2">Cursos nuevos</li>
-              <li class="lista2">Cursos cerca de tu localidad</li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Marketing</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Negocios y emprendimiento</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Diseño</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Desarrollo de sofware</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Inglés</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Recursos humanos</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Unidades de capacitación</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Campos de formación profesional</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Cursos mejor valorados</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Cursos nuevos</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Cursos cerca de tu localidad</router-link
+                >
+              </li>
             </ul>
           </li>
           <li class="lista1">
             <a>Especialidades</a>
             <ul>
-              <li class="lista2"><router-link style="text-decoration: none; color: inherit;" to="/especialidad">Gestión y Venta de Servicios Turísticos</router-link></li>
-              <li class="lista2">Hotelería</li>
-              <li class="lista2">Informática</li>
-              <li class="lista2">Estilismo y Diseño de Imagen</li>
-              <li class="lista2">Inglés</li>
-              <li class="lista2">Alimentos y Bebidas</li>
-              <li class="lista2">Diseño y Fabricación de Muebles de Madera</li>
-              <li class="lista2">Diseño y Elaboración de cerámica</li>
-              <li class="lista2">Artesanías con fibras Textiles</li>
-              <li class="lista2">Artesanías con Pastas, Pinturas y Acabados</li>
-              <li class="lista2">Administración</li>
-              <li class="lista2">Unidades de capacitación</li>
-              <li class="lista2">Campos de formación profesional</li>
-              <li class="lista2">Cursos mejor valorados</li>
-              <li class="lista2">Cursos nuevos</li>
-              <li class="lista2">Cursos cerca de tu localidad</li>
               <li class="lista2">
-                TODAS LAS ESPECIALIDADES
-                <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Gestión y Venta de Servicios Turísticos</router-link
+                >
               </li>
-            </ul>
-          </li>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light p-2">
-    <div class="container-fluid" style="height: 60px">
-      <div>
-        <img src="@/assets/img/logo.png" alt="FAMM" width="140" height="40" />
-      </div>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul style="margin-top: 20px">
-          <li class="lista1 primero">
-            <a> Cursos</a>
-            <ul>
               <li class="lista2">
-                TODOS LOS CURSOS
-                <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Hotelería</router-link
+                >
               </li>
-              <li class="lista2">Marketing</li>
-              <li class="lista2">Negocios y emprendimiento</li>
-              <li class="lista2">Diseño</li>
-              <li class="lista2">Desarrollo de sofware</li>
-              <li class="lista2">Inglés</li>
-              <li class="lista2">Recursos humanos</li>
-              <li class="lista2">Unidades de capacitación</li>
-              <li class="lista2">Campos de formación profesional</li>
-              <li class="lista2">Cursos mejor valorados</li>
-              <li class="lista2">Cursos nuevos</li>
-              <li class="lista2">Cursos cerca de tu localidad</li>
-            </ul>
-          </li>
-          <li class="lista1">
-            <a>Especialidades </a>
-            <ul>
-              <li class="lista2">Gestión y Venta de Servicios Turísticos</li>
-              <li class="lista2">Hotelería</li>
-              <li class="lista2">Informática</li>
-              <li class="lista2">Estilismo y Diseño de Imagen</li>
-              <li class="lista2">Inglés</li>
-              <li class="lista2">Alimentos y Bebidas</li>
-              <li class="lista2">Diseño y Fabricación de Muebles de Madera</li>
-              <li class="lista2">Diseño y Elaboración de cerámica</li>
-              <li class="lista2">Artesanías con fibras Textiles</li>
-              <li class="lista2">Artesanías con Pastas, Pinturas y Acabados</li>
-              <li class="lista2">Administración</li>
-              <li class="lista2">Unidades de capacitación</li>
-              <li class="lista2">Campos de formación profesional</li>
-              <li class="lista2">Cursos mejor valorados</li>
-              <li class="lista2">Cursos nuevos</li>
-              <li class="lista2">Cursos cerca de tu localidad</li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Informática</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Estilismo y Diseño de Imagen</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Inglés</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Alimentos y Bebidas</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Diseño y Fabricación de Muebles de Madera</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Diseño y Elaboración de cerámica</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Artesanías con fibras Textiles</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Artesanías con Pastas, Pinturas y Acabados</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Administración</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Unidades de capacitación</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Campos de formación profesional</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Cursos mejor valorados</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Cursos nuevos</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Cursos cerca de tu localidad</router-link
+                >
+              </li>
               <li class="lista2">
                 TODAS LAS ESPECIALIDADES
                 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
