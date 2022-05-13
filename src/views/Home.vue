@@ -1,10 +1,12 @@
 <template>
-  <div class="homeprincipal">
+  <div class="home">
+    <v-app>
     <Navbar />
     <Body />
     <SectionArea />
     <SectionBuy />
-    <Footer />
+    <Footer />    
+  </v-app>
   </div>
 </template>
 
