@@ -8,7 +8,7 @@
         <ul style="margin-top: 20px">
           <li class="lista1 primero">
             <a>Cursos</a>
-            <ul>
+            <ul id="list-cursos">
               <li class="lista2">
                 TODOS LOS CURSOS
                 <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -17,63 +17,168 @@
                 <router-link
                   style="text-decoration: none; color: inherit"
                   to="/especialidad"
-                  >Marketing</router-link
+                  >Atención al Cliente</router-link
                 >
               </li>
               <li class="lista2">
                 <router-link
                   style="text-decoration: none; color: inherit"
                   to="/especialidad"
-                  >Negocios y emprendimiento</router-link
+                  >Atención a Comensales</router-link
                 >
               </li>
               <li class="lista2">
                 <router-link
                   style="text-decoration: none; color: inherit"
                   to="/especialidad"
-                  >Diseño</router-link
+                  >Bordado Regional</router-link
                 >
               </li>
               <li class="lista2">
                 <router-link
                   style="text-decoration: none; color: inherit"
                   to="/especialidad"
-                  >Desarrollo de sofware</router-link
+                  >Bordado Textil</router-link
                 >
               </li>
               <li class="lista2">
                 <router-link
                   style="text-decoration: none; color: inherit"
                   to="/especialidad"
-                  >Inglés</router-link
+                  >Contabilidad Básica</router-link
                 >
               </li>
               <li class="lista2">
                 <router-link
                   style="text-decoration: none; color: inherit"
                   to="/especialidad"
-                  >Recursos humanos</router-link
+                  >Corte y confección básico Módulo I</router-link
                 >
               </li>
               <li class="lista2">
                 <router-link
                   style="text-decoration: none; color: inherit"
                   to="/especialidad"
-                  >Unidades de capacitación</router-link
+                  >Corte y confección básico Módulo II</router-link
                 >
               </li>
               <li class="lista2">
                 <router-link
                   style="text-decoration: none; color: inherit"
                   to="/especialidad"
-                  >Campos de formación profesional</router-link
+                  >Corte y confección básico Módulo III</router-link
                 >
               </li>
               <li class="lista2">
                 <router-link
                   style="text-decoration: none; color: inherit"
                   to="/especialidad"
-                  >Cursos mejor valorados</router-link
+                  ></router-link
+                >Cultivo de hortalizas en casa
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  ></router-link
+                >Cultivo de hongos seta en casa módulo I
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Cultivo de hongos seta en casa módulo II</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Deshilado Módulo I</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Elaboración de Cremas de Mezcal</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Elaboración de cartas descriptivas para impartir cursos a distancia</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Elaboración de materiales didácticos digitales</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Excel Básico</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Excel Intermedio</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Figuras con Papel Maché</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Formación de Banda de Música Mod. I</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Formación de Banda de Música Mod. II</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Formación de Banda de Música Mod. III</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Formación de Banda de Música Mod. IV</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Formulación de proyectos productivos</router-link
+                >
+              </li>
+              <li class="lista2">
+                <router-link
+                  style="text-decoration: none; color: inherit"
+                  to="/especialidad"
+                  >Guitarra Popular mod. I</router-link
                 >
               </li>
               <li class="lista2">
