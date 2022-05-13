@@ -59,11 +59,16 @@ footer {
   border-radius: 20px;
   background-color:#394f79;
   border-color:rgb(255, 255, 255); 
-  color:white
+  color:white;
 }
 
 .buttonAcountFree{
   border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 1rem;
+  /* IMPORTANTE */
+  text-align: center;
 }
 
 .sectionbuy{
@@ -76,7 +81,7 @@ ul{
   display: flex;
   list-style-type: none;
   background-color: #f8f7f7;
-  column-count: 2;
+  column-count: 3;
 }
 
 .lista1{
