@@ -108,7 +108,8 @@
                 <router-link
                   style="text-decoration: none; color: inherit"
                   to="/especialidad"
-                  >Elaboración de cartas descriptivas para impartir cursos a distancia</router-link
+                  >Elaboración de cartas descriptivas para impartir cursos a
+                  distancia</router-link
                 >
               </li>
               <li class="lista2">

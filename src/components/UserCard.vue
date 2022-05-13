@@ -40,7 +40,7 @@ export default {
 
     axios({
       method: "get",
-      url: "http://famm-back.test/api/user-profile",
+      url: "http://54.243.26.45/api/user-profile",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + this.token,
@@ -65,7 +65,7 @@ export default {
 
       axios({
         method: "get",
-        url: "http://famm-back.test/api/logout",
+        url: "http://54.243.26.45/api/logout",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + this.token,

@@ -117,7 +117,7 @@ export default {
       }
 
       axios
-        .post("http://famm-back.test/api/register", {
+        .post("http://54.243.26.45/api/register", {
           name: `${me.name} ${me.midname} ${me.lastname}`,
           email: me.email,
           password: me.password,
