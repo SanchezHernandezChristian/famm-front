@@ -75,7 +75,7 @@ export default {
       }
 
       axios
-        .post("http://famm-back.test/api/login", {
+        .post("http://54.243.26.45/api/login", {
           email: me.email,
           password: me.password,
         })

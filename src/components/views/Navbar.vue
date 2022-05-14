@@ -73,15 +73,15 @@
                 <router-link
                   style="text-decoration: none; color: inherit"
                   to="/especialidad"
-                  ></router-link
-                >Cultivo de hortalizas en casa
+                  >Cultivo de hortalizas en casa</router-link
+                >
               </li>
               <li class="lista2">
                 <router-link
                   style="text-decoration: none; color: inherit"
                   to="/especialidad"
-                  ></router-link
-                >Cultivo de hongos seta en casa módulo I
+                  >Cultivo de hongos seta en casa módulo I</router-link
+                >
               </li>
               <li class="lista2">
                 <router-link
@@ -108,7 +108,8 @@
                 <router-link
                   style="text-decoration: none; color: inherit"
                   to="/especialidad"
-                  >Elaboración de cartas descriptivas para impartir cursos a distancia</router-link
+                  >Elaboración de cartas descriptivas para impartir cursos a
+                  distancia</router-link
                 >
               </li>
               <li class="lista2">
@@ -334,20 +335,6 @@
               aria-describedby="basic-addon1"
             />
           </div>
-          <button
-            class="btn btn-outline-danger m-4"
-            type="submit"
-            style="height: 40px; width: 250px"
-          >
-            Registrarse
-          </button>
-          <button
-            class="btn btn-outline-secondary m-4"
-            type="submit"
-            style="height: 40px; width: 250px"
-          >
-            Iniciar sesión
-          </button>
         </form>
       </div>
     </div>
