@@ -1,60 +1,37 @@
 <template>
-  <main class="body">
-    <div style="max-width: 100%; height: auto">
+  <v-container fluid>
+    <v-row>
       <!--<img class="main-img" src="@/assets/img/banner.png" alt="FAMM" />-->
-      <div class="bannerBarra" style="text-align: center">
-        <label class="bannerMinText"
-          >Facilitador para el Acceso a Módulos tecnológicos y Monitoreo
-          educativo</label
-        >
+      <div class="indigo darken-4 text-center">
+        <p class="white--text pt-3 mb-2">Facilitador para el Acceso a Módulos tecnológicos y Monitoreo educativo</p>
       </div>
-      <div class="row bannerCentral">
-        <div class="col">
-          <section style="width: 100%">
-            <div style="margin: 0 auto; width: 480px">
-              <h1 style="color: white" align="left">
-                <strong
-                  >Conoce toda nuestra oferta de cursos y talleres, crece
-                  profesionalmente</strong
-                >
-              </h1>
-              <h3 style="color: white" align="left">
-                Aprende en cualquier momento y forma parte de esta gran
-                comunidad
-              </h3>
-            </div>
-            <div class="buttonAcountFree">
-              <button type="button" class="btnCreatAccount">
-                Crea tu cuenta gratis
-              </button>
-            </div>
-          </section>
+    </v-row>
+    <v-row class="bannerCentral pt-16">
+      <v-col>
+        <div>
+          <h1 style="color: white" align="left" class="pa-3">
+            <strong>Conoce toda nuestra oferta de cursos y talleres, crece profesionalmente</strong>
+          </h1>
+          <h3 style="color: white" class="pa-3" align="left">Aprende en cualquier momento y forma parte de esta gran comunidad</h3>
         </div>
-        <div class="col">
-          <section>
-            <div align="center" style="max-width: 100%; height: auto">
-              <img
-                class="logo-curso-b"
-                src="@/assets/img/banner-pareja.png"
-                alt="banner"
-                height="350"
-              />
-            </div>
-          </section>
+        <div class="buttonAcountFree">
+          <v-btn class="ma-2" outlined color="white"> Crea tu cuenta gratis </v-btn>
         </div>
-        <section style="width: 100%">
-          <div>
-            <img src="@/assets/img/barra.png" width="2550" height="80" />
-          </div>
-        </section>
-      </div>
-      <div><br /><br /></div>
-    </div>
-  </main>
+      </v-col>
+      <v-col></v-col>
+      <v-col cols="4" xs="6" class="hidden-sm-and-down"><v-img max-height="100%" max-width="100%" src="@/assets/img/banner-pareja.png"></v-img></v-col>
+    </v-row>
+    <v-row style="background-color: #87356e; color: white" justify="center">
+      <v-col md="2"><span class="h1">12</span> <span class="subtitle-1">Unidades de capacitación</span></v-col>
+      <v-col md="2"><span class="h1">394</span> <span class="subtitle-1">Cursos</span></v-col>
+      <v-col md="2"><span class="h1">85</span> <span class="subtitle-1">Especialidades</span></v-col>
+      <v-col md="2"><span class="h1">32</span> <span class="subtitle-1">Campos de formación profesional</span></v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 export default {
-  name: "Body",
+  name: 'Body',
 };
 </script>
