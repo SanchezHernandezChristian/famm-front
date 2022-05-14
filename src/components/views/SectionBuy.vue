@@ -1,7 +1,7 @@
 <template>
 <v-container fluid>
     <div class="sectionbuy">
-    <div><br><br><p></p><br><br><p></p></div>
+    <div><br><br></div>
 		<h1 class="text-center pb-6 text-3xl md:text-4xl lg:text-5xl font-semibold text-indigo-500">
         <strong>Explora y aprende</strong>
         </h1>
