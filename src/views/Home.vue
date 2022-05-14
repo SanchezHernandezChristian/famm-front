@@ -1,51 +1,51 @@
 <template>
   <div class="home">
     <v-app>
-    <Navbar />
-    <Body />
-    <SectionArea />
-    <SectionBuy />
-    <Footer />    
-  </v-app>
+      <Navbar />
+      <Body />
+      <SectionArea />
+      <SectionBuy />
+      <Footer /> -
+    </v-app>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Body from "@/components/views/Body.vue";
-import Navbar from "@/components/views/Navbar.vue";
-import Footer from "@/components/views/Footer.vue";
-import SectionBuy from "@/components/views/SectionBuy.vue";
-import SectionArea from "@/components/views/SectionArea.vue";
 
+import Navbar from '@/components/views/Navbar.vue';
+import Body from '@/components/views/Body.vue';
+import Footer from '@/components/views/Footer.vue';
+import SectionBuy from '@/components/views/SectionBuy.vue';
+import SectionArea from '@/components/views/SectionArea.vue';
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
-    Body,
     Navbar,
+    Body,
     SectionArea,
     SectionBuy,
     Footer,
   },
   data: () => ({ isMobile: false }),
 
-    beforeDestroy () {
-      if (typeof window === 'undefined') return
+  beforeDestroy() {
+    if (typeof window === 'undefined') return;
 
-      window.removeEventListener('resize', this.onResize, { passive: true })
+    window.removeEventListener('resize', this.onResize, { passive: true });
+  },
+
+  mounted() {
+    this.onResize();
+
+    window.addEventListener('resize', this.onResize, { passive: true });
+  },
+
+  methods: {
+    onResize() {
+      this.isMobile = window.innerWidth < 600;
     },
-
-    mounted () {
-      this.onResize()
-
-      window.addEventListener('resize', this.onResize, { passive: true })
-    },
-
-    methods: {
-      onResize () {
-        this.isMobile = window.innerWidth < 600
-      },
-    },
+  },
 };
 </script>
 
