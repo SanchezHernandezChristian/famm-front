@@ -50,7 +50,7 @@
             <v-col cols="5" class="ma-2">
               <Registro />
             </v-col>
-            <v-col cols="6" class="ma-2">
+            <v-col cols="5" class="ma-2">
               <Login v-on:user_action="userAction" />
             </v-col>
           </v-row>
