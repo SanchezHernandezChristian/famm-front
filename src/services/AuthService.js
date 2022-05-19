@@ -1,0 +1,22 @@
+import axios from 'axios';
+const url = 'http://54.243.26.45/api/';
+export default {
+    login(credentials) {
+        return axios
+            .post(url + 'login', credentials)
+            .then(response => response.data);
+    },
+    logout() {
+        return axios
+            .get(url + 'logout')
+            .then(response => response.data);
+    },
+    signUp(user_data) {
+        return axios
+            .post(url + 'register', user_data)
+            .then(response => response.data);
+    },
+    getProfile() {
+        return axios.get(url + 'user-profile').then(response => response.data.data);
+    }
+};
