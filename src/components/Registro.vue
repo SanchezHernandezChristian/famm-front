@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import AuthService from '@/services/AuthService.js';
 
 export default {
   data: () => ({
@@ -65,7 +65,7 @@ export default {
     password_confirmation: '',
   }),
   methods: {
-    register() {
+    async register() {
       let me = this;
 
       if (!me.name || !me.midname || !me.lastname || !me.email || !me.password || !me.password_confirmation) {
@@ -73,21 +73,19 @@ export default {
         return;
       }
 
-      axios
-        .post('http://54.243.26.45/api/register', {
+      try {
+        const user_data = {
           name: `${me.name} ${me.midname} ${me.lastname}`,
           email: me.email,
           password: me.password,
           password_confirmation: me.password_confirmation,
-        })
-        .then(function (response) {
-          me.dialog = false;
-          console.log(response.data.mensaje);
-        })
-        .catch(function (error) {
-          me.error = !me.error;
-          console.log(error.response.data.mensaje);
-        });
+        };
+        await AuthService.signUp(user_data);
+        me.dialog = false;
+      } catch (error) {
+        me.error = !me.error;
+        console.log(error.response.data.message);
+      }
     },
   },
 };

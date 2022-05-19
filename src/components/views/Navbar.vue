@@ -44,14 +44,14 @@
         </v-col>
         <v-col cols="4">
           <v-row justify="center" v-if="logged_in">
-            <UserCard :token="token" v-on:user_action="userAction" />
+            <UserCard />
           </v-row>
           <v-row flex v-else>
             <v-col cols="5" class="ma-2">
               <Registro />
             </v-col>
-            <v-col cols="6" class="ma-2">
-              <Login v-on:user_action="userAction" />
+            <v-col cols="5" class="ma-2">
+              <Login />
             </v-col>
           </v-row>
         </v-col>
@@ -78,14 +78,14 @@
             <v-text-field mt-3 dense flat hide-details rounded solo-inverted prepend-inner-icon="mdi-magnify"></v-text-field>
           </v-responsive>
           <v-row justify="center" v-if="logged_in">
-            <UserCard :token="token" v-on:user_action="userAction" />
+            <UserCard />
           </v-row>
           <v-row class="ma-2" v-else>
             <v-col cols="5" class="ma-2">
               <Registro />
             </v-col>
             <v-col cols="5" class="ma-2">
-              <Login v-on:user_action="userAction" />
+              <Login />
             </v-col>
           </v-row>
         </v-card>
@@ -140,15 +140,11 @@ export default {
       },
     ],
     logged_in: false,
-    token: '',
     dialog: false,
   }),
-  methods: {
-    userAction(user_data) {
-      let me = this;
-      me.token = user_data.token ? user_data.token : me.token;
-      me.logged_in = !me.logged_in;
-    },
+  async created() {
+    this.logged_in = this.$store.getters.isLoggedIn != '';
   },
+  methods: {},
 };
 </script>

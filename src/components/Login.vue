@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import AuthService from '@/services/AuthService.js';
 
 export default {
   data: () => ({
@@ -49,7 +49,7 @@ export default {
     password: '',
   }),
   methods: {
-    login() {
+    async login() {
       let me = this;
 
       if (!me.email || !me.password) {
@@ -57,19 +57,22 @@ export default {
         return;
       }
 
-      axios
-        .post('http://54.243.26.45/api/login', {
+      try {
+        const credentials = {
           email: me.email,
           password: me.password,
-        })
-        .then(function (response) {
-          me.dialog = false;
-          me.$emit('user_action', response.data);
-        })
-        .catch(function (error) {
-          me.error = !me.error;
-          console.log(error);
-        });
+        };
+        const response = await AuthService.login(credentials);
+        const token = response.token;
+        const user = response.user;
+        me.dialog = false;
+        this.$store.dispatch('login', { token, user });
+        this.$router.go();
+        // this.$router.push('Especialidad');
+      } catch (error) {
+        me.error = !me.error;
+        console.log(error);
+      }
     },
   },
 };

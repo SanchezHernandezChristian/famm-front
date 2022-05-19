@@ -21,7 +21,7 @@
   </div>
 </template>
  <script>
-import axios from "axios";
+import AuthService from '@/services/AuthService.js';
 
 export default {
   props: {
@@ -34,25 +34,18 @@ export default {
     items: [{ title: "" }, { title: "Profile" }, { title: "Logout" }],
   }),
 
-  mounted() {
+  async mounted() {
     let me = this;
     me.items[0].title = "mail.example@outlook.com";
 
-    axios({
-      method: "get",
-      url: "http://54.243.26.45/api/user-profile",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + this.token,
-        Accept: "application/json",
-      },
-    })
-      .then(function (response) {
-        me.items[0].title = response.data.data.email;
-      })
-      .catch(function (error) {
+    if (this.$store.getters.isLoggedIn) {
+      try {
+        const response = await AuthService.getProfile();
+        me.items[0].title = response.Email;
+      } catch (error) {
         console.log(error);
-      });
+      }
+    }
   },
 
   methods: {
@@ -60,24 +53,14 @@ export default {
       if (item.title == "Logout") this.logout();
     },
 
-    logout() {
-      let me = this;
-
-      axios({
-        method: "get",
-        url: "http://54.243.26.45/api/logout",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + this.token,
-          Accept: "application/json",
-        },
-      })
-        .then(function (response) {
-          me.$emit("user_action", response.data);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+    async logout() {
+      try {
+        await AuthService.logout();
+        this.$store.dispatch('logout');
+        this.$router.go();
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
