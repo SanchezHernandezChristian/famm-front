@@ -21,7 +21,7 @@
   </div>
 </template>
  <script>
-import AuthService from '@/services/AuthService.js';
+import AuthService from "@/services/AuthService.js";
 
 export default {
   props: {
@@ -56,8 +56,9 @@ export default {
     async logout() {
       try {
         await AuthService.logout();
-        this.$store.dispatch('logout');
-        this.$router.go();
+        this.$store.dispatch("logout");
+        if (this.$route.name == "Home") this.$router.go();
+        else this.$router.push("/");
       } catch (error) {
         console.log(error);
       }

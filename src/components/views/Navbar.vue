@@ -6,13 +6,23 @@
           max-height="25%"
           max-width="50%"
           src="@/assets/img/logo.png"
+          @click="redirect"
         ></v-img
       ></v-toolbar-title>
       <v-toolbar-items class="row">
         <v-col cols="2">
           <v-menu transition="scroll-y-transition">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn depressed color="#FFFFFF" elevation="0" class="ma-2" v-bind="attrs" v-on="on"> Cursos </v-btn>
+              <v-btn
+                depressed
+                color="#FFFFFF"
+                elevation="0"
+                class="ma-2"
+                v-bind="attrs"
+                v-on="on"
+              >
+                Cursos
+              </v-btn>
             </template>
             <v-list class="p-0">
               <v-list-group
@@ -37,7 +47,16 @@
         <v-col cols="2">
           <v-menu transition="scroll-y-transition">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn depressed color="#FFFFFF" elevation="0" class="ma-2" v-bind="attrs" v-on="on"> Especialidades </v-btn>
+              <v-btn
+                depressed
+                color="#FFFFFF"
+                elevation="0"
+                class="ma-2"
+                v-bind="attrs"
+                v-on="on"
+              >
+                Especialidades
+              </v-btn>
             </template>
             <v-list class="p-0">
               <v-list-group
@@ -203,6 +222,11 @@ export default {
   async created() {
     this.logged_in = this.$store.getters.isLoggedIn != "";
   },
-  methods: {},
+  methods: {
+    redirect() {
+      if (this.$route.name == "Home") this.$router.go();
+      else this.$router.push("/");
+    },
+  },
 };
 </script>
