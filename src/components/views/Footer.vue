@@ -1,13 +1,20 @@
 <template>
   <footer class="text-white pt-4">
-    <div class="row">
-      <div class="col">
+    <div class="row" style="margin-top: 35px;">
+      <div class="col" style="margin-top: -20px; margin-left: 25px;">
         <section class="md:w-5/12">
-          <strong>FAMM</strong>
+          <!--<strong>FAMM</strong>
           <p>
             Facilitador para el Acceso a Módulos tecnológicos y Monitoreo
             educativo
-          </p>
+          </p>-->
+          <v-col
+            ><v-img
+              max-height="100%"
+              max-width="75%"
+              src="@/assets/img/famm-footer.png"
+            ></v-img
+          ></v-col>
         </section>
       </div>
       <div class="col">
