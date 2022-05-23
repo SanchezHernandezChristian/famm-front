@@ -6,6 +6,7 @@
           max-height="25%"
           max-width="50%"
           src="@/assets/img/logo.png"
+          @click="redirect"
         ></v-img
       ></v-toolbar-title>
       <v-toolbar-items class="row">
@@ -140,6 +141,11 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    redirect() {
+      if (this.$route.name == "Home") this.$router.go();
+      else this.$router.push("/");
     },
   },
 };

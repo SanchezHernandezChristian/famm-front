@@ -67,7 +67,8 @@ export default {
       try {
         await AuthService.logout();
         this.$store.dispatch("logout");
-        this.$router.go();
+        if (this.$route.name == "Home") this.$router.go();
+        else this.$router.push("/");
       } catch (error) {
         console.log(error);
       }

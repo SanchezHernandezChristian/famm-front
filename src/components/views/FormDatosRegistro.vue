@@ -9,7 +9,11 @@
       </div>
     </v-row>
     <v-row>
-      <v-alert outlined :value="true" type="warning">
+      <v-alert
+        :value="true"
+        type="warning"
+        class="font-weight-black font-italic"
+      >
         Completa el registro de tus datos.
       </v-alert>
     </v-row>
@@ -82,7 +86,7 @@
         <v-layout row justify-center>
           <v-flex align-self-center xs2><label>FOTOGRAFÍA</label></v-flex>
           <v-flex align-self-center xs3>
-            <v-btn outline color="gray">Sube tu archivo</v-btn>
+            <v-btn outlined color="gray">Sube tu archivo</v-btn>
           </v-flex>
           <v-flex align-self-center xs3> </v-flex>
           <v-flex align-self-center> </v-flex>
@@ -149,8 +153,8 @@
           <v-flex align-self-center xs2><label>SEXO</label></v-flex>
           <v-flex align-self-center xs3>
             <v-radio-group row>
-              <v-radio label="FEMENINO"></v-radio>
-              <v-radio label="MASCULINO"></v-radio>
+              <v-radio label="FEMENINO" class="font-weight-black"></v-radio>
+              <v-radio label="MASCULINO" class="font-weight-black"></v-radio>
               <v-spacer></v-spacer>
             </v-radio-group>
           </v-flex>
@@ -290,8 +294,8 @@
           >
           <v-flex align-self-center xs3>
             <v-radio-group row>
-              <v-radio label="SÍ"></v-radio>
-              <v-radio label="NO"></v-radio>
+              <v-radio label="SÍ" class="font-weight-black"></v-radio>
+              <v-radio label="NO" class="font-weight-black"></v-radio>
               <v-spacer></v-spacer>
             </v-radio-group>
           </v-flex>
@@ -324,8 +328,8 @@
           >
           <v-flex align-self-center xs3>
             <v-radio-group row>
-              <v-radio label="EMPLEADO"></v-radio>
-              <v-radio label="DESEMPLEADO"></v-radio>
+              <v-radio label="EMPLEADO" class="font-weight-black"></v-radio>
+              <v-radio label="DESEMPLEADO" class="font-weight-black"></v-radio>
               <v-spacer></v-spacer>
             </v-radio-group>
           </v-flex>
@@ -345,6 +349,11 @@
           <v-flex align-self-center xs3> </v-flex>
         </v-layout>
       </div>
+    </v-row>
+    <v-row>
+      <v-col cols="12" align="center">
+        <v-btn color="success" dark x-large @click="register">Guardar</v-btn>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -374,6 +383,10 @@ export default {
         console.log(error);
       }
     }
+  },
+
+  methods: {
+    register() {},
   },
 };
 </script>
