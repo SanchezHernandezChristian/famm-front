@@ -17,6 +17,9 @@
         Completa el registro de tus datos.
       </v-alert>
     </v-row>
+    <div>
+      <br />
+    </div>
     <v-row>
       <div class="text-center">
         <h2>
@@ -356,9 +359,32 @@
 </template>
 
 <script>
+import AuthService from "@/services/AuthService.js";
+
 export default {
   name: "FormDatosRegistro",
-  data: () => ({}),
+
+  data: () => ({
+    band: false,
+    logged_in: false,
+  }),
+
+  async created() {
+    this.logged_in = this.$store.getters.isLoggedIn != "";
+  },
+  async mounted() {
+    if (this.$store.getters.isLoggedIn) {
+      try {
+        const response = await AuthService.getProfile();
+        let band = response.EstatusPerfil;
+        band = 0;
+        if (band === 0) band = true;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  },
+
   methods: {
     register() {},
   },

@@ -1,5 +1,5 @@
- <template>
-  <div>
+<template>
+  <div style="float: right; text-align: right">
     <v-menu offset-y open-on-hover>
       <template v-slot:activator="{ on }">
         <v-avatar color="primary" size="48" v-on="on">
@@ -14,13 +14,17 @@
           :key="index"
           @click="selectSection(item)"
         >
+          <v-list-item-icon>
+            <!--<v-icon>mdi-account-circle</v-icon>-->
+            <v-icon v-text="item.icon"></v-icon>
+          </v-list-item-icon>
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
   </div>
 </template>
- <script>
+<script>
 import AuthService from "@/services/AuthService.js";
 
 export default {
@@ -31,7 +35,12 @@ export default {
     },
   },
   data: () => ({
-    items: [{ title: "" }, { title: "Profile" }, { title: "Logout" }],
+    items: [
+      { title: "", icon: "mdi-account-circle", colorfont: "#394f79", sizefont: "15px", },
+      { title: "Perfil", icon: "" },
+      { title: "Configuración", icon: "" },
+      { title: "Cerrar sesión", icon: "" },
+    ],
   }),
 
   async mounted() {
@@ -41,7 +50,7 @@ export default {
     if (this.$store.getters.isLoggedIn) {
       try {
         const response = await AuthService.getProfile();
-        me.items[0].title = response.Email;
+        me.items[0].title = response.Nombre;
       } catch (error) {
         console.log(error);
       }
@@ -50,7 +59,8 @@ export default {
 
   methods: {
     selectSection(item) {
-      if (item.title == "Logout") this.logout();
+      if (item.title == "Cerrar sesión") this.logout();
+      if (item.title == "Perfil") this.profile();
     },
 
     async logout() {
@@ -63,6 +73,14 @@ export default {
         console.log(error);
       }
     },
+
+    async profile() {
+      try {
+        this.$router.push('page-principal');
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 };
-</script> 
+</script>

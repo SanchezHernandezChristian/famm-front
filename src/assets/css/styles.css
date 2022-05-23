@@ -38,7 +38,9 @@
 }
 
 footer {
-  background-color: #394f79;
+  /*background-color: #394f79;*/
+  background-color: #2b4c7b;
+  margin-top: 50px;
 }
 
 .bannerMinText{
