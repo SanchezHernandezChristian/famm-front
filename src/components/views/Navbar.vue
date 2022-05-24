@@ -26,7 +26,11 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item v-for="(item, index) in cursos" :key="index" @click="selectElement()">
+              <v-list-item
+                v-for="(item, index) in cursos"
+                :key="index"
+                @click="selectElement()"
+              >
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
@@ -48,7 +52,11 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item v-for="(item, index) in especialidades" :key="index" @click="selectElement()">
+              <v-list-item
+                v-for="(item, index) in especialidades"
+                :key="index"
+                @click="selectElement()"
+              >
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
@@ -87,6 +95,67 @@
           </v-row>
         </v-col>
       </v-toolbar-items>
+    </v-app-bar>
+    <v-app-bar dark color="white" class="hidden-md-and-up">
+      <v-toolbar-title
+        ><v-img
+          max-height="25%"
+          max-width="25%"
+          src="@/assets/img/logo.png"
+        ></v-img
+      ></v-toolbar-title>
+      <v-spacer></v-spacer>
+
+      <v-dialog
+        v-model="dialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn color="primary" dark v-bind="attrs" v-on="on">
+            <v-icon>mdi-menu</v-icon></v-btn
+          >
+        </template>
+        <v-card>
+          <v-toolbar flat color="white">
+            <v-toolbar-title
+              ><v-img
+                max-height="25%"
+                max-width="25%"
+                src="@/assets/img/logo.png"
+              ></v-img
+            ></v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn icon @click="dialog = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-toolbar>
+          <v-spacer></v-spacer>
+          <v-responsive max-width="260">
+            <v-text-field
+              mt-3
+              dense
+              flat
+              hide-details
+              rounded
+              solo-inverted
+              prepend-inner-icon="mdi-magnify"
+            ></v-text-field>
+          </v-responsive>
+          <v-row justify="center" v-if="logged_in">
+            <UserCard />
+          </v-row>
+          <v-row class="ma-2" v-else>
+            <v-col cols="5" class="ma-2">
+              <Registro />
+            </v-col>
+            <v-col cols="5" class="ma-2">
+              <Login />
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-dialog>
     </v-app-bar>
   </v-app-bar>
 </template>
@@ -137,7 +206,7 @@ export default {
 
     async especialidadCurso() {
       try {
-        this.$router.push('especialidad');
+        this.$router.push("especialidad");
       } catch (error) {
         console.log(error);
       }
