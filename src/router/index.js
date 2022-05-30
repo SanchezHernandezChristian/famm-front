@@ -43,7 +43,71 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewPageAlumno.vue')
-  }
+  },
+  {
+    path: '/form-registro-instructor',
+    name: 'RegistroInstructorForm',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/RegistroInstructorForm.vue')
+  },
+  {
+    path: '/dashboard-admin',
+    name: 'ViewDashboardAdmin',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewDashboardAdmin.vue')
+  },
+  {
+    path: '/agregar-usuario',
+    name: 'ViewAddUser',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewAddUser.vue')
+  },
+  {
+    path: '/agregar-curso',
+    name: 'ViewAddCurso',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewAddCurso.vue')
+  },
+  {
+    path: '/editar-curso',
+    name: 'ViewEditarCurso',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewEditarCurso.vue')
+  },
+  {
+    path: '/borrar-curso',
+    name: 'ViewDeleteCurso',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewDeleteCurso.vue')
+  },
+  {
+    path: '/autorizar-eliminar-curso',
+    name: 'ViewAutorizarBorrarCurso',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewAutorizarBorrarCurso.vue')
+  },
+  {
+    path: '/asignar-curso',
+    name: 'ViewAsignarCurso',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewAsignarCurso.vue')
+  },
 ]
 
 const router = new VueRouter({

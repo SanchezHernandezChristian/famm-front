@@ -18,5 +18,8 @@ export default {
     },
     getProfile() {
         return axios.get(url + 'user-profile').then(response => response.data.data);
-    }
+    },
+    getCursos(){
+        return axios.get(url + 'all-grade').then(response => response.data.data);
+    },
 };

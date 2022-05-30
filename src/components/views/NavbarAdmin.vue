@@ -65,8 +65,8 @@
             </v-list>
           </v-menu></v-col
         >
-        <v-col cols="2"></v-col>
-        <v-col cols="2" class="pt-4">
+        <v-col cols="4"></v-col>
+        <v-col>
           <v-spacer></v-spacer>
           <v-responsive max-width="260">
             <v-text-field
@@ -78,24 +78,6 @@
               prepend-inner-icon="mdi-magnify"
             ></v-text-field>
           </v-responsive>
-        </v-col>
-        <v-col cols="4">
-          <v-row
-            justify="center"
-            align="center"
-            style="height: 65px"
-            v-if="logged_in"
-          >
-            <UserCard />
-          </v-row>
-          <v-row flex v-else>
-            <v-col cols="5" class="ma-2">
-              <Registro />
-            </v-col>
-            <v-col cols="5" class="ma-2">
-              <Login />
-            </v-col>
-          </v-row>
         </v-col>
       </v-toolbar-items>
     </v-app-bar>
@@ -146,36 +128,18 @@
               prepend-inner-icon="mdi-magnify"
             ></v-text-field>
           </v-responsive>
-          <v-row justify="center" v-if="logged_in">
-            <UserCard />
-          </v-row>
-          <v-row class="ma-2" v-else>
-            <v-col cols="5" class="ma-2">
-              <Registro />
-            </v-col>
-            <v-col cols="5" class="ma-2">
-              <Login />
-            </v-col>
-          </v-row>
         </v-card>
       </v-dialog>
-    </v-app-bar>
+    </v-app-bar>    
   </v-app-bar>
 </template>
 
 <script>
 import AuthService from "@/services/AuthService.js";
-import Login from "../Login.vue";
-import Registro from "../Registro.vue";
-import UserCard from "../UserCard.vue";
 
 export default {
   name: "Navbar",
-  components: {
-    Login,
-    Registro,
-    UserCard,
-  },
+  components: {},
   data: () => ({
     cursos: [
       { title: "Todos los cursos" },
