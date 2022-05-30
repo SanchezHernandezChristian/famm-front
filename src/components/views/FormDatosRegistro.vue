@@ -40,316 +40,357 @@
         </p>
       </div>
     </v-row>
-    <v-row justify="center" align="center" style="height: 65px">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2><label>NOMBRE</label></v-flex>
-          <v-flex align-self-center xs3>
-            <v-col md="8">
-              <v-text-field outlined label="NOMBRES(S)"></v-text-field
-            ></v-col>
-          </v-flex>
-          <v-flex align-self-center xs3>
-            <v-col md="8">
-              <v-text-field outlined label="APELLIDO(S)"></v-text-field
-            ></v-col>
-          </v-flex>
-        </v-layout></div
-    ></v-row>
-    <v-row align="start" style="height: 25px">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2></v-flex>
-          <v-flex align-self-center xs3>
-            <label><small>NOMBRE(S)</small></label>
-          </v-flex>
-          <v-flex align-self-center xs3>
-            <label><small>APELLIDOS(S)</small></label>
-          </v-flex>
-          <v-flex align-self-center xs1> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2><label>DOMICILIO</label></v-flex>
-          <v-flex align-self-center xs3>
-            <v-col md="8"> <v-text-field outlined></v-text-field></v-col>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="start" style="height: 60px">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2><label>FOTOGRAFÍA</label></v-flex>
-          <v-flex align-self-center xs3>
-            <v-btn outlined color="gray">Sube tu archivo</v-btn>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-          <v-flex align-self-center> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex><p></p></v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2><label>MUNICIPIO</label></v-flex>
-          <v-flex align-self-center xs3>
-            <v-combobox dense outlined></v-combobox>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row align="start" style="height: 25px">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2></v-flex>
-          <v-flex align-self-center xs3>
-            <label><small>SELECCIONA TU LOCALIDAD</small></label>
-          </v-flex>
-          <v-flex align-self-center xs3></v-flex>
-          <v-flex align-self-center xs1> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2
-            ><label>CORREO ELECTRÓNICO</label></v-flex
-          >
-          <v-flex align-self-center xs3>
-            <v-col md="8"> <v-text-field outlined></v-text-field></v-col>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2><label>CURP</label></v-flex>
-          <v-flex align-self-center xs3>
-            <v-col md="8"> <v-text-field outlined></v-text-field></v-col>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="start" style="height: 70px">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2><label>SEXO</label></v-flex>
-          <v-flex align-self-center xs3>
-            <v-radio-group row>
-              <v-radio label="FEMENINO" class="font-weight-black"></v-radio>
-              <v-radio label="MASCULINO" class="font-weight-black"></v-radio>
-              <v-spacer></v-spacer>
-            </v-radio-group>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2
-            ><label>FECHA DE NACIMIENTO</label></v-flex
-          >
-          <v-flex align-self-center xs2>
-            <v-combobox dense outlined></v-combobox>
-          </v-flex>
-          <v-flex align-self-center xs2>
-            <v-combobox dense outlined></v-combobox>
-          </v-flex>
-          <v-flex align-self-center xs2>
-            <v-combobox dense outlined></v-combobox>
-          </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row align="start" style="height: 25px">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2></v-flex>
-          <v-flex align-self-center xs2>
-            <label><small>DÍA</small></label>
-          </v-flex>
-          <v-flex align-self-center xs2>
-            <label><small>MES</small></label>
-          </v-flex>
-          <v-flex align-self-center xs2
-            ><label><small>AÑO</small></label>
-          </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2><label>NACIONALIDAD</label></v-flex>
-          <v-flex align-self-center xs3>
-            <v-col md="8"> <v-text-field outlined></v-text-field></v-col>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2><label>EDAD</label></v-flex>
-          <v-flex align-self-center xs3>
-            <v-col md="8"> <v-text-field outlined></v-text-field></v-col>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2><label>ESTADO CIVIL</label></v-flex>
-          <v-flex align-self-center xs3>
-            <v-col md="8"> <v-text-field outlined></v-text-field></v-col>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2
-            ><label>NÚMERO DE CELULAR</label></v-flex
-          >
-          <v-flex align-self-center xs3>
-            <v-col md="8"> <v-text-field outlined></v-text-field></v-col>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2><label>GRUPO VULNERABLE</label></v-flex>
-          <v-flex align-self-center xs3>
-            <v-col md="8"> <v-text-field outlined></v-text-field></v-col>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2><label>DISCAPACIDAD</label></v-flex>
-          <v-flex align-self-center xs3>
-            <v-combobox dense outlined></v-combobox>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2><label>PERTENECE A</label></v-flex>
-          <v-flex align-self-center xs3>
-            <v-col md="8"> <v-text-field outlined></v-text-field></v-col>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2><label>ESCOLARIDAD</label></v-flex>
-          <v-flex align-self-center xs3>
-            <v-combobox dense outlined></v-combobox>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center" style="height: 70px">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2
-            ><label>HABLA LENGUA INDÍGENA</label></v-flex
-          >
-          <v-flex align-self-center xs3>
-            <v-radio-group row>
-              <v-radio label="SÍ" class="font-weight-black"></v-radio>
-              <v-radio label="NO" class="font-weight-black"></v-radio>
-              <v-spacer></v-spacer>
-            </v-radio-group>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2><label>MOTIVO</label></v-flex>
-          <v-flex align-self-center xs3>
-            <v-textarea
-              auto-grow
-              outlined
-              rows="3"
-              row-height="25"
-              shaped
-            ></v-textarea>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center" style="height: 70px">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2
-            ><label>SITUACIÓN LABORAL</label></v-flex
-          >
-          <v-flex align-self-center xs3>
-            <v-radio-group row>
-              <v-radio label="EMPLEADO" class="font-weight-black"></v-radio>
-              <v-radio label="DESEMPLEADO" class="font-weight-black"></v-radio>
-              <v-spacer></v-spacer>
-            </v-radio-group>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
-    <v-row justify="center" align="center">
-      <div class="text-center">
-        <v-layout row justify-center>
-          <v-flex align-self-center xs2
-            ><label>FIRMA DEL CAPACITANDO</label></v-flex
-          >
-          <v-flex align-self-center xs3>
-            <v-col md="8"> <v-text-field outlined></v-text-field></v-col>
-          </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
-        </v-layout>
-      </div>
-    </v-row>
+    <v-form ref="form" v-model="valid" lazy-validation>
+      <v-row justify="center" align="center" style="height: 65px">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>NOMBRE</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-col md="8">
+                <v-text-field
+                  outlined
+                  label="NOMBRES(S)"
+                  :rules="rules"
+                  v-model="nombre"
+                ></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3>
+              <v-col md="8">
+                <v-text-field
+                  outlined
+                  label="APELLIDO(S)"
+                  :rules="rules"
+                  v-model="apellidos"
+                ></v-text-field
+              ></v-col>
+            </v-flex>
+          </v-layout></div
+      ></v-row>
+      <v-row align="start" style="height: 25px">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2></v-flex>
+            <v-flex align-self-center xs3>
+              <label><small>NOMBRE(S)</small></label>
+            </v-flex>
+            <v-flex align-self-center xs3>
+              <label><small>APELLIDOS(S)</small></label>
+            </v-flex>
+            <v-flex align-self-center xs1> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>DOMICILIO</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-col md="8">
+                <v-text-field
+                  outlined
+                  :rules="rules"
+                  v-model="domicilio"
+                ></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="start" style="height: 60px">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>FOTOGRAFÍA</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-btn outlined color="gray">Sube tu archivo</v-btn>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+            <v-flex align-self-center> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex><p></p></v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>MUNICIPIO</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-combobox dense outlined :items="municipios"></v-combobox>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row align="start" style="height: 25px">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2></v-flex>
+            <v-flex align-self-center xs3>
+              <label><small>SELECCIONA TU LOCALIDAD</small></label>
+            </v-flex>
+            <v-flex align-self-center xs3></v-flex>
+            <v-flex align-self-center xs1> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2
+              ><label>CORREO ELECTRÓNICO</label></v-flex
+            >
+            <v-flex align-self-center xs3>
+              <v-col md="8">
+                <v-text-field outlined :rules="rules"></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>CURP</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-col md="8">
+                <v-text-field outlined :rules="rules"></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="start" style="height: 70px">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>SEXO</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-radio-group row>
+                <v-radio label="FEMENINO" class="font-weight-black"></v-radio>
+                <v-radio label="MASCULINO" class="font-weight-black"></v-radio>
+                <v-spacer></v-spacer>
+              </v-radio-group>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2
+              ><label>FECHA DE NACIMIENTO</label></v-flex
+            >
+            <v-flex align-self-center xs2>
+              <v-combobox dense outlined></v-combobox>
+            </v-flex>
+            <v-flex align-self-center xs2>
+              <v-combobox dense outlined></v-combobox>
+            </v-flex>
+            <v-flex align-self-center xs2>
+              <v-combobox dense outlined></v-combobox>
+            </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row align="start" style="height: 25px">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2></v-flex>
+            <v-flex align-self-center xs2>
+              <label><small>DÍA</small></label>
+            </v-flex>
+            <v-flex align-self-center xs2>
+              <label><small>MES</small></label>
+            </v-flex>
+            <v-flex align-self-center xs2
+              ><label><small>AÑO</small></label>
+            </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>NACIONALIDAD</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-col md="8">
+                <v-text-field outlined :rules="rules"></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>EDAD</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-col md="8">
+                <v-text-field outlined :rules="rules"></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>ESTADO CIVIL</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-col md="8">
+                <v-text-field outlined :rules="rules"></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2
+              ><label>NÚMERO DE CELULAR</label></v-flex
+            >
+            <v-flex align-self-center xs3>
+              <v-col md="8">
+                <v-text-field outlined :rules="rules"></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2
+              ><label>GRUPO VULNERABLE</label></v-flex
+            >
+            <v-flex align-self-center xs3>
+              <v-col md="8">
+                <v-text-field outlined :rules="rules"></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>DISCAPACIDAD</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-combobox dense outlined></v-combobox>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>PERTENECE A</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-col md="8">
+                <v-text-field outlined :rules="rules"></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>ESCOLARIDAD</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-combobox dense outlined :rules="rules"></v-combobox>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center" style="height: 70px">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2
+              ><label>HABLA LENGUA INDÍGENA</label></v-flex
+            >
+            <v-flex align-self-center xs3>
+              <v-radio-group row>
+                <v-radio label="SÍ" class="font-weight-black"></v-radio>
+                <v-radio label="NO" class="font-weight-black"></v-radio>
+                <v-spacer></v-spacer>
+              </v-radio-group>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>MOTIVO</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-textarea
+                auto-grow
+                outlined
+                rows="3"
+                row-height="25"
+                shaped
+              ></v-textarea>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center" style="height: 70px">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2
+              ><label>SITUACIÓN LABORAL</label></v-flex
+            >
+            <v-flex align-self-center xs3>
+              <v-radio-group row>
+                <v-radio label="EMPLEADO" class="font-weight-black"></v-radio>
+                <v-radio
+                  label="DESEMPLEADO"
+                  class="font-weight-black"
+                ></v-radio>
+                <v-spacer></v-spacer>
+              </v-radio-group>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2
+              ><label>FIRMA DEL CAPACITANDO</label></v-flex
+            >
+            <v-flex align-self-center xs3>
+              <v-col md="8">
+                <v-text-field outlined :rules="rules"></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+    </v-form>
     <v-row>
       <v-col cols="12" align="center">
         <v-btn color="success" dark x-large @click="register">Guardar</v-btn>
@@ -365,8 +406,14 @@ export default {
   name: "FormDatosRegistro",
 
   data: () => ({
+    valid: true,
     band: false,
     logged_in: false,
+    rules: [(v) => !!v || "Required"],
+    municipios: [],
+    nombre: "",
+    apellidos: "",
+    domicilio: "",
   }),
 
   async created() {
@@ -382,11 +429,31 @@ export default {
       } catch (error) {
         console.log(error);
       }
+
+      try {
+        const response2 = await AuthService.getMunicipios();
+        this.municipios = response2.municipios;
+      } catch (error) {
+        console.log("Error al recuperar municipios: " + error);
+      }
     }
   },
 
   methods: {
-    register() {},
+    async register() {
+      this.$refs.form.validate();
+      try {
+        let data = {
+          nombre: this.nombre,
+          apellido_paterno: this.apellidos,
+          apellido_materno: this.apellidos,
+          domicilio: this.domicilio,
+        };
+        await AuthService.registerStudent(data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 };
 </script>
