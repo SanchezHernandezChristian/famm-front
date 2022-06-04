@@ -149,9 +149,6 @@ export default {
     logged_in: false,
     dialog: false,
   }),
-  async created() {
-    this.logged_in = this.$store.getters.isLoggedIn != "";
-  },
   async mounted() {
     try {
       const listcursos = await AuthService.getCursos();
