@@ -23,7 +23,7 @@ export default {
         return axios.get(url + 'all-grade').then(response => response.data);
     },
     getMunicipios() {
-        return axios.get(url + 'all-township').then(response => response.data.data);
+        return axios.get(url + 'all-township').then(response => response.data);
     },
     registerStudent(data) {
         return axios
