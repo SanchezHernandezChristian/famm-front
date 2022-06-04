@@ -19,29 +19,36 @@
               outlined
               class="bordeRedondoElement"
               placeholder="Escribe la clave del curso"
+              v-model="claveCurso"
             ></v-text-field>
           </v-flex>
           <v-flex align-self-start xs2>
-            <v-btn outlined color="gray" class="bordeRedondoElement" @click="buscar()"
+            <v-btn
+              outlined
+              color="gray"
+              class="bordeRedondoElement"
+              @click="buscar()"
               >BUSCAR</v-btn
             >
           </v-flex>
-          <v-flex align-self-center xs3> </v-flex>
+          <v-flex align-self-center xs3>
+            <label>{{ claveCurso }}</label>
+          </v-flex>
         </v-layout>
       </div>
-    </v-row>    
+    </v-row>
     <v-row>
-        <div style="height: 450px;"></div>
+      <div style="height: 450px"></div>
     </v-row>
   </v-container>
 </template>
-
 
 <script>
 export default {
   name: "DeleteCurso",
   components: {},
   data: () => ({
+    claveCurso: "",
   }),
   methods: {
     buscar() {
@@ -50,7 +57,13 @@ export default {
 
     async find() {
       try {
-        this.$router.push("autorizar-eliminar-curso");
+        //this.$router.push("autorizar-eliminar-curso");
+        this.$router.push({
+          name: "ViewAutorizarBorrarCurso",
+          params: {
+            clave: this.claveCurso,
+          },
+        });
       } catch (error) {
         console.log(error);
       }
@@ -58,4 +71,3 @@ export default {
   },
 };
 </script>
-

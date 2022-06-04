@@ -18,8 +18,7 @@
               dense
               outlined
               class="bordeRedondoElement"
-              value="Gestión y Venta de Servicios Turísticos"
-            ></v-text-field>
+            >{{curso.nombre_curso}}</v-text-field>
           </v-flex>
           <v-flex align-self-center xs5> </v-flex>
         </v-layout>
@@ -38,8 +37,7 @@
               dense
               outlined
               class="bordeRedondoElement"
-              value="60"
-            ></v-text-field>
+            >{{curso.duracion_horas}}</v-text-field>
           </v-flex>
           <v-flex align-self-center xs5> </v-flex>
         </v-layout>
@@ -57,8 +55,7 @@
               outlined
               class="bordeRedondoElement"
               disabled
-              placeholder="MKT 98 OOOJH"
-            ></v-text-field>
+            >{{curso.clave_curso}}</v-text-field>
           </v-flex>
           <v-flex align-self-center xs5> </v-flex>
         </v-layout>
@@ -73,9 +70,7 @@
               dense
               outlined
               class="bordeRedondoElement"
-              v-model="select"
-              :items="items"
-              >Turismo</v-combobox
+              >{{curso.idEspecialidad}}</v-combobox
             >
           </v-flex>
           <v-flex align-self-center xs5> </v-flex>
@@ -91,8 +86,7 @@
               outlined
               name="input-7-4"
               label=""
-              value="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh eu Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh eu Lorem ipsum dolor sit amet, consectetuer"
-            ></v-textarea>
+            >{{curso.descripcion_curso}}</v-textarea>
           </v-flex>
           <v-flex align-self-center xs5> </v-flex>
         </v-layout>
@@ -119,11 +113,11 @@
         <v-layout row justify-center>
           <v-flex align-self-baseline xs2></v-flex>
           <v-flex align-self-center xs5>
-            <v-btn outlined color="gray" class="bordeRedondoElement"
+            <v-btn outlined color="gray" class="bordeRedondoElement" @click="deleteGrade"
               >ELIMINAR</v-btn
             >
           </v-flex>
-          <v-flex align-self-center xs5> </v-flex>
+          <v-flex align-self-center xs5> <v-alert type="success" v-if="mostrarAlert">{{ datarespuesta.mensaje }}</v-alert> </v-flex>
         </v-layout>
       </div>
     </v-row>
@@ -131,12 +125,48 @@
 </template>
 
 <script>
+import AuthService from "@/services/AuthService.js";
+
 export default {
   name: "EditarCurso",
   components: {},
   data: () => ({
     select: "Turismo",
     items: ["Turismo"],
+    curso: [],
+    datarespuesta: [],
+    mostrarAlert: false,
   }),
+
+  methods: {
+    async createGrade() {
+      try {
+        let claveObtenida = this.$route.params.clave;
+        console.log(claveObtenida);
+        const cursoObtenido = await AuthService.getCursoIndividual(claveObtenida);
+        this.curso = cursoObtenido;
+        console.log(this.curso);
+        /*if (response.serverCode == 200) {
+          this.mostrarAlert = true;
+        }*/
+      } catch (error) {
+        console.log(error);
+      }
+    }, 
+
+    async deleteGrade() {
+      try {
+        let claveDelete = this.curso.idCurso;
+        console.log(claveDelete);
+        const response = await AuthService.deleteGrade(claveDelete);
+        this.datarespuesta = response;
+        if (response.serverCode == 200) {
+          this.mostrarAlert = true;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
 };
 </script>

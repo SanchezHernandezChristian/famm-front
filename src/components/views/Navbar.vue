@@ -26,15 +26,15 @@
               </v-btn>
             </template>
             <v-list>
+              <v-list-item>
+                <v-list-item-title>Todos los cursos</v-list-item-title>
+              </v-list-item>
               <v-list-item
-                v-for="(item, index) in cursos"
+                v-for="(item, index) in itemsCursos.cursos"
                 :key="index"
                 @click="selectElement()"
               >
-                <!--<v-list-item-title>{{
-                  item.cursos[0][nombre_curso]
-                }}</v-list-item-title>-->
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                <v-list-item-title>{{ item.nombre_curso }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -55,12 +55,15 @@
               </v-btn>
             </template>
             <v-list>
+              <v-list-item>
+                <v-list-item-title>Todas las especialidades</v-list-item-title>
+              </v-list-item>
               <v-list-item
-                v-for="(item, index) in especialidades"
+                v-for="(item, index) in itemsEspecialidades.especialidades"
                 :key="index"
                 @click="selectElement()"
               >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                <v-list-item-title>{{ item.nombre_especialidad }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu></v-col
@@ -177,27 +180,8 @@ export default {
     UserCard,
   },
   data: () => ({
-    cursos: [
-      { title: "Todos los cursos" },
-      { title: "Atención al Cliente" },
-      { title: "Atención a Comensales" },
-      { title: "Informática" },
-      { title: "Excel " },
-      { title: "Formación de Banda de Música" },
-      { title: "Contabilidad" },
-      { title: "Elaboración de Cremas de Mezcal" },
-    ],
-    especialidades: [
-      { title: "Todas las especialidades" },
-      { title: "Hotelería" },
-      { title: "Administración" },
-      { title: "Bordado Regional" },
-      { title: "Inglés " },
-      { title: "Artesanías con fibras Textiles" },
-      { title: "Estilismo y Diseño de Imagen" },
-      { title: "Diseño y Elaboración de cerámica" },
-    ],
-    items: [],
+    itemsCursos: [],
+    itemsEspecialidades: [],
     logged_in: false,
     dialog: false,
   }),
@@ -205,10 +189,11 @@ export default {
     this.logged_in = this.$store.getters.isLoggedIn != "";
   },
   async mounted() {
-    let me = this;
     try {
-      const response = await AuthService.getCursos();
-      me.items = response;
+      const listcursos = await AuthService.getCursos();
+      this.itemsCursos = listcursos;
+      const listespecialidades = await AuthService.getEspecialidades();
+      this.itemsEspecialidades = listespecialidades;
     } catch (error) {
       console.log(error);
     }
