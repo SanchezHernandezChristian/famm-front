@@ -93,7 +93,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewDeleteCurso.vue')
   },
   {
-    path: '/autorizar-eliminar-curso',
+    path: '/autorizar-eliminar-curso/:clave',
     name: 'ViewAutorizarBorrarCurso',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route

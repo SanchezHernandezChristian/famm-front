@@ -122,7 +122,17 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>MUNICIPIO</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-combobox dense outlined :items="municipios"></v-combobox>
+              <v-select
+                v-model="select"
+                :items="items"
+                item-text="Descripcion"
+                item-value="c_Municipio"
+                return-object
+                outlined
+                style="height: 80px"
+                class="bordeRedondoElement"
+                label="Seleccione un municipio"
+              ></v-select>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -190,19 +200,50 @@
               ><label>FECHA DE NACIMIENTO</label></v-flex
             >
             <v-flex align-self-center xs2>
-              <v-combobox dense outlined></v-combobox>
+              <!-- <v-date-picker v-model="picker"></v-date-picker> -->
+              <v-menu
+                ref="menu"
+                v-model="menu"
+                :close-on-content-click="false"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="date"
+                    label="Fecha de nacimiento"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  v-model="date"
+                  :max="
+                    new Date(
+                      Date.now() - new Date().getTimezoneOffset() * 60000
+                    )
+                      .toISOString()
+                      .substr(0, 10)
+                  "
+                  min="1950-01-01"
+                  @change="save"
+                ></v-date-picker>
+              </v-menu>
             </v-flex>
             <v-flex align-self-center xs2>
-              <v-combobox dense outlined></v-combobox>
+              <!-- <v-combobox dense outlined></v-combobox> -->
             </v-flex>
             <v-flex align-self-center xs2>
-              <v-combobox dense outlined></v-combobox>
+              <!-- <v-combobox dense outlined></v-combobox> -->
             </v-flex>
           </v-layout>
         </div>
       </v-row>
       <v-row align="start" style="height: 25px">
-        <div class="text-center">
+      <!--   <div class="text-center">
           <v-layout row justify-center>
             <v-flex align-self-center xs2></v-flex>
             <v-flex align-self-center xs2>
@@ -215,7 +256,7 @@
               ><label><small>AÑO</small></label>
             </v-flex>
           </v-layout>
-        </div>
+        </div> -->
       </v-row>
       <v-row justify="center" align="center">
         <div class="text-center">
@@ -410,10 +451,17 @@ export default {
     band: false,
     logged_in: false,
     rules: [(v) => !!v || "Required"],
-    municipios: [],
+    items: [],
     nombre: "",
     apellidos: "",
     domicilio: "",
+    select: {
+      c_Municipio: 0,
+      c_Estado: "",
+      Descripcion: "",
+    },
+    date: null,
+    menu: false,
   }),
 
   async created() {
@@ -432,7 +480,7 @@ export default {
 
       try {
         const response2 = await AuthService.getMunicipios();
-        this.municipios = response2.municipios;
+        this.items = response2.municipios;
       } catch (error) {
         console.log("Error al recuperar municipios: " + error);
       }
@@ -453,6 +501,10 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    save(date) {
+      this.$refs.menu.save(date);
     },
   },
 };

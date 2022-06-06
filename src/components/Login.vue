@@ -14,40 +14,39 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-            <v-row>
-              <v-col cols="12">
-                <v-text-field
-                  label="Correo*"
-                  required
-                  v-model="email"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  label="Contraseña*"
-                  type="password"
-                  required
-                  v-model="password"
-                ></v-text-field>
-              </v-col>
-            </v-row>
+            <v-form ref="form_login" lazy-validation>
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field
+                    label="Correo*"
+                    :rules="[rules.required, rules.email]"
+                    v-model="email"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    label="Contraseña*"
+                    type="password"
+                    :rules="[rules.required, rules.counter]"
+                    v-model="password"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12">
+                  <small
+                    class="v-messages theme--light error--text"
+                    v-show="error"
+                    >Error: {{ error_msg }}</small
+                  >
+                </v-col>
+              </v-row>
+            </v-form>
           </v-container>
-          <v-row>
-            <v-col cols="12">
-              <small class="text-danger">*Campo requerido</small>
-            </v-col>
-            <v-col cols="12">
-              <small class="text-danger" v-show="error"
-                >Usuario o contraseña inválidos</small
-              >
-            </v-col>
-          </v-row>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false">
-            Cerrar
-          </v-btn>
+          <v-btn color="blue darken-1" text @click="close"> Cerrar </v-btn>
           <v-btn color="blue darken-1" text @click="login"> Entrar </v-btn>
         </v-card-actions>
       </v-card>
@@ -62,34 +61,48 @@ export default {
   data: () => ({
     dialog: false,
     error: false,
+    error_msg: "Usuario o contraseña inválidos",
     email: "",
     password: "",
+    rules: {
+      required: (value) => !!value || "Campo requerido",
+      counter: (value) => value.length <= 20 || "Max 20 caracteres",
+      email: (value) => {
+        const pattern =
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return pattern.test(value) || "Correo inválido";
+      },
+    },
   }),
   methods: {
     async login() {
       let me = this;
 
-      if (!me.email || !me.password) {
-        me.error = !me.error;
-        return;
+      if (me.$refs.form_login.validate()) {
+        try {
+          const credentials = {
+            email: me.email,
+            password: me.password,
+          };
+          const response = await AuthService.login(credentials);
+          const token = response.token;
+          const user = response.user;
+          me.dialog = false;
+          this.$store.dispatch("login", { token, user });
+          if (this.$route.name == "RegistroForm") this.$router.go();
+          else this.$router.push("/form-registro");
+        } catch (error) {
+          me.error = !me.error;
+          me.error_msg = error.response.data.mensaje;
+        }
       }
+    },
 
-      try {
-        const credentials = {
-          email: me.email,
-          password: me.password,
-        };
-        const response = await AuthService.login(credentials);
-        const token = response.token;
-        const user = response.user;
-        me.dialog = false;
-        this.$store.dispatch("login", { token, user });
-        if (this.$route.name == "RegistroForm") this.$router.go();
-        else this.$router.push("/form-registro");
-      } catch (error) {
-        me.error = !me.error;
-        console.log(error);
-      }
+    close() {
+      let me = this;
+
+      Object.assign(me.$data, me.$options.data());
+      me.$refs.form_login.resetValidation();
     },
   },
 };
