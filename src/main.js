@@ -8,6 +8,8 @@ import router from './router';
 import '@mdi/font/css/materialdesignicons.css'; // Ensure you are using css-loader
 import store from './store';
 import Axios from 'axios';
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 Vue.config.productionTip = false;
 Vue.use(Vuetify);
@@ -16,6 +18,7 @@ export default new Vuetify({
     iconfont: 'mdi', // default - only for display purposes
   },
 });
+Vue.use(VueSweetalert2);
 
 // set auth header
 Axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.token}`;
