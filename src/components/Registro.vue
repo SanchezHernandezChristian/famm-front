@@ -48,13 +48,85 @@
                     v-model="email"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12">
+                <v-col cols="10">
                   <v-text-field
                     label="Contraseña*"
                     type="password"
                     :rules="[rules.required, rules.min, rules.max]"
                     v-model="password"
                   ></v-text-field>
+                </v-col>
+                <v-col cols="2">
+                  <v-tooltip right>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        class="mx-1"
+                        fab
+                        dark
+                        x-small
+                        color="primary"
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="showPasswordRules"
+                      >
+                        <v-icon dark> mdi-information-variant </v-icon>
+                      </v-btn>
+                    </template>
+                    <span>Información contraseña</span>
+                  </v-tooltip>
+                </v-col>
+                <v-col cols="12" v-if="show_pass_rules">
+                  <v-card class="mx-auto" max-width="500" tile>
+                    <v-subheader
+                      >La contraseña deberá conformarse por:</v-subheader
+                    >
+                    <v-list dense>
+                      <v-list-item>
+                        <v-list-item-content>
+                          <v-list-item-title
+                            >Una longitud de 8 a 20
+                            caracteres.</v-list-item-title
+                          >
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-list-item>
+                        <v-list-item-content>
+                          <v-list-item-title
+                            >Como mínimo una letra minúscula.</v-list-item-title
+                          >
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-list-item>
+                        <v-list-item-content>
+                          <v-list-item-title
+                            >Como mínimo una letra mayúscula.</v-list-item-title
+                          >
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-list-item>
+                        <v-list-item-content>
+                          <v-list-item-title
+                            >Como mínimo un número.</v-list-item-title
+                          >
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-list-item>
+                        <v-list-item-content>
+                          <v-list-item-title
+                            >Como mínimo uno de los siguientes simbolos
+                            (@$&?¡\-_+.=!¿#).</v-list-item-title
+                          >
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-list-item>
+                        <v-list-item-content>
+                          <v-list-item-title
+                            >No debe contener espacios.</v-list-item-title
+                          >
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-list>
+                  </v-card>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
@@ -67,7 +139,7 @@
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <small class="text-danger">*Campo requerido</small>
+                  <small>*Campo requerido</small>
                 </v-col>
                 <v-col cols="12">
                   <small
@@ -98,6 +170,7 @@ export default {
     dialog: false,
     error: false,
     error_msg: "Datos inválidos",
+    show_pass_rules: false,
     name: "",
     midname: "",
     lastname: "",
@@ -119,7 +192,8 @@ export default {
           return pattern.test(value) || "Correo inválido";
         },
         /* password: (value) => {
-          const pattern_pass = "";
+          const pattern_pass =
+            /^(?=.[a-záéíóú\u00f1].)(?=.[A-ZÁÉÍÓÚ\u00d1].)(?=.\d.)(?=(?:.*[@$&?¡\-+.=!¿#]))([A-ZÁÉÍÓÚ\u00d1a-záéíóú\u00f1\d@$&?¡\-+.=!¿#]|[^ ]){8,15}$/;
           return pattern_pass.test(value) || "Contraseña inválida";
         }, */
         match: (value) =>
@@ -141,9 +215,17 @@ export default {
           };
           await AuthService.signUp(user_data);
           me.dialog = false;
+          this.$swal(
+            "Registrado",
+            "Usuario registrado correctamente, inicie sesión",
+            "success"
+          );
         } catch (error) {
           me.error = !me.error;
-          me.error_msg = error.response.data.mensaje;
+          me.error_msg =
+            error.response.data.errors[
+              Object.keys(error.response.data.errors)[0]
+            ][0];
         }
       }
     },
@@ -153,6 +235,12 @@ export default {
 
       Object.assign(me.$data, me.$options.data());
       me.$refs.form_user.resetValidation();
+    },
+
+    showPasswordRules() {
+      let me = this;
+
+      me.show_pass_rules = !me.show_pass_rules;
     },
   },
 };
