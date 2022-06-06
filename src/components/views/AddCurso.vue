@@ -212,7 +212,7 @@ export default {
           clave_curso: this.claveCurso,
           //idEspecialidad: String(this.select.idEspecialidad),
           idEspecialidad: this.select.idEspecialidad,
-          descripcion_curso: this.descripcion,
+          descripcion_curso: this.descripcionCurso,
         };
         console.log(data);
         const response = await AuthService.addGrade(data);
