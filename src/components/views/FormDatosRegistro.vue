@@ -40,47 +40,60 @@
         </p>
       </div>
     </v-row>
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <v-form ref="form_registro" v-model="valid" lazy-validation>
       <v-row justify="center" align="center" style="height: 65px">
         <div class="text-center">
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>NOMBRE</label></v-flex>
-            <v-flex align-self-center xs3>
-              <v-col md="8">
+            <v-flex align-self-center xs2>
+              <v-col md="12">
                 <v-text-field
                   outlined
-                  label="NOMBRES(S)"
+                  label="NOMBRE(S)"
                   :rules="rules"
                   v-model="nombre"
                 ></v-text-field
               ></v-col>
             </v-flex>
-            <v-flex align-self-center xs3>
-              <v-col md="8">
+            <v-flex align-self-center xs2>
+              <v-col md="12">
                 <v-text-field
                   outlined
-                  label="APELLIDO(S)"
+                  label="PRIMER AP..."
                   :rules="rules"
-                  v-model="apellidos"
+                  v-model="primer_apellido"
+                ></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs2>
+              <v-col md="12">
+                <v-text-field
+                  outlined
+                  label="SEGUNDO AP..."
+                  :rules="rules"
+                  v-model="segundo_apellido"
                 ></v-text-field
               ></v-col>
             </v-flex>
           </v-layout></div
       ></v-row>
-      <v-row align="start" style="height: 25px">
+      <!-- <v-row align="start" style="height: 25px">
         <div class="text-center">
           <v-layout row justify-center>
             <v-flex align-self-center xs2></v-flex>
-            <v-flex align-self-center xs3>
+            <v-flex align-self-center xs2>
               <label><small>NOMBRE(S)</small></label>
             </v-flex>
-            <v-flex align-self-center xs3>
-              <label><small>APELLIDOS(S)</small></label>
+            <v-flex align-self-center xs2>
+              <label><small>PRIMER APELLIDO</small></label>
+            </v-flex>
+            <v-flex align-self-center xs2>
+              <label><small>SEGUNDO APELLIDO</small></label>
             </v-flex>
             <v-flex align-self-center xs1> </v-flex>
           </v-layout>
         </div>
-      </v-row>
+      </v-row> -->
       <v-row justify="center" align="center">
         <div class="text-center">
           <v-layout row justify-center>
@@ -103,7 +116,15 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>FOTOGRAFÍA</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-btn outlined color="gray">Sube tu archivo</v-btn>
+              <v-file-input
+                label="Sube tu archivo"
+                outlined
+                dense
+                show-size
+                accept="image/png, image/jpeg, image/bmp"
+                :rules="rulesFile"
+                v-model="fotografia"
+              ></v-file-input>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
             <v-flex align-self-center> </v-flex>
@@ -123,8 +144,8 @@
             <v-flex align-self-center xs2><label>MUNICIPIO</label></v-flex>
             <v-flex align-self-center xs3>
               <v-select
-                v-model="select"
-                :items="items"
+                v-model="select_municipio"
+                :items="items_municipios"
                 item-text="Descripcion"
                 item-value="c_Municipio"
                 return-object
@@ -158,7 +179,11 @@
             >
             <v-flex align-self-center xs3>
               <v-col md="8">
-                <v-text-field outlined :rules="rules"></v-text-field
+                <v-text-field
+                  outlined
+                  :rules="rules"
+                  v-model="email"
+                ></v-text-field
               ></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -171,7 +196,11 @@
             <v-flex align-self-center xs2><label>CURP</label></v-flex>
             <v-flex align-self-center xs3>
               <v-col md="8">
-                <v-text-field outlined :rules="rules"></v-text-field
+                <v-text-field
+                  outlined
+                  :rules="rules"
+                  v-model="curp"
+                ></v-text-field
               ></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -183,9 +212,17 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>SEXO</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-radio-group row>
-                <v-radio label="FEMENINO" class="font-weight-black"></v-radio>
-                <v-radio label="MASCULINO" class="font-weight-black"></v-radio>
+              <v-radio-group row v-model="radioGroupSexo">
+                <v-radio
+                  label="FEMENINO"
+                  value="M"
+                  class="font-weight-black"
+                ></v-radio>
+                <v-radio
+                  label="MASCULINO"
+                  value="H"
+                  class="font-weight-black"
+                ></v-radio>
                 <v-spacer></v-spacer>
               </v-radio-group>
             </v-flex>
@@ -217,6 +254,7 @@
                     readonly
                     v-bind="attrs"
                     v-on="on"
+                    :rules="rules"
                   ></v-text-field>
                 </template>
                 <v-date-picker
@@ -243,7 +281,7 @@
         </div>
       </v-row>
       <v-row align="start" style="height: 25px">
-      <!--   <div class="text-center">
+        <!--   <div class="text-center">
           <v-layout row justify-center>
             <v-flex align-self-center xs2></v-flex>
             <v-flex align-self-center xs2>
@@ -264,7 +302,11 @@
             <v-flex align-self-center xs2><label>NACIONALIDAD</label></v-flex>
             <v-flex align-self-center xs3>
               <v-col md="8">
-                <v-text-field outlined :rules="rules"></v-text-field
+                <v-text-field
+                  outlined
+                  :rules="rules"
+                  v-model="nacionalidad"
+                ></v-text-field
               ></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -277,7 +319,11 @@
             <v-flex align-self-center xs2><label>EDAD</label></v-flex>
             <v-flex align-self-center xs3>
               <v-col md="8">
-                <v-text-field outlined :rules="rules"></v-text-field
+                <v-text-field
+                  outlined
+                  :rules="rules"
+                  v-model="edad"
+                ></v-text-field
               ></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -290,7 +336,11 @@
             <v-flex align-self-center xs2><label>ESTADO CIVIL</label></v-flex>
             <v-flex align-self-center xs3>
               <v-col md="8">
-                <v-text-field outlined :rules="rules"></v-text-field
+                <v-text-field
+                  outlined
+                  :rules="rules"
+                  v-model="estado_civil"
+                ></v-text-field
               ></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -305,7 +355,11 @@
             >
             <v-flex align-self-center xs3>
               <v-col md="8">
-                <v-text-field outlined :rules="rules"></v-text-field
+                <v-text-field
+                  outlined
+                  :rules="rules"
+                  v-model="numero_celular"
+                ></v-text-field
               ></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -320,7 +374,11 @@
             >
             <v-flex align-self-center xs3>
               <v-col md="8">
-                <v-text-field outlined :rules="rules"></v-text-field
+                <v-text-field
+                  outlined
+                  :rules="rules"
+                  v-model="grupo_vulnerable"
+                ></v-text-field
               ></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -332,7 +390,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>DISCAPACIDAD</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-combobox dense outlined></v-combobox>
+              <v-combobox dense outlined v-model="discapacidad"></v-combobox>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -344,7 +402,11 @@
             <v-flex align-self-center xs2><label>PERTENECE A</label></v-flex>
             <v-flex align-self-center xs3>
               <v-col md="8">
-                <v-text-field outlined :rules="rules"></v-text-field
+                <v-text-field
+                  outlined
+                  :rules="rules"
+                  v-model="pertenece"
+                ></v-text-field
               ></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -356,7 +418,12 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>ESCOLARIDAD</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-combobox dense outlined :rules="rules"></v-combobox>
+              <v-combobox
+                dense
+                outlined
+                :rules="rules"
+                v-model="escolaridad"
+              ></v-combobox>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -369,9 +436,17 @@
               ><label>HABLA LENGUA INDÍGENA</label></v-flex
             >
             <v-flex align-self-center xs3>
-              <v-radio-group row>
-                <v-radio label="SÍ" class="font-weight-black"></v-radio>
-                <v-radio label="NO" class="font-weight-black"></v-radio>
+              <v-radio-group row v-model="radioGroupLengua">
+                <v-radio
+                  label="SÍ"
+                  value="1"
+                  class="font-weight-black"
+                ></v-radio>
+                <v-radio
+                  label="NO"
+                  value="0"
+                  class="font-weight-black"
+                ></v-radio>
                 <v-spacer></v-spacer>
               </v-radio-group>
             </v-flex>
@@ -390,6 +465,7 @@
                 rows="3"
                 row-height="25"
                 shaped
+                v-model="motivo"
               ></v-textarea>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -403,10 +479,15 @@
               ><label>SITUACIÓN LABORAL</label></v-flex
             >
             <v-flex align-self-center xs3>
-              <v-radio-group row>
-                <v-radio label="EMPLEADO" class="font-weight-black"></v-radio>
+              <v-radio-group row v-model="radioGroupSituacion">
+                <v-radio
+                  label="EMPLEADO"
+                  value="1"
+                  class="font-weight-black"
+                ></v-radio>
                 <v-radio
                   label="DESEMPLEADO"
+                  value="0"
                   class="font-weight-black"
                 ></v-radio>
                 <v-spacer></v-spacer>
@@ -424,7 +505,11 @@
             >
             <v-flex align-self-center xs3>
               <v-col md="8">
-                <v-text-field outlined :rules="rules"></v-text-field
+                <v-text-field
+                  outlined
+                  :rules="rules"
+                  v-model="firma"
+                ></v-text-field
               ></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -450,17 +535,40 @@ export default {
     valid: true,
     band: false,
     logged_in: false,
-    rules: [(v) => !!v || "Required"],
-    items: [],
+    rules: [(v) => !!v || "Requerido"],
+    rulesFile: [
+      (value) =>
+        !value ||
+        value.size < 2000000 ||
+        "El archivo debe pesar menos de 2 MB!",
+    ],
+    items_municipios: [],
     nombre: "",
-    apellidos: "",
+    primer_apellido: "",
+    segundo_apellido: "",
     domicilio: "",
-    select: {
+    fotografia: null,
+    select_municipio: {
       c_Municipio: 0,
       c_Estado: "",
       Descripcion: "",
     },
+    email: "",
+    curp: "",
+    nacionalidad: "",
+    edad: null,
+    estado_civil: "",
+    numero_celular: "",
+    grupo_vulnerable: "",
+    discapacidad: null,
+    pertenece: "",
+    escolaridad: null,
+    motivo: "",
+    firma: "",
     date: null,
+    radioGroupLengua: null,
+    radioGroupSexo: null,
+    radioGroupSituacion: null,
     menu: false,
   }),
 
@@ -480,7 +588,7 @@ export default {
 
       try {
         const response2 = await AuthService.getMunicipios();
-        this.items = response2.municipios;
+        this.items_municipios = response2.municipios;
       } catch (error) {
         console.log("Error al recuperar municipios: " + error);
       }
@@ -489,17 +597,48 @@ export default {
 
   methods: {
     async register() {
-      this.$refs.form.validate();
-      try {
-        let data = {
-          nombre: this.nombre,
-          apellido_paterno: this.apellidos,
-          apellido_materno: this.apellidos,
-          domicilio: this.domicilio,
-        };
-        await AuthService.registerStudent(data);
-      } catch (error) {
-        console.log(error);
+      let me = this;
+
+      if (me.$refs.form_registro.validate()) {
+        try {
+          await AuthService.registerStudent({
+            nombre: me.nombre,
+            apellido_paterno: me.primer_apellido,
+            apellido_materno: me.segundo_apellido,
+            domicilio: me.domicilio,
+            fotografia: me.fotografia,
+            c_Municipio: me.select_municipio.c_Municipio,
+            email: me.email,
+            curp: me.curp,
+            sexo: me.radioGroupSexo,
+            fecha_nacimiento: me.date,
+            nacionalidad: me.nacionalidad,
+            edad: me.edad,
+            estado_civil: me.estado_civil,
+            telefono: me.numero_celular,
+            grupo_vulnerable: me.grupo_vulnerable,
+            discapacidad: me.discapacidad,
+            pertenece_a: me.pertenece,
+            escolaridad: me.escolaridad,
+            lengua_indigena: me.radioGroupLengua,
+            motivo: me.motivo,
+            situacion_laboral: me.radioGroupSituacion,
+            firma_capacitando: me.firma,
+          });
+        } catch (error) {
+          console.log(error.response.data.errors);
+          let error_msg =
+            error.response.data.errors[
+              Object.keys(error.response.data.errors)[0]
+            ][0];
+          this.$swal("Error", error_msg, "error");
+        }
+      } else {
+        this.$swal(
+          "Advertencia",
+          "No ha completado la información solicitada",
+          "warning"
+        );
       }
     },
 
