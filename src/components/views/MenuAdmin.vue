@@ -12,14 +12,45 @@
           <i class="fa fa-user-o" aria-hidden="true"></i>
         </v-flex>
         <v-flex align-self-center xs2>
+          <!-- <v-menu transition="scroll-y-transition">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                depressed
+                color="#2b4c7b"
+                elevation="0"
+                class="ma-2"
+                v-bind="attrs"
+                v-on="on"
+                style="font-size: 20px; color: #394f79"
+              >
+                {{ this.me.user[0].title }}
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item @click="selectSection()">
+                <v-list-item-title>{{
+                  this.me.user[1].title
+                }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu> -->
           <v-list color="#2b4c7b">
             <v-list-item link class="fondodashboardadmin">
               <v-list-item-content class="fondodashboardadmin">
-                <v-list-item-title> Jazhibe López </v-list-item-title>
+                <v-list-item-title> CHRISTIAN HERNANDEZ </v-list-item-title>
               </v-list-item-content>
               <v-list-item-action>
                 <v-icon color="#ffffff">mdi-menu-down</v-icon>
               </v-list-item-action>
+            </v-list-item>
+            <v-list-item
+              link
+              class="fondodashboardadmin"
+              @click="selectSection()"
+            >
+              <v-list-item-content class="fondodashboardadmin">
+                <v-list-item-title> Cerrar Sesión </v-list-item-title>
+              </v-list-item-content>
             </v-list-item>
           </v-list>
         </v-flex>
@@ -173,11 +204,13 @@
           </v-menu>
         </v-flex>
       </v-layout>
-    </v-row>    
+    </v-row>
   </v-container>
 </template>
 
 <script>
+import AuthService from "@/services/AuthService.js";
+
 export default {
   name: "MenuAdmin",
   components: {},
@@ -196,6 +229,10 @@ export default {
     items: [],
     logged_in: false,
     dialog: false,
+    user: [
+      { title: "", colorfont: "#2b4c7b", sizefont: "15px" },
+      { title: "Cerrar sesión", icon: "" },
+    ],
   }),
   methods: {
     selectItem(item) {
@@ -205,6 +242,32 @@ export default {
       if (item.title == "Editar curso") this.editarCurso();
       if (item.title == "Eliminar curso") this.deleteCurso();
       if (item.title == "Asignar curso") this.asignarCurso();
+    },
+
+    async mounted() {
+      let me = this;
+      me.user[0].title = "mail.example@outlook.com";
+      try {
+        const response = await AuthService.getProfile();
+        me.user[0].title = response.Nombre;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    selectSection() {
+      this.logout();
+    },
+
+    async logout() {
+      try {
+        await AuthService.logout();
+        this.$store.dispatch("logout");
+        if (this.$route.name == "Home") this.$router.go();
+        else this.$router.push("/");
+      } catch (error) {
+        console.log(error);
+      }
     },
 
     selectDashboard() {

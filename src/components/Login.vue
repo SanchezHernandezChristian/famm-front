@@ -87,9 +87,11 @@ export default {
           const response = await AuthService.login(credentials);
           const token = response.token;
           const user = response.user;
+          const rol = response.user.Rol;
           me.dialog = false;
           this.$store.dispatch("login", { token, user });
-          if (this.$route.name == "RegistroForm") this.$router.go();
+          if (rol == "ADMINISTRADOR") this.$router.push("/dashboard-admin");
+          else if (this.$route.name == "RegistroForm") this.$router.go();
           else this.$router.push("/form-registro");
         } catch (error) {
           me.error = !me.error;
