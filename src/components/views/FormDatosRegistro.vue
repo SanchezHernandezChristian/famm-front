@@ -388,7 +388,7 @@
             <v-flex align-self-center xs2><label>FIRMA DEL CAPACITANDO</label></v-flex>
             <v-flex align-self-center xs3>
               <v-col md="8">
-                <v-text-field outlined :rules="[rules.required]" v-model="firma"></v-text-field>
+                <!--<v-text-field outlined :rules="[rules.required]" v-model="firma"></v-text-field>-->
                 <VueSignaturePad width="500px" height="500px" ref="signaturePad" />
                 <div>
                   <v-btn @click="saveSignature">Guardar</v-btn>
