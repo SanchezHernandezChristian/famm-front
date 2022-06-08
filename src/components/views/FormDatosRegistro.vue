@@ -37,13 +37,13 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>NOMBRE</label></v-flex>
             <v-flex align-self-center xs2>
-              <v-col md="12"> <v-text-field outlined label="NOMBRE(S)" :rules="[rules.required]" v-model="nombre"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined label="Nombre(s)" :rules="[rules.required]" v-model="nombre"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs2>
-              <v-col md="12"> <v-text-field outlined label="PRIMER AP..." :rules="[rules.required]" v-model="primer_apellido"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined label="Primer Apellido" :rules="[rules.required]" v-model="primer_apellido"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs2>
-              <v-col md="12"> <v-text-field outlined label="SEGUNDO AP..." :rules="[rules.required]" v-model="segundo_apellido"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined label="Segundo Apellido" :rules="[rules.required]" v-model="segundo_apellido"></v-text-field></v-col>
             </v-flex>
           </v-layout></div
       ></v-row>
@@ -69,7 +69,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>DOMICILIO</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="8"> <v-text-field outlined :rules="[rules.required]" v-model="domicilio"></v-text-field></v-col>
+              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required]" v-model="domicilio"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -108,6 +108,7 @@
             <v-flex align-self-center xs2><label>MUNICIPIO</label></v-flex>
             <v-flex align-self-center xs3>
               <v-autocomplete
+                dense
                 v-model="select_municipio"
                 :rules="[rules.required]"
                 :items="items_municipios"
@@ -124,24 +125,12 @@
           </v-layout>
         </div>
       </v-row>
-      <v-row align="start" style="height: 25px">
-        <div class="text-center">
-          <v-layout row justify-center>
-            <v-flex align-self-center xs2></v-flex>
-            <v-flex align-self-center xs3>
-              <label><small>SELECCIONA TU MUNICIPIO</small></label>
-            </v-flex>
-            <v-flex align-self-center xs3></v-flex>
-            <v-flex align-self-center xs1> </v-flex>
-          </v-layout>
-        </div>
-      </v-row>
       <v-row justify="center" align="center" class="pt-3">
         <div class="text-center">
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>CORREO ELECTRÓNICO</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="8"> <v-text-field outlined :rules="[rules.required, rules.email]" v-model="email"></v-text-field></v-col>
+              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required, rules.email]" v-model="email"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -152,7 +141,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>CURP</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="8"> <v-text-field outlined :rules="[rules.required]" v-model="curp"></v-text-field></v-col>
+              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required]" v-model="curp"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -164,8 +153,8 @@
             <v-flex align-self-center xs2><label>SEXO</label></v-flex>
             <v-flex align-self-center xs3>
               <v-radio-group row :rules="[rules.required]" v-model="radioGroupSexo">
-                <v-radio label="FEMENINO" value="M" class="font-weight-black"></v-radio>
-                <v-radio label="MASCULINO" value="H" class="font-weight-black"></v-radio>
+                <v-radio dense label="FEMENINO" value="M" class="font-weight-black"></v-radio>
+                <v-radio dense label="MASCULINO" value="H" class="font-weight-black"></v-radio>
                 <v-spacer></v-spacer>
               </v-radio-group>
             </v-flex>
@@ -230,7 +219,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>NACIONALIDAD</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="8"> <v-text-field outlined :rules="[rules.required]" v-model="nacionalidad"></v-text-field></v-col>
+              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required]" v-model="nacionalidad"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -241,7 +230,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>EDAD</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="8"> <v-text-field outlined :rules="[rules.required, rules.natural_number]" v-model="edad"></v-text-field></v-col>
+              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required, rules.natural_number]" v-model="edad"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -252,7 +241,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>ESTADO CIVIL</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="8"> <v-text-field outlined :rules="[rules.required]" v-model="estado_civil"></v-text-field></v-col>
+              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required]" v-model="estado_civil"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -263,7 +252,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>NÚMERO DE CELULAR</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="8"> <v-text-field outlined :rules="[rules.required, rules.phone_number]" v-model="numero_celular"></v-text-field></v-col>
+              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required, rules.phone_number]" v-model="numero_celular"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -276,6 +265,8 @@
             <v-flex align-self-center xs3>
               <v-col md="8">
                 <v-select
+                  dense
+                  outlined
                   :rules="[rules.required]"
                   :items="items_grupovulnerable"
                   item-text="nombre"
@@ -356,8 +347,8 @@
             <v-flex align-self-center xs2><label>HABLA LENGUA INDÍGENA</label></v-flex>
             <v-flex align-self-center xs3>
               <v-radio-group row :rules="[rules.required]" v-model="radioGroupLengua">
-                <v-radio label="SÍ" value="1" class="font-weight-black"></v-radio>
-                <v-radio label="NO" value="0" class="font-weight-black"></v-radio>
+                <v-radio dense label="SÍ" value="1" class="font-weight-black"></v-radio>
+                <v-radio dense label="NO" value="0" class="font-weight-black"></v-radio>
                 <v-spacer></v-spacer>
               </v-radio-group>
             </v-flex>
@@ -370,7 +361,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>MOTIVO</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-textarea auto-grow outlined rows="3" row-height="25" shaped v-model="motivo"></v-textarea>
+              <v-textarea dense auto-grow outlined rows="3" row-height="25" shaped v-model="motivo"></v-textarea>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -382,8 +373,8 @@
             <v-flex align-self-center xs2><label>SITUACIÓN LABORAL</label></v-flex>
             <v-flex align-self-center xs3>
               <v-radio-group row :rules="[rules.required]" v-model="radioGroupSituacion">
-                <v-radio label="EMPLEADO" value="1" class="font-weight-black"></v-radio>
-                <v-radio label="DESEMPLEADO" value="0" class="font-weight-black"></v-radio>
+                <v-radio dense label="EMPLEADO" value="1" class="font-weight-black"></v-radio>
+                <v-radio dense label="DESEMPLEADO" value="0" class="font-weight-black"></v-radio>
                 <v-spacer></v-spacer>
               </v-radio-group>
             </v-flex>
