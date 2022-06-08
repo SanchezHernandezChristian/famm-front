@@ -2,43 +2,26 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn v-bind="attrs" v-on="on" color="#394F79" class="ma-2" outlined>
-          Iniciar sesión
-        </v-btn>
+        <v-btn v-bind="attrs" v-on="on" color="#394F79" class="ma-2" outlined> Iniciar sesión </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <span class="text-h5"
-            ><i class="fa fa-sign-in" aria-hidden="true"></i> Entrar</span
-          >
+          <span class="text-h5"><i class="fa fa-sign-in" aria-hidden="true"></i> Entrar</span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <v-form ref="form_login" lazy-validation>
               <v-row>
                 <v-col cols="12">
-                  <v-text-field
-                    label="Correo*"
-                    :rules="[rules.required, rules.email]"
-                    v-model="email"
-                  ></v-text-field>
+                  <v-text-field label="Correo*" :rules="[rules.required, rules.email]" v-model="email"></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field
-                    label="Contraseña*"
-                    type="password"
-                    :rules="[rules.required, rules.counter]"
-                    v-model="password"
-                  ></v-text-field>
+                  <v-text-field label="Contraseña*" type="password" :rules="[rules.required, rules.counter]" v-model="password"></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <small
-                    class="v-messages theme--light error--text"
-                    v-show="error"
-                    >Error: {{ error_msg }}</small
-                  >
+                  <small class="v-messages theme--light error--text" v-show="error">Error: {{ error_msg }}</small>
                 </v-col>
               </v-row>
             </v-form>
@@ -55,22 +38,22 @@
 </template>
 
 <script>
-import AuthService from "@/services/AuthService.js";
+import AuthService from '@/services/AuthService.js';
 
 export default {
   data: () => ({
     dialog: false,
     error: false,
-    error_msg: "Usuario o contraseña inválidos",
-    email: "",
-    password: "",
+    error_msg: 'Usuario o contraseña inválidos',
+    email: '',
+    password: '',
     rules: {
-      required: (value) => !!value || "Campo requerido",
-      counter: (value) => value.length <= 20 || "Max 20 caracteres",
+      required: (value) => !!value || 'Campo requerido',
+      counter: (value) => value.length <= 20 || 'Max 20 caracteres',
       email: (value) => {
         const pattern =
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return pattern.test(value) || "Correo inválido";
+        return pattern.test(value) || 'Correo inválido';
       },
     },
   }),
@@ -89,10 +72,10 @@ export default {
           const user = response.user;
           const rol = response.user.Rol;
           me.dialog = false;
-          this.$store.dispatch("login", { token, user });
-          if (rol == "ADMINISTRADOR") this.$router.push("/dashboard-admin");
-          else if (this.$route.name == "RegistroForm") this.$router.go();
-          else this.$router.push("/form-registro");
+          this.$store.dispatch('login', { token, user });
+          if (rol == 'ADMINISTRADOR') this.$router.push('/dashboard-admin');
+          else this.$router.push('/page-principal');
+          //else this.$router.push('/form-registro');
         } catch (error) {
           me.error = !me.error;
           me.error_msg = error.response.data.mensaje;
