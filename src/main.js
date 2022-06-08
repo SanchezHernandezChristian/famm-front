@@ -10,6 +10,7 @@ import store from './store';
 import Axios from 'axios';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import VueSignaturePad from 'vue-signature-pad';
 
 Vue.config.productionTip = false;
 Vue.use(Vuetify);
@@ -19,6 +20,7 @@ export default new Vuetify({
   },
 });
 Vue.use(VueSweetalert2);
+Vue.use(VueSignaturePad);
 
 // set auth header
 Axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.token}`;
