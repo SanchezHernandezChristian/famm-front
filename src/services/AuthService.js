@@ -30,8 +30,17 @@ export default {
             .post(url + 'additional-user-information', data)
             .then(response => response.data);
     },
+    getDiscapacidades() {
+        return axios.get(url + 'discapacidades').then(response => response.data);
+    },
+    getEscolaridad() {
+        return axios.get(url + 'escolaridades').then(response => response.data);
+    },
     getEspecialidades() {
         return axios.get(url + 'all-specialty-information').then(response => response.data);
+    },
+    getPertenece() {
+        return axios.get(url + 'pertenece-a').then(response => response.data);
     },
     addGrade(grade_data) {
         return axios

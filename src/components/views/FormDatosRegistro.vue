@@ -50,7 +50,7 @@
                 <v-text-field
                   outlined
                   label="NOMBRE(S)"
-                  :rules="rules"
+                  :rules="[rules.required]"
                   v-model="nombre"
                 ></v-text-field
               ></v-col>
@@ -60,7 +60,7 @@
                 <v-text-field
                   outlined
                   label="PRIMER AP..."
-                  :rules="rules"
+                  :rules="[rules.required]"
                   v-model="primer_apellido"
                 ></v-text-field
               ></v-col>
@@ -70,7 +70,7 @@
                 <v-text-field
                   outlined
                   label="SEGUNDO AP..."
-                  :rules="rules"
+                  :rules="[rules.required]"
                   v-model="segundo_apellido"
                 ></v-text-field
               ></v-col>
@@ -102,7 +102,7 @@
               <v-col md="8">
                 <v-text-field
                   outlined
-                  :rules="rules"
+                  :rules="[rules.required]"
                   v-model="domicilio"
                 ></v-text-field
               ></v-col>
@@ -122,7 +122,7 @@
                 dense
                 show-size
                 accept="image/png, image/jpeg, image/bmp"
-                :rules="rulesFile"
+                :rules="[rules.required, rules.size]"
                 v-model="fotografia"
               ></v-file-input>
             </v-flex>
@@ -143,8 +143,9 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>MUNICIPIO</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-select
+              <v-autocomplete
                 v-model="select_municipio"
+                :rules="[rules.required]"
                 :items="items_municipios"
                 item-text="Descripcion"
                 item-value="c_Municipio"
@@ -153,7 +154,7 @@
                 style="height: 80px"
                 class="bordeRedondoElement"
                 label="Seleccione un municipio"
-              ></v-select>
+              ></v-autocomplete>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -164,7 +165,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2></v-flex>
             <v-flex align-self-center xs3>
-              <label><small>SELECCIONA TU LOCALIDAD</small></label>
+              <label><small>SELECCIONA TU MUNICIPIO</small></label>
             </v-flex>
             <v-flex align-self-center xs3></v-flex>
             <v-flex align-self-center xs1> </v-flex>
@@ -181,7 +182,7 @@
               <v-col md="8">
                 <v-text-field
                   outlined
-                  :rules="rules"
+                  :rules="[rules.required, rules.email]"
                   v-model="email"
                 ></v-text-field
               ></v-col>
@@ -198,7 +199,7 @@
               <v-col md="8">
                 <v-text-field
                   outlined
-                  :rules="rules"
+                  :rules="[rules.required]"
                   v-model="curp"
                 ></v-text-field
               ></v-col>
@@ -212,7 +213,11 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>SEXO</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-radio-group row v-model="radioGroupSexo">
+              <v-radio-group
+                row
+                :rules="[rules.required]"
+                v-model="radioGroupSexo"
+              >
                 <v-radio
                   label="FEMENINO"
                   value="M"
@@ -254,7 +259,7 @@
                     readonly
                     v-bind="attrs"
                     v-on="on"
-                    :rules="rules"
+                    :rules="[rules.required]"
                   ></v-text-field>
                 </template>
                 <v-date-picker
@@ -266,6 +271,7 @@
                       .toISOString()
                       .substr(0, 10)
                   "
+                  locale="es-MX"
                   min="1950-01-01"
                   @change="save"
                 ></v-date-picker>
@@ -304,7 +310,7 @@
               <v-col md="8">
                 <v-text-field
                   outlined
-                  :rules="rules"
+                  :rules="[rules.required]"
                   v-model="nacionalidad"
                 ></v-text-field
               ></v-col>
@@ -321,7 +327,7 @@
               <v-col md="8">
                 <v-text-field
                   outlined
-                  :rules="rules"
+                  :rules="[rules.required, rules.natural_number]"
                   v-model="edad"
                 ></v-text-field
               ></v-col>
@@ -338,7 +344,7 @@
               <v-col md="8">
                 <v-text-field
                   outlined
-                  :rules="rules"
+                  :rules="[rules.required]"
                   v-model="estado_civil"
                 ></v-text-field
               ></v-col>
@@ -357,7 +363,7 @@
               <v-col md="8">
                 <v-text-field
                   outlined
-                  :rules="rules"
+                  :rules="[rules.required, rules.phone_number]"
                   v-model="numero_celular"
                 ></v-text-field
               ></v-col>
@@ -374,12 +380,15 @@
             >
             <v-flex align-self-center xs3>
               <v-col md="8">
-                <v-text-field
-                  outlined
-                  :rules="rules"
+                <v-select
+                  :rules="[rules.required]"
+                  :items="items_grupovulnerable"
+                  item-text="nombre"
+                  item-value="id"
                   v-model="grupo_vulnerable"
-                ></v-text-field
-              ></v-col>
+                  label="Seleccione una opción"
+                ></v-select>
+              </v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -390,7 +399,16 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>DISCAPACIDAD</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-combobox dense outlined v-model="discapacidad"></v-combobox>
+              <v-autocomplete
+                dense
+                outlined
+                :rules="[rules.required]"
+                :items="items_discapacidades"
+                item-text="nombre"
+                item-value="id"
+                label="Seleccione una opción"
+                v-model="discapacidad"
+              ></v-autocomplete>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -401,13 +419,16 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>PERTENECE A</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="8">
-                <v-text-field
-                  outlined
-                  :rules="rules"
-                  v-model="pertenece"
-                ></v-text-field
-              ></v-col>
+              <v-autocomplete
+                dense
+                outlined
+                :rules="[rules.required]"
+                :items="items_pertenece"
+                item-text="nombre"
+                item-value="id"
+                label="Seleccione una opción"
+                v-model="pertenece"
+              ></v-autocomplete>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -418,12 +439,16 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>ESCOLARIDAD</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-combobox
+              <v-autocomplete
                 dense
                 outlined
-                :rules="rules"
+                :rules="[rules.required]"
+                :items="items_escolaridad"
+                item-text="nombre"
+                item-value="id"
+                label="Seleccione una opción"
                 v-model="escolaridad"
-              ></v-combobox>
+              ></v-autocomplete>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -436,7 +461,11 @@
               ><label>HABLA LENGUA INDÍGENA</label></v-flex
             >
             <v-flex align-self-center xs3>
-              <v-radio-group row v-model="radioGroupLengua">
+              <v-radio-group
+                row
+                :rules="[rules.required]"
+                v-model="radioGroupLengua"
+              >
                 <v-radio
                   label="SÍ"
                   value="1"
@@ -479,7 +508,11 @@
               ><label>SITUACIÓN LABORAL</label></v-flex
             >
             <v-flex align-self-center xs3>
-              <v-radio-group row v-model="radioGroupSituacion">
+              <v-radio-group
+                row
+                :rules="[rules.required]"
+                v-model="radioGroupSituacion"
+              >
                 <v-radio
                   label="EMPLEADO"
                   value="1"
@@ -507,7 +540,7 @@
               <v-col md="8">
                 <v-text-field
                   outlined
-                  :rules="rules"
+                  :rules="[rules.required]"
                   v-model="firma"
                 ></v-text-field
               ></v-col>
@@ -535,24 +568,41 @@ export default {
     valid: true,
     band: false,
     logged_in: false,
-    rules: [(v) => !!v || "Requerido"],
-    rulesFile: [
-      (value) =>
+    rules: {
+      required: (value) => !!value || "Campo requerido",
+      counter: (value) => value.length <= 20 || "Max 20 caracteres",
+      phone_number: (value) => {
+        const pattern_pnumber = /^\d{10}$/;
+        return pattern_pnumber.test(value) || "Número telefónico inválido";
+      },
+      natural_number: (value) => {
+        const pattern_natnumber = /^[0-9]+$/;
+        return pattern_natnumber.test(value) || "Número inválido";
+      },
+      size: (value) =>
         !value ||
-        value.size < 2000000 ||
-        "El archivo debe pesar menos de 2 MB!",
-    ],
+        value.size < 1000000 ||
+        "El archivo debe pesar menos de 1 MB!",
+      email: (value) => {
+        const pattern =
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return pattern.test(value) || "Correo inválido";
+      },
+    },
     items_municipios: [],
+    items_discapacidades: [],
+    items_escolaridad: [],
+    items_grupovulnerable: [
+      { id: 1, nombre: "SI" },
+      { id: 2, nombre: "NO" },
+    ],
+    items_pertenece: [],
     nombre: "",
     primer_apellido: "",
     segundo_apellido: "",
     domicilio: "",
     fotografia: null,
-    select_municipio: {
-      c_Municipio: 0,
-      c_Estado: "",
-      Descripcion: "",
-    },
+    select_municipio: null,
     email: "",
     curp: "",
     nacionalidad: "",
@@ -576,6 +626,8 @@ export default {
     this.logged_in = this.$store.getters.isLoggedIn != "";
   },
   async mounted() {
+    let me = this;
+
     if (this.$store.getters.isLoggedIn) {
       try {
         const response = await AuthService.getProfile();
@@ -588,9 +640,15 @@ export default {
 
       try {
         const response2 = await AuthService.getMunicipios();
-        this.items_municipios = response2.municipios;
+        const response3 = await AuthService.getDiscapacidades();
+        const response4 = await AuthService.getEscolaridad();
+        const response5 = await AuthService.getPertenece();
+        me.items_municipios = response2.municipios;
+        me.items_discapacidades = response3.data;
+        me.items_escolaridad = response4.data;
+        me.items_pertenece = response5.data;
       } catch (error) {
-        console.log("Error al recuperar municipios: " + error);
+        console.log("Error" + error);
       }
     }
   },
@@ -616,14 +674,21 @@ export default {
             edad: me.edad,
             estado_civil: me.estado_civil,
             telefono: me.numero_celular,
-            grupo_vulnerable: me.grupo_vulnerable,
-            discapacidad: me.discapacidad,
-            pertenece_a: me.pertenece,
-            escolaridad: me.escolaridad,
+            grupo_vulnerable: me.grupo_vulnerable == 2 ? 0 : 1,
+            idDiscapacidad: me.discapacidad,
+            idPertenece: me.pertenece,
+            idEscolaridad: me.escolaridad,
             lengua_indigena: me.radioGroupLengua,
             motivo: me.motivo,
             situacion_laboral: me.radioGroupSituacion,
             firma_capacitando: me.firma,
+          });
+          this.$swal(
+            "Registrado",
+            "Datos extras guardados correctamente.",
+            "success"
+          ).then(() => {
+            this.$router.push("/page-principal");
           });
         } catch (error) {
           console.log(error.response.data.errors);
