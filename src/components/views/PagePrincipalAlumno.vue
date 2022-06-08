@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-alert v-if="!dataUser.EstatusPerfil" border="left" justify="space-around" color="red" dark>
-        <span class="float-left">Los datos del usuario han sido capturados.</span>
+        <span class="float-left">Los datos del usuario no han sido capturados.</span>
         <span class="float-right">Click <v-btn dark outlined @click="formRegistro()"> aquí </v-btn> para capturarlos</span>
       </v-alert>
       <v-row v-else>
