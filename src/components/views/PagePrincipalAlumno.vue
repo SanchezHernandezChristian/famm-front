@@ -110,8 +110,6 @@ export default {
   },
   created() {
     this.dataUser = localStorage.getItem('vuex');
-
-    console.log(localStorage.getItem('vuex'));
   },
   methods: {
     getImgUrl(pic) {
