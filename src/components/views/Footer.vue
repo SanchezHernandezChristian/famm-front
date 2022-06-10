@@ -1,20 +1,14 @@
 <template>
   <footer class="text-white pt-4">
-    <div class="row" style="margin-top: 35px;">
-      <div class="col" style="margin-top: -20px; margin-left: 25px;">
+    <div class="row" style="margin-top: 35px">
+      <div class="col" style="margin-top: -20px; margin-left: 25px">
         <section class="md:w-5/12">
           <!--<strong>FAMM</strong>
           <p>
             Facilitador para el Acceso a Módulos tecnológicos y Monitoreo
             educativo
           </p>-->
-          <v-col
-            ><v-img
-              max-height="100%"
-              max-width="75%"
-              src="@/assets/img/famm-footer.png"
-            ></v-img
-          ></v-col>
+          <v-col><v-img max-height="25%" max-width="25%" src="@/assets/img/famm-footer.png"></v-img></v-col>
         </section>
       </div>
       <div class="col">
@@ -34,15 +28,7 @@
           <v-container fluid>
             <v-layout justify-center>
               <v-flex>
-                <v-text-field
-                  v-model="email"
-                  :rules="[rules.email]"
-                  outlined
-                  dark
-                  label="Ingresa tu correo"
-                  dense
-                >
-                </v-text-field>
+                <v-text-field v-model="email" :rules="[rules.email]" outlined dark label="Ingresa tu correo" dense> </v-text-field>
               </v-flex>
               <v-flex>
                 <v-btn small dark color="btnInscribirse">Inscribirse</v-btn>
@@ -72,9 +58,7 @@
             <i class="fa fa-youtube-play m-1" aria-hidden="true"></i>
           </section>
         </section>
-        <section class="w-full text-center mt-16">
-          &copy; FAMM 2022 Todos los derechos reservados.
-        </section>
+        <section class="w-full text-center mt-16">&copy; FAMM 2022 Todos los derechos reservados.</section>
       </div>
     </div>
   </footer>
@@ -82,15 +66,15 @@
 
 <script>
 export default {
-  name: "Footer",
+  name: 'Footer',
   data() {
     return {
-      email: "",
+      email: '',
       rules: {
         email: (value) => {
           const pattern =
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(value) || "E-mail inválido.";
+          return pattern.test(value) || 'E-mail inválido.';
         },
       },
     };
