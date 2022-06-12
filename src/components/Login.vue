@@ -16,7 +16,14 @@
                   <v-text-field label="Correo*" :rules="[rules.required, rules.email]" v-model="email"></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field label="Contraseña*" type="password" :rules="[rules.required, rules.counter]" v-model="password"></v-text-field>
+                  <v-text-field 
+                  label="Contraseña*"
+                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="show1 ? 'text' : 'password'"
+                  :rules="[rules.required, rules.counter]"
+                  v-model="password"
+                   @click:append="show1 = !show1"
+                  ></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
@@ -45,6 +52,7 @@ export default {
     dialog: false,
     error: false,
     error_msg: 'Usuario o contraseña inválidos',
+    show1: false,
     email: '',
     password: '',
     rules: {

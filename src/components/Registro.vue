@@ -51,9 +51,11 @@
                 <v-col cols="10">
                   <v-text-field
                     label="Contraseña*"
-                    type="password"
+                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="show1 ? 'text' : 'password'"
                     :rules="[rules.required, rules.min, rules.max]"
                     v-model="password"
+                    @click:append="show1 = !show1"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="2">
@@ -113,14 +115,6 @@
                       <v-list-item>
                         <v-list-item-content>
                           <v-list-item-title
-                            >Como mínimo uno de los siguientes simbolos
-                            (@$&?¡\-_+.=!¿#).</v-list-item-title
-                          >
-                        </v-list-item-content>
-                      </v-list-item>
-                      <v-list-item>
-                        <v-list-item-content>
-                          <v-list-item-title
                             >No debe contener espacios.</v-list-item-title
                           >
                         </v-list-item-content>
@@ -131,7 +125,7 @@
                 <v-col cols="12">
                   <v-text-field
                     label="Confirmación de contraseña*"
-                    type="password"
+                    :type="show1 ? 'text' : 'password'"
                     :rules="[rules.required, rules.min, rules.max, rules.match]"
                     v-model="password_confirmation"
                   ></v-text-field>
@@ -171,6 +165,7 @@ export default {
     error: false,
     error_msg: "Datos inválidos",
     show_pass_rules: false,
+    show1: false,
     name: "",
     midname: "",
     lastname: "",

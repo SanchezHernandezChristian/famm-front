@@ -75,7 +75,7 @@
           </v-layout>
         </div>
       </v-row>
-      <v-row justify="center" align="start" style="height: 60px">
+      <v-row justify="center" align="start" style="height: 60px" class="pt-3">
         <div class="text-center">
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>FOTOGRAFÍA</label></v-flex>
@@ -86,7 +86,7 @@
                 dense
                 show-size
                 accept="image/png, image/jpeg, image/bmp"
-                :rules="[rules.required, rules.size]"
+                :rules="[rules.size]"
                 v-model="fotografia"
               ></v-file-input>
             </v-flex>
@@ -280,7 +280,7 @@
           </v-layout>
         </div>
       </v-row>
-      <v-row justify="center" align="center" class="pt-3">
+      <v-row justify="center" align="center" class="pt-6">
         <div class="text-center">
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>DISCAPACIDAD</label></v-flex>
@@ -301,7 +301,7 @@
           </v-layout>
         </div>
       </v-row>
-      <v-row justify="center" align="center" class="pt-3">
+      <v-row justify="center" align="center" class="pt-6">
         <div class="text-center">
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>PERTENECE A</label></v-flex>
@@ -321,7 +321,7 @@
           </v-layout>
         </div>
       </v-row>
-      <v-row justify="center" align="center" class="pt-3">
+      <v-row justify="center" align="center" class="pt-6">
         <div class="text-center">
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>ESCOLARIDAD</label></v-flex>
@@ -356,12 +356,12 @@
           </v-layout>
         </div>
       </v-row>
-      <v-row justify="center" align="center" class="pt-3">
+      <v-row justify="center" align="center" class="pt-5">
         <div class="text-center">
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>MOTIVO</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-textarea dense auto-grow outlined rows="3" row-height="25" shaped v-model="motivo"></v-textarea>
+              <v-textarea dense auto-grow outlined rows="3" row-height="25" shaped :rules="[rules.required]" v-model="motivo"></v-textarea>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -389,8 +389,8 @@
             <v-flex align-self-center xs3>
               <v-col md="8">
                 <!--<v-text-field outlined :rules="[rules.required]" v-model="firma"></v-text-field>-->
-                <VueSignaturePad width="500px" height="500px" ref="signaturePad" />
-                <div>
+                <VueSignaturePad width="500px" height="500px" ref="signaturePad" class="signature-pad"/>
+                <div class="d-flex flex-row m-1">
                   <v-btn @click="saveSignature">Guardar</v-btn>
                   <v-btn @click="undo">Deshacer</v-btn>
                 </div></v-col
@@ -402,7 +402,7 @@
       </v-row>
     </v-form>
     <v-row>
-      <v-col cols="12" align="center" class="pt-3">
+      <v-col cols="12" align="center" class="pt-5">
         <v-btn color="success" dark x-large @click="register">Guardar</v-btn>
       </v-col>
     </v-row>
@@ -558,3 +558,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.signature-pad{
+  border-style: solid;
+  border-width: 1px;
+}
+</style>
