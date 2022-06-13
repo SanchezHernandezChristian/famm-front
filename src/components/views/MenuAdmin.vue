@@ -224,6 +224,7 @@ export default {
     selectItem(item) {
       if (item.title == "Perfil") this.profile();
       if (item.title == "Añadir usuario") this.addUser();
+      if (item.title == "Usuarios registrados") this.redirectUsers();
       if (item.title == "Nuevo curso") this.addCurso();
       if (item.title == "Asignar curso") this.asignarCurso();
       if (item.title == "Centros de capacitación") this.centrosCapacitacion();
@@ -288,6 +289,10 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    redirectUsers(){
+      this.$router.push("users");
     },
 
     async addCurso() {

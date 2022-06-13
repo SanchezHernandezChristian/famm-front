@@ -69,6 +69,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewAddUser.vue')
   },
   {
+    path: '/users',
+    name: 'ViewUsers',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewUsers.vue')
+  },
+  {
     path: '/agregar-curso',
     name: 'ViewAddCurso',
     // route level code-splitting
