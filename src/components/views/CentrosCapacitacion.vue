@@ -1,11 +1,9 @@
 <template>
-  <v-container fluid>
+  <v-container fluid pt-6>
     <v-row justify="center" align="center">
-      <br />
-      <p></p>
-      <h2 style="color: #2b4c7b">Centros de capacitación</h2>
+      <h2 style="color: #2b4c7b">Agregar curso</h2>
     </v-row>
-    <v-row justify="center" align="center" style="height: 70px">
+    <v-row justify="center" align="center" class="pb-3 pt-6 mb-2">
       <v-layout row justify-center>
         <v-flex align-self-center xs2>
           <div class="text-center"><label>Nombre</label></div></v-flex
@@ -24,7 +22,7 @@
         </v-flex>
       </v-layout>
     </v-row>
-    <v-row justify="center" align="center" style="height: 50px">
+    <v-row justify="center" align="center" class="pt-3">
       <v-form ref="form">
         <v-layout row justify-center>
           <v-flex align-self-center xs2>
@@ -79,26 +77,14 @@
       <v-layout row justify-start>
         <v-flex align-self-center xs10> </v-flex>
         <v-flex align-self-start xs1>
-          <v-btn
-            outlined
-            color="gray"
-            class="bordeRedondoElement"
-            @click="clean"
-            >Borrar</v-btn
-          >
+          <v-btn outlined color="gray" @click="clean">Borrar</v-btn>
         </v-flex>
         <v-flex align-self-center xs1>
           <template>
             <div class="text-center">
               <v-dialog v-model="dialog" width="500">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    outlined
-                    color="gray"
-                    class="bordeRedondoElement"
-                    v-bind="attrs"
-                    v-on="on"
-                  >
+                  <v-btn outlined color="gray" v-bind="attrs" v-on="on">
                     Agregar
                   </v-btn>
                 </template>
@@ -110,19 +96,13 @@
                     SI TODOS LOS DATOS SON CORRECTOS DA CLICK EN CONTINUAR
                   </v-card-text>
                   <v-card-actions>
-                    <v-btn
-                      outlined
-                      color="gray"
-                      class="bordeRedondoElement"
-                      @click="dialog = false"
-                    >
+                    <v-btn outlined color="gray" @click="dialog = false">
                       Cancelar
                     </v-btn>
                     <v-btn
                       outlined
                       style="color: #ffffff; background-color: #2b4c7b"
-                      class="bordeRedondoElement"
-                      @click="createCenter"
+                      @click="createGrade"
                       >Continuar</v-btn
                     >
                   </v-card-actions>
@@ -133,18 +113,11 @@
         </v-flex>
       </v-layout>
     </v-row>
-    <v-row justify="center" align="center" style="height: 50px">
-      <br />
-    </v-row>
     <v-row justify="center" align="start" style="height: 80px">
       <div>
         <v-layout row justify-center>
           <v-flex align-self-baseline xs2></v-flex>
-          <v-flex align-self-center xs5>
-            <v-alert type="warning" v-if="mostrarAlertError">{{
-              datarespuesta.message
-            }}</v-alert></v-flex
-          >
+          <v-flex align-self-center xs5></v-flex>
           <v-flex align-self-center xs5>
             <v-alert type="success" v-if="mostrarAlert">{{
               datarespuesta.mensaje
@@ -154,28 +127,42 @@
       </div>
     </v-row>
     <v-row>
-      <template>
-        <v-data-table
-          dense
-          :headers="headers"
-          :items="desserts"
-          item-key="nombre_curso"
-          class="elevation-1"
-          ><template v-slot:[`item.actions`]="{ item }">
-            <!-- <v-btn @click="asignarCurso()">Asignar</v-btn> -->
-            <div class="text-center">
-              <v-dialog v-model="dialogEdit" width="500">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn text v-bind="attrs" v-on="on"
-                    ><v-icon small>mdi-pencil</v-icon
-                    ><small>Editar</small></v-btn
-                  >
-                </template>
-                <v-card>
-                  <v-row justify="center" align="center">
+      <h2 style="color: #2b4c7b">Centros registrados</h2>
+      <v-data-table
+        :headers="headers"
+        :items="centros"
+        item-key="nombre_curso"
+        class="elevation-1"
+      >
+        <template v-slot:[`item.director`]="{ item }">
+          <v-chip color="yellow">
+            {{ item.director }}
+          </v-chip>
+        </template>
+        <template v-slot:[`item.telefono`]="{ item }">
+          <v-chip color="blue">
+            {{ item.telefono }}
+          </v-chip>
+        </template>
+        <template v-slot:[`item.direccion`]="{ item }">
+          <v-chip color="orange">
+            {{ item.direccion }}
+          </v-chip>
+        </template>
+        <template v-slot:top>
+          <v-toolbar flat>
+            <v-divider class="mx-4" inset vertical></v-divider>
+            <v-spacer></v-spacer>
+            <v-dialog v-model="dialogEdit" width="700">
+              <v-card class="p-5">
+                <v-row justify="center" align="center">
+                  <br />
+                  <h2 style="color: #2b4c7b">Editar Centro de Capacitación</h2>
+                </v-row>
+                <v-row justify="center" align="center">
                     <br />
                     <p></p>
-                    <h2 style="color: #2b4c7b">Editar curso</h2>
+                    <h2 style="color: #2b4c7b">Editar Centro</h2>
                   </v-row>
                   <v-row justify="center" align="center" style="height: 70px">
                     <div>
@@ -190,7 +177,7 @@
                             dense
                             outlined
                             class="bordeRedondoElement"
-                            v-model="item.nombre"
+                            v-model="editedItem.nombre"
                           ></v-text-field>
                         </v-flex>
                         <v-flex align-self-baseline xs1></v-flex>
@@ -210,7 +197,7 @@
                             dense
                             outlined
                             class="bordeRedondoElement"
-                            v-model="item.director"
+                            v-model="editedItem.director"
                           ></v-text-field>
                         </v-flex>
                         <v-flex align-self-center xs1> </v-flex>
@@ -230,8 +217,7 @@
                             dense
                             outlined
                             class="bordeRedondoElement"
-                            disabled
-                            v-model="item.telefono"
+                            v-model="editedItem.telefono"
                           ></v-text-field>
                         </v-flex>
                         <v-flex align-self-center xs1> </v-flex>
@@ -251,8 +237,7 @@
                             dense
                             outlined
                             class="bordeRedondoElement"
-                            disabled
-                            v-model="item.direccion"
+                            v-model="editedItem.direccion"
                           ></v-text-field>
                         </v-flex>
                         <v-flex align-self-center xs1> </v-flex>
@@ -270,68 +255,82 @@
                             outlined
                             name="input-7-4"
                             label=""
-                            v-model="item.tipo"
+                            v-model="editedItem.tipo"
                           ></v-textarea>
                         </v-flex>
                         <v-flex align-self-center xs1> </v-flex>
                       </v-layout>
                     </div>
                   </v-row>
-                  <v-card-actions>
-                    <v-btn outlined color="gray" class="bordeRedondoElement"
-                      >Guardar cambios</v-btn
-                    >
-                    <v-btn
-                      outlined
-                      color="gray"
-                      class="bordeRedondoElement"
-                      @click="dialogEdit = false"
-                    >
-                      Cancelar
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </div>
-            <div class="text-center">
-              <v-dialog v-model="dialogDelete" width="500">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn text v-bind="attrs" v-on="on"
-                    ><v-icon small>mdi-window-close</v-icon
-                    ><small>Eliminar</small></v-btn
+                <v-card-actions>
+                  <v-btn
+                    outlined
+                    color="gray"
+                    class="bordeRedondoElement"
+                    @click="
+                      editCurso(
+                        editedItem.nombre,
+                        editedItem.director,
+                        editedItem.telefono,
+                        editedItem.direccion,
+                        editedItem.tipo
+                      )
+                    "
+                    >Guardar cambios</v-btn
                   >
-                </template>
-                <v-card>
-                  <v-card-title class="text-h5 white lighten-2">
-                    Eliminar Centro de Capacitación
-                  </v-card-title>
-                  <v-card-text>
-                    ¿Estás seguro que quieres eliminar el centro de capacitación
-                    seleccionado? Recuerda que no podrás recuperar la
-                    información.
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-btn
-                      outlined
-                      color="gray"
-                      class="bordeRedondoElement"
-                      @click="dialogDelete = false"
-                    >
-                      Cancelar
-                    </v-btn>
-                    <v-btn
-                      outlined
-                      style="color: #ffffff; background-color: #2b4c7b"
-                      class="bordeRedondoElement"
-                      >Continuar</v-btn
-                    >
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </div>
-          </template></v-data-table
-        >
-      </template>
+                  <v-btn
+                    outlined
+                    color="gray"
+                    class="bordeRedondoElement"
+                    @click="dialogEdit = false"
+                  >
+                    Cancelar
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-dialog v-model="dialogDelete" width="500">
+              <v-card>
+                <v-card-title class="text-h5 white lighten-2">
+                  Eliminar centro
+                </v-card-title>
+                <v-card-text>
+                  ¿Estás seguro que quieres eliminar el centro seleccionado?
+                  Recuerda que no podrás recuperar la información.
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn
+                    outlined
+                    color="gray"
+                    class="bordeRedondoElement"
+                    @click="dialogDelete = false"
+                  >
+                    Cancelar
+                  </v-btn>
+                  <v-btn
+                    outlined
+                    style="color: #ffffff; background-color: #2b4c7b"
+                    class="bordeRedondoElement"
+                    @click="deleteCurso(editedItem.id)"
+                    >Continuar</v-btn
+                  >
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-toolbar>
+        </template>
+        <template v-slot:[`item.asignar`]="{ item }">
+          <v-btn @click="asignarCurso(item)">Asignar</v-btn> </template
+        ><template v-slot:[`item.actions`]="{ item }">
+          <v-btn text @click="editItem(item)"
+            ><v-icon small>mdi-pencil</v-icon><small>Editar</small></v-btn
+          >
+          <v-btn text @click="deleteItem(item)">
+            <v-icon small>mdi-window-close</v-icon
+            ><small>Eliminar</small></v-btn
+          >
+        </template></v-data-table
+      >
     </v-row>
     <v-row justify="center" align="start" style="height: 80px">
       <div>
@@ -376,11 +375,18 @@ export default {
     telefonoCentro: "",
     direccionCentro: "",
     tipoCentro: "",
-    items: Array, // <-- La lista de centros de capacitación
+    select: {
+      idEspecialidad: 0,
+      nombre_especialidad: "",
+      clave_especialidad: "",
+      campo_formacion: "",
+      subsector: "",
+      sector: "",
+    }, //<-- el seleccionado estará aquí
+    items: Array, // <-- La lista de especliades
     mostrarAlert: false,
-    mostrarAlertError: false,
-    mostrarAlertDelete: false,
     mostrarAlertEdit: false,
+    mostrarAlertDelete: false,
     datarespuesta: [],
     datarespuestaEdit: [],
     datarespuestaDelete: [],
@@ -399,46 +405,49 @@ export default {
       { text: "Teléfono", value: "telefono" },
       { text: "Dirección", value: "direccion" },
       { text: "Tipo", value: "tipo" },
+      { text: " ", value: "asignar" },
       { text: " ", value: "actions" },
     ],
-    desserts: [],
+    centros: [],
+    editedItem: "",
+    selected: [],
   }),
 
   async mounted() {
     try {
+      const listespecialidades = await AuthService.getEspecialidades();
+      this.items = listespecialidades.especialidades;
       const listCenters = await AuthService.getAllCenters();
-      this.desserts = listCenters.data;
-      console.log(this.desserts);
+      this.centros = listCenters.data;
     } catch (error) {
       console.log(error);
     }
   },
 
   methods: {
-    async createCenter() {
+    async createGrade() {
       try {
         let data = {
-          nombre: this.nombreCentro,
-          director: this.directorCentro,
-          telefono: this.telefonoCentro,
-          direccion: this.direccionCentro,
-          tipo: this.tipoCentro,
+          nombre_curso: this.nombreCurso,
+          duracion_horas: parseInt(this.duracion, 10),
+          //duracion_horas: this.duracion,
+          clave_curso: this.claveCurso,
+          //idEspecialidad: String(this.select.idEspecialidad),
+          idEspecialidad: this.select.idEspecialidad,
+          descripcion_curso: this.descripcionCurso,
         };
-        console.log(data);
-        const response = await AuthService.addCenter(data);
+        const response = await AuthService.addGrade(data);
         this.datarespuesta = response;
         if (response.serverCode == 200) {
           this.dialog = false;
           this.mostrarAlert = true;
         } else {
-          this.dialog = false;
-          this.mostrarAlertError = true;
+          this.$swal("Error", response.message, "error");
         }
       } catch (error) {
-        console.log(error);
+        this.$swal("Error", "Capture los datos requeridos", "error");
         this.dialog = false;
-        this.mostrarAlertError = true;
-        this.datarespuesta = {error};
+        console.log(error);
       }
     },
 
@@ -451,17 +460,23 @@ export default {
       }
     },
 
-    async editCurso(item) {
+    async editCurso(
+      nombreCurso1,
+      duracionHoras,
+      claveCurso,
+      especialidadCurso,
+      descripcionCurso
+    ) {
       try {
-        console.log(item);
         let data = {
-          nombre_curso: item.nombreCurso,
-          duracion_horas: parseInt(item.duracion, 10),
-          clave_curso: item.claveCurso,
-          idEspecialidad: item.idEspecialidad,
-          //descripcion_curso: item.descripcionCurso,
+          nombre: nombreCurso1,
+          director: duracionHoras,
+          telefono: claveCurso,
+          direccion: especialidadCurso,
+          tipo: descripcionCurso,
         };
-        const responseUpdate = await AuthService.updateGrade(data);
+        console.log(data);
+        const responseUpdate = await AuthService.updateCenter(data);
         this.datarespuestaEdit = responseUpdate;
         if (responseUpdate.serverCode == 200) {
           this.dialogEdit = false;
@@ -475,8 +490,7 @@ export default {
 
     async deleteCurso(idCurso) {
       try {
-        console.log(idCurso);
-        const response = await AuthService.deleteGrade(idCurso);
+        const response = await AuthService.deleteCenter(idCurso);
         this.datarespuestaDelete = response;
         if (response.serverCode == 200) {
           this.dialogDelete = false;
@@ -493,6 +507,17 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    editItem(item) {
+      this.editedIndex = this.centros.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogEdit = true;
+    },
+    deleteItem(item) {
+      this.editedIndex = this.centros.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogDelete = true;
     },
   },
 };
