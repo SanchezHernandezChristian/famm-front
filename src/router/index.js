@@ -77,36 +77,20 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewAddCurso.vue')
   },
   {
-    path: '/editar-curso',
-    name: 'ViewEditarCurso',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/ViewEditarCurso.vue')
-  },
-  {
-    path: '/borrar-curso',
-    name: 'ViewDeleteCurso',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/ViewDeleteCurso.vue')
-  },
-  {
-    path: '/autorizar-eliminar-curso/:clave',
-    name: 'ViewAutorizarBorrarCurso',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/ViewAutorizarBorrarCurso.vue')
-  },
-  {
     path: '/asignar-curso',
     name: 'ViewAsignarCurso',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewAsignarCurso.vue')
+  },
+  {
+    path: '/centros-capacitacion',
+    name: 'ViewCentrosCapacitacion',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewCentrosCapacitacion.vue')
   },
 ]
 
