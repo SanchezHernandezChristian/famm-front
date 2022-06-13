@@ -28,7 +28,7 @@
           <v-icon small class="mr-2" @click="editItem(item.id)">
             mdi-pencil
           </v-icon>
-          <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+          <v-icon small @click="deleteItem(item.id)"> mdi-delete </v-icon>
         </template>
       </v-data-table>
     </v-row>
@@ -69,7 +69,13 @@ export default {
       }
     },
 
-    deleteItem() {},
+    deleteItem() {
+      this.$swal(
+        "En construcción",
+        "Esta funcionalidad está en desarrollo...",
+        "info"
+      ).then(() => {});
+    },
 
     editItem(id) {
       this.$router.push({
