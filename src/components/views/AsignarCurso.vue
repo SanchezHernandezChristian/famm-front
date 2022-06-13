@@ -3,7 +3,7 @@
     <v-row justify="center" align="center">
       <br />
       <p></p>
-      <h2 style="color: #2b4c7b">Eliminar curso</h2>
+      <h2 style="color: #2b4c7b">Asignar curso</h2>
     </v-row>
     <v-row justify="center" align="center" style="height: 70px">
       <div>
