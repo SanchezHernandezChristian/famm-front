@@ -1,11 +1,9 @@
 <template>
-  <v-container fluid>
+  <v-container fluid pt-6>
     <v-row justify="center" align="center">
-      <br />
-      <p></p>
       <h2 style="color: #2b4c7b">Agregar curso</h2>
     </v-row>
-    <v-row justify="center" align="center" style="height: 70px">
+    <v-row justify="center" align="center" class="pb-3 pt-6 mb-2">
       <v-layout row justify-center>
         <v-flex align-self-center xs2>
           <div class="text-center"><label>Nombre del curso</label></div></v-flex
@@ -24,34 +22,23 @@
         </v-flex>
       </v-layout>
     </v-row>
-    <v-row justify="center" align="center" style="height: 50px">
+    <v-row justify="center" align="center" class="pt-3">
       <v-form ref="form">
         <v-layout row justify-center>
           <v-flex align-self-center xs2>
-            <v-text-field dense outlined class="bordeRedondoElement" :rules="rules" v-model="nombreCurso"></v-text-field>
+            <v-text-field dense outlined :rules="rules" v-model="nombreCurso"></v-text-field>
           </v-flex>
           <v-flex align-self-center xs1>
-            <v-text-field dense outlined class="bordeRedondoElement" :rules="rules" v-model="duracion"></v-text-field>
+            <v-text-field dense outlined :rules="rules" v-model="duracion"></v-text-field>
           </v-flex>
           <v-flex align-self-center xs1>
-            <v-text-field dense outlined class="bordeRedondoElement" :rules="rules" v-model="claveCurso"></v-text-field>
+            <v-text-field dense outlined :rules="rules" v-model="claveCurso"></v-text-field>
           </v-flex>
-          <v-flex align-self-center xs2>
-            <v-select
-              v-model="select"
-              :items="items"
-              item-text="nombre_especialidad"
-              item-value="idEspecialidad"
-              return-object
-              dense
-              outlined
-              style="height: 80px"
-              class="bordeRedondoElement"
-              label="Seleccione una especialidad"
-            ></v-select>
+          <v-flex align-self-center xs2 cols-2>
+            <v-select v-model="select" :items="items" item-text="nombre_especialidad" item-value="idEspecialidad" return-object dense outlined></v-select>
           </v-flex>
           <v-flex align-self-center xs6>
-            <v-text-field dense outlined class="bordeRedondoElement" :rules="rules" v-model="descripcionCurso"></v-text-field>
+            <v-text-field dense outlined :rules="rules" v-model="descripcionCurso"></v-text-field>
           </v-flex>
         </v-layout>
       </v-form>
@@ -60,21 +47,21 @@
       <v-layout row justify-start>
         <v-flex align-self-center xs10> </v-flex>
         <v-flex align-self-start xs1>
-          <v-btn outlined color="gray" class="bordeRedondoElement" @click="clean">Borrar</v-btn>
+          <v-btn outlined color="gray" @click="clean">Borrar</v-btn>
         </v-flex>
         <v-flex align-self-center xs1>
           <template>
             <div class="text-center">
               <v-dialog v-model="dialog" width="500">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn outlined color="gray" class="bordeRedondoElement" v-bind="attrs" v-on="on"> Agregar </v-btn>
+                  <v-btn outlined color="gray" v-bind="attrs" v-on="on"> Agregar </v-btn>
                 </template>
                 <v-card>
                   <v-card-title class="text-h5 white lighten-2"> ¡ATENCIÓN! </v-card-title>
                   <v-card-text> SI TODOS LOS DATOS SON CORRECTOS DA CLICK EN CONTINUAR </v-card-text>
                   <v-card-actions>
-                    <v-btn outlined color="gray" class="bordeRedondoElement" @click="dialog = false"> Cancelar </v-btn>
-                    <v-btn outlined style="color: #ffffff; background-color: #2b4c7b" class="bordeRedondoElement" @click="createGrade">Continuar</v-btn>
+                    <v-btn outlined color="gray" @click="dialog = false"> Cancelar </v-btn>
+                    <v-btn outlined style="color: #ffffff; background-color: #2b4c7b" @click="createGrade">Continuar</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -82,9 +69,6 @@
           </template>
         </v-flex>
       </v-layout>
-    </v-row>
-    <v-row justify="center" align="center" style="height: 50px">
-      <br />
     </v-row>
     <v-row justify="center" align="start" style="height: 80px">
       <div>
@@ -100,6 +84,21 @@
     <v-row>
       <h2 style="color: #2b4c7b">Cursos registrados</h2>
       <v-data-table :headers="headers" :items="cursos" item-key="nombre_curso" class="elevation-1">
+        <template v-slot:[`item.duracion_horas`]="{ item }">
+          <v-chip color="yellow">
+            {{ item.duracion_horas }}
+          </v-chip>
+        </template>
+        <template v-slot:[`item.clave_curso`]="{ item }">
+          <v-chip color="blue">
+            {{ item.clave_curso }}
+          </v-chip>
+        </template>
+        <template v-slot:[`item.nombre_especialidad`]="{ item }">
+          <v-chip color="orange">
+            {{ item.nombre_especialidad }}
+          </v-chip>
+        </template>
         <template v-slot:top>
           <v-toolbar flat>
             <v-divider class="mx-4" inset vertical></v-divider>
@@ -277,6 +276,7 @@ export default {
     ],
     cursos: [],
     editedItem: '',
+    selected: [],
   }),
 
   async mounted() {
@@ -307,8 +307,12 @@ export default {
         if (response.serverCode == 200) {
           this.dialog = false;
           this.mostrarAlert = true;
+        } else {
+          this.$swal('Error', response.message, 'error');
         }
       } catch (error) {
+        this.$swal('Error', 'Capture los datos requeridos', 'error');
+        this.dialog = false;
         console.log(error);
       }
     },
