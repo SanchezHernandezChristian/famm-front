@@ -161,7 +161,23 @@
           :items="desserts"
           item-key="nombre_curso"
           class="elevation-1"
-          ><template v-slot:[`item.actions`]="{ item }">
+        >
+          <template v-slot:[`item.duracion_horas`]="{ item }">
+            <v-chip color='yellow'>
+              {{ item.duracion_horas }}
+            </v-chip>
+          </template>
+          <template v-slot:[`item.clave_curso`]="{ item }">
+            <v-chip color="blue">
+              {{ item.clave_curso }}
+            </v-chip>
+          </template>
+          <template v-slot:[`item.nombre_especialidad`]="{ item }">
+            <v-chip color="orange">
+              {{ item.nombre_especialidad }}
+            </v-chip>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
             <v-btn @click="asignarCurso()">Asignar</v-btn>
             <div class="text-center">
               <v-dialog v-model="dialogEdit" width="500">
@@ -279,7 +295,15 @@
                       outlined
                       color="gray"
                       class="bordeRedondoElement"
-                      @click="editCurso(item.nombre_curso, item.duracion_horas, item.clave_curso, item.idEspecialidad, item.descripcion_curso)"
+                      @click="
+                        editCurso(
+                          item.nombre_curso,
+                          item.duracion_horas,
+                          item.clave_curso,
+                          item.idEspecialidad,
+                          item.descripcion_curso
+                        )
+                      "
                       >Guardar cambios</v-btn
                     >
                     <v-btn
@@ -330,8 +354,8 @@
                 </v-card>
               </v-dialog>
             </div>
-          </template></v-data-table
-        >
+          </template>
+        </v-data-table>
       </template>
     </v-row>
     <v-row justify="center" align="start" style="height: 80px">
@@ -387,6 +411,7 @@ export default {
     items: Array, // <-- La lista de especliades
     mostrarAlert: false,
     mostrarAlertDelete: false,
+    mostrarAlertEdit: false,
     datarespuesta: [],
     datarespuestaEdit: [],
     datarespuestaDelete: [],
@@ -408,6 +433,7 @@ export default {
       { text: " ", value: "actions" },
     ],
     desserts: [],
+    selected: [],
   }),
 
   async mounted() {
@@ -455,14 +481,20 @@ export default {
       }
     },
 
-    async editCurso(nombreCurso1, duracionHoras, claveCurso, idEspecialidadCurso, descripcionCurso) {
-      try {          
+    async editCurso(
+      nombreCurso1,
+      duracionHoras,
+      claveCurso,
+      idEspecialidadCurso,
+      descripcionCurso
+    ) {
+      try {
         let data = {
           nombre_curso: nombreCurso1,
           duracion_horas: parseInt(duracionHoras, 10),
           clave_curso: claveCurso,
-        //   idEspecialidad: parseInt(idEspecialidadCurso, 10),
-        idEspecialidad: 18,
+          //   idEspecialidad: parseInt(idEspecialidadCurso, 10),
+          idEspecialidad: 18,
           descripcion_curso: descripcionCurso,
         };
         console.log(data);
