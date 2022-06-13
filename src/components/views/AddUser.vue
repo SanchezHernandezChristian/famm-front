@@ -273,6 +273,11 @@ export default {
         Object.assign(me.$data, me.$options.data());
         me.$refs.form_addusr.resetValidation();
         me.getRoles();
+        this.$swal(
+          "Todo listo",
+          "La información del usuario se ha guardado correctamente.",
+          "success"
+        ).then(() => {});
       } else {
         this.$swal(
           "Advertencia",

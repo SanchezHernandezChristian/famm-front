@@ -69,4 +69,12 @@ export default {
     getAllCenters() {
         return axios.get(url + 'all-training-center').then(response => response.data);
     },
+    updateCenter(grade_data) {
+        return axios
+            .put(url + 'update-training-center', grade_data)
+            .then(response => response.data);
+    },
+    deleteCenter(idCurso) {
+        return axios.delete(url + 'delete-training-center/' + idCurso).then(response => response.data);
+    },
 };
