@@ -2,6 +2,14 @@
   <v-container fluid>
     <v-row class="fondodashboardadmin">
       <v-layout>
+        <v-flex align-self-center xs2>
+          <v-img
+            max-height="25%"
+            max-width="50%"
+            src="@/assets/img/logo.png"
+            @click="redirect"
+          ></v-img>
+        </v-flex>
         <v-flex align-self-center xs>
           <label>ADMINISTRATIVO</label>
         </v-flex>
@@ -12,47 +20,29 @@
           <i class="fa fa-user-o" aria-hidden="true"></i>
         </v-flex>
         <v-flex align-self-center xs2>
-          <!-- <v-menu transition="scroll-y-transition">
+          <v-menu offset-y v-for="(item, index) in items" :key="index">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                depressed
-                color="#2b4c7b"
-                elevation="0"
-                class="ma-2"
                 v-bind="attrs"
                 v-on="on"
-                style="font-size: 20px; color: #394f79"
+                style="color: #ffffff; background-color: #2b4c7b"
+                elevation="0"
               >
-                {{ this.me.user[0].title }}
+                {{ item.title }}
+                <v-icon color="#ffffff">mdi-menu-down</v-icon>
               </v-btn>
             </template>
             <v-list>
-              <v-list-item @click="selectSection()">
-                <v-list-item-title>{{
-                  this.me.user[1].title
-                }}</v-list-item-title>
+              <v-list-item
+                v-for="(item, index) in user"
+                :key="index"
+                link
+                @click="selectSection()"
+              >
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
-          </v-menu> -->
-          <v-list color="#2b4c7b">
-            <v-list-item link class="fondodashboardadmin">
-              <v-list-item-content class="fondodashboardadmin">
-                <v-list-item-title> CHRISTIAN HERNANDEZ </v-list-item-title>
-              </v-list-item-content>
-              <v-list-item-action>
-                <v-icon color="#ffffff">mdi-menu-down</v-icon>
-              </v-list-item-action>
-            </v-list-item>
-            <v-list-item
-              link
-              class="fondodashboardadmin"
-              @click="selectSection()"
-            >
-              <v-list-item-content class="fondodashboardadmin">
-                <v-list-item-title> Cerrar Sesión </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
+          </v-menu>
         </v-flex>
       </v-layout>
     </v-row>
@@ -222,36 +212,34 @@ export default {
     ],
     cursos: [
       { title: "Nuevo curso" },
-      { title: "Editar curso" },
-      { title: "Eliminar curso" },
-      { title: "Asignar curso" },
+      { title: "Asignar curso" },      
+      { title: "Centros de capacitación" },
     ],
-    items: [],
     logged_in: false,
     dialog: false,
-    user: [
-      { title: "", colorfont: "#2b4c7b", sizefont: "15px" },
-      { title: "Cerrar sesión", icon: "" },
-    ],
+    items: [{ title: "CHRISTIAN HERNANDEZ" }],
+    user: [{ title: "Cerrar sesión", icon: "" }],
   }),
   methods: {
     selectItem(item) {
       if (item.title == "Perfil") this.profile();
       if (item.title == "Añadir usuario") this.addUser();
       if (item.title == "Nuevo curso") this.addCurso();
-      if (item.title == "Editar curso") this.editarCurso();
-      if (item.title == "Eliminar curso") this.deleteCurso();
       if (item.title == "Asignar curso") this.asignarCurso();
+      if (item.title == "Centros de capacitación") this.centrosCapacitacion();
     },
 
     async mounted() {
       let me = this;
-      me.user[0].title = "mail.example@outlook.com";
-      try {
-        const response = await AuthService.getProfile();
-        me.user[0].title = response.Nombre;
-      } catch (error) {
-        console.log(error);
+
+      if (this.$store.getters.isLoggedIn) {
+        try {
+          const response = await AuthService.getProfile();
+          me.items[0].title = response.Nombre;
+          console.log(response.Nombre);
+        } catch (error) {
+          console.log(error);
+        }
       }
     },
 
@@ -310,28 +298,25 @@ export default {
       }
     },
 
-    async editarCurso() {
-      try {
-        this.$router.push("editar-curso");
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
-    async deleteCurso() {
-      try {
-        this.$router.push("borrar-curso");
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
     async asignarCurso() {
       try {
         this.$router.push("asignar-curso");
       } catch (error) {
         console.log(error);
       }
+    },
+
+    async centrosCapacitacion() {
+      try {
+        this.$router.push("centros-capacitacion");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    redirect() {
+      if (this.$route.name == "Home") this.$router.go();
+      else this.$router.push("/");
     },
   },
 };
