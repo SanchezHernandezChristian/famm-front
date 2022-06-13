@@ -34,6 +34,13 @@ export default {
 
     window.removeEventListener('resize', this.onResize, { passive: true });
   },
+  created() {
+    var rol = JSON.parse(localStorage.getItem('vuex')).user ? JSON.parse(localStorage.getItem('vuex')).user.Rol : '';
+    if (rol) {
+      if (rol == 'ADMINISTRADOR') this.$router.push('/dashboard-admin');
+      else this.$router.push('/page-principal');
+    }
+  },
 
   mounted() {
     this.onResize();
