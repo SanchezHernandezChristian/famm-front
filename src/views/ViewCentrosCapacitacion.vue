@@ -1,8 +1,7 @@
 <template>
-  <div class="borrar-curso">
-    <NavbarAdmin />
+  <div class="centros-capacitacion">
     <MenuAdmin />
-    <DeleteCurso />
+    <CentrosCapacitacion />
     <FooterDashboardAdmin />
   </div>
 </template>
@@ -10,16 +9,14 @@
 <script>
 // @ is an alias to /src
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
-import NavbarAdmin from "@/components/views/NavbarAdmin.vue";
-import DeleteCurso from "@/components/views/DeleteCurso.vue";
+import CentrosCapacitacion from "@/components/views/CentrosCapacitacion.vue";
 import MenuAdmin from "@/components/views/MenuAdmin.vue";
 
 export default {
-  name: "borrar-curso",
+  name: "centros-capacitacion",
   components: {
-    NavbarAdmin,
     MenuAdmin,
-    DeleteCurso,
+    CentrosCapacitacion,
     FooterDashboardAdmin,
   },
 };

@@ -36,7 +36,12 @@ export default {
   },
   data: () => ({
     items: [
-      { title: "", icon: "mdi-account-circle", colorfont: "#394f79", sizefont: "15px", },
+      {
+        title: "",
+        icon: "mdi-account-circle",
+        colorfont: "#394f79",
+        sizefont: "15px",
+      },
       { title: "Perfil", icon: "" },
       { title: "Configuración", icon: "" },
       { title: "Cerrar sesión", icon: "" },
@@ -66,20 +71,25 @@ export default {
     async logout() {
       try {
         await AuthService.logout();
-        this.$store.dispatch("logout");
-        if (this.$route.name == "Home") this.$router.go();
-        else this.$router.push("/");
+        this.logout_redirect();
       } catch (error) {
+        if (error.response.status == 401) this.logout_redirect();
         console.log(error);
       }
     },
 
     async profile() {
       try {
-        this.$router.push('page-principal');
+        this.$router.push("page-principal");
       } catch (error) {
         console.log(error);
       }
+    },
+
+    logout_redirect() {
+      this.$store.dispatch("logout");
+      if (this.$route.name == "Home") this.$router.go();
+      else this.$router.push("/");
     },
   },
 };

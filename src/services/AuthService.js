@@ -25,6 +25,9 @@ export default {
     getMunicipios() {
         return axios.get(url + 'all-township').then(response => response.data);
     },
+    getInfoStudent() {
+        return axios.get(url + 'all-additional-user-information').then(response => response.data);
+    },
     registerStudent(data) {
         return axios
             .post(url + 'additional-user-information', data)
@@ -50,7 +53,20 @@ export default {
     getCursoIndividual(claveCurso) {
         return axios.get(url + 'get-grade/' + claveCurso).then(response => response.data);
     },
-    deleteGrade(idCurso){
+    deleteGrade(idCurso) {
         return axios.delete(url + 'delete-grade/' + idCurso).then(response => response.data);
+    },
+    updateGrade(grade_data) {
+        return axios
+            .put(url + 'update-grade', grade_data)
+            .then(response => response.data);
+    },
+    addCenter(center_data) {
+        return axios
+            .post(url + 'add-training-center', center_data)
+            .then(response => response.data);
+    },
+    getAllCenters() {
+        return axios.get(url + 'all-training-center').then(response => response.data);
     },
 };

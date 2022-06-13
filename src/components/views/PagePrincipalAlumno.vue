@@ -109,7 +109,7 @@ export default {
     };
   },
   created() {
-    this.dataUser = localStorage.getItem('vuex');
+    this.dataUser = JSON.parse(localStorage.getItem('vuex')).user;
   },
   methods: {
     getImgUrl(pic) {
