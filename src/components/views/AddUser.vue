@@ -21,7 +21,7 @@
                 outlined
                 class="bordeRedondoElement"
                 :rules="[rules.required]"
-                v-model="user.username"
+                v-model="user.user_name"
               ></v-text-field>
             </v-flex>
             <v-flex align-self-center xs5> </v-flex>
@@ -145,7 +145,7 @@
                 class="bordeRedondoElement"
                 :type="show1 ? 'text' : 'password'"
                 :rules="[rules.required]"
-                v-model="user.password2"
+                v-model="user.password_confirmation"
               ></v-text-field>
             </v-flex>
             <v-flex align-self-center xs5> </v-flex>
@@ -165,9 +165,9 @@
                 class="bordeRedondoElement"
                 :items="items_roles"
                 :rules="[rules.required]"
-                item-text="nombre"
-                item-value="id"
-                v-model="user.role"
+                item-text="nombre_rol"
+                item-value="idRol"
+                v-model="user.idRol"
                 label="Seleccione una opción"
               ></v-select>
             </v-flex>
@@ -197,6 +197,8 @@
 </template>
 
 <script>
+import AuthService from "@/services/AuthService.js";
+
 export default {
   name: "ViewAddUser",
   data: () => ({
@@ -212,16 +214,15 @@ export default {
     items_roles: [],
     user: {
       id: null,
-      username: null,
+      user_name: null,
       email: null,
       name: null,
       surname: null,
       lastname: null,
+      apellidos: null,
       password: null,
-      password2: null,
-      role: null,
-      rolename: null,
-      date: "13/06/2022",
+      password_confirmation: null,
+      idRol: null,
     },
   }),
 
@@ -229,55 +230,63 @@ export default {
     let me = this;
 
     if (me.$store.getters.isLoggedIn) {
-      me.getRoles();
+      me.fetchRoles();
     }
 
     if (me.$route.params.id) {
-      let data = JSON.parse(localStorage.getItem("adm_users"));
-      me.user = data[me.$route.params.id];
+      me.getUser(me.$route.params.id);
     }
   },
 
   methods: {
-    getRoles() {
+    async fetchRoles() {
       let me = this;
-
-      me.items_roles = [
-        { id: 1, nombre: "ALUMNO" },
-        { id: 2, nombre: "PROFESOR" },
-        { id: 3, nombre: "ADMINISTRADOR" },
-      ];
+      try {
+        const response = await AuthService.fetchRoles();
+        me.items_roles = response.data;
+      } catch (error) {
+        console.log(error);
+      }
     },
 
-    store() {
+    async getUser(id) {
       let me = this;
-
-      if (me.$refs.form_addusr.validate()) {
-        let data = localStorage.getItem("adm_users")
-          ? JSON.parse(localStorage.getItem("adm_users"))
-          : {};
-        let id = localStorage.getItem("auto_id")
-          ? parseInt(localStorage.getItem("auto_id")) + 1
-          : 1;
-
-        if (me.user.id) id = me.user.id;
-
-        for (const iterator of me.items_roles) {
-          if (iterator.id == me.user.role) me.user.rolename = iterator.nombre;
+      try {
+        let response2 = await AuthService.getUser(id);
+        response2 = response2.data[0];
+        me.user = response2;
+        me.user.name = response2.nombres;
+        if (response2.apellidos) {
+          me.user.surname = response2.apellidos.split(" ")[0];
+          me.user.lastname = response2.apellidos.split(" ")[1];
         }
+      } catch (error) {
+        me.$swal(
+          "Error",
+          "No se pudo recuperar la unformación del usuario.",
+          "error"
+        );
+      }
+    },
 
-        me.user.id = id;
-        data[id] = me.user;
-        localStorage.setItem("adm_users", JSON.stringify(data));
-        localStorage.setItem("auto_id", id);
-        Object.assign(me.$data, me.$options.data());
-        me.$refs.form_addusr.resetValidation();
-        me.getRoles();
-        this.$swal(
-          "Todo listo",
-          "La información del usuario se ha guardado correctamente.",
-          "success"
-        ).then(() => {});
+    async store() {
+      let me = this;
+      if (me.$refs.form_addusr.validate()) {
+        try {
+          me.user.apellidos = `${me.user.surname} ${me.user.lastname}`;
+          if (me.user.id) await AuthService.updateUser(me.user);
+          else await AuthService.addUser(me.user);
+          Object.assign(me.$data, me.$options.data());
+          me.$refs.form_addusr.resetValidation();
+          me.fetchRoles();
+          me.$swal(
+            "Hecho",
+            "La información del usuario se ha guardado correctamente.",
+            "success"
+          );
+        } catch (error) {
+          me.$swal("Error", error.response.data.message, "error");
+        }
       } else {
         this.$swal(
           "Advertencia",
