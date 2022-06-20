@@ -187,6 +187,7 @@ export default {
         if (this.$route.name == 'Home') this.$router.go();
         else this.$router.push('/');
       } catch (error) {
+        if (error.response.status == 401) this.redirect();
         console.log(error);
       }
     },
@@ -260,6 +261,7 @@ export default {
     },
 
     redirect() {
+      this.$store.dispatch("logout");
       if (this.$route.name == 'Home') this.$router.go();
       else this.$router.push('/');
     },

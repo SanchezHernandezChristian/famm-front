@@ -28,10 +28,16 @@ export default {
     getInfoStudent() {
         return axios.get(url + 'all-additional-user-information').then(response => response.data);
     },
+    fetchRoles() {
+        return axios.get(url + 'all-roles').then(response => response.data);
+    },
     registerStudent(data) {
         return axios
             .post(url + 'additional-user-information', data)
             .then(response => response.data);
+    },
+    addTeacher(data) {
+        return axios.post(url + 'create-teacher', data).then(response => response.data);
     },
     getDiscapacidades() {
         return axios.get(url + 'discapacidades').then(response => response.data);
@@ -44,6 +50,21 @@ export default {
     },
     getPertenece() {
         return axios.get(url + 'pertenece-a').then(response => response.data);
+    },
+    fetchUsers() {
+        return axios.get(url + 'users').then(response => response.data);
+    },
+    getUser(id) {
+        return axios.get(`${url}get-user/${id}`).then(response => response.data);
+    },
+    addUser(data) {
+        return axios.post(url + 'register', data).then(response => response.data);
+    },
+    updateUser(data) {
+        return axios.put(url + 'update-profile', data).then(response => response.data);
+    },
+    deleteUser(id) {
+        return axios.delete(`${url}delete-profile/${id}`).then(response => response.data);
     },
     addGrade(grade_data) {
         return axios
