@@ -98,4 +98,17 @@ export default {
     deleteCenter(idCurso) {
         return axios.delete(url + 'delete-training-center/' + idCurso).then(response => response.data);
     },
+    addEspecialidad(speciality_data) {
+        return axios
+            .post(url + 'create-specialty', speciality_data)
+            .then(response => response.data);
+    },
+    updateEspecialidad(especialidad_data) {
+        return axios
+            .put(url + 'update-specialty', especialidad_data)
+            .then(response => response.data);
+    },
+    deleteEspecialidad(idEspecialidad) {
+        return axios.delete(url + 'delete-specialty/' + idEspecialidad).then(response => response.data);
+    },
 };
