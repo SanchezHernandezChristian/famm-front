@@ -80,7 +80,6 @@
                 v-bind="attrs"
                 v-on="on"
                 style="font-size: 20px; color: #bdbbbd"
-                @click="selectPerfil()"
                 ><v-icon color="#bdbbbd">mdi-account</v-icon>
                 Perfil
               </v-btn>
@@ -146,7 +145,7 @@ export default {
   components: {},
   data: () => ({
     roles: [{ title: 'Usuarios registrados' }, { title: 'Añadir usuario' }],
-    cursos: [{ title: 'Cursos registrados' }, { title: 'Asignar curso' }, { title: 'Centros de capacitación' }],
+    cursos: [{ title: 'Cursos registrados' }, { title: 'Asignar curso' }, { title: 'Centros de capacitación' }, { title: 'Especialidades registradas' }],
     logged_in: false,
     dialog: false,
     items: [{ title: 'CHRISTIAN HERNANDEZ' }],
@@ -154,12 +153,13 @@ export default {
   }),
   methods: {
     selectItem(item) {
-      if (item.title == 'Perfil') this.profile();
+      //if (item.title == 'Perfil') this.profile();
       if (item.title == 'Añadir usuario') this.addUser();
       if (item.title == 'Usuarios registrados') this.redirectUsers();
       if (item.title == 'Cursos registrados') this.addCurso();
       if (item.title == 'Asignar curso') this.asignarCurso();
-      if (item.title == 'Centros de capacitación') this.centrosCapacitacion();
+      if (item.title == 'Centros de capacitación') this.centrosCapacitacion();      
+      if (item.title == 'Especialidades registradas') this.addEspecialidad();
     },
 
     async mounted() {
@@ -195,9 +195,9 @@ export default {
       this.seleccionDashboard();
     },
 
-    selectPerfil() {
-      this.profile();
-    },
+    // selectPerfil() {
+    //   this.profile();
+    // },
 
     async seleccionDashboard() {
       try {
@@ -207,13 +207,13 @@ export default {
       }
     },
 
-    async profile() {
-      try {
-        this.$router.push('page-principal');
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    // async profile() {
+    //   try {
+    //     this.$router.push('page-principal');
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
 
     async addUser() {
       try {
@@ -246,6 +246,14 @@ export default {
     async centrosCapacitacion() {
       try {
         this.$router.push('centros-capacitacion');
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async addEspecialidad() {
+      try {
+        this.$router.push('agregar-especialidad');
       } catch (error) {
         console.log(error);
       }
