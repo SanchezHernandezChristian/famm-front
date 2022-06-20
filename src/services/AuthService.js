@@ -36,6 +36,9 @@ export default {
             .post(url + 'additional-user-information', data)
             .then(response => response.data);
     },
+    addTeacher(data) {
+        return axios.post(url + 'create-teacher', data).then(response => response.data);
+    },
     getDiscapacidades() {
         return axios.get(url + 'discapacidades').then(response => response.data);
     },

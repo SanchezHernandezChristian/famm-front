@@ -25,6 +25,10 @@
             {{ item.nombre_rol }}
           </v-chip>
         </template>
+        <template v-slot:item.created_at="{ item }">
+          <div v-if="item.created_at">{{ item.created_at }}</div>
+          <div v-else>{{ new Date().toISOString().split("T")[0] }}</div>
+        </template>
         <template v-slot:item.adm="{}">
           <v-container class="px-0" fluid>
             <v-switch></v-switch>
@@ -51,7 +55,7 @@ export default {
       { text: "NOMBRE", value: "fullname" },
       { text: "Rol de usuario", value: "idRol" },
       { text: "CORREO", value: "email" },
-      { text: "FECHA DE ALTA", value: "date" },
+      { text: "FECHA DE ALTA", value: "created_at" },
       { text: "ADMINISTRAR", value: "adm" },
       { text: "OPCIONES", value: "actions" },
     ],
@@ -67,10 +71,7 @@ export default {
       if (me.$store.getters.isLoggedIn) {
         try {
           const response = await AuthService.fetchUsers();
-          me.items_users = response.data.map((e) => {
-            e.date = new Date().toISOString().split("T")[0];
-            return e;
-          });
+          me.items_users = response.data;
         } catch (error) {
           console.log(error);
         }
