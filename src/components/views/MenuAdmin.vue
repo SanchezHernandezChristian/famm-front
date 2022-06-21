@@ -3,7 +3,7 @@
     <v-row class="fondodashboardadmin">
       <v-layout>
         <v-flex align-self-center xs2>
-          <v-img max-height="25%" max-width="50%" src="@/assets/img/logo.png" @click="redirect"></v-img>
+          <v-img max-height="25%" max-width="50%" src="@/assets/img/logoBlanco.png" @click="redirect"></v-img>
         </v-flex>
         <v-flex align-self-center xs>
           <label>ADMINISTRATIVO</label>
@@ -29,7 +29,7 @@
         </v-flex>
       </v-layout>
     </v-row>
-    <v-row>
+    <v-row style="background-color: white">
       <v-layout>
         <v-flex align-self-center xs2>
           <v-menu transition="scroll-y-transition">
@@ -72,15 +72,7 @@
         <v-flex align-self-center xs2>
           <v-menu transition="scroll-y-transition">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                depressed
-                color="#FFFFFF"
-                elevation="0"
-                class="ma-2"
-                v-bind="attrs"
-                v-on="on"
-                style="font-size: 20px; color: #bdbbbd"
-                @click="selectPerfil()"
+              <v-btn depressed color="#FFFFFF" elevation="0" class="ma-2" v-bind="attrs" v-on="on" style="font-size: 20px; color: #bdbbbd"
                 ><v-icon color="#bdbbbd">mdi-account</v-icon>
                 Perfil
               </v-btn>
