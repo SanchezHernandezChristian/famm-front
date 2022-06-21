@@ -37,7 +37,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>NOMBRE</label></v-flex>
             <v-flex align-self-center xs2>
-              <v-col md="12"> <v-text-field dense outlined label="Nombre(s)" :rules="[rules.required]" v-model="nombre"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined label="Nombre(s)" :rules="[rules.required]" v-model="nombre" readonly></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs2>
               <v-col md="12"> <v-text-field dense outlined label="Primer Apellido" :rules="[rules.required]" v-model="primer_apellido"></v-text-field></v-col>
@@ -372,17 +372,6 @@
           </v-layout>
         </div>
       </v-row>
-      <v-row justify="center" align="center" class="pt-5">
-        <div class="text-center">
-          <v-layout row justify-center>
-            <v-flex align-self-center xs2><label>MOTIVO</label></v-flex>
-            <v-flex align-self-center xs3>
-              <v-textarea dense auto-grow outlined rows="3" row-height="25" shaped :rules="[rules.required]" v-model="motivo"></v-textarea>
-            </v-flex>
-            <v-flex align-self-center xs3> </v-flex>
-          </v-layout>
-        </div>
-      </v-row>
       <v-row justify="center" align="center" style="height: 70px">
         <div class="text-center">
           <v-layout row justify-center>
@@ -398,6 +387,17 @@
           </v-layout>
         </div>
       </v-row>
+      <v-row justify="center" align="center" class="pt-5">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>MOTIVO</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-textarea dense auto-grow outlined rows="3" row-height="25" shaped :rules="[rules.required]" v-model="motivo"></v-textarea>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
       <v-row justify="center" align="center" class="pt-3 pb-3">
         <div class="text-center">
           <v-layout row justify-center>
@@ -405,7 +405,7 @@
             <v-flex align-self-center xs3>
               <v-col md="8">
                 <!--<v-text-field outlined :rules="[rules.required]" v-model="firma"></v-text-field>-->
-                <VueSignaturePad width="500px" height="500px" ref="signaturePad" class="signature-pad"/>
+                <VueSignaturePad width="500px" height="500px" ref="signaturePad" class="signature-pad" />
                 <div class="d-flex flex-row m-1">
                   <v-btn @click="saveSignature">Guardar</v-btn>
                   <v-btn @click="undo">Deshacer</v-btn>
@@ -519,6 +519,9 @@ export default {
         me.items_discapacidades = response3.data;
         me.items_escolaridad = response4.data;
         me.items_pertenece = response5.data;
+        var user = JSON.parse(localStorage.getItem('vuex')).user ? JSON.parse(localStorage.getItem('vuex')).user : '';
+        console.log(user, 'user');
+        this.nombre = user.Nombre;
       } catch (error) {
         console.log('Error' + error);
       }
@@ -584,7 +587,7 @@ export default {
 </script>
 
 <style scoped>
-.signature-pad{
+.signature-pad {
   border-style: solid;
   border-width: 1px;
 }
