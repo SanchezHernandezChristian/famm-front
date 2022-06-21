@@ -4,7 +4,7 @@
       <br />
       <h2 style="color: #2b4c7b">Usuarios registrados</h2>
     </v-row>
-    <v-row justify="center" align="center">
+    <v-row>
       <v-data-table
         :headers="headers"
         :items="items_users"
@@ -12,12 +12,22 @@
         :single-select="false"
         item-key="id"
         show-select
-        class="elevation-1 users"
+        class="elevation-1"
       >
-        <template v-slot:item.rolename="{ item }">
-          <v-chip :color="getColor(item.role)" dark>
-            {{ item.rolename }}
+        <template v-slot:item.fullname="{ item }">
+          <div v-if="item.nombres && item.apellidos">
+            {{ item.nombres }} {{ item.apellidos }}
+          </div>
+          <div class="font-italic" v-else>Sin nombre</div>
+        </template>
+        <template v-slot:item.idRol="{ item }">
+          <v-chip :color="getColor(item.idRol)" dark>
+            {{ item.nombre_rol }}
           </v-chip>
+        </template>
+        <template v-slot:item.created_at="{ item }">
+          <div v-if="item.created_at">{{ item.created_at }}</div>
+          <div v-else>{{ new Date().toISOString().split("T")[0] }}</div>
         </template>
         <template v-slot:item.adm="{}">
           <v-container class="px-0" fluid>
@@ -36,14 +46,16 @@
 </template>
 
 <script>
+import AuthService from "@/services/AuthService.js";
+
 export default {
   name: "Users",
   data: () => ({
     headers: [
       { text: "NOMBRE", value: "fullname" },
-      { text: "Rol de usuario", value: "rolename" },
+      { text: "Rol de usuario", value: "idRol" },
       { text: "CORREO", value: "email" },
-      { text: "FECHA DE ALTA", value: "date" },
+      { text: "FECHA DE ALTA", value: "created_at" },
       { text: "ADMINISTRAR", value: "adm" },
       { text: "OPCIONES", value: "actions" },
     ],
@@ -53,28 +65,45 @@ export default {
     this.getItems();
   },
   methods: {
-    getItems() {
+    async getItems() {
       let me = this;
-      let data = localStorage.getItem("adm_users")
-        ? JSON.parse(localStorage.getItem("adm_users"))
-        : {};
 
-      for (const key in data) {
-        if (Object.hasOwnProperty.call(data, key)) {
-          const element = data[key];
-          element.fullname =
-            element.name + " " + element.surname + " " + element.lastname;
-          me.items_users.push(element);
+      if (me.$store.getters.isLoggedIn) {
+        try {
+          const response = await AuthService.fetchUsers();
+          me.items_users = response.data;
+        } catch (error) {
+          console.log(error);
         }
       }
     },
 
-    deleteItem() {
-      this.$swal(
-        "En construcción",
-        "Esta funcionalidad está en desarrollo...",
-        "info"
-      ).then(() => {});
+    deleteItem(id) {
+      this.$swal({
+        title: "Desea eliminar?",
+        text: "Esta acción no se puede deshacer.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, eliminar",
+        cancelButtonText: "Cancelar",
+      })
+        .then((result) => {
+          if (result.isConfirmed) {
+            return AuthService.deleteUser(id);
+          }
+        })
+        .then((response) => {
+          if (response && response.serverCode == 200) {
+            this.$swal("Eliminado!", "El usuario se ha eliminado.", "success");
+            this.getItems();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$swal("Error!", "No se pudo eliminar el usuario.", "error");
+        });
     },
 
     editItem(id) {
@@ -95,8 +124,4 @@ export default {
 };
 </script>
 
-<style>
-.users {
-  height: 600px;
-}
-</style>
+<style scoped></style>

@@ -117,7 +117,13 @@ export default {
       return images('./' + pic);
     },
     formRegistro() {
-      this.$router.push('/form-registro');
+      let me = this;
+
+      if (me.dataUser.Rol == 'ALUMNO') {
+        me.$router.push('/form-registro');
+      } else if (me.dataUser.Rol == 'PROFESOR') {
+        me.$router.push('/form-registro-instructor');
+      }
     },
   },
 };

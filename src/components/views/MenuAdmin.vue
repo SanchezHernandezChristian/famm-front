@@ -138,7 +138,7 @@ export default {
   components: {},
   data: () => ({
     roles: [{ title: 'Usuarios registrados' }, { title: 'Añadir usuario' }],
-    cursos: [{ title: 'Cursos registrados' }, { title: 'Asignar curso' }, { title: 'Centros de capacitación' }],
+    cursos: [{ title: 'Cursos registrados' }, { title: 'Asignar curso' }, { title: 'Centros de capacitación' }, { title: 'Especialidades registradas' }],
     logged_in: false,
     dialog: false,
     items: [{ title: 'CHRISTIAN HERNANDEZ' }],
@@ -146,12 +146,13 @@ export default {
   }),
   methods: {
     selectItem(item) {
-      if (item.title == 'Perfil') this.profile();
+      //if (item.title == 'Perfil') this.profile();
       if (item.title == 'Añadir usuario') this.addUser();
       if (item.title == 'Usuarios registrados') this.redirectUsers();
       if (item.title == 'Cursos registrados') this.addCurso();
       if (item.title == 'Asignar curso') this.asignarCurso();
       if (item.title == 'Centros de capacitación') this.centrosCapacitacion();
+      if (item.title == 'Especialidades registradas') this.addEspecialidad();
     },
 
     async mounted() {
@@ -179,6 +180,7 @@ export default {
         if (this.$route.name == 'Home') this.$router.go();
         else this.$router.push('/');
       } catch (error) {
+        if (error.response.status == 401) this.redirect();
         console.log(error);
       }
     },
@@ -187,9 +189,9 @@ export default {
       this.seleccionDashboard();
     },
 
-    selectPerfil() {
-      this.profile();
-    },
+    // selectPerfil() {
+    //   this.profile();
+    // },
 
     async seleccionDashboard() {
       try {
@@ -199,13 +201,13 @@ export default {
       }
     },
 
-    async profile() {
-      try {
-        this.$router.push('page-principal');
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    // async profile() {
+    //   try {
+    //     this.$router.push('page-principal');
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
 
     async addUser() {
       try {
@@ -243,7 +245,16 @@ export default {
       }
     },
 
+    async addEspecialidad() {
+      try {
+        this.$router.push('agregar-especialidad');
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     redirect() {
+      this.$store.dispatch('logout');
       if (this.$route.name == 'Home') this.$router.go();
       else this.$router.push('/');
     },

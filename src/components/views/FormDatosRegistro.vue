@@ -68,10 +68,15 @@
         <div class="text-center">
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>DOMICILIO</label></v-flex>
-            <v-flex align-self-center xs3>
-              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required]" v-model="domicilio"></v-text-field></v-col>
+            <v-flex align-self-center xs2>
+              <v-col md="12"> <v-text-field dense outlined label="Calle" :rules="[rules.required]" v-model="calle"></v-text-field></v-col>
             </v-flex>
-            <v-flex align-self-center xs3> </v-flex>
+            <v-flex align-self-center xs2>
+              <v-col md="12"> <v-text-field dense outlined label="Número" :rules="[rules.required, rules.natural_number]" v-model="numero"></v-text-field></v-col>
+            </v-flex>
+            <v-flex align-self-center xs2>
+              <v-col md="12"> <v-text-field dense outlined label="Colonia" :rules="[rules.required]" v-model="colonia"></v-text-field></v-col>
+            </v-flex>
           </v-layout>
         </div>
       </v-row>
@@ -130,7 +135,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>CORREO ELECTRÓNICO</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required, rules.email]" v-model="email"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined :rules="[rules.required, rules.email]" v-model="email"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -141,7 +146,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>CURP</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required]" v-model="curp"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined :rules="[rules.required]" v-model="curp"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -219,7 +224,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>NACIONALIDAD</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required]" v-model="nacionalidad"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined :rules="[rules.required]" v-model="nacionalidad"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -241,7 +246,18 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>ESTADO CIVIL</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required]" v-model="estado_civil"></v-text-field></v-col>
+              <v-col md="12">
+                <v-select
+                  dense
+                  outlined
+                  :rules="[rules.required]"
+                  :items="items_estadocivil"
+                  item-text="text"
+                  item-value="value"
+                  v-model="estado_civil"
+                  label="Seleccione una opción"
+                ></v-select>
+              </v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -263,7 +279,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>GRUPO VULNERABLE</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="8">
+              <v-col md="12">
                 <v-select
                   dense
                   outlined
@@ -444,11 +460,19 @@ export default {
       { id: 1, nombre: 'SI' },
       { id: 2, nombre: 'NO' },
     ],
+    items_estadocivil: [
+      {value: 'S', text: 'SOLTERO(A)'},
+      {value: 'C', text: 'CASADO(A)'},
+      {value: 'V', text: 'VIUDO(A)'},
+      {value: 'D', text: 'DIVORCIADO(A)'}
+    ],
     items_pertenece: [],
     nombre: '',
     primer_apellido: '',
     segundo_apellido: '',
-    domicilio: '',
+    calle: '',
+    numero: null,
+    colonia: '',
     fotografia: null,
     select_municipio: null,
     email: '',
@@ -514,7 +538,7 @@ export default {
             nombre: me.nombre,
             apellido_paterno: me.primer_apellido,
             apellido_materno: me.segundo_apellido,
-            domicilio: me.domicilio,
+            domicilio: `${me.calle} ${me.numero} ${me.colonia}`,
             fotografia: me.fotografia,
             c_Municipio: me.select_municipio.c_Municipio,
             email: me.email,
