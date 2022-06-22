@@ -2,7 +2,7 @@
   <div class="page-principal">
     <Navbar />
     <PagePrincipalAlumno />
-    <Footer />
+    <FooterDashboardAdmin />
   </div>
 </template>
 
@@ -10,14 +10,14 @@
 // @ is an alias to /src
 import Navbar from "@/components/views/Navbar.vue";
 import PagePrincipalAlumno from "@/components/views/PagePrincipalAlumno.vue";
-import Footer from "@/components/views/Footer.vue";
+import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 
 export default {
   name: "page-principal",
   components: {
     Navbar,
     PagePrincipalAlumno,
-    Footer,
+    FooterDashboardAdmin,
   },
 };
 </script>
