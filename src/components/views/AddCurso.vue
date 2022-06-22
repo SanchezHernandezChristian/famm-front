@@ -400,6 +400,7 @@ export default {
     deleteId: 0,
     editedIndex: -1,
     especialidadValid: false,
+    editId: 0,
   }),
 
   async mounted() {
@@ -483,13 +484,14 @@ export default {
     ) {
       try {
         let data = {
+          id: this.editId,
           nombre_curso: nombre_cursoEdit,
           duracion_horas: parseInt(duracion_horasEdit, 10),
           clave_curso: clave_cursoEdit,
           idEspecialidad: parseInt(idEspecialidadEdit, 10),
           descripcion_curso: descripcion_cursoEdit,
         };
-        console.log(data);
+        console.log("dataEdit", data);
         const responseUpdate = await AuthService.updateGrade(data);
         this.datarespuestaEdit = responseUpdate;
         if (responseUpdate.serverCode == 200) {
@@ -498,7 +500,12 @@ export default {
           this.$swal("Registrado", "Curso editado correctamente.", "success");
           this.reloadTable();
         } else {
-          this.$swal("Error", responseUpdate.message, "error");
+          console.log(responseUpdate.data.errors);
+          let error_msg =
+            responseUpdate.data.errors[
+              Object.keys(responseUpdate.data.errors)[0]
+            ][0];
+          this.$swal("Error", error_msg, "error");
         }
         console.log(data);
       } catch (error) {
@@ -554,6 +561,8 @@ export default {
       console.log("editedItem ", this.editedItem);
       this.dialogEdit = true;
       console.log("item edit ", item);
+      this.editId = this.editedItem.idCurso;
+      console.log("editedItem.idCurso ", this.editId);      
     },
     deleteItem(item) {
       this.editedIndex = this.cursos.indexOf(item);
