@@ -497,7 +497,7 @@ export default {
         if (responseUpdate.serverCode == 200) {
           this.dialogEdit = false;
           //this.mostrarAlertEdit = true;
-          this.$swal("Registrado", "Curso editado correctamente.", "success");
+          this.$swal("Editado", "Curso editado correctamente.", "success");
           this.reloadTable();
         } else {
           console.log(responseUpdate.data.errors);
@@ -528,7 +528,7 @@ export default {
         if (response.serverCode == 200) {
           this.dialogDelete = false;
           //this.mostrarAlertDelete = true;
-          this.$swal("Registrado", "Curso borrado correctamente.", "success");
+          this.$swal("Eliminado", "Curso borrado correctamente.", "success");
           this.reloadTable();
         } else {
           let error_msg =

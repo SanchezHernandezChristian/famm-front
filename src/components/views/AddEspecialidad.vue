@@ -491,7 +491,7 @@ export default {
           this.dialogEdit = false;
           //this.mostrarAlertEdit = true;
           this.$swal(
-            "Registrado",
+            "Editado",
             "Especialidad editada correctamente.",
             "success"
           );
@@ -511,7 +511,7 @@ export default {
       }
     },
 
-    async deleteCenter() {
+    async deleteEspecialidad() {
       try {
         let idDeleteEspecialidad = this.deleteId;
         console.log("confirmDeleteidEspecialidad ", idDeleteEspecialidad);
@@ -521,7 +521,7 @@ export default {
           this.dialogDelete = false;
           //this.mostrarAlertDelete = true;
           this.$swal(
-            "Registrado",
+            "Eliminado",
             "Especialidad borrada correctamente.",
             "success"
           );
