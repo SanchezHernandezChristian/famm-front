@@ -490,7 +490,7 @@ export default {
           this.dialogEdit = false;
           //this.mostrarAlertEdit = true;
           this.$swal(
-            "Registrado",
+            "Editado",
             "Centro de capacitación editado correctamente.",
             "success"
           );
@@ -520,7 +520,7 @@ export default {
           this.dialogDelete = false;
           //this.mostrarAlertDelete = true;
           this.$swal(
-            "Registrado",
+            "Eliminado",
             "Centro de capacitación borrado correctamente.",
             "success"
           );
