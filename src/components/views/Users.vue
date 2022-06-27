@@ -25,10 +25,6 @@
             {{ item.nombre_rol }}
           </v-chip>
         </template>
-        <template v-slot:item.created_at="{ item }">
-          <div v-if="item.created_at">{{ item.created_at }}</div>
-          <div v-else>{{ new Date().toISOString().split("T")[0] }}</div>
-        </template>
         <template v-slot:item.adm="{}">
           <v-container class="px-0" fluid>
             <v-switch></v-switch>

@@ -80,33 +80,6 @@
           </v-layout>
         </div>
       </v-row>
-      <v-row justify="center" align="start" style="height: 60px" class="pt-3">
-        <div class="text-center">
-          <v-layout row justify-center>
-            <v-flex align-self-center xs2><label>FOTOGRAFÍA</label></v-flex>
-            <v-flex align-self-center xs3>
-              <v-file-input
-                label="Sube tu archivo"
-                outlined
-                dense
-                show-size
-                accept="image/png, image/jpeg, image/bmp"
-                :rules="[rules.size]"
-                v-model="fotografia"
-              ></v-file-input>
-            </v-flex>
-            <v-flex align-self-center xs3> </v-flex>
-            <v-flex align-self-center> </v-flex>
-          </v-layout>
-        </div>
-      </v-row>
-      <v-row justify="center" align="center" class="pt-3">
-        <div class="text-center">
-          <v-layout row justify-center>
-            <v-flex><p></p></v-flex>
-          </v-layout>
-        </div>
-      </v-row>
       <v-row justify="center" align="center" class="pt-3">
         <div class="text-center">
           <v-layout row justify-center>
@@ -127,6 +100,48 @@
               ></v-autocomplete>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center" class="pt-3">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>LOCALIDAD</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-col md="12"> <v-text-field dense outlined :rules="[rules.required]" v-model="localidad"></v-text-field></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="center" class="pt-3">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>CÓDIGO POSTAL</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-col md="12"> <v-text-field dense outlined :rules="[rules.required, rules.natural_number]" v-model="codigo_postal"></v-text-field></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row justify="center" align="start" style="height: 60px" class="pt-3">
+        <div class="text-center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs2><label>FOTOGRAFÍA</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-file-input
+                label="Sube tu archivo"
+                outlined
+                dense
+                show-size
+                accept="image/png, image/jpeg, image/bmp"
+                :rules="[rules.size]"
+                v-model="fotografia"
+              ></v-file-input>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+            <v-flex align-self-center> </v-flex>
           </v-layout>
         </div>
       </v-row>
@@ -475,6 +490,8 @@ export default {
     colonia: '',
     fotografia: null,
     select_municipio: null,
+    localidad: '',
+    codigo_postal: '',
     email: '',
     curp: '',
     nacionalidad: '',
@@ -539,6 +556,8 @@ export default {
             apellido_paterno: me.primer_apellido,
             apellido_materno: me.segundo_apellido,
             domicilio: `${me.calle} ${me.numero} ${me.colonia}`,
+            localidad: me.localidad,
+            codigo_postal: me.codigo_postal,
             fotografia: me.fotografia,
             c_Municipio: me.select_municipio.c_Municipio,
             email: me.email,
