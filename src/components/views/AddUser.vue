@@ -79,7 +79,7 @@
                 dense
                 outlined
                 class="bordeRedondoElement"
-                :rules="[rules.required]"
+                :rules="user.id ? [] : [rules.required]"
                 v-model="user.surname"
               ></v-text-field>
             </v-flex>
@@ -121,7 +121,7 @@
                 class="bordeRedondoElement"
                 :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="show1 ? 'text' : 'password'"
-                :rules="[rules.required]"
+                :rules="user.id ? [] : [rules.required]"
                 v-model="user.password"
                 @click:append="show1 = !show1"
               ></v-text-field>
@@ -144,7 +144,7 @@
                 outlined
                 class="bordeRedondoElement"
                 :type="show1 ? 'text' : 'password'"
-                :rules="[rules.required]"
+                :rules="user.id ? [] : [rules.required]"
                 v-model="user.password_confirmation"
               ></v-text-field>
             </v-flex>
@@ -224,6 +224,7 @@ export default {
       password_confirmation: null,
       idRol: null,
     },
+    email_edit: null,
   }),
 
   created() {
@@ -256,6 +257,7 @@ export default {
         response2 = response2.data[0];
         me.user = response2;
         me.user.name = response2.nombres;
+        me.email_edit = response2.email;
         if (response2.apellidos) {
           me.user.surname = response2.apellidos.split(" ")[0];
           me.user.lastname = response2.apellidos.split(" ")[1];
@@ -274,8 +276,10 @@ export default {
       if (me.$refs.form_addusr.validate()) {
         try {
           me.user.apellidos = `${me.user.surname} ${me.user.lastname}`;
-          if (me.user.id) await AuthService.updateUser(me.user);
-          else await AuthService.addUser(me.user);
+          if (me.user.id) {
+            if (me.user.email == me.email_edit) me.user.email = null;
+            await AuthService.updateUser(me.user);
+          } else await AuthService.addUser(me.user);
           Object.assign(me.$data, me.$options.data());
           me.$refs.form_addusr.resetValidation();
           me.fetchRoles();
