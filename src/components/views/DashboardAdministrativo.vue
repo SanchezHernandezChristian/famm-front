@@ -17,6 +17,7 @@
             <v-flex>
               <v-img src="@/assets/img/registrosexitosos.png" height="125px" contain></v-img>
             </v-flex>
+            <v-flex><br /></v-flex>
           </v-card>
         </v-flex>
         <v-flex xs1></v-flex>
@@ -25,7 +26,7 @@
           <v-card color="white darken-2" class="gray--text">
             <v-flex align-self-center xs10>
               <v-layout>
-                <v-flex xs4></v-flex>
+                <v-flex xs3></v-flex>
                 <v-card-title>
                   <div class="centrartextocard text-center">Ranking de docentes</div>
                 </v-card-title>
@@ -35,6 +36,7 @@
             <v-flex>
               <v-img src="@/assets/img/registrosexitosos.png" height="125px" contain></v-img>
             </v-flex>
+            <v-flex><br /></v-flex>
           </v-card>
         </v-flex>
         <v-flex xs1></v-flex>
@@ -53,12 +55,13 @@
             <v-flex>
               <v-img src="@/assets/img/rankingmatriculas.png" height="125px" contain></v-img>
             </v-flex>
+            <v-flex><br /></v-flex>
           </v-card>
         </v-flex>
       </v-layout>
     </v-row>
     <v-row>
-      <v-layout style="background-color: #e0e0e0">
+      <v-layout style="background-color: #e0e0e0; margin-right: 195px;">
         <v-flex xs4>
           <br />
           <v-card color="white darken-2" class="gray--text">
