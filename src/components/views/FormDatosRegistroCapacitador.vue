@@ -65,50 +65,79 @@
             <v-stepper-items>
               <v-stepper-content step="1">
                 <v-card class="mb-12">
-                  <v-row justify="center">
-                    <v-col cols="3">
+                  <v-row justify="center" class="mt-1">
+                    <v-col cols="4">
                       <v-text-field
-                        label="Nombre"
+                        label="Fecha de ingreso"
+                        dense
+                        outlined
+                        prepend-icon="mdi-calendar"
                         :rules="[rules.required]"
-                        v-model="teacher.nombre"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="3">
-                      <v-text-field
-                        label="Primer apellido"
-                        :rules="[rules.required]"
-                        v-model="teacher.apellido_paterno"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="3">
-                      <v-text-field
-                        label="Segundo apellido"
-                        :rules="[rules.required]"
-                        v-model="teacher.apellido_materno"
+                        v-model="teacher.fecha_ingreso"
                       ></v-text-field>
                     </v-col>
                   </v-row>
-                  <v-row justify="center"
-                    ><v-col cols="2"
-                      ><v-text-field
-                        label="Calle"
+                  <v-row justify="center" class="mt-0">
+                    <v-col cols="5">
+                      <v-radio-group
+                        label="Estatus"
+                        dense
+                        row
                         :rules="[rules.required]"
-                        v-model="teacher.calle"
-                      ></v-text-field></v-col
-                    ><v-col cols="2">
+                        v-model="teacher.estatus"
+                      >
+                        <v-radio
+                          dense
+                          label="NUEVO INGRESO"
+                          value="N"
+                          class="font-weight-black"
+                        ></v-radio>
+                        <v-radio
+                          dense
+                          label="EN SERVICIO"
+                          value="S"
+                          class="font-weight-black"
+                        ></v-radio>
+                        <v-spacer></v-spacer>
+                      </v-radio-group>
+                    </v-col>
+                  </v-row>
+                  <v-row justify="center">
+                    <v-col cols="4">
                       <v-text-field
-                        label="Número"
-                        :rules="[rules.required, rules.natural_number]"
-                        v-model="teacher.numero"
+                        label="Clave del instructor"
+                        dense
+                        outlined
+                        :rules="[rules.required]"
+                        v-model="teacher.clave"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="2">
-                      <v-text-field
-                        label="Colonia"
+                  </v-row>
+                  <v-row justify="center" class="mt-0">
+                    <v-col cols="5">
+                      <v-radio-group
+                        label="Certificado"
+                        dense
+                        row
                         :rules="[rules.required]"
-                        v-model="teacher.colonia"
-                      ></v-text-field></v-col
-                  ></v-row>
+                        v-model="teacher.certificado"
+                      >
+                        <v-radio
+                          dense
+                          label="EN COMPETENCIA LABORAL"
+                          value="C"
+                          class="font-weight-black"
+                        ></v-radio>
+                        <v-radio
+                          dense
+                          label="EN ROCO"
+                          value="R"
+                          class="font-weight-black"
+                        ></v-radio>
+                        <v-spacer></v-spacer>
+                      </v-radio-group>
+                    </v-col>
+                  </v-row>
                   <v-row justify="center">
                     <v-col cols="4">
                       <v-file-input
@@ -123,76 +152,136 @@
                     </v-col>
                   </v-row>
                   <v-row justify="center">
-                    <v-col cols="4">
+                    <v-col cols="2" class="text-right">
+                      <strong>NOMBRE:</strong>
+                    </v-col>
+                    <v-col cols="3">
+                      <v-text-field
+                        label="Nombre"
+                        dense
+                        outlined
+                        :rules="[rules.required]"
+                        v-model="teacher.nombre"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="3">
+                      <v-text-field
+                        label="Primer apellido"
+                        dense
+                        outlined
+                        :rules="[rules.required]"
+                        v-model="teacher.apellido_paterno"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="3">
+                      <v-text-field
+                        label="Segundo apellido"
+                        dense
+                        outlined
+                        :rules="[rules.required]"
+                        v-model="teacher.apellido_materno"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row justify="center">
+                    <v-col cols="2" class="text-right">
+                      <strong>DOMICILIO:</strong>
+                    </v-col>
+                    <v-col cols="3">
+                      <v-text-field
+                        label="Calle"
+                        dense
+                        outlined
+                        :rules="[rules.required]"
+                        v-model="teacher.calle"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="3">
+                      <v-text-field
+                        label="Número"
+                        dense
+                        outlined
+                        :rules="[rules.required, rules.natural_number]"
+                        v-model="teacher.numero"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="3">
+                      <v-text-field
+                        label="Colonia"
+                        dense
+                        outlined
+                        :rules="[rules.required]"
+                        v-model="teacher.colonia"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row justify="center">
+                    <v-col cols="3">
                       <v-autocomplete
                         dense
+                        outlined
                         v-model="teacher.c_Municipio"
                         :rules="[rules.required]"
                         :items="items_municipios"
                         item-text="Descripcion"
                         item-value="c_Municipio"
-                        outlined
-                        style="height: 80px"
                         class="bordeRedondoElement"
-                        label="Seleccione un municipio"
+                        label="Municipio"
                       ></v-autocomplete>
                     </v-col>
-                  </v-row>
-                  <v-row justify="center">
-                    <v-col cols="4">
-                      <v-text-field
-                        label="Email"
-                        dense
-                        outlined
-                        :rules="[rules.required, rules.email]"
-                        v-model="teacher.email"
-                      ></v-text-field
-                    ></v-col>
-                  </v-row>
-                  <v-row justify="center">
                     <v-col cols="3">
                       <v-text-field
-                        label="Curp"
+                        label="Localidad"
                         dense
                         outlined
                         :rules="[rules.required]"
-                        v-model="teacher.curp"
-                      ></v-text-field
-                    ></v-col>
-                    <v-col cols="3">
+                        v-model="teacher.localidad"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="2">
                       <v-text-field
-                        label="RFC"
+                        label="Código postal"
                         dense
                         outlined
-                        :rules="[rules.required]"
-                        v-model="teacher.rfc"
-                      ></v-text-field
-                    ></v-col>
-                  </v-row>
-                  <v-row justify="center">
-                    <v-col cols="4">
-                      <v-radio-group
-                        label="Sexo"
-                        row
-                        :rules="[rules.required]"
-                        v-model="teacher.sexo"
-                      >
-                        <v-radio
-                          dense
-                          label="FEMENINO"
-                          value="M"
-                          class="font-weight-black"
-                        ></v-radio>
-                        <v-radio
-                          dense
-                          label="MASCULINO"
-                          value="H"
-                          class="font-weight-black"
-                        ></v-radio>
-                      </v-radio-group>
+                        :rules="[rules.required, rules.natural_number]"
+                        v-model="teacher.codigo_postal"
+                      ></v-text-field>
                     </v-col>
                   </v-row>
                   <v-row justify="center">
+                    <v-col cols="4">
+                      <v-text-field
+                        label="Número de celular"
+                        dense
+                        outlined
+                        :rules="[rules.required, rules.phone_number]"
+                        v-model="teacher.telefono"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row justify="center">
+                    <v-col cols="4">
+                      <v-text-field
+                        label="Estado civil"
+                        dense
+                        outlined
+                        :rules="[rules.required]"
+                        v-model="teacher.estado_civil"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row justify="center">
+                    <v-col cols="4">
+                      <v-text-field
+                        label="Nacionalidad"
+                        dense
+                        outlined
+                        :rules="[rules.required]"
+                        v-model="teacher.nacionalidad"
+                      ></v-text-field
+                    ></v-col>
+                  </v-row>
+                  <v-row justify="center" dense>
                     <v-col cols="4">
                       <v-menu
                         v-model="menu"
@@ -204,6 +293,8 @@
                       >
                         <template v-slot:activator="{ on, attrs }">
                           <v-text-field
+                            dense
+                            outlined
                             label="Fecha de nacimiento"
                             prepend-icon="mdi-calendar"
                             readonly
@@ -234,94 +325,75 @@
                   <v-row justify="center">
                     <v-col cols="4">
                       <v-text-field
-                        label="Nacionalidad"
-                        dense
-                        outlined
-                        :rules="[rules.required]"
-                        v-model="teacher.nacionalidad"
-                      ></v-text-field
-                    ></v-col>
-                  </v-row>
-                  <v-row justify="center">
-                    <v-col cols="4">
-                      <v-text-field
                         label="Edad"
                         dense
                         outlined
                         :rules="[rules.required, rules.natural_number]"
                         v-model="teacher.edad"
-                      ></v-text-field
-                    ></v-col>
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row justify="center" dense>
+                    <v-col cols="4">
+                      <v-radio-group
+                        label="Sexo"
+                        row
+                        :rules="[rules.required]"
+                        v-model="teacher.sexo"
+                      >
+                        <v-radio
+                          dense
+                          label="FEMENINO"
+                          value="M"
+                          class="font-weight-black"
+                        ></v-radio>
+                        <v-radio
+                          dense
+                          label="MASCULINO"
+                          value="H"
+                          class="font-weight-black"
+                        ></v-radio>
+                      </v-radio-group>
+                    </v-col>
                   </v-row>
                   <v-row justify="center">
-                    <v-col cols="4">
-                      <v-select
+                    <v-col cols="2" class="text-right">
+                      <strong>IDENTIFICACIÓN:</strong>
+                    </v-col>
+                    <v-col cols="3">
+                      <v-text-field
+                        label="RFC"
                         dense
                         outlined
                         :rules="[rules.required]"
-                        :items="items_estadocivil"
-                        item-text="text"
-                        item-value="value"
-                        v-model="teacher.estado_civil"
-                        label="Estado civil"
-                      ></v-select>
+                        v-model="teacher.rfc"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="3">
+                      <v-text-field
+                        label="CURP"
+                        dense
+                        outlined
+                        :rules="[rules.required]"
+                        v-model="teacher.curp"
+                      ></v-text-field>
                     </v-col>
                   </v-row>
                   <v-row justify="center">
                     <v-col cols="4">
                       <v-text-field
-                        label="Número de celular"
-                        dense
-                        outlined
-                        :rules="[rules.required, rules.phone_number]"
-                        v-model="teacher.telefono"
-                      ></v-text-field
-                    ></v-col>
-                  </v-row>
-                  <v-row justify="center">
-                    <v-col cols="4">
-                      <v-select
+                        label="Registro número"
                         dense
                         outlined
                         :rules="[rules.required]"
-                        :items="items_grupovulnerable"
-                        item-text="nombre"
-                        item-value="id"
-                        v-model="teacher.grupo_vulnerable"
-                        label="Grupo vulnerable"
-                      ></v-select>
+                        v-model="teacher.registro"
+                      ></v-text-field>
                     </v-col>
                   </v-row>
                   <v-row justify="center">
-                    <v-col cols="4">
-                      <v-autocomplete
-                        dense
-                        outlined
-                        :rules="[rules.required]"
-                        :items="items_discapacidades"
-                        item-text="nombre"
-                        item-value="id"
-                        align="center"
-                        label="Discapacidad"
-                        v-model="teacher.idDiscapacidad"
-                      ></v-autocomplete>
+                    <v-col cols="2" class="text-right">
+                      <strong>ESCOLARIDAD:</strong>
                     </v-col>
-                  </v-row>
-                  <v-row justify="center">
-                    <v-col cols="4">
-                      <v-autocomplete
-                        dense
-                        outlined
-                        :rules="[rules.required]"
-                        :items="items_pertenece"
-                        item-text="nombre"
-                        item-value="id"
-                        label="Pertenece a"
-                        v-model="teacher.idPertenece"
-                      ></v-autocomplete>
-                    </v-col>
-                  </v-row>
-                  <v-row justify="center">
                     <v-col cols="3">
                       <v-autocomplete
                         dense
@@ -330,175 +402,22 @@
                         :items="items_escolaridad"
                         item-text="nombre"
                         item-value="id"
-                        label="Escolaridad"
+                        label="Último grado de estudios"
                         v-model="teacher.idEscolaridad"
                       ></v-autocomplete>
                     </v-col>
                     <v-col cols="3">
-                      <v-autocomplete
+                      <v-text-field
                         dense
                         outlined
                         :rules="[rules.required]"
-                        :items="items_documentos"
                         item-text="nombre"
                         item-value="id"
                         label="Documento obtenido"
-                        v-model="teacher.idDocumento"
-                      ></v-autocomplete>
-                    </v-col>
-                  </v-row>
-                  <v-row justify="center">
-                    <v-col cols="4">
-                      <v-radio-group
-                        label="Lengua indígena"
-                        row
-                        :rules="[rules.required]"
-                        v-model="teacher.lengua_indigena"
-                      >
-                        <v-radio
-                          dense
-                          label="SÍ"
-                          value="1"
-                          class="font-weight-black"
-                        ></v-radio>
-                        <v-radio
-                          dense
-                          label="NO"
-                          value="0"
-                          class="font-weight-black"
-                        ></v-radio>
-                        <v-spacer></v-spacer>
-                      </v-radio-group>
-                    </v-col>
-                  </v-row>
-                  <v-row justify="center">
-                    <v-col cols="4">
-                      <v-textarea
-                        dense
-                        auto-grow
-                        outlined
-                        rows="3"
-                        row-height="25"
-                        shaped
-                        :rules="[rules.required]"
-                        v-model="teacher.motivo"
-                      ></v-textarea>
-                    </v-col>
-                  </v-row>
-                  <v-row justify="center">
-                    <v-col cols="4">
-                      <v-radio-group
-                        label="Situación laboral"
-                        row
-                        :rules="[rules.required]"
-                        v-model="teacher.situacion_laboral"
-                      >
-                        <v-radio
-                          dense
-                          label="EMPLEADO"
-                          value="1"
-                          class="font-weight-black"
-                        ></v-radio>
-                        <v-radio
-                          dense
-                          label="DESEMPLEADO"
-                          value="0"
-                          class="font-weight-black"
-                        ></v-radio>
-                        <v-spacer></v-spacer>
-                      </v-radio-group>
-                    </v-col>
-                  </v-row>
-                  <v-row justify="center">
-                    <v-col cols="4">
-                      <label for="signature">Firma del capacitando:</label>
-                      <VueSignaturePad
-                        name="signature"
-                        width="500px"
-                        height="500px"
-                        ref="signaturePad"
-                        class="signature-pad"
-                      />
-                    </v-col>
-                  </v-row>
-                  <v-row justify="center">
-                    <v-col cols="4">
-                      <v-text-field
-                        label="Fecha de ingreso"
-                        prepend-icon="mdi-calendar"
-                        :rules="[rules.required]"
-                        v-model="teacher.fecha_ingreso"
+                        v-model="teacher.documento_obtenido"
                       ></v-text-field>
                     </v-col>
                   </v-row>
-                  <v-row justify="center">
-                    <v-col cols="4">
-                      <v-radio-group
-                        label="Estatus"
-                        row
-                        :rules="[rules.required]"
-                        v-model="teacher.estatus"
-                      >
-                        <v-radio
-                          dense
-                          label="NUEVO INGRESO"
-                          value="N"
-                          class="font-weight-black"
-                        ></v-radio>
-                        <v-radio
-                          dense
-                          label="EN SERVICIO"
-                          value="S"
-                          class="font-weight-black"
-                        ></v-radio>
-                        <v-spacer></v-spacer>
-                      </v-radio-group>
-                    </v-col>
-                  </v-row>
-                  <v-row justify="center">
-                    <v-col cols="4">
-                      <v-text-field
-                        label="Clave del instructor"
-                        outlined
-                        :rules="[rules.required]"
-                        v-model="teacher.clave"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                  <v-row justify="center">
-                    <v-col cols="6">
-                      <v-radio-group
-                        label="Certificado"
-                        row
-                        :rules="[rules.required]"
-                        v-model="teacher.certificado"
-                      >
-                        <v-radio
-                          dense
-                          label="EN COMPETENCIA LABORAL"
-                          value="C"
-                          class="font-weight-black"
-                        ></v-radio>
-                        <v-radio
-                          dense
-                          label="EN ROCO"
-                          value="R"
-                          class="font-weight-black"
-                        ></v-radio>
-                        <v-spacer></v-spacer>
-                      </v-radio-group>
-                    </v-col>
-                  </v-row>
-                  <v-row justify="center"
-                    ><v-col cols="4">
-                      <v-text-field
-                        label="Registro número"
-                        dense
-                        outlined
-                        :rules="[rules.required]"
-                        v-model="teacher.registro"
-                      ></v-text-field> </v-col
-                  ></v-row>
                 </v-card>
 
                 <v-btn color="primary" @click="e1++"> Continuar </v-btn>
@@ -541,6 +460,12 @@
                       >
                       </v-text-field>
                     </v-col>
+                    <v-col cols="3">
+                      <v-btn elevation="2" small class="mr-2"
+                        >Añadir otro</v-btn
+                      >
+                      <v-btn elevation="2" small>Borrar</v-btn>
+                    </v-col>
                   </v-row>
                   <strong>FORMACIÓN DOCENTE (PARA INSTRUCTOR)</strong>
                   <v-row justify="center" class="mt-1">
@@ -568,6 +493,12 @@
                       >
                       </v-text-field>
                     </v-col>
+                    <v-col cols="3">
+                      <v-btn elevation="2" small class="mr-2"
+                        >Añadir otro</v-btn
+                      >
+                      <v-btn elevation="2" small>Borrar</v-btn>
+                    </v-col>
                   </v-row>
                   <strong>EXPERIENCIA LABORAL</strong>
                   <v-row justify="center" class="mt-1">
@@ -587,16 +518,33 @@
                       <v-text-field label="Periodo: año-mes" dense outlined>
                       </v-text-field>
                     </v-col>
+                    <v-col cols="6"></v-col>
+                    <v-col cols="3">
+                      <v-btn elevation="2" small class="mr-2"
+                        >Añadir otro</v-btn
+                      >
+                      <v-btn elevation="2" small>Borrar</v-btn>
+                    </v-col>
                   </v-row>
                   <strong>OFERTA DE CAPACITACIÓN</strong>
                   <v-row justify="center" class="mt-1">
                     <v-col cols="6">
-                      <v-text-field
-                        label="Enliste los cursos que puede impartir"
+                      <v-autocomplete
                         dense
                         outlined
+                        :rules="[rules.required]"
+                        :items="items_cursos"
+                        item-text="nombre_curso"
+                        item-value="idCurso"
+                        label="Enliste los cursos que puede impartir"
+                      ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="6"></v-col>
+                    <v-col cols="3">
+                      <v-btn elevation="2" small class="mr-2"
+                        >Añadir otro</v-btn
                       >
-                      </v-text-field>
+                      <v-btn elevation="2" small>Borrar</v-btn>
                     </v-col>
                   </v-row>
                 </v-card>
@@ -620,6 +568,10 @@
                         :rules="[rules.size]"
                       ></v-file-input>
                     </v-col>
+                    <v-col cols="2">
+                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
+                      <v-btn elevation="2" small>Borrar</v-btn>
+                    </v-col>
                   </v-row>
                   <v-row justify="center">
                     <v-col cols="4">
@@ -631,6 +583,10 @@
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
                         :rules="[rules.size]"
                       ></v-file-input>
+                    </v-col>
+                    <v-col cols="2">
+                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
+                      <v-btn elevation="2" small>Borrar</v-btn>
                     </v-col>
                   </v-row>
                   <v-row justify="center">
@@ -644,6 +600,10 @@
                         :rules="[rules.size]"
                       ></v-file-input>
                     </v-col>
+                    <v-col cols="2">
+                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
+                      <v-btn elevation="2" small>Borrar</v-btn>
+                    </v-col>
                   </v-row>
                   <v-row justify="center">
                     <v-col cols="4">
@@ -655,6 +615,10 @@
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
                         :rules="[rules.size]"
                       ></v-file-input>
+                    </v-col>
+                    <v-col cols="2">
+                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
+                      <v-btn elevation="2" small>Borrar</v-btn>
                     </v-col>
                   </v-row>
                   <v-row justify="center">
@@ -668,6 +632,10 @@
                         :rules="[rules.size]"
                       ></v-file-input>
                     </v-col>
+                    <v-col cols="2">
+                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
+                      <v-btn elevation="2" small>Borrar</v-btn>
+                    </v-col>
                   </v-row>
                   <v-row justify="center">
                     <v-col cols="4">
@@ -679,6 +647,10 @@
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
                         :rules="[rules.size]"
                       ></v-file-input>
+                    </v-col>
+                    <v-col cols="2">
+                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
+                      <v-btn elevation="2" small>Borrar</v-btn>
                     </v-col>
                   </v-row>
                   <v-row justify="center">
@@ -692,6 +664,10 @@
                         :rules="[rules.size]"
                       ></v-file-input>
                     </v-col>
+                    <v-col cols="2">
+                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
+                      <v-btn elevation="2" small>Borrar</v-btn>
+                    </v-col>
                   </v-row>
                   <v-row justify="center">
                     <v-col cols="4">
@@ -704,6 +680,10 @@
                         :rules="[rules.size]"
                       ></v-file-input>
                     </v-col>
+                    <v-col cols="2">
+                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
+                      <v-btn elevation="2" small>Borrar</v-btn>
+                    </v-col>
                   </v-row>
                   <v-row justify="center">
                     <v-col cols="4">
@@ -715,6 +695,10 @@
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
                         :rules="[rules.size]"
                       ></v-file-input>
+                    </v-col>
+                    <v-col cols="2">
+                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
+                      <v-btn elevation="2" small>Borrar</v-btn>
                     </v-col>
                   </v-row>
                 </v-card>
@@ -754,11 +738,6 @@ export default {
           !value ||
           value.size < 1000000 ||
           "El archivo debe pesar menos de 1 MB!",
-        email: (value) => {
-          const pattern =
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(value) || "Correo inválido";
-        },
       },
       e1: 1,
       s1_valid: true,
@@ -766,24 +745,8 @@ export default {
       s3_valid: true,
       menu: false,
       items_municipios: [],
-      items_discapacidades: [],
-      items_pertenece: [],
       items_escolaridad: [],
-      items_documentos: [
-        { id: 1, nombre: "CARTA DE PASANTE" },
-        { id: 2, nombre: "CERTIFICADO" },
-        { id: 3, nombre: "TÍTULO PROFESIONAL" },
-      ],
-      items_grupovulnerable: [
-        { id: 1, nombre: "SI" },
-        { id: 2, nombre: "NO" },
-      ],
-      items_estadocivil: [
-        { value: "S", text: "SOLTERO(A)" },
-        { value: "C", text: "CASADO(A)" },
-        { value: "V", text: "VIUDO(A)" },
-        { value: "D", text: "DIVORCIADO(A)" },
-      ],
+      items_cursos: [],
       teacher: {
         nombre: null,
         apellido_paterno: null,
@@ -792,9 +755,10 @@ export default {
         calle: null,
         numero: null,
         colonia: null,
+        localidad: null,
+        codigo_postal: null,
         fotografia: null,
         c_Municipio: null,
-        email: null,
         curp: null,
         sexo: null,
         fecha_nacimiento: null,
@@ -802,22 +766,14 @@ export default {
         edad: null,
         estado_civil: null,
         telefono: null,
-        grupo_vulnerable: null,
-        idDiscapacidad: null,
-        idPertenece: null,
         idEscolaridad: null,
-        lengua_indigena: null,
-        motivo: null,
-        situacion_laboral: null,
-        firma_capacitando: null,
-        /**Nuevos datos */
         fecha_ingreso: null,
         estatus: null,
         clave: null,
         certificado: null,
         rfc: null,
         registro: null,
-        idDocumento: null,
+        documento_obtenido: null,
       },
     };
   },
@@ -826,14 +782,12 @@ export default {
     let me = this;
     if (me.$store.getters.isLoggedIn) {
       try {
-        const response2 = await AuthService.getMunicipios();
-        const response3 = await AuthService.getDiscapacidades();
-        const response4 = await AuthService.getEscolaridad();
-        const response5 = await AuthService.getPertenece();
-        me.items_municipios = response2.municipios;
-        me.items_discapacidades = response3.data;
-        me.items_escolaridad = response4.data;
-        me.items_pertenece = response5.data;
+        const response = await AuthService.getMunicipios();
+        const response2 = await AuthService.getEscolaridad();
+        const response3 = await AuthService.getCursos();
+        me.items_municipios = response.municipios;
+        me.items_escolaridad = response2.data;
+        me.items_cursos = response3.cursos;
       } catch (error) {
         console.log("Error", error.response);
       }
@@ -845,8 +799,6 @@ export default {
       let me = this;
       if (me.$refs.form_teacher.validate()) {
         try {
-          me.teacher.grupo_vulnerable == 2 ? 0 : 1;
-          me.teacher.domicilio = `${me.teacher.calle} ${me.teacher.numero} ${me.teacher.colonia}`;
           await AuthService.addTeacher(me.teacher);
           Object.assign(me.$data, me.$options.data());
           me.$refs.form_teacher.resetValidation();
