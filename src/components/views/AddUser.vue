@@ -80,7 +80,7 @@
                 outlined
                 class="bordeRedondoElement"
                 :rules="user.id ? [] : [rules.required]"
-                v-model="user.surname"
+                v-model="user.primer_apellido"
               ></v-text-field>
             </v-flex>
             <v-flex align-self-center xs5> </v-flex>
@@ -101,7 +101,7 @@
                 outlined
                 class="bordeRedondoElement"
                 :rules="[rules.required]"
-                v-model="user.lastname"
+                v-model="user.segundo_apellido"
               ></v-text-field>
             </v-flex>
             <v-flex align-self-center xs5> </v-flex>
@@ -217,9 +217,8 @@ export default {
       user_name: null,
       email: null,
       name: null,
-      surname: null,
-      lastname: null,
-      apellidos: null,
+      primer_apellido: null,
+      segundo_apellido: null,
       password: null,
       password_confirmation: null,
       idRol: null,
@@ -258,10 +257,6 @@ export default {
         me.user = response2;
         me.user.name = response2.nombres;
         me.email_edit = response2.email;
-        if (response2.apellidos) {
-          me.user.surname = response2.apellidos.split(" ")[0];
-          me.user.lastname = response2.apellidos.split(" ")[1];
-        }
       } catch (error) {
         me.$swal(
           "Error",
@@ -275,11 +270,10 @@ export default {
       let me = this;
       if (me.$refs.form_addusr.validate()) {
         try {
-          me.user.apellidos = `${me.user.surname} ${me.user.lastname}`;
           if (me.user.id) {
             if (me.user.email == me.email_edit) me.user.email = null;
             await AuthService.updateUser(me.user);
-          } else await AuthService.addUser(me.user);
+          } else await AuthService.signUp(me.user);
           Object.assign(me.$data, me.$options.data());
           me.$refs.form_addusr.resetValidation();
           me.fetchRoles();

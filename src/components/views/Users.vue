@@ -15,8 +15,9 @@
         class="elevation-1"
       >
         <template v-slot:item.fullname="{ item }">
-          <div v-if="item.nombres && item.apellidos">
-            {{ item.nombres }} {{ item.apellidos }}
+          <div v-if="item.nombres || item.primer_apellido">
+            {{ item.nombres }} {{ item.primer_apellido }}
+            {{ item.segundo_apellido }}
           </div>
           <div class="font-italic" v-else>Sin nombre</div>
         </template>

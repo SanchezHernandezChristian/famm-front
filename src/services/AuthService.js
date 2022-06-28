@@ -57,9 +57,6 @@ export default {
     getUser(id) {
         return axios.get(`${url}get-user/${id}`).then(response => response.data);
     },
-    addUser(data) {
-        return axios.post(url + 'register', data).then(response => response.data);
-    },
     updateUser(data) {
         return axios.put(url + 'update-profile', data).then(response => response.data);
     },
