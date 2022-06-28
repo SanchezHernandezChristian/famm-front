@@ -37,13 +37,13 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>NOMBRE</label></v-flex>
             <v-flex align-self-center xs2>
-              <v-col md="12"> <v-text-field dense outlined label="Nombre(s)" :rules="[rules.required]" v-model="nombre" readonly></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined label="Nombre(s)" :rules="[rules.required]" v-model="user.nombre" readonly></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs2>
-              <v-col md="12"> <v-text-field dense outlined label="Primer Apellido" :rules="[rules.required]" v-model="primer_apellido"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined label="Primer Apellido" :rules="[rules.required]" v-model="user.apellido_paterno"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs2>
-              <v-col md="12"> <v-text-field dense outlined label="Segundo Apellido" :rules="[rules.required]" v-model="segundo_apellido"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined label="Segundo Apellido" v-model="user.apellido_materno"></v-text-field></v-col>
             </v-flex>
           </v-layout></div
       ></v-row>
@@ -69,13 +69,13 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>DOMICILIO</label></v-flex>
             <v-flex align-self-center xs2>
-              <v-col md="12"> <v-text-field dense outlined label="Calle" :rules="[rules.required]" v-model="calle"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined label="Calle" :rules="[rules.required]" v-model="user.calle"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs2>
-              <v-col md="12"> <v-text-field dense outlined label="Número" :rules="[rules.required, rules.natural_number]" v-model="numero"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined label="Número" :rules="[rules.required, rules.natural_number]" v-model="user.numero"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs2>
-              <v-col md="12"> <v-text-field dense outlined label="Colonia" :rules="[rules.required]" v-model="colonia"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined label="Colonia" :rules="[rules.required]" v-model="user.colonia"></v-text-field></v-col>
             </v-flex>
           </v-layout>
         </div>
@@ -87,12 +87,11 @@
             <v-flex align-self-center xs3>
               <v-autocomplete
                 dense
-                v-model="select_municipio"
+                v-model="user.c_Municipio"
                 :rules="[rules.required]"
                 :items="items_municipios"
                 item-text="Descripcion"
                 item-value="c_Municipio"
-                return-object
                 outlined
                 style="height: 80px"
                 class="bordeRedondoElement"
@@ -108,7 +107,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>LOCALIDAD</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="12"> <v-text-field dense outlined :rules="[rules.required]" v-model="localidad"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined :rules="[rules.required]" v-model="user.localidad"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -119,7 +118,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>CÓDIGO POSTAL</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="12"> <v-text-field dense outlined :rules="[rules.required, rules.natural_number]" v-model="codigo_postal"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined :rules="[rules.required, rules.natural_number]" v-model="user.cp"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -137,7 +136,7 @@
                 show-size
                 accept="image/png, image/jpeg, image/bmp"
                 :rules="[rules.size]"
-                v-model="fotografia"
+                v-model="user.fotografia"
               ></v-file-input>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -150,7 +149,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>CORREO ELECTRÓNICO</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="12"> <v-text-field dense outlined :rules="[rules.required, rules.email]" v-model="email"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined :rules="[rules.required, rules.email]" v-model="user.email"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -161,7 +160,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>CURP</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="12"> <v-text-field dense outlined :rules="[rules.required]" v-model="curp"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined :rules="[rules.required]" v-model="user.curp"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -172,7 +171,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>SEXO</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-radio-group row :rules="[rules.required]" v-model="radioGroupSexo">
+              <v-radio-group row :rules="[rules.required]" v-model="user.sexo">
                 <v-radio dense label="FEMENINO" value="M" class="font-weight-black"></v-radio>
                 <v-radio dense label="MASCULINO" value="H" class="font-weight-black"></v-radio>
                 <v-spacer></v-spacer>
@@ -191,7 +190,7 @@
               <v-menu ref="menu" v-model="menu" :close-on-content-click="false" transition="scale-transition" offset-y min-width="auto">
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                    v-model="date"
+                    v-model="user.fecha_nacimiento"
                     label="Fecha de nacimiento"
                     prepend-icon="mdi-calendar"
                     readonly
@@ -201,7 +200,7 @@
                   ></v-text-field>
                 </template>
                 <v-date-picker
-                  v-model="date"
+                  v-model="user.fecha_nacimiento"
                   :max="new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)"
                   locale="es-MX"
                   min="1950-01-01"
@@ -239,7 +238,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>NACIONALIDAD</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="12"> <v-text-field dense outlined :rules="[rules.required]" v-model="nacionalidad"></v-text-field></v-col>
+              <v-col md="12"> <v-text-field dense outlined :rules="[rules.required]" v-model="user.nacionalidad"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -250,7 +249,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>EDAD</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required, rules.natural_number]" v-model="edad"></v-text-field></v-col>
+              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required, rules.natural_number]" v-model="user.edad"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -269,7 +268,7 @@
                   :items="items_estadocivil"
                   item-text="text"
                   item-value="value"
-                  v-model="estado_civil"
+                  v-model="user.estado_civil"
                   label="Seleccione una opción"
                 ></v-select>
               </v-col>
@@ -283,7 +282,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>NÚMERO DE CELULAR</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required, rules.phone_number]" v-model="numero_celular"></v-text-field></v-col>
+              <v-col md="8"> <v-text-field dense outlined :rules="[rules.required, rules.phone_number]" v-model="user.telefono"></v-text-field></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -302,7 +301,7 @@
                   :items="items_grupovulnerable"
                   item-text="nombre"
                   item-value="id"
-                  v-model="grupo_vulnerable"
+                  v-model="user.grupo_vulnerable"
                   label="Seleccione una opción"
                 ></v-select>
               </v-col>
@@ -325,7 +324,7 @@
                 item-value="id"
                 align="center"
                 label="Seleccione una opción"
-                v-model="discapacidad"
+                v-model="user.idDiscapacidad"
               ></v-autocomplete>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -345,7 +344,7 @@
                 item-text="nombre"
                 item-value="id"
                 label="Seleccione una opción"
-                v-model="pertenece"
+                v-model="user.idPertenece"
               ></v-autocomplete>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -365,7 +364,7 @@
                 item-text="nombre"
                 item-value="id"
                 label="Seleccione una opción"
-                v-model="escolaridad"
+                v-model="user.idEscolaridad"
               ></v-autocomplete>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -377,7 +376,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>HABLA LENGUA INDÍGENA</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-radio-group row :rules="[rules.required]" v-model="radioGroupLengua">
+              <v-radio-group row :rules="[rules.required]" v-model="user.lengua_indigena">
                 <v-radio dense label="SÍ" value="1" class="font-weight-black"></v-radio>
                 <v-radio dense label="NO" value="0" class="font-weight-black"></v-radio>
                 <v-spacer></v-spacer>
@@ -392,7 +391,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>SITUACIÓN LABORAL</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-radio-group row :rules="[rules.required]" v-model="radioGroupSituacion">
+              <v-radio-group row :rules="[rules.required]" v-model="user.situacion_laboral">
                 <v-radio dense label="EMPLEADO" value="1" class="font-weight-black"></v-radio>
                 <v-radio dense label="DESEMPLEADO" value="0" class="font-weight-black"></v-radio>
                 <v-spacer></v-spacer>
@@ -407,7 +406,7 @@
           <v-layout row justify-center>
             <v-flex align-self-center xs2><label>MOTIVO</label></v-flex>
             <v-flex align-self-center xs3>
-              <v-textarea dense auto-grow outlined rows="3" row-height="25" shaped :rules="[rules.required]" v-model="motivo"></v-textarea>
+              <v-textarea dense auto-grow outlined rows="3" row-height="25" shaped :rules="[rules.required]" v-model="user.motivo"></v-textarea>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -482,32 +481,34 @@ export default {
       {value: 'D', text: 'DIVORCIADO(A)'}
     ],
     items_pertenece: [],
-    nombre: '',
-    primer_apellido: '',
-    segundo_apellido: '',
-    calle: '',
-    numero: null,
-    colonia: '',
-    fotografia: null,
-    select_municipio: null,
-    localidad: '',
-    codigo_postal: '',
-    email: '',
-    curp: '',
-    nacionalidad: '',
-    edad: null,
-    estado_civil: '',
-    numero_celular: '',
-    grupo_vulnerable: '',
-    discapacidad: null,
-    pertenece: '',
-    escolaridad: null,
-    motivo: '',
-    firma: '',
-    date: null,
-    radioGroupLengua: null,
-    radioGroupSexo: null,
-    radioGroupSituacion: null,
+    user: {
+      nombre: "",
+      apellido_paterno: "",
+      apellido_materno: "",
+      calle: "",
+      numero: null,
+      colonia: "",
+      localidad: "",
+      cp: null,
+      fotografia: null,
+      c_Municipio: null,
+      email: "",
+      curp: "",
+      sexo: "",
+      fecha_nacimiento: null,
+      nacionalidad: "",
+      edad: null,
+      estado_civil: "",
+      telefono: "",
+      grupo_vulnerable: null,
+      idDiscapacidad: null,
+      idPertenece: null,
+      idEscolaridad: null,
+      lengua_indigena: null,
+      motivo: "",
+      situacion_laboral: null,
+      firma_capacitando: "",
+    },
     menu: false,
   }),
 
@@ -520,14 +521,6 @@ export default {
     if (this.$store.getters.isLoggedIn) {
       try {
         const response = await AuthService.getProfile();
-        let band = response.EstatusPerfil;
-        band = 0;
-        if (band === 0) band = true;
-      } catch (error) {
-        console.log(error);
-      }
-
-      try {
         const response2 = await AuthService.getMunicipios();
         const response3 = await AuthService.getDiscapacidades();
         const response4 = await AuthService.getEscolaridad();
@@ -536,9 +529,10 @@ export default {
         me.items_discapacidades = response3.data;
         me.items_escolaridad = response4.data;
         me.items_pertenece = response5.data;
-        var user = JSON.parse(localStorage.getItem('vuex')).user ? JSON.parse(localStorage.getItem('vuex')).user : '';
-        console.log(user, 'user');
-        this.nombre = user.Nombre;
+        me.user.nombre = response.nombres;
+        me.user.apellido_paterno = response.primer_apellido;
+        me.user.apellido_materno = response.segundo_apellido;
+        me.user.email = response.Email;
       } catch (error) {
         console.log('Error' + error);
       }
@@ -551,32 +545,7 @@ export default {
 
       if (me.$refs.form_registro.validate()) {
         try {
-          await AuthService.registerStudent({
-            nombre: me.nombre,
-            apellido_paterno: me.primer_apellido,
-            apellido_materno: me.segundo_apellido,
-            domicilio: `${me.calle} ${me.numero} ${me.colonia}`,
-            localidad: me.localidad,
-            codigo_postal: me.codigo_postal,
-            fotografia: me.fotografia,
-            c_Municipio: me.select_municipio.c_Municipio,
-            email: me.email,
-            curp: me.curp,
-            sexo: me.radioGroupSexo,
-            fecha_nacimiento: me.date,
-            nacionalidad: me.nacionalidad,
-            edad: me.edad,
-            estado_civil: me.estado_civil,
-            telefono: me.numero_celular,
-            grupo_vulnerable: me.grupo_vulnerable == 2 ? 0 : 1,
-            idDiscapacidad: me.discapacidad,
-            idPertenece: me.pertenece,
-            idEscolaridad: me.escolaridad,
-            lengua_indigena: me.radioGroupLengua,
-            motivo: me.motivo,
-            situacion_laboral: me.radioGroupSituacion,
-            firma_capacitando: me.firma,
-          });
+          await AuthService.registerStudent(me.user);
           this.$swal('Registrado', 'Datos extras guardados correctamente.', 'success').then(() => {
             this.$router.push('/page-principal');
           });

@@ -22,7 +22,7 @@
                     label="Nombre*"
                     hint="Ingrese su nombre"
                     :rules="[rules.required]"
-                    v-model="name"
+                    v-model="user.name"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
@@ -30,22 +30,21 @@
                     label="Primer apellido*"
                     hint="Ingrese su primer apellido"
                     :rules="[rules.required]"
-                    v-model="midname"
+                    v-model="user.primer_apellido"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="4">
                   <v-text-field
                     label="Segundo apellido*"
                     hint="Ingrese su segundo apellido"
-                    :rules="[rules.required]"
-                    v-model="lastname"
+                    v-model="user.segundo_apellido"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
                     label="Correo*"
                     :rules="[rules.required, rules.email]"
-                    v-model="email"
+                    v-model="user.email"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="10">
@@ -54,7 +53,7 @@
                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                     :type="show1 ? 'text' : 'password'"
                     :rules="[rules.required, rules.min, rules.max]"
-                    v-model="password"
+                    v-model="user.password"
                     @click:append="show1 = !show1"
                   ></v-text-field>
                 </v-col>
@@ -127,7 +126,7 @@
                     label="Confirmación de contraseña*"
                     :type="show1 ? 'text' : 'password'"
                     :rules="[rules.required, rules.min, rules.max, rules.match]"
-                    v-model="password_confirmation"
+                    v-model="user.password_confirmation"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -166,12 +165,14 @@ export default {
     error_msg: "Datos inválidos",
     show_pass_rules: false,
     show1: false,
-    name: "",
-    midname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    password_confirmation: "",
+    user: {
+      name: "",
+      primer_apellido: "",
+      segundo_apellido: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+    },
   }),
   computed: {
     rules() {
@@ -192,7 +193,8 @@ export default {
           return pattern_pass.test(value) || "Contraseña inválida";
         }, */
         match: (value) =>
-          (!!value && value) === me.password || "Las contraseñas no coinciden",
+          (!!value && value) === me.user.password ||
+          "Las contraseñas no coinciden",
       };
     },
   },
@@ -202,13 +204,7 @@ export default {
 
       if (me.$refs.form_user.validate()) {
         try {
-          const user_data = {
-            name: `${me.name} ${me.midname} ${me.lastname}`,
-            email: me.email,
-            password: me.password,
-            password_confirmation: me.password_confirmation,
-          };
-          await AuthService.signUp(user_data);
+          await AuthService.signUp(me.user);
           me.dialog = false;
           this.$swal(
             "Registrado",
