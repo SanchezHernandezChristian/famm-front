@@ -65,16 +65,45 @@
             <v-stepper-items>
               <v-stepper-content step="1">
                 <v-card class="mb-12">
-                  <v-row justify="center" class="mt-1">
+                  <v-row justify="center" dense class="mt-1">
                     <v-col cols="4">
-                      <v-text-field
-                        label="Fecha de ingreso"
-                        dense
-                        outlined
-                        prepend-icon="mdi-calendar"
-                        :rules="[rules.required]"
-                        v-model="teacher.fecha_ingreso"
-                      ></v-text-field>
+                      <v-menu
+                        v-model="menu2"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="auto"
+                      >
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-text-field
+                            dense
+                            outlined
+                            label="Fecha de ingreso"
+                            prepend-icon="mdi-calendar"
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                            :rules="[rules.required]"
+                            v-model="teacher.fecha_ingreso"
+                          ></v-text-field>
+                        </template>
+                        <v-date-picker
+                          :max="
+                            new Date(
+                              Date.now() -
+                                new Date().getTimezoneOffset() * 60000
+                            )
+                              .toISOString()
+                              .substr(0, 10)
+                          "
+                          locale="es-MX"
+                          min="1950-01-01"
+                          :rules="[rules.required]"
+                          v-model="teacher.fecha_ingreso"
+                          @input="menu2 = false"
+                        ></v-date-picker>
+                      </v-menu>
                     </v-col>
                   </v-row>
                   <v-row justify="center" class="mt-0">
@@ -178,7 +207,6 @@
                         label="Segundo apellido"
                         dense
                         outlined
-                        :rules="[rules.required]"
                         v-model="teacher.apellido_materno"
                       ></v-text-field>
                     </v-col>
@@ -244,7 +272,7 @@
                         dense
                         outlined
                         :rules="[rules.required, rules.natural_number]"
-                        v-model="teacher.codigo_postal"
+                        v-model="teacher.cp"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -744,6 +772,7 @@ export default {
       s2_valid: true,
       s3_valid: true,
       menu: false,
+      menu2: false,
       items_municipios: [],
       items_escolaridad: [],
       items_cursos: [],
@@ -751,12 +780,11 @@ export default {
         nombre: null,
         apellido_paterno: null,
         apellido_materno: null,
-        domicilio: null,
         calle: null,
         numero: null,
         colonia: null,
         localidad: null,
-        codigo_postal: null,
+        cp: null,
         fotografia: null,
         c_Municipio: null,
         curp: null,
@@ -774,6 +802,9 @@ export default {
         rfc: null,
         registro: null,
         documento_obtenido: null,
+        lengua_indigena: 0,
+        motivo: "EMPLEO",
+        situacion_laboral: 1,
       },
     };
   },
@@ -785,9 +816,13 @@ export default {
         const response = await AuthService.getMunicipios();
         const response2 = await AuthService.getEscolaridad();
         const response3 = await AuthService.getCursos();
+        const response4 = await AuthService.getProfile();
         me.items_municipios = response.municipios;
         me.items_escolaridad = response2.data;
         me.items_cursos = response3.cursos;
+        me.teacher.nombre = response4.nombres;
+        me.teacher.apellido_paterno = response4.primer_apellido;
+        me.teacher.apellido_materno = response4.segundo_apellido;
       } catch (error) {
         console.log("Error", error.response);
       }
