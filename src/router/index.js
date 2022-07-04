@@ -105,6 +105,30 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewAddEspecialidad.vue')
   },
+  {
+    path: '/dashboard-admin-unidad',
+    name: 'ViewDashboardAdminUnidad',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewDashboardAdminUnidad.vue')
+  },
+  {
+    path: '/cedula-pre-autorizada',
+    name: 'ViewCedulasCursosRegistradas',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewCedulasCursosRegistradas.vue')
+  },
+  {
+    path: '/form-cedula-cursos',
+    name: 'ViewAddCedulaPreAutCursos',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewAddCedulaPreAutCursos.vue')
+  },
 ]
 
 const router = new VueRouter({

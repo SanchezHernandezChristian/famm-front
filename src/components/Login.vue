@@ -81,7 +81,8 @@ export default {
           const rol = response.user.Rol;
           me.dialog = false;
           this.$store.dispatch('login', { token, user });
-          if (rol == 'ADMINISTRADOR') this.$router.push('/dashboard-admin');
+          if (rol == 'ADMINISTRADOR') this.$router.push('/dashboard-admin');          
+          else if (rol == 'ADMINISTRADOR UNIDAD') this.$router.push('/dashboard-admin-unidad');
           else this.$router.push('/page-principal');
           //else this.$router.push('/form-registro');
         } catch (error) {
