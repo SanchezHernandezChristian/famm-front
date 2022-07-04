@@ -169,6 +169,37 @@
                 item-value="idRol"
                 v-model="user.idRol"
                 label="Seleccione una opción"
+                v-on:change="selectUnidadCapacitacion"
+              ></v-select>
+            </v-flex>
+            <v-flex align-self-center xs6> </v-flex>
+          </v-layout>
+        </div>
+      </v-row>
+      <v-row
+        justify="center"
+        align="center"
+        style="height: 70px"
+        v-if="mostrarUnidadCap"
+      >
+        <div>
+          <v-layout row justify-center>
+            <v-flex align-self-baseline xs2
+              ><label>Unidad de capacitación</label></v-flex
+            >
+            <v-flex align-self-center xs4>
+              <v-select
+                v-model="select"
+                :items="items"
+                item-text="nombre"
+                item-value="id"
+                :rules="rules"
+                class="bordeRedondoElement"
+                label="Seleccione una unidad de capacitación"
+                required
+                return-object
+                dense
+                outlined
               ></v-select>
             </v-flex>
             <v-flex align-self-center xs6> </v-flex>
@@ -222,8 +253,21 @@ export default {
       password: null,
       password_confirmation: null,
       idRol: null,
+      //agregar id para almacenar la unidad de capacitación
     },
     email_edit: null,
+    select: {
+      id: 0,
+      nombre: "",
+      director: "",
+      telefono: "",
+      direccion: "",
+      tipo: "",
+      created_at: null,
+      updated_at: null,
+    }, //<-- el seleccionado estará aquí
+    items: [], // <-- La lista de unidades de capacitación
+    mostrarUnidadCap: false,
   }),
 
   created() {
@@ -263,6 +307,16 @@ export default {
           "No se pudo recuperar la unformación del usuario.",
           "error"
         );
+      }
+    },
+
+    async selectUnidadCapacitacion() {
+      if (this.user.idRol == 5) {
+        this.mostrarUnidadCap = true;
+        const listCenters = await AuthService.getAllCenters();
+        this.items = listCenters.data;
+      } else {
+        this.mostrarUnidadCap = false;
       }
     },
 

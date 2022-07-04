@@ -176,7 +176,7 @@
                         show-size
                         accept="image/png, image/jpeg, image/bmp"
                         :rules="[rules.size]"
-                        v-model="teacher.fotografia"
+                        @change="selectFile"
                       ></v-file-input>
                     </v-col>
                   </v-row>
@@ -414,7 +414,7 @@
                         dense
                         outlined
                         :rules="[rules.required]"
-                        v-model="teacher.registro"
+                        v-model="teacher.numero_registro"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -800,7 +800,7 @@ export default {
         clave: null,
         certificado: null,
         rfc: null,
-        registro: null,
+        numero_registro: null,
         documento_obtenido: null,
         lengua_indigena: 0,
         motivo: "EMPLEO",
@@ -860,6 +860,12 @@ export default {
           "warning"
         );
       }
+    },
+
+    selectFile(file) {
+      let formData = new FormData();
+      formData.append("fotografia", file);
+      this.teacher.fotografia = formData;
     },
   },
 };
