@@ -83,6 +83,7 @@ export default {
           this.$store.dispatch('login', { token, user });
           if (rol == 'ADMINISTRADOR') this.$router.push('/dashboard-admin');          
           else if (rol == 'ADMINISTRADOR UNIDAD') this.$router.push('/dashboard-admin-unidad');
+          else if (rol == 'PROFESOR') this.$router.push('/dashboard-instructor');
           else this.$router.push('/page-principal');
           //else this.$router.push('/form-registro');
         } catch (error) {
