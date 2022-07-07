@@ -108,4 +108,15 @@ export default {
     deleteEspecialidad(idEspecialidad) {
         return axios.delete(url + 'delete-specialty/' + idEspecialidad).then(response => response.data);
     },
+    getDocentes() {
+        return axios.get(url + 'all-teacher').then(response => response.data);
+    },
+    addCedulaPreAut(data_cedula) {
+        return axios
+            .post(url + 'create-cedula', data_cedula)
+            .then(response => response.data);
+    },
+    geAllCedulas() {
+        return axios.get(url + 'all-cedulas').then(response => response.data);
+    },
 };
