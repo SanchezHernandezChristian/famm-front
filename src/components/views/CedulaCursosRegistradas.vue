@@ -142,19 +142,18 @@ export default {
     //Elementos para la tabla
     headers: [
       {
-        text: "Curso solicitado",
+        text: "Modalida Curso",
         align: "start",
         sortable: false,
-        value: "nombre_curso",
+        value: "modalidadCurso",
       },
-      { text: "Clave", value: "duracion_horas" },
-      { text: "Nombre del solicitante", value: "clave_curso" },
-      { text: "Sede curso", value: "nombre_especialidad" },
-      { text: "Total inscritos", value: "descripcion_curso" },
-      { text: " ", value: "asignar" },
+      { text: "Representante", value: "nombreRepresentante" },
+      { text: "Nombre del solicitante", value: "nombreSolicitaCurso" },
+      { text: "Sede curso", value: "sedeCurso" },
+      { text: "Total inscritos", value: "totalInscritos" },
       { text: " ", value: "actions" },
     ],
-    cursos: [],
+    cedulas: [],
     editedItem: "",
     selected: [],
     deleteId: 0,
@@ -165,62 +164,20 @@ export default {
 
   async mounted() {
     try {
-      const listespecialidades = await AuthService.getEspecialidades();
-      this.items = listespecialidades.especialidades;
-      const listcursos = await AuthService.getCursos();
-      this.cursos = listcursos.cursos;
-      console.log("cursos", this.cursos);
+      const response = await AuthService.getEspecialidades();
+      this.cedulas = response.data;
+      console.log("cedulas", this.cedulas);
     } catch (error) {
       console.log(error);
     }
   },
 
   methods: {
-    async createGrade() {
-      try {
-        let data = {
-          nombre_curso: this.nombreCurso,
-          duracion_horas: parseInt(this.duracion, 10),
-          //duracion_horas: this.duracion,
-          clave_curso: this.claveCurso,
-          //idEspecialidad: String(this.select.idEspecialidad),
-          idEspecialidad: this.select.idEspecialidad,
-          descripcion_curso: this.descripcionCurso,
-        };
-        if (this.select.idEspecialidad != 0) {
-          this.especialidadValid = true;
-        } else {
-          const response = await AuthService.addGrade(data);
-          this.datarespuesta = response;
-          if (response.serverCode == 200) {
-            this.dialog = false;
-            this.$swal(
-              "Registrado",
-              "Cédula de pre-autorización registrada correctamente.",
-              "success"
-            );
-            this.reloadTable();
-          } else {
-            this.$swal("Error", response.message, "error");
-          }
-        }
-      } catch (error) {
-        this.dialog = false;
-        console.log(error);
-        console.log(error.response.data.errors);
-        let error_msg =
-          error.response.data.errors[
-            Object.keys(error.response.data.errors)[0]
-          ][0];
-        this.$swal("Error", error_msg, "error");
-      }
-    },
-
-    async reloadTable() {
-      const listcursos = await AuthService.getCursos();
-      this.cursos = listcursos.cursos;
-      console.log("cursosReload", this.cursos);
-    },
+    // async reloadTable() {
+    //   const response = await AuthService.getEspecialidades();
+    //   this.cedulas = response.data;
+    //   console.log("cedulas", this.cedulas);
+    // },
 
     async newForm() {
       try {
