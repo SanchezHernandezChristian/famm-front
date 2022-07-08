@@ -253,11 +253,11 @@ export default {
       password: null,
       password_confirmation: null,
       idRol: null,
-      //agregar id para almacenar la unidad de capacitación
+      idCentro_capacitacion: null, //agregar id para almacenar la unidad de capacitación
     },
     email_edit: null,
     select: {
-      id: 0,
+      id: null,
       nombre: "",
       director: "",
       telefono: "",
@@ -327,7 +327,10 @@ export default {
           if (me.user.id) {
             if (me.user.email == me.email_edit) me.user.email = null;
             await AuthService.updateUser(me.user);
-          } else await AuthService.signUp(me.user);
+          } else{
+            me.user.idCentro_capacitacion = this.select.id;
+            await AuthService.signUp(me.user);
+          }
           Object.assign(me.$data, me.$options.data());
           me.$refs.form_addusr.resetValidation();
           me.fetchRoles();

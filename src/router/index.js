@@ -53,6 +53,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/RegistroInstructorForm.vue')
   },
   {
+    path: '/dashboard-instructor',
+    name: 'ViewDashboardInstructor',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewDashboardInstructor.vue')
+  },
+  {
     path: '/dashboard-admin',
     name: 'ViewDashboardAdmin',
     // route level code-splitting
