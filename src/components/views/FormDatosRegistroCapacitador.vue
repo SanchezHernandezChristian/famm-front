@@ -42,29 +42,29 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-form ref="form_teacher" lazy-validation>
-          <v-stepper non-linear v-model="e1">
-            <v-stepper-header>
-              <v-stepper-step step="1" editable :rules="[() => s1_valid]">
-                Información
-              </v-stepper-step>
+        <v-stepper non-linear v-model="e1">
+          <v-stepper-header>
+            <v-stepper-step step="1" editable :rules="[() => s1_valid]">
+              Información
+            </v-stepper-step>
 
-              <v-divider></v-divider>
+            <v-divider></v-divider>
 
-              <v-stepper-step step="2" editable :rules="[() => s1_valid]">
-                Experiencia
-              </v-stepper-step>
+            <v-stepper-step step="2" editable :rules="[() => s2_valid]">
+              Experiencia
+            </v-stepper-step>
 
-              <v-divider></v-divider>
+            <v-divider></v-divider>
 
-              <v-stepper-step step="3" editable :rules="[() => s1_valid]">
-                Documentos
-              </v-stepper-step>
-            </v-stepper-header>
+            <v-stepper-step step="3" editable :rules="[() => s3_valid]">
+              Documentos
+            </v-stepper-step>
+          </v-stepper-header>
 
-            <v-stepper-items>
-              <v-stepper-content step="1">
-                <v-card class="mb-12">
+          <v-stepper-items>
+            <v-stepper-content step="1">
+              <v-card class="mb-12">
+                <v-form ref="form_teacher" lazy-validation>
                   <v-row justify="center" dense class="mt-1">
                     <v-col cols="4">
                       <v-menu
@@ -410,7 +410,7 @@
                   <v-row justify="center">
                     <v-col cols="4">
                       <v-text-field
-                        label="Registro número"
+                        label="Registro NSS"
                         dense
                         outlined
                         :rules="[rules.required]"
@@ -446,144 +446,99 @@
                       ></v-text-field>
                     </v-col>
                   </v-row>
-                </v-card>
+                </v-form>
+              </v-card>
 
-                <v-btn color="primary" @click="e1++"> Continuar </v-btn>
+              <v-btn color="primary" @click="store"> Guardar </v-btn>
 
-                <v-btn text> Volver </v-btn>
-              </v-stepper-content>
+              <v-btn text> Volver </v-btn>
+            </v-stepper-content>
 
-              <v-stepper-content step="2">
-                <v-card class="mb-12">
+            <v-stepper-content step="2">
+              <v-card class="mb-12">
+                <v-form ref="form_experiencia" lazy-validation>
                   <strong>EXPERIENCIA COMO INSTRUCTOR</strong>
+                  <ExperienciaDocente
+                    v-for="(row, index) in s2row1"
+                    :key="'s2row1' + index"
+                  />
                   <v-row justify="center" class="mt-1">
-                    <v-col cols="6">
-                      <v-text-field
-                        label="Nombre del curso o especialidad"
-                        dense
-                        outlined
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                      <v-text-field
-                        label="Institución o empresa en que impartió"
-                        dense
-                        outlined
-                      >
-                      </v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                      <v-text-field
-                        label="Periodo inicio - término"
-                        dense
-                        outlined
-                      >
-                      </v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                      <v-text-field
-                        label="Comprobante o documento que lo acredita"
-                        dense
-                        outlined
-                      >
-                      </v-text-field>
-                    </v-col>
                     <v-col cols="3">
-                      <v-btn elevation="2" small class="mr-2"
+                      <v-btn elevation="2" small class="mr-2" @click="s2row1++"
                         >Añadir otro</v-btn
                       >
-                      <v-btn elevation="2" small>Borrar</v-btn>
+                      <v-btn
+                        elevation="2"
+                        small
+                        @click="s2row1 > 1 ? s2row1-- : s2row1"
+                        >Borrar</v-btn
+                      >
                     </v-col>
                   </v-row>
                   <strong>FORMACIÓN DOCENTE (PARA INSTRUCTOR)</strong>
+                  <FormacionDocente
+                    v-for="(row, index) in s2row2"
+                    :key="'s2row2' + index"
+                  />
                   <v-row justify="center" class="mt-1">
-                    <v-col cols="6">
-                      <v-text-field label="Curso recibido" dense outlined>
-                      </v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                      <v-text-field label="Institución" dense outlined>
-                      </v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                      <v-text-field
-                        label="Periodo inicio - término"
-                        dense
-                        outlined
-                      >
-                      </v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                      <v-text-field
-                        label="Documento que lo acredita"
-                        dense
-                        outlined
-                      >
-                      </v-text-field>
-                    </v-col>
                     <v-col cols="3">
-                      <v-btn elevation="2" small class="mr-2"
+                      <v-btn elevation="2" small class="mr-2" @click="s2row2++"
                         >Añadir otro</v-btn
                       >
-                      <v-btn elevation="2" small>Borrar</v-btn>
+                      <v-btn
+                        elevation="2"
+                        small
+                        @click="s2row2 > 1 ? s2row2-- : s2row2"
+                        >Borrar</v-btn
+                      >
                     </v-col>
                   </v-row>
                   <strong>EXPERIENCIA LABORAL</strong>
+                  <ExperienciaLaboralDocente
+                    v-for="(row, index) in s2row3"
+                    :key="'s2row3' + index"
+                  />
                   <v-row justify="center" class="mt-1">
-                    <v-col cols="6">
-                      <v-text-field
-                        label="Institución, organización o empresa"
-                        dense
-                        outlined
-                      >
-                      </v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                      <v-text-field label="Puesto" dense outlined>
-                      </v-text-field>
-                    </v-col>
-                    <v-col cols="6">
-                      <v-text-field label="Periodo: año-mes" dense outlined>
-                      </v-text-field>
-                    </v-col>
-                    <v-col cols="6"></v-col>
                     <v-col cols="3">
-                      <v-btn elevation="2" small class="mr-2"
+                      <v-btn elevation="2" small class="mr-2" @click="s2row3++"
                         >Añadir otro</v-btn
                       >
-                      <v-btn elevation="2" small>Borrar</v-btn>
+                      <v-btn
+                        elevation="2"
+                        small
+                        @click="s2row3 > 1 ? s2row3-- : s2row3"
+                        >Borrar</v-btn
+                      >
                     </v-col>
                   </v-row>
                   <strong>OFERTA DE CAPACITACIÓN</strong>
-                  <v-row justify="center" class="mt-1">
-                    <v-col cols="6">
+                  <v-row class="mt-1">
+                    <v-col cols="8">
                       <v-autocomplete
                         dense
                         outlined
+                        multiple
                         :rules="[rules.required]"
                         :items="items_cursos"
                         item-text="nombre_curso"
                         item-value="idCurso"
                         label="Enliste los cursos que puede impartir"
+                        v-model="expTeacher.cursos"
                       ></v-autocomplete>
                     </v-col>
                     <v-col cols="6"></v-col>
-                    <v-col cols="3">
-                      <v-btn elevation="2" small class="mr-2"
-                        >Añadir otro</v-btn
-                      >
-                      <v-btn elevation="2" small>Borrar</v-btn>
-                    </v-col>
                   </v-row>
-                </v-card>
+                </v-form>
+              </v-card>
 
-                <v-btn color="primary" @click="e1++"> Continuar </v-btn>
+              <v-btn color="primary" @click="store2"> Guardar </v-btn>
 
-                <v-btn text @click="e1--"> Volver </v-btn>
-              </v-stepper-content>
+              <v-btn text @click="e1--"> Volver </v-btn>
+            </v-stepper-content>
 
-              <v-stepper-content step="3">
-                <v-card class="mb-12">
+            <v-stepper-content step="3">
+              <v-card class="mb-12">
+                <v-form ref="form_documentos" lazy-validation>
                   <strong>DOCUMENTOS QUE PRESENTA</strong>
                   <v-row justify="center">
                     <v-col cols="4">
@@ -593,7 +548,7 @@
                         dense
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
-                        :rules="[rules.size]"
+                        :rules="[rules.required, rules.size]"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
@@ -609,7 +564,7 @@
                         dense
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
-                        :rules="[rules.size]"
+                        :rules="[rules.required, rules.size]"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
@@ -625,7 +580,7 @@
                         dense
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
-                        :rules="[rules.size]"
+                        :rules="[rules.required, rules.size]"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
@@ -641,7 +596,7 @@
                         dense
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
-                        :rules="[rules.size]"
+                        :rules="[rules.required, rules.size]"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
@@ -657,7 +612,7 @@
                         dense
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
-                        :rules="[rules.size]"
+                        :rules="[rules.required, rules.size]"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
@@ -673,7 +628,7 @@
                         dense
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
-                        :rules="[rules.size]"
+                        :rules="[rules.required, rules.size]"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
@@ -689,7 +644,7 @@
                         dense
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
-                        :rules="[rules.size]"
+                        :rules="[rules.required, rules.size]"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
@@ -705,7 +660,7 @@
                         dense
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
-                        :rules="[rules.size]"
+                        :rules="[rules.required, rules.size]"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
@@ -721,7 +676,7 @@
                         dense
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
-                        :rules="[rules.size]"
+                        :rules="[rules.required, rules.size]"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
@@ -729,17 +684,17 @@
                       <v-btn elevation="2" small>Borrar</v-btn>
                     </v-col>
                   </v-row>
-                </v-card>
+                </v-form>
+              </v-card>
 
-                <v-btn class="m-1" @click="e1--"> Volver </v-btn>
+              <v-btn color="primary" dark class="m-1" @click="store3"
+                >Guardar</v-btn
+              >
 
-                <v-btn color="success" dark class="m-1" @click="store"
-                  >Guardar</v-btn
-                >
-              </v-stepper-content>
-            </v-stepper-items>
-          </v-stepper>
-        </v-form>
+              <v-btn class="m-1" @click="e1--"> Volver </v-btn>
+            </v-stepper-content>
+          </v-stepper-items>
+        </v-stepper>
       </v-col>
     </v-row>
   </v-container>
@@ -747,8 +702,16 @@
 
 <script>
 import AuthService from "@/services/AuthService.js";
+import ExperienciaDocente from "@/components/partials/ExperienciaDocente.vue";
+import ExperienciaLaboralDocente from "@/components/partials/ExperienciaLaboralDocente.vue";
+import FormacionDocente from "@/components/partials/FormacionDocente.vue";
 
 export default {
+  components: {
+    ExperienciaDocente,
+    ExperienciaLaboralDocente,
+    FormacionDocente,
+  },
   data() {
     return {
       rules: {
@@ -773,10 +736,14 @@ export default {
       s3_valid: true,
       menu: false,
       menu2: false,
+      s2row1: 1,
+      s2row2: 1,
+      s2row3: 1,
       items_municipios: [],
       items_escolaridad: [],
       items_cursos: [],
       teacher: {
+        idDocente: null,
         nombre: null,
         apellido_paterno: null,
         apellido_materno: null,
@@ -806,6 +773,13 @@ export default {
         motivo: "EMPLEO",
         situacion_laboral: 1,
       },
+      expTeacher: {
+        experienciaDocente: [],
+        formacionDocente: [],
+        experienciaLaboral: [],
+        cursos: [],
+      },
+      formData: null,
     };
   },
 
@@ -834,7 +808,11 @@ export default {
       let me = this;
       if (me.$refs.form_teacher.validate()) {
         try {
-          await AuthService.addTeacher(me.teacher);
+          me.formData = new FormData();
+          for (const key in me.teacher) {
+            me.formData.append(key, me.teacher[key]);
+          }
+          const responseStore1 = await AuthService.addTeacher(me.formData);
           Object.assign(me.$data, me.$options.data());
           me.$refs.form_teacher.resetValidation();
           me.$swal(
@@ -842,10 +820,11 @@ export default {
             "Información guardada correctamente.",
             "success"
           ).then(() => {
-            me.$router.push("/page-principal");
+            me.e1 = 2;
+            me.teacher.idDocente = responseStore1.data;
           });
         } catch (error) {
-          console.log(error.response);
+          console.log(error);
           me.$swal(
             "Error",
             "Error al intentar guardar la información.",
@@ -862,10 +841,64 @@ export default {
       }
     },
 
+    /* async */ store2() {
+      let me = this;
+      let id = me.teacher.idDocente;
+      if (me.$refs.form_experiencia.validate()) {
+        try {
+          // await AuthService.addTeacher(me.expTeacher, 2);
+          Object.assign(me.$data, me.$options.data());
+          me.$refs.form_teacher.resetValidation();
+          me.$swal(
+            "Hecho",
+            "Información guardada correctamente.",
+            "success"
+          ).then(() => {
+            me.e1 = 3;
+            me.teacher.idDocente = id;
+          });
+        } catch (error) {
+          console.log(error);
+          me.$swal(
+            "Error",
+            "Error al intentar guardar la información.",
+            "error"
+          );
+        }
+      } else {
+        me.s2_valid = false;
+        me.$swal(
+          "Advertencia",
+          "No ha completado la información solicitada.",
+          "warning"
+        );
+      }
+    },
+
+    store3() {
+      let me = this;
+      if (me.$refs.form_documentos.validate()) {
+        me.$swal(
+          "Hecho",
+          "Información guardada correctamente.",
+          "success"
+        ).then(() => {
+          Object.assign(me.$data, me.$options.data());
+          me.$refs.form_documentos.resetValidation();
+          me.$router.push("/dashboard-instructor");
+        });
+      } else {
+        me.s3_valid = false;
+        me.$swal(
+          "Advertencia",
+          "No ha completado la información solicitada.",
+          "warning"
+        );
+      }
+    },
+
     selectFile(file) {
-      let formData = new FormData();
-      formData.append("fotografia", file);
-      this.teacher.fotografia = formData;
+      this.teacher.fotografia = file;
     },
   },
 };
