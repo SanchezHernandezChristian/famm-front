@@ -67,7 +67,7 @@
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
         </v-row>
-        <!-- <v-row justify="center" align="center">
+        <v-row justify="center" align="center">
           <v-layout row justify-center>
             <v-flex align-self-center xs4> </v-flex>
             <v-flex align-self-center xs2><label>CLAVE</label></v-flex>
@@ -77,12 +77,14 @@
                   outlined
                   class="bordeRedondoElement"
                   :rules="rules"
+                  v-model="selectCurso.clave_curso"
+                  disabled
                 ></v-text-field
               ></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
-        </v-row> -->
+        </v-row>
         <v-row justify="center" align="center">
           <v-layout row justify-center>
             <v-flex align-self-center xs4> </v-flex>
@@ -376,6 +378,7 @@
                   :rules="rules"
                   type="number"
                   v-model="form_pre_aut.totalHorasCurso"
+                  @input="calcular"
                 ></v-text-field
               ></v-col>
             </v-flex>
@@ -394,6 +397,7 @@
                   :rules="rules"
                   type="number"
                   v-model="form_pre_aut.costoHora"
+                  @input="calcular"
                 ></v-text-field
               ></v-col>
             </v-flex>
@@ -412,6 +416,7 @@
                   :rules="rules"
                   type="number"
                   v-model="form_pre_aut.costoTotal"
+                  disabled
                 ></v-text-field
               ></v-col>
             </v-flex>
@@ -648,6 +653,7 @@
                   :rules="rules"
                   type="number"
                   v-model="form_pre_aut.totalHombres"
+                  @input="ctotalInscritos"
                 ></v-text-field
               ></v-col>
             </v-flex>
@@ -668,6 +674,7 @@
                   :rules="rules"
                   type="number"
                   v-model="form_pre_aut.totalMujeres"
+                  @input="ctotalInscritos"
                 ></v-text-field
               ></v-col>
             </v-flex>
@@ -688,6 +695,7 @@
                   :rules="rules"
                   type="number"
                   v-model="form_pre_aut.totalInscritos"
+                  disabled
                 ></v-text-field
               ></v-col>
             </v-flex>
@@ -735,8 +743,8 @@
     <v-row v-if="section2">
       <div class="text-center">
         <v-layout row justify-end>
-          <v-flex align-self-center xs5></v-flex>
-          <v-flex align-self-center xs1>
+          <v-flex align-self-center xs3></v-flex>
+          <v-flex align-self-center xs2>
             <v-btn
               depressed
               color="#FFFFFF"
@@ -748,7 +756,7 @@
               ></v-btn
             >
           </v-flex>
-          <v-flex align-self-center xs1>
+          <v-flex align-self-center xs2>
             <template>
               <div class="text-center">
                 <v-dialog v-model="dialog" width="500">
@@ -780,10 +788,10 @@
               </div>
             </template>
           </v-flex>
-          <v-flex align-self-center xs1
+          <v-flex align-self-center xs2
             ><v-btn outlined color="gray" @click="clean">LIMPIAR</v-btn></v-flex
           >
-          <v-flex align-self-center xs3></v-flex>
+          <v-flex align-self-center xs2></v-flex>
           <v-flex align-self-center xs1><label>Página 2 de 2</label></v-flex>
           <!-- <v-flex align-self-center xs1
             ><v-text-field
@@ -928,6 +936,15 @@ export default {
       console.log("page: ", this.page);
       this.section2 = false;
       this.section1 = true;
+    },
+
+    async calcular(){
+        this.form_pre_aut.costoTotal = this.form_pre_aut.totalHorasCurso * this.form_pre_aut.costoHora;
+    },
+
+    async ctotalInscritos(){
+        //parseInt(this.duracion, 10),
+        this.form_pre_aut.totalInscritos = parseInt(this.form_pre_aut.totalMujeres,10) + parseInt(this.form_pre_aut.totalHombres,10);
     },
 
     async clean() {
