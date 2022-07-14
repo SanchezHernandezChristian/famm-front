@@ -118,13 +118,13 @@
                         <v-radio
                           dense
                           label="NUEVO INGRESO"
-                          value="N"
+                          value="0"
                           class="font-weight-black"
                         ></v-radio>
                         <v-radio
                           dense
                           label="EN SERVICIO"
-                          value="S"
+                          value="1"
                           class="font-weight-black"
                         ></v-radio>
                         <v-spacer></v-spacer>
@@ -154,13 +154,13 @@
                         <v-radio
                           dense
                           label="EN COMPETENCIA LABORAL"
-                          value="C"
+                          value="0"
                           class="font-weight-black"
                         ></v-radio>
                         <v-radio
                           dense
                           label="EN ROCO"
-                          value="R"
+                          value="1"
                           class="font-weight-black"
                         ></v-radio>
                         <v-spacer></v-spacer>
@@ -549,11 +549,18 @@
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
                         :rules="[rules.required, rules.size]"
+                        ref="acta_nacimiento"
+                        v-model="files.acta_nacimiento"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
                       <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small>Borrar</v-btn>
+                      <v-btn
+                        elevation="2"
+                        small
+                        @click="removeFile('acta_nacimiento')"
+                        >Borrar</v-btn
+                      >
                     </v-col>
                   </v-row>
                   <v-row justify="center">
@@ -565,11 +572,18 @@
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
                         :rules="[rules.required, rules.size]"
+                        ref="comprobante"
+                        v-model="files.comprobante"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
                       <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small>Borrar</v-btn>
+                      <v-btn
+                        elevation="2"
+                        small
+                        @click="removeFile('comprobante')"
+                        >Borrar</v-btn
+                      >
                     </v-col>
                   </v-row>
                   <v-row justify="center">
@@ -581,11 +595,15 @@
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
                         :rules="[rules.required, rules.size]"
+                        ref="ine"
+                        v-model="files.ine"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
                       <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small>Borrar</v-btn>
+                      <v-btn elevation="2" small @click="removeFile('ine')"
+                        >Borrar</v-btn
+                      >
                     </v-col>
                   </v-row>
                   <v-row justify="center">
@@ -597,11 +615,15 @@
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
                         :rules="[rules.required, rules.size]"
+                        ref="cv"
+                        v-model="files.cv"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
                       <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small>Borrar</v-btn>
+                      <v-btn elevation="2" small @click="removeFile('cv')"
+                        >Borrar</v-btn
+                      >
                     </v-col>
                   </v-row>
                   <v-row justify="center">
@@ -613,11 +635,15 @@
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
                         :rules="[rules.required, rules.size]"
+                        ref="curp"
+                        v-model="files.curp"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
                       <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small>Borrar</v-btn>
+                      <v-btn elevation="2" small @click="removeFile('curp')"
+                        >Borrar</v-btn
+                      >
                     </v-col>
                   </v-row>
                   <v-row justify="center">
@@ -629,11 +655,15 @@
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
                         :rules="[rules.required, rules.size]"
+                        ref="registro"
+                        v-model="files.registro"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
                       <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small>Borrar</v-btn>
+                      <v-btn elevation="2" small @click="removeFile('registro')"
+                        >Borrar</v-btn
+                      >
                     </v-col>
                   </v-row>
                   <v-row justify="center">
@@ -645,11 +675,15 @@
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
                         :rules="[rules.required, rules.size]"
+                        ref="titulo"
+                        v-model="files.titulo"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
                       <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small>Borrar</v-btn>
+                      <v-btn elevation="2" small @click="removeFile('titulo')"
+                        >Borrar</v-btn
+                      >
                     </v-col>
                   </v-row>
                   <v-row justify="center">
@@ -661,11 +695,15 @@
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
                         :rules="[rules.required, rules.size]"
+                        ref="diplomas"
+                        v-model="files.diplomas"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
                       <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small>Borrar</v-btn>
+                      <v-btn elevation="2" small @click="removeFile('diplomas')"
+                        >Borrar</v-btn
+                      >
                     </v-col>
                   </v-row>
                   <v-row justify="center">
@@ -677,11 +715,15 @@
                         show-size
                         accept="image/png, image/jpeg, image/bmp, application/pdf"
                         :rules="[rules.required, rules.size]"
+                        ref="otros"
+                        v-model="files.otros"
                       ></v-file-input>
                     </v-col>
                     <v-col cols="2">
                       <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small>Borrar</v-btn>
+                      <v-btn elevation="2" small @click="removeFile('otros')"
+                        >Borrar</v-btn
+                      >
                     </v-col>
                   </v-row>
                 </v-form>
@@ -778,6 +820,17 @@ export default {
         formacionDocente: [],
         experienciaLaboral: [],
         cursos: [],
+      },
+      files: {
+        acta_nacimiento: null,
+        comprobante: null,
+        ine: null,
+        cv: null,
+        curp: null,
+        registro: null,
+        titulo: null,
+        diplomas: null,
+        otros: null,
       },
       formData: null,
     };
@@ -895,6 +948,10 @@ export default {
           "warning"
         );
       }
+    },
+
+    removeFile(input_name) {
+      this.files[input_name] = null;
     },
 
     selectFile(file) {
