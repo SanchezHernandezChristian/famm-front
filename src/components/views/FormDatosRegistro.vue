@@ -136,7 +136,7 @@
                 show-size
                 accept="image/png, image/jpeg, image/bmp"
                 :rules="[rules.size]"
-                v-model="user.fotografia"
+                @change="selectFile"
               ></v-file-input>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -507,9 +507,10 @@ export default {
       lengua_indigena: null,
       motivo: "",
       situacion_laboral: null,
-      firma_capacitando: "",
+      firma_capacitando: "ABC",
     },
     menu: false,
+    formData: null,
   }),
 
   async created() {
@@ -545,18 +546,30 @@ export default {
 
       if (me.$refs.form_registro.validate()) {
         try {
-          await AuthService.registerStudent(me.user);
+          me.formData = new FormData();
+          for (const key in me.user) {
+            me.formData.append(key, me.user[key]);
+          }
+          await AuthService.registerStudent(me.formData);
           this.$swal('Registrado', 'Datos extras guardados correctamente.', 'success').then(() => {
             this.$router.push('/page-principal');
           });
         } catch (error) {
-          console.log(error.response.data.errors);
-          let error_msg = error.response.data.errors[Object.keys(error.response.data.errors)[0]][0];
-          this.$swal('Error', error_msg, 'error');
+          if (error.response && error.response.data && error.response.data.errors) {
+            console.log(error.response.data.errors);
+            let error_msg = error.response.data.errors[Object.keys(error.response.data.errors)[0]][0];
+            this.$swal('Error', error_msg, 'error');
+          } else {
+            this.$swal('Error', "Ha ocurrido un error en el sistema.", 'error');
+          }
         }
       } else {
         this.$swal('Advertencia', 'No ha completado la información solicitada', 'warning');
       }
+    },
+
+    selectFile(file) {
+      this.user.fotografia = file;
     },
 
     save(date) {
