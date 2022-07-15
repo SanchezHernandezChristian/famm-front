@@ -137,6 +137,22 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewAddCedulaPreAutCursos.vue')
   },
+  {
+    path: '/relacion-participantes-registrados',
+    name: 'ViewRelacionParticipantesRegistrados',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewRelacionParticipantesRegistrados.vue')
+  },
+  {
+    path: '/form-relacion-participantes',
+    name: 'ViewAddRelacionParticipantes',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewAddRelacionParticipantes.vue')
+  },
 ]
 
 const router = new VueRouter({
