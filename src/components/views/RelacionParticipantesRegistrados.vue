@@ -150,7 +150,7 @@
                         editedItem.apellido_materno,
                         editedItem.sexo,
                         editedItem.telefono,
-                        editItem.celular
+                        editedItem.celular
                       )
                     "
                     >Guardar cambios</v-btn
