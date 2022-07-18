@@ -309,7 +309,7 @@
             <v-flex align-self-center xs3>
               <v-col>
                 <v-select
-                  v-model="form_pre_aut.idDocente"
+                  v-model="selectDocente"
                   :items="items_docentes"
                   item-text="nombre"
                   item-value="idDocente"
