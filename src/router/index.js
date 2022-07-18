@@ -153,6 +153,16 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewAddRelacionParticipantes.vue')
   },
+  {
+    path: '/cronograma',
+    name: 'ViewCronograma',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewCronograma.vue')
+  },
+  {
+    path: '/form-cronograma',
+    name: 'ViewAddCronograma',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewAddCronograma.vue')
+  },
 ]
 
 const router = new VueRouter({

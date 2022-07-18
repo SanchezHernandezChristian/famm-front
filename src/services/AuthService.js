@@ -143,4 +143,23 @@ export default {
     deleteRelacionParticipante(idParticipante) {
         return axios.delete(url + 'delete-competitor/' + idParticipante).then(response => response.data);
     },
+    fetchCronogramas() {
+        return axios.get(url + 'all-cronogramas').then(response => response.data);
+    },
+    getCronograma(id) {
+        return axios.get(`${url}get-cronograma/${id}`).then(response => response.data);
+    },
+    addCronograma(data) {
+        return axios
+            .post(url + 'create-cronograma', data)
+            .then(response => response.data);
+    },
+    updateCronograma(data) {
+        return axios
+            .put(url + 'update-cronograma', data)
+            .then(response => response.data);
+    },
+    deleteCronograma(id) {
+        return axios.delete(`${url}delete-cronograma/${id}`).then(response => response.data);
+    }
 };
