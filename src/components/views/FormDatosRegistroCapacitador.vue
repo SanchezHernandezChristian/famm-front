@@ -459,54 +459,68 @@
                 <v-form ref="form_experiencia" lazy-validation>
                   <strong>EXPERIENCIA COMO INSTRUCTOR</strong>
                   <ExperienciaDocente
-                    v-for="(row, index) in s2row1"
+                    v-for="(row, index) in items_expdocente"
                     :key="'s2row1' + index"
+                    v-model="items_expdocente[index]"
                   />
                   <v-row justify="center" class="mt-1">
                     <v-col cols="3">
-                      <v-btn elevation="2" small class="mr-2" @click="s2row1++"
+                      <v-btn
+                        elevation="2"
+                        small
+                        class="mr-2"
+                        @click="addDocenteExp('items_expdocente')"
                         >Añadir otro</v-btn
                       >
                       <v-btn
                         elevation="2"
                         small
-                        @click="s2row1 > 1 ? s2row1-- : s2row1"
+                        @click="deleteDocenteExp('items_expdocente')"
                         >Borrar</v-btn
                       >
                     </v-col>
                   </v-row>
                   <strong>FORMACIÓN DOCENTE (PARA INSTRUCTOR)</strong>
                   <FormacionDocente
-                    v-for="(row, index) in s2row2"
+                    v-for="(row, index) in items_instdocente"
                     :key="'s2row2' + index"
+                    v-model="items_instdocente[index]"
                   />
                   <v-row justify="center" class="mt-1">
                     <v-col cols="3">
-                      <v-btn elevation="2" small class="mr-2" @click="s2row2++"
+                      <v-btn
+                        elevation="2"
+                        small
+                        class="mr-2"
+                        @click="addDocenteExp('items_instdocente')"
                         >Añadir otro</v-btn
                       >
                       <v-btn
                         elevation="2"
                         small
-                        @click="s2row2 > 1 ? s2row2-- : s2row2"
+                        @click="deleteDocenteExp('items_instdocente')"
                         >Borrar</v-btn
                       >
                     </v-col>
                   </v-row>
                   <strong>EXPERIENCIA LABORAL</strong>
                   <ExperienciaLaboralDocente
-                    v-for="(row, index) in s2row3"
+                    v-for="(row, index) in items_explabdocente"
                     :key="'s2row3' + index"
                   />
                   <v-row justify="center" class="mt-1">
                     <v-col cols="3">
-                      <v-btn elevation="2" small class="mr-2" @click="s2row3++"
+                      <v-btn
+                        elevation="2"
+                        small
+                        class="mr-2"
+                        @click="addDocenteExp('items_explabdocente', true)"
                         >Añadir otro</v-btn
                       >
                       <v-btn
                         elevation="2"
                         small
-                        @click="s2row3 > 1 ? s2row3-- : s2row3"
+                        @click="deleteDocenteExp('items_explabdocente')"
                         >Borrar</v-btn
                       >
                     </v-col>
@@ -541,7 +555,7 @@
                 <v-form ref="form_documentos" lazy-validation>
                   <strong>DOCUMENTOS QUE PRESENTA</strong>
                   <v-row justify="center">
-                    <v-col cols="4">
+                    <v-col cols="6">
                       <v-file-input
                         label="Acta de nacimiento (copia)"
                         outlined
@@ -553,18 +567,9 @@
                         v-model="files.acta_nacimiento"
                       ></v-file-input>
                     </v-col>
-                    <v-col cols="2">
-                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn
-                        elevation="2"
-                        small
-                        @click="removeFile('acta_nacimiento')"
-                        >Borrar</v-btn
-                      >
-                    </v-col>
                   </v-row>
                   <v-row justify="center">
-                    <v-col cols="4">
+                    <v-col cols="6">
                       <v-file-input
                         label="Comprobante de domicilio (copia)"
                         outlined
@@ -576,18 +581,9 @@
                         v-model="files.comprobante"
                       ></v-file-input>
                     </v-col>
-                    <v-col cols="2">
-                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn
-                        elevation="2"
-                        small
-                        @click="removeFile('comprobante')"
-                        >Borrar</v-btn
-                      >
-                    </v-col>
                   </v-row>
                   <v-row justify="center">
-                    <v-col cols="4">
+                    <v-col cols="6">
                       <v-file-input
                         label="Credencial de elector (copia)"
                         outlined
@@ -599,15 +595,9 @@
                         v-model="files.ine"
                       ></v-file-input>
                     </v-col>
-                    <v-col cols="2">
-                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small @click="removeFile('ine')"
-                        >Borrar</v-btn
-                      >
-                    </v-col>
                   </v-row>
                   <v-row justify="center">
-                    <v-col cols="4">
+                    <v-col cols="6">
                       <v-file-input
                         label="Curriculum vitae (original y 2 copias)"
                         outlined
@@ -619,15 +609,9 @@
                         v-model="files.cv"
                       ></v-file-input>
                     </v-col>
-                    <v-col cols="2">
-                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small @click="removeFile('cv')"
-                        >Borrar</v-btn
-                      >
-                    </v-col>
                   </v-row>
                   <v-row justify="center">
-                    <v-col cols="4">
+                    <v-col cols="6">
                       <v-file-input
                         label="CURP (copia)"
                         outlined
@@ -639,15 +623,9 @@
                         v-model="files.curp"
                       ></v-file-input>
                     </v-col>
-                    <v-col cols="2">
-                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small @click="removeFile('curp')"
-                        >Borrar</v-btn
-                      >
-                    </v-col>
                   </v-row>
                   <v-row justify="center">
-                    <v-col cols="4">
+                    <v-col cols="6">
                       <v-file-input
                         label="Registro Secretaría del Trabajo y Prevención Social (copia)"
                         outlined
@@ -659,15 +637,9 @@
                         v-model="files.registro"
                       ></v-file-input>
                     </v-col>
-                    <v-col cols="2">
-                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small @click="removeFile('registro')"
-                        >Borrar</v-btn
-                      >
-                    </v-col>
                   </v-row>
                   <v-row justify="center">
-                    <v-col cols="4">
+                    <v-col cols="6">
                       <v-file-input
                         label="Título o carta de pasante (copia)"
                         outlined
@@ -679,15 +651,9 @@
                         v-model="files.titulo"
                       ></v-file-input>
                     </v-col>
-                    <v-col cols="2">
-                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small @click="removeFile('titulo')"
-                        >Borrar</v-btn
-                      >
-                    </v-col>
                   </v-row>
                   <v-row justify="center">
-                    <v-col cols="4">
+                    <v-col cols="6">
                       <v-file-input
                         label="Diplomas y constancias (copias)"
                         outlined
@@ -699,15 +665,9 @@
                         v-model="files.diplomas"
                       ></v-file-input>
                     </v-col>
-                    <v-col cols="2">
-                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small @click="removeFile('diplomas')"
-                        >Borrar</v-btn
-                      >
-                    </v-col>
                   </v-row>
                   <v-row justify="center">
-                    <v-col cols="4">
+                    <v-col cols="6">
                       <v-file-input
                         label="Otros (certificado)"
                         outlined
@@ -718,12 +678,6 @@
                         ref="otros"
                         v-model="files.otros"
                       ></v-file-input>
-                    </v-col>
-                    <v-col cols="2">
-                      <v-btn elevation="2" small class="mr-2">Cargar</v-btn>
-                      <v-btn elevation="2" small @click="removeFile('otros')"
-                        >Borrar</v-btn
-                      >
                     </v-col>
                   </v-row>
                 </v-form>
@@ -778,9 +732,6 @@ export default {
       s3_valid: true,
       menu: false,
       menu2: false,
-      s2row1: 1,
-      s2row2: 1,
-      s2row3: 1,
       items_municipios: [],
       items_escolaridad: [],
       items_cursos: [],
@@ -833,6 +784,9 @@ export default {
         otros: null,
       },
       formData: null,
+      items_expdocente: [],
+      items_instdocente: [],
+      items_explabdocente: [],
     };
   },
 
@@ -853,6 +807,10 @@ export default {
       } catch (error) {
         console.log("Error", error.response);
       }
+
+      me.addDocenteExp("items_expdocente");
+      me.addDocenteExp("items_instdocente");
+      me.addDocenteExp("items_explabdocente");
     }
   },
 
@@ -950,8 +908,28 @@ export default {
       }
     },
 
-    removeFile(input_name) {
-      this.files[input_name] = null;
+    addDocenteExp(a, case2 = false) {
+      let me = this;
+      if (case2) {
+        me.$data[a].push({
+          idDocente: me.teacher.idDocente,
+          nombre_institucion: null,
+          puesto: null,
+          periodo: null,
+        });
+      } else {
+        me.$data[a].push({
+          idDocente: me.teacher.idDocente,
+          nombre_curso: null,
+          nombre_institucion: null,
+          periodo: null,
+          documento: null,
+        });
+      }
+    },
+
+    deleteDocenteExp(a) {
+      if (this.$data[a].length > 1) this.$data[a].pop();
     },
 
     selectFile(file) {

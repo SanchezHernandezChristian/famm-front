@@ -96,6 +96,7 @@ export default {
         { title: "Mis proyectos" },
         { title: "Mis certificados" },
         { title: "Editar datos" },
+        { title: "Cronograma" },
       ],
       main: [
         { title: "Unidades de capacitación" },
@@ -116,8 +117,13 @@ export default {
       this.$router.push("/form-registro-instructor");
     },
 
+    redirectViewCronograma() {
+      this.$router.push("/cronograma");
+    },
+
     selectSidebarItem(item) {
       if (item.title == "Editar datos") this.redirectFormRegistro();
+      if (item.title == "Cronograma") this.redirectViewCronograma();
     },
   },
 };

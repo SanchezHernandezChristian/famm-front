@@ -6,6 +6,9 @@
         dense
         outlined
         :rules="[rules.required]"
+        :value="content.nombre_curso"
+        v-model="content.nombre_curso"
+        @input="handleInput"
       ></v-text-field>
     </v-col>
     <v-col cols="6">
@@ -14,6 +17,9 @@
         dense
         outlined
         :rules="[rules.required]"
+        :value="content.nombre_institucion"
+        v-model="content.nombre_institucion"
+        @input="handleInput"
       >
       </v-text-field>
     </v-col>
@@ -23,6 +29,9 @@
         dense
         outlined
         :rules="[rules.required]"
+        :value="content.periodo"
+        v-model="content.periodo"
+        @input="handleInput"
       >
       </v-text-field>
     </v-col>
@@ -32,6 +41,9 @@
         dense
         outlined
         :rules="[rules.required]"
+        :value="content.documento"
+        v-model="content.documento"
+        @input="handleInput"
       >
       </v-text-field>
     </v-col>
@@ -40,17 +52,24 @@
 
 <script>
 export default {
+  prop: ["value"],
   data: () => ({
     rules: {
       required: (value) => !!value || "Campo requerido",
     },
-    experiencia: {
+    content: {
+      idDocente: null,
       nombre_curso: null,
       nombre_institucion: null,
       periodo: null,
       documento: null,
     },
   }),
+  methods: {
+    handleInput() {
+      this.$emit("input", this.content);
+    },
+  },
 };
 </script>
 
