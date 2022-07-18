@@ -98,9 +98,9 @@
           </v-toolbar>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-          <v-btn text @click="editItem(item)"
+          <!-- <v-btn text @click="editItem(item)"
             ><v-icon small>mdi-pencil</v-icon><small>Editar</small></v-btn
-          >
+          > -->
           <v-btn text @click="deleteItem(item)">
             <v-icon small>mdi-window-close</v-icon
             ><small>Eliminar</small></v-btn
@@ -119,7 +119,7 @@ export default {
 
   data: () => ({
     valid: false,
-    rules: [(v) => !!v || "Required"],
+    rules: [(v) => !!v || "Campo requerido"],
     nombreCurso: "",
     duracion: "",
     claveCurso: "",
@@ -164,7 +164,7 @@ export default {
 
   async mounted() {
     try {
-      const response = await AuthService.getEspecialidades();
+      const response = await AuthService.getAllCedulas();
       this.cedulas = response.data;
       console.log("cedulas", this.cedulas);
     } catch (error) {
@@ -195,7 +195,7 @@ export default {
           id: idCedula,
         };
         console.log("dataEdit", data);
-        const responseUpdate = await AuthService.updateGrade(data);
+        const responseUpdate = await AuthService.updateCedulaPreAutorizacion(data);
         this.datarespuestaEdit = responseUpdate;
         //Aquí debe mandar a la vista de edición
         if (responseUpdate.serverCode == 200) {
@@ -225,9 +225,9 @@ export default {
 
     async deleteCedula() {
       try {
-        let idDeleteCurso = this.deleteId;
-        console.log("confirmDeleteid ", idDeleteCurso);
-        const response = await AuthService.deleteGrade(idDeleteCurso);
+        let idDeleteCedula = this.deleteId;
+        console.log("confirmDeleteid ", idDeleteCedula);
+        const response = await AuthService.deleteCedulaPreAutorizacion(idDeleteCedula);
         this.datarespuestaDelete = response;
         if (response.serverCode == 200) {
           this.dialogDelete = false;
@@ -251,22 +251,22 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.cursos.indexOf(item);
+      this.editedIndex = this.cedulas.indexOf(item);
       console.log("editedIndex ", this.editedIndex);
       this.editedItem = Object.assign({}, item);
       console.log("editedItem ", this.editedItem);
       this.dialogEdit = true;
       console.log("item edit ", item);
-      this.editId = this.editedItem.idCurso;
-      console.log("editedItem.idCurso ", this.editId);      
+      this.editId = this.editedItem.id;
+      console.log("editedItem.idCedula ", this.editId);      
     },
     deleteItem(item) {
-      this.editedIndex = this.cursos.indexOf(item);
+      this.editedIndex = this.cedulas.indexOf(item);
       console.log("deleteIndex ", this.editedIndex);
       this.editedItem = Object.assign({}, item);
       console.log("deleteItem ", this.editedItem);
-      this.deleteId = this.editedItem.idCurso;
-      console.log("editedItem.idCurso ", this.deleteId);
+      this.deleteId = this.editedItem.id;
+      console.log("editedItem.idCedula ", this.deleteId);
       this.dialogDelete = true;
     },
   },
