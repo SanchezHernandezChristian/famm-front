@@ -49,7 +49,7 @@
             </template>
           </v-menu>
         </v-flex>
-        <v-flex align-self-center xs3>
+        <v-flex align-self-center xs6>
           <v-menu transition="scroll-y-transition">
             <template v-slot:activator="{ on, attrs }">
               <v-btn depressed color="#FFFFFF" elevation="0" class="ma-2" v-bind="attrs" v-on="on" style="font-size: 20px; color: #bdbbbd"
@@ -59,6 +59,24 @@
             </template>
             <v-list>
               <v-list-item v-for="(item, index) in roles" :key="index" @click="selectItem(item)">
+                <!--<v-list-item-title>{{
+                  item.cursos[0][nombre_curso]
+                }}</v-list-item-title>-->
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-flex>
+        <v-flex align-self-center xs4>
+          <v-menu transition="scroll-y-transition">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn depressed color="#FFFFFF" elevation="0" class="ma-2" v-bind="attrs" v-on="on" style="font-size: 20px; color: #bdbbbd"
+                ><i class="fa fa-users" aria-hidden="true"></i>
+                Relación de Participantes
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item v-for="(item, index) in menu" :key="index" @click="selectItem(item)">
                 <!--<v-list-item-title>{{
                   item.cursos[0][nombre_curso]
                 }}</v-list-item-title>-->
@@ -80,6 +98,7 @@ export default {
   components: {},
   data: () => ({
     roles: [{ title: 'Cédulas de preautorización registradas' },],
+    menu: [{ title: 'Relación de participantes registrados' },],
     logged_in: false,
     dialog: false,
     items: [{ title: 'Unidad' }],
@@ -89,6 +108,7 @@ export default {
     selectItem(item) {
       //if (item.title == 'Perfil') this.profile();
       if (item.title == 'Cédulas de preautorización registradas') this.cedulaPreautorizacion();
+      if (item.title == 'Relación de participantes registrados') this.relacionParticipantes();
     },
 
     async mounted() {
@@ -136,6 +156,14 @@ export default {
     async cedulaPreautorizacion() {
       try {
         this.$router.push('cedula-pre-autorizada');
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async relacionParticipantes() {
+      try {
+        this.$router.push('relacion-participantes-registrados');
       } catch (error) {
         console.log(error);
       }

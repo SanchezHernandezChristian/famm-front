@@ -116,7 +116,31 @@ export default {
             .post(url + 'create-cedula', data_cedula)
             .then(response => response.data);
     },
-    geAllCedulas() {
+    getAllCedulas() {
         return axios.get(url + 'all-cedulas').then(response => response.data);
+    },
+    updateCedulaPreAutorizacion(cedula_data) {
+        return axios
+            .put(url + 'update-cedula', cedula_data)
+            .then(response => response.data);
+    },
+    deleteCedulaPreAutorizacion(idCedula) {
+        return axios.delete(url + 'delete-cedula/' + idCedula).then(response => response.data);
+    },
+    getAllParticipantes() {
+        return axios.get(url + 'all-competitor').then(response => response.data);
+    },
+    addRelacionParticipante(participante_data) {
+        return axios
+            .post(url + 'create-competitor', participante_data)
+            .then(response => response.data);
+    },
+    updateRelacionParticipante(relacion_data) {
+        return axios
+            .put(url + 'update-competitor', relacion_data)
+            .then(response => response.data);
+    },
+    deleteRelacionParticipante(idParticipante) {
+        return axios.delete(url + 'delete-competitor/' + idParticipante).then(response => response.data);
     },
 };
