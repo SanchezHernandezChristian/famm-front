@@ -119,6 +119,14 @@ export default {
     getAllCedulas() {
         return axios.get(url + 'all-cedulas').then(response => response.data);
     },
+    updateCedulaPreAutorizacion(cedula_data) {
+        return axios
+            .put(url + 'update-cedula', cedula_data)
+            .then(response => response.data);
+    },
+    deleteCedulaPreAutorizacion(idCedula) {
+        return axios.delete(url + 'delete-cedula/' + idCedula).then(response => response.data);
+    },
     getAllParticipantes() {
         return axios.get(url + 'all-competitor').then(response => response.data);
     },
