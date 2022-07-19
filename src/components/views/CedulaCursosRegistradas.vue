@@ -187,6 +187,12 @@ export default {
       }
     },
 
+    async reloadTable() {
+      const response = await AuthService.getAllCedulas();
+      this.cedulas = response.data;
+      console.log("cedulas", this.cedulas);
+    },
+
     async editCedula(
         idCedula
     ) {
