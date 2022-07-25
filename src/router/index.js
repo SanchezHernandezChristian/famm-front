@@ -163,6 +163,16 @@ const routes = [
     name: 'ViewAddCronograma',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewAddCronograma.vue')
   },
+  {
+    path: '/factibilidad-justificacion-registradas',
+    name: 'ViewFactibilidadJustificacionRegistradas',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewFactibilidadJustificacionRegistradas.vue')
+  },
+  {
+    path: '/form-factibilidad-justificacion',
+    name: 'ViewAddFactibilidadJustificacion',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewAddFactibilidadJustificacion.vue')
+  },
 ]
 
 const router = new VueRouter({

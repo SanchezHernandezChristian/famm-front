@@ -161,5 +161,21 @@ export default {
     },
     deleteCronograma(id) {
         return axios.delete(`${url}delete-cronograma/${id}`).then(response => response.data);
-    }
+    },
+    getAllFactibilidades() {
+        return axios.get(url + 'all-factibility').then(response => response.data);
+    },
+    addFactibilidadJustificacion(factibilidad_data) {
+        return axios
+            .post(url + 'create-factibility', factibilidad_data)
+            .then(response => response.data);
+    },
+    updateFactibilidadJustificacion(factibilidad_data) {
+        return axios
+            .put(url + 'update-factibility', factibilidad_data)
+            .then(response => response.data);
+    },
+    deleteFactibilidadJustificacion(idFactibilidad) {
+        return axios.delete(url + 'delete-factibility/' + idFactibilidad).then(response => response.data);
+    },
 };
