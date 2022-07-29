@@ -173,6 +173,11 @@ const routes = [
     name: 'ViewAddFactibilidadJustificacion',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewAddFactibilidadJustificacion.vue')
   },
+  {
+    path: '/validacion-instructores',
+    name: 'ViewValidacionInstructores',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewValidacionInstructores.vue')
+  },
 ]
 
 const router = new VueRouter({

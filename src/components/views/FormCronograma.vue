@@ -13,7 +13,7 @@
         <div class="text-center">
           <h5>
             <p style="color: #394f79">
-              <strong>CRONOGRAMA DE ACTIVIDADES RUDC-06</strong>
+              <strong>CRONOGRAMA DE ACTIVIDADES RUDC-08</strong>
             </p>
           </h5>
         </div>
@@ -35,12 +35,24 @@
       <v-row justify="center" align="center">
         <v-col cols="5">
           <v-text-field
-            label="Nombre del curso"
+            dense
+            outlined
+            readonly
+            :rules="[rules.required]"
+            v-model="label_curso"
+            v-if="cronograma.idCronograma"
+          ></v-text-field>
+          <v-autocomplete
             dense
             outlined
             :rules="[rules.required]"
-            v-model="cronograma.nombre_curso"
-          ></v-text-field>
+            :items="items_cursos"
+            item-text="nombre_curso"
+            item-value="idCurso"
+            label="Nombre del curso"
+            v-model="cronograma.idCurso"
+            v-else
+          ></v-autocomplete>
         </v-col>
       </v-row>
       <v-row justify="center" class="mt-0">
@@ -180,28 +192,6 @@
           </v-data-table>
         </v-col>
       </v-row>
-      <v-row justify="center" align="center" class="mt-4">
-        <v-col cols="5">
-          <v-text-field
-            label="NOMBRE DE QUIEN VALIDÓ"
-            dense
-            outlined
-            :rules="[rules.required]"
-            v-model="cronograma.valido_curso"
-          ></v-text-field>
-        </v-col>
-      </v-row>
-      <v-row justify="center" align="center">
-        <v-col cols="5">
-          <v-text-field
-            label="NOMBRE DEL INSTRUCTOR QUE ELABORÓ"
-            dense
-            outlined
-            :rules="[rules.required]"
-            v-model="cronograma.elaboro_curso"
-          ></v-text-field>
-        </v-col>
-      </v-row>
       <v-row justify="center" align="center">
         <v-col cols="5">
           <v-text-field
@@ -257,18 +247,21 @@ export default {
     },
     cronograma: {
       idCronograma: null,
-      nombre_curso: null,
+      idCurso: null,
       tipo_curso: null,
-      valido_curso: null,
-      elaboro_curso: null,
       encargado_curso: null,
       contenido_cronograma: [],
     },
+    items_cursos: [],
+    items_docentes: [],
+    label_curso: "",
   }),
 
   created() {
     let me = this;
 
+    me.fetchCursos();
+    me.fetchDocentes();
     if (me.$route.params.id) {
       me.getCronograma(me.$route.params.id);
     }
@@ -281,11 +274,23 @@ export default {
   },
 
   methods: {
+    async fetchCursos() {
+      let response = await AuthService.getCursos();
+      this.items_cursos = response.cursos;
+    },
+
+    async fetchDocentes() {
+      let response = await AuthService.getDocentes();
+      this.items_docentes = response.data;
+    },
+
     async getCronograma(id) {
       let me = this;
       try {
         let response2 = await AuthService.getCronograma(id);
         me.cronograma = response2.data[0].cronograma;
+        me.cronograma.idCurso = null;
+        me.label_curso = response2.data[0].cronograma.nombre_curso;
         me.cronograma.contenido_cronograma =
           response2.data[0].contenido_cronograma;
       } catch (error) {

@@ -1,22 +1,22 @@
 <template>
-  <div class="dashboard-admin-unidad">
+  <div>
     <MenuAdminUnidad />
-    <DashboardAdminUnidad />
+    <ValidacionInstructores />
     <FooterDashboardAdmin />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import DashboardAdminUnidad from "@/components/views/DashboardAdminUnidad.vue";
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
+import ValidacionInstructores from "@/components/views/ValidacionInstructores.vue";
 import MenuAdminUnidad from "@/components/views/MenuAdminUnidad.vue";
 
 export default {
-  name: "dashboard-admin-unidad",
+  name: "ViewValidacionInstructores",
   components: {
     MenuAdminUnidad,
-    DashboardAdminUnidad,
+    ValidacionInstructores,
     FooterDashboardAdmin,
   },
 };

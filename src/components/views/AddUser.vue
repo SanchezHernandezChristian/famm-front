@@ -193,7 +193,7 @@
                 :items="items"
                 item-text="nombre"
                 item-value="id"
-                :rules="rules"
+                :rules="[rules.required]"
                 class="bordeRedondoElement"
                 label="Seleccione una unidad de capacitación"
                 required
