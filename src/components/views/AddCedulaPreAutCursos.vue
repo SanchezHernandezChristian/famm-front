@@ -325,6 +325,60 @@
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
         </v-row>
+        <v-row justify="center" align="center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs4> </v-flex>
+            <v-flex align-self-center xs2><label>RFC</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-col>
+                <v-text-field
+                  outlined
+                  class="bordeRedondoElement"
+                  :rules="rules"
+                  v-model="selectDocente.rfc"
+                  disabled
+                ></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </v-row>
+        <v-row justify="center" align="center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs4> </v-flex>
+            <v-flex align-self-center xs2><label>CURP</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-col>
+                <v-text-field
+                  outlined
+                  class="bordeRedondoElement"
+                  :rules="rules"
+                  v-model="selectDocente.curp"
+                  disabled
+                ></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </v-row>
+        <!-- <v-row justify="center" align="center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs4> </v-flex>
+            <v-flex align-self-center xs2><label>PROFESIÓN</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-col>
+                <v-text-field
+                  outlined
+                  class="bordeRedondoElement"
+                  :rules="rules"
+                  v-model="items_docentes.rfc"
+                  disabled
+                ></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </v-row> -->
         <v-row justify="center" align="start">
           <v-layout row justify-center>
             <v-flex align-self-center xs4> </v-flex>
@@ -605,19 +659,50 @@
             <v-flex align-self-center xs2><label>ESPECIALIDAD</label></v-flex>
             <v-flex align-self-center xs3>
               <v-col>
-                <v-select
-                  v-model="selectEspecialidad"
-                  :items="items_especialidades"
-                  item-text="nombre_especialidad"
-                  item-value="idEspecialidad"
-                  :rules="rules"
-                  required
-                  return-object
-                  dense
+                <v-text-field
                   outlined
                   class="bordeRedondoElement"
-                ></v-select>
-              </v-col>
+                  :rules="rules"
+                  v-model="selectCurso.nombre_especialidad"
+                  disabled
+                ></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </v-row>
+        <v-row justify="center" align="center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs4> </v-flex>
+            <v-flex align-self-center xs2><label>SUBSECTOR</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-col>
+                <v-text-field
+                  outlined
+                  class="bordeRedondoElement"
+                  :rules="rules"
+                  v-model="selectCurso.subsector"
+                  disabled
+                ></v-text-field
+              ></v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </v-row>
+        <v-row justify="center" align="center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs4> </v-flex>
+            <v-flex align-self-center xs2><label>CAMPO DE FORMACIÓN PROFESIONAL</label></v-flex>
+            <v-flex align-self-center xs3>
+              <v-col>
+                <v-text-field
+                  outlined
+                  class="bordeRedondoElement"
+                  :rules="rules"
+                  v-model="selectCurso.campo_formacion"
+                  disabled
+                ></v-text-field
+              ></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -743,7 +828,7 @@
     <v-row v-if="section2">
       <div class="text-center">
         <v-layout row justify-end>
-          <v-flex align-self-center xs3></v-flex>
+          <v-flex align-self-center xs2></v-flex>
           <v-flex align-self-center xs2>
             <v-btn
               depressed
@@ -791,7 +876,10 @@
           <v-flex align-self-center xs2
             ><v-btn outlined color="gray" @click="clean">LIMPIAR</v-btn></v-flex
           >
-          <v-flex align-self-center xs2></v-flex>
+          <v-flex align-self-center xs2
+            ><v-btn outlined color="gray" @click="cancel">CANCELAR</v-btn></v-flex
+          >
+          <v-flex align-self-center xs1></v-flex>
           <v-flex align-self-center xs1><label>Página 2 de 2</label></v-flex>
           <!-- <v-flex align-self-center xs1
             ><v-text-field
@@ -894,7 +982,7 @@ export default {
           me.form_pre_aut.idCurso = this.selectCurso.idCurso;
           me.form_pre_aut.idDocente = this.selectDocente.idDocente;
           me.form_pre_aut.idEspecialidad =
-            this.selectEspecialidad.idEspecialidad;
+            this.selectCurso.idEspecialidad;
           console.log(me.form_pre_aut);
           await AuthService.addCedulaPreAut(me.form_pre_aut);
           Object.assign(me.$data, me.$options.data());
@@ -954,6 +1042,10 @@ export default {
         console.log(error);
       }
     },
+
+    async cancel(){
+      this.$router.push("/cedula-pre-autorizada");
+    }
   },
 };
 </script>
