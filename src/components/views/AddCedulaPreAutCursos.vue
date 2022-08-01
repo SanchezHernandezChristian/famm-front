@@ -61,7 +61,6 @@
                   dense
                   outlined
                   class="bordeRedondoElement"
-                  @change="prueba"
                 ></v-select>
               </v-col>
             </v-flex>
