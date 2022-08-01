@@ -56,13 +56,15 @@
           </v-chip>
         </template>
         <template v-slot:item.estado_du="{ item }">
-          <v-chip :color="getAprobacionColor('EN ESPERA')">
-            <div v-if="item">EN ESPERA</div>
+          <v-chip :color="getAprobacionColor(item.estatus)">
+            <div v-if="item.estatus == 0">EN ESPERA</div>
+            <div v-else>VALIDADO</div>
           </v-chip>
         </template>
         <template v-slot:item.aprobado_dg="{ item }">
-          <v-chip :color="getAprobacionColor('VALIDADO')">
-            <div v-if="item">VALIDADO</div>
+          <v-chip :color="getAprobacionColor(item.estatus)">
+            <div v-if="item.estatus == 0">EN ESPERA</div>
+            <div v-else>VALIDADO</div>
           </v-chip>
         </template>
         <template v-slot:item.actions="{ item }">
@@ -115,16 +117,6 @@ export default {
       this.items_docentes = response.data;
     },
 
-    getEstatusColor(status) {
-      if (status == 0) return "orange";
-      else return "green";
-    },
-
-    getAprobacionColor(status) {
-      if (status == "EN ESPERA") return "yellow";
-      else return "green";
-    },
-
     deleteItem(id) {
       this.$swal({
         title: "¿Desea eliminar este instructor?",
@@ -155,6 +147,16 @@ export default {
           console.log(error);
           this.$swal("Error!", "No se pudo eliminar el instructor.", "error");
         });
+    },
+
+    getEstatusColor(status) {
+      if (status == 0) return "orange";
+      else return "green";
+    },
+
+    getAprobacionColor(status) {
+      if (status == 0) return "yellow";
+      else return "green";
     },
 
     editItem(id, edit) {

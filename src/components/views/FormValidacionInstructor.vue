@@ -397,7 +397,7 @@
             color="warning"
             dark
             class="m-1"
-            @click="check"
+            @click="store(true)"
             v-show="validate == 1"
             >Validar</v-btn
           >
@@ -513,7 +513,7 @@ export default {
   },
 
   methods: {
-    async store() {
+    async store(validate = false) {
       let me = this;
       if (me.$refs.form_teacher.validate()) {
         try {
@@ -522,6 +522,9 @@ export default {
             data.append(key, me.teacher[key]);
           }
           console.log(data); */
+          if (validate) {
+            me.teacher.estatus = 1;
+          }
           await AuthService.updateTeacher(me.teacher);
           Object.assign(me.$data, me.$options.data());
           me.$refs.form_teacher.resetValidation();
@@ -549,7 +552,6 @@ export default {
       }
     },
 
-    check() {},
     reject() {},
 
     selectFile(file) {
