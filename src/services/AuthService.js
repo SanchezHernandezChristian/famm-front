@@ -39,6 +39,9 @@ export default {
     addTeacher(data, method = 1) {
         return axios.post(url + `create-teacher-p${method}`, data).then(response => response.data);
     },
+    updateTeacher(data) {
+        return axios.put(url + 'update-teacher', data).then(response => response.data);
+    },
     getDiscapacidades() {
         return axios.get(url + 'discapacidades').then(response => response.data);
     },
@@ -111,6 +114,9 @@ export default {
     getDocentes() {
         return axios.get(url + 'all-teacher').then(response => response.data);
     },
+    getDocente(id) {
+        return axios.get(`${url}get-teacher/${id}`).then(response => response.data);
+    },
     addCedulaPreAut(data_cedula) {
         return axios
             .post(url + 'create-cedula', data_cedula)
@@ -178,4 +184,7 @@ export default {
     deleteFactibilidadJustificacion(idFactibilidad) {
         return axios.delete(url + 'delete-factibility/' + idFactibilidad).then(response => response.data);
     },
+    deleteDocenteValidacion(id) {
+        return axios.delete(`${url}delete-instructor-validacion/${id}`).then(response => response.data);
+    }
 };
