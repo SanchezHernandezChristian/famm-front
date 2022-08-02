@@ -82,6 +82,22 @@ export default {
             .put(url + 'update-grade', grade_data)
             .then(response => response.data);
     },
+    assignGrade(grade_data) {
+        return axios
+            .post(url + 'assign-grade', grade_data)
+            .then(response => response.data);
+    },
+    getAllAssignGrade() {
+        return axios
+            .get(url + 'all-assign-grade')
+            .then(response => response.data);
+    },
+    getAllAssignGradeByCenter() {
+        const id = 1 //Eliminar cuando se tenga el id del centro de capacitacion al que pertenece el usuario
+        return axios
+            .get(url + 'all-assign-grade/' + id)
+            .then(response => response.data);
+    },
     addCenter(center_data) {
         return axios
             .post(url + 'add-training-center', center_data)
