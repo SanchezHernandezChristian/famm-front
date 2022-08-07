@@ -413,6 +413,19 @@
             label="Comentarios"
             :rules="[rules.required]"
             v-model="teacher.comentarios_valido"
+            v-if="role < 1"
+          ></v-textarea>
+          <v-textarea
+            dense
+            auto-grow
+            outlined
+            rows="3"
+            row-height="25"
+            shaped
+            label="Comentarios"
+            :rules="[rules.required]"
+            v-model="teacher.comentarios_valido_ds"
+            v-else
           ></v-textarea>
         </v-col>
       </v-row>
@@ -595,7 +608,11 @@ export default {
       if (this.role < 1) {
         return this.mode == 2 && this.teacher.esValido < 1;
       } else {
-        return this.mode == 2 && this.teacher.esValidoDs < 1;
+        // return this.mode == 2 && this.teacher.esValidoDs < 1;
+        return (
+          this.mode == 2 &&
+          (typeof esValidoDs == "undefined" || this.teacher.esValidoDs < 1)
+        );
       }
     },
 

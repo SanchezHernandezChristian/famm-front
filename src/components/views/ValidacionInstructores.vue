@@ -80,7 +80,12 @@
           >
             mdi-pencil
           </v-icon>
-          <v-icon small class="mr-2" @click="deleteItem(item.idDocente)">
+          <v-icon
+            small
+            class="mr-2"
+            @click="deleteItem(item.idDocente)"
+            v-show="role < 1"
+          >
             mdi-delete
           </v-icon>
           <v-icon
@@ -181,7 +186,8 @@ export default {
       if (this.role < 1) {
         return esValido < 1;
       } else {
-        return esValidoDs < 1;
+        // return esValidoDs < 1;
+        return typeof esValidoDs == "undefined" || esValidoDs < 1;
       }
     },
 
