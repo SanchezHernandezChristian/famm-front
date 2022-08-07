@@ -34,14 +34,6 @@
     <v-form ref="form_addcron" lazy-validation>
       <v-row justify="center" align="center">
         <v-col cols="5">
-          <v-text-field
-            dense
-            outlined
-            readonly
-            :rules="[rules.required]"
-            v-model="label_curso"
-            v-if="cronograma.idCronograma"
-          ></v-text-field>
           <v-autocomplete
             dense
             outlined
@@ -51,7 +43,6 @@
             item-value="idCurso"
             label="Nombre del curso"
             v-model="cronograma.idCurso"
-            v-else
           ></v-autocomplete>
         </v-col>
       </v-row>
@@ -195,7 +186,7 @@
       <v-row justify="center" align="center">
         <v-col cols="5">
           <v-text-field
-            label="NOMBRE DEL ENCARGADO DE LA OFICINA DE ATENCIÓN ICARPET"
+            label="NOMBRE DEL INSTRUCTOR QUE ELABORÓ"
             dense
             outlined
             :rules="[rules.required]"
@@ -234,7 +225,7 @@ export default {
       { text: "SUBTEMA", value: "subtema" },
       { text: "NO. DE HORAS", value: "horas" },
       { text: "PERIODO", value: "periodo" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "", value: "actions", sortable: false },
     ],
     editedIndex: -1,
     editedItem: {},
@@ -254,16 +245,18 @@ export default {
     },
     items_cursos: [],
     items_docentes: [],
-    label_curso: "",
   }),
 
-  created() {
+  async created() {
     let me = this;
 
     me.fetchCursos();
     me.fetchDocentes();
     if (me.$route.params.id) {
       me.getCronograma(me.$route.params.id);
+    } else {
+      let auth = await AuthService.getProfile();
+      me.cronograma.encargado_curso = `${auth.nombres} ${auth.primer_apellido} ${auth.segundo_apellido}`;
     }
   },
 
@@ -287,13 +280,17 @@ export default {
     async getCronograma(id) {
       let me = this;
       try {
-        let response2 = await AuthService.getCronograma(id);
-        me.cronograma = response2.data[0].cronograma;
-        me.cronograma.idCurso = null;
-        me.label_curso = response2.data[0].cronograma.nombre_curso;
-        me.cronograma.contenido_cronograma =
-          response2.data[0].contenido_cronograma;
+        let response = await AuthService.getCronograma(id);
+        let data = response.data[0];
+        me.cronograma = {
+          idCronograma: data.cronograma.idCronograma,
+          idCurso: data.cronograma.idCurso,
+          tipo_curso: data.cronograma.tipo_curso.toString(),
+          encargado_curso: data.cronograma.encargado_curso,
+          contenido_cronograma: data.contenido_cronograma,
+        };
       } catch (error) {
+        console.log(error);
         me.$swal(
           "Error",
           "No se pudo recuperar la información del cronograma.",
