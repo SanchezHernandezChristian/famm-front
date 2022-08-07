@@ -35,6 +35,7 @@
               :rules="[rules.required]"
               v-model="teacher.fecha_ingreso"
               @input="menu2 = false"
+              :disabled="mode > 1"
             ></v-date-picker>
           </v-menu>
         </v-col>
@@ -47,6 +48,7 @@
             row
             :rules="[rules.required]"
             v-model="teacher.estatus"
+            :readonly="mode > 1"
           >
             <v-radio
               dense
@@ -72,6 +74,7 @@
             outlined
             :rules="[rules.required]"
             v-model="teacher.clave"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -83,6 +86,7 @@
             row
             :rules="[rules.required]"
             v-model="teacher.certificado"
+            :readonly="mode > 1"
           >
             <v-radio
               dense
@@ -110,6 +114,7 @@
             accept="image/png, image/jpeg, image/bmp"
             :rules="[rules.size]"
             @change="selectFile"
+            :disabled="mode > 1"
           ></v-file-input>
         </v-col>
       </v-row>
@@ -124,6 +129,7 @@
             outlined
             :rules="[rules.required]"
             v-model="teacher.nombre"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
         <v-col cols="3">
@@ -133,6 +139,7 @@
             outlined
             :rules="[rules.required]"
             v-model="teacher.apellido_paterno"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
         <v-col cols="3">
@@ -141,6 +148,7 @@
             dense
             outlined
             v-model="teacher.apellido_materno"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -155,6 +163,7 @@
             outlined
             :rules="[rules.required]"
             v-model="teacher.calle"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
         <v-col cols="3">
@@ -164,6 +173,7 @@
             outlined
             :rules="[rules.required, rules.natural_number]"
             v-model="teacher.numero"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
         <v-col cols="3">
@@ -173,6 +183,7 @@
             outlined
             :rules="[rules.required]"
             v-model="teacher.colonia"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -188,6 +199,7 @@
             item-value="c_Municipio"
             class="bordeRedondoElement"
             label="Municipio"
+            :readonly="mode > 1"
           ></v-autocomplete>
         </v-col>
         <v-col cols="3">
@@ -197,6 +209,7 @@
             outlined
             :rules="[rules.required]"
             v-model="teacher.localidad"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
         <v-col cols="2">
@@ -206,6 +219,7 @@
             outlined
             :rules="[rules.required, rules.natural_number]"
             v-model="teacher.cp"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -217,6 +231,7 @@
             outlined
             :rules="[rules.required, rules.phone_number]"
             v-model="teacher.telefono"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -228,6 +243,7 @@
             outlined
             :rules="[rules.required]"
             v-model="teacher.estado_civil"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -239,6 +255,7 @@
             outlined
             :rules="[rules.required]"
             v-model="teacher.nacionalidad"
+            :readonly="mode > 1"
           ></v-text-field
         ></v-col>
       </v-row>
@@ -276,6 +293,7 @@
               :rules="[rules.required]"
               v-model="teacher.fecha_nacimiento"
               @input="menu = false"
+              :disabled="mode > 1"
             ></v-date-picker>
           </v-menu>
         </v-col>
@@ -288,6 +306,7 @@
             outlined
             :rules="[rules.required, rules.natural_number]"
             v-model="teacher.edad"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -298,6 +317,7 @@
             row
             :rules="[rules.required]"
             v-model="teacher.sexo"
+            :readonly="mode > 1"
           >
             <v-radio
               dense
@@ -325,6 +345,7 @@
             outlined
             :rules="[rules.required]"
             v-model="teacher.rfc"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
         <v-col cols="3">
@@ -334,6 +355,7 @@
             outlined
             :rules="[rules.required]"
             v-model="teacher.curp"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -345,6 +367,7 @@
             outlined
             :rules="[rules.required]"
             v-model="teacher.numero_registro"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -362,6 +385,7 @@
             item-value="id"
             label="Último grado de estudios"
             v-model="teacher.idEscolaridad"
+            :readonly="mode > 1"
           ></v-autocomplete>
         </v-col>
         <v-col cols="3">
@@ -372,11 +396,12 @@
             item-text="nombre"
             item-value="id"
             label="Documento obtenido"
-            v-model="teacher.documento_obtenido"
+            v-model="teacher.profesion"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
       </v-row>
-      <v-row justify="center" v-if="validate == 1">
+      <v-row justify="center" v-if="mode == 2">
         <v-col cols="10">
           <v-textarea
             dense
@@ -387,32 +412,32 @@
             shaped
             label="Comentarios"
             :rules="[rules.required]"
-            v-model="checkTeacher.comentarios"
+            v-model="teacher.comentarios_valido"
           ></v-textarea>
         </v-col>
       </v-row>
-      <v-row justify="center">
+      <v-row justify="center" v-if="mode > 0">
         <v-col cols="12" class="text-right">
           <v-btn
             color="warning"
             dark
             class="m-1"
-            @click="store(true)"
-            v-show="validate == 1"
+            @click="validate()"
+            v-show="showValidateButton()"
             >Validar</v-btn
           >
-          <v-btn class="m-1" @click="reject" v-show="validate == 1"
+          <v-btn class="m-1" @click="reject()" v-show="showValidateButton()"
             >Rechazar</v-btn
           >
           <v-btn
             color="primary"
             dark
             class="m-1"
-            @click="store"
-            v-show="validate == 0"
+            @click="update()"
+            v-show="mode == 1"
             >Guardar cambios</v-btn
           >
-          <v-btn class="m-1" @click="close">Cancelar</v-btn>
+          <v-btn class="m-1" @click="close()">Cancelar</v-btn>
         </v-col>
       </v-row>
     </v-form>
@@ -429,9 +454,9 @@ export default {
       type: Number,
       default: null,
     },
-    validate: {
+    mode: {
       type: Number,
-      default: 0,
+      default: 0, // 0 = Registro, 1 = Edición, 2 = Validación, 3 = Visualización
     },
   },
   data: () => ({
@@ -458,6 +483,11 @@ export default {
     teacher: {
       id: null,
       idDocente: null,
+      fecha_ingreso: null,
+      estatus: null,
+      clave: null,
+      certificado: null,
+      fotografia: null,
       nombre: null,
       apellido_paterno: null,
       apellido_materno: null,
@@ -465,32 +495,25 @@ export default {
       numero: null,
       colonia: null,
       localidad: null,
-      cp: null,
-      fotografia: null,
       c_Municipio: null,
-      curp: null,
-      sexo: null,
-      fecha_nacimiento: null,
-      nacionalidad: null,
-      edad: null,
-      estado_civil: null,
+      cp: null,
       telefono: null,
-      idEscolaridad: null,
-      fecha_ingreso: null,
-      estatus: null,
-      clave: null,
-      certificado: null,
+      estado_civil: null,
+      nacionalidad: null,
+      fecha_nacimiento: null,
+      edad: null,
+      sexo: null,
       rfc: null,
+      curp: null,
       numero_registro: null,
-      documento_obtenido: null,
-      lengua_indigena: 0,
-      motivo: "EMPLEO",
-      situacion_laboral: 1,
+      idEscolaridad: null,
+      profesion: null,
+      esValido: null,
+      esValidoDs: null,
+      comentarios_valido: null,
+      comentarios_valido_ds: null,
     },
-    checkTeacher: {
-      idDocente: null,
-      comentarios: null,
-    },
+    role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = DIRECTIVO DEPARTAMENTO
   }),
 
   async mounted() {
@@ -500,13 +523,17 @@ export default {
         const response = await AuthService.getMunicipios();
         const response2 = await AuthService.getEscolaridad();
         const response3 = await AuthService.getDocente(me.id);
+        const response4 = await AuthService.getProfile();
         me.items_municipios = response.municipios;
         me.items_escolaridad = response2.data;
         me.teacher = response3.data;
+        me.teacher.c_Municipio = parseInt(response3.data.c_Municipio);
         me.teacher.estatus = response3.data.estatus.toString();
         me.teacher.certificado = response3.data.certificado.toString();
         me.teacher.id = me.teacher.idDocente;
-        me.teacher.documento_obtenido = "TITULO PROFESIONAL";
+        me.teacher.esValidoDs = 1;
+        if (response4.Rol == "ADMINISTRADOR UNIDAD") me.role = 0;
+        else me.role = 1;
       } catch (error) {
         console.log("Error", error.response);
       }
@@ -514,18 +541,17 @@ export default {
   },
 
   methods: {
-    async store(validate = false) {
+    async update() {
       let me = this;
       if (me.$refs.form_teacher.validate()) {
         try {
-          /* let data = new FormData();
+          /* let formData = new FormData();
           for (const key in me.teacher) {
-            data.append(key, me.teacher[key]);
+            formData.append(key, me.teacher[key]);
           }
-          console.log(data); */
-          if (validate) {
-            me.teacher.estatus = 1;
-          }
+          for (var pair of formData.entries()) {
+            console.log(pair[0] + ", " + pair[1]);
+          }*/
           await AuthService.updateTeacher(me.teacher);
           Object.assign(me.$data, me.$options.data());
           me.$refs.form_teacher.resetValidation();
@@ -553,7 +579,25 @@ export default {
       }
     },
 
-    reject() {},
+    validate() {
+      if (this.role < 1) this.teacher.esValido = 1;
+      else this.teacher.esValidoDs = 1;
+      this.update();
+    },
+
+    reject() {
+      if (this.role < 1) this.teacher.esValido = 0;
+      else this.teacher.esValidoDs = 0;
+      this.update();
+    },
+
+    showValidateButton() {
+      if (this.role < 1) {
+        return this.mode == 2 && this.teacher.esValido < 1;
+      } else {
+        return this.mode == 2 && this.teacher.esValidoDs < 1;
+      }
+    },
 
     selectFile(file) {
       this.teacher.fotografia = file;
