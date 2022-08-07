@@ -5,7 +5,7 @@
         <v-flex xs4>
           <br />
           <v-card color="white darken-2" class="gray--text">
-            <v-flex align-self-center xs10>
+            <v-flex align-self-center xs12>
               <v-layout>
                 <v-flex xs3></v-flex>
                 <v-card-title>
@@ -30,7 +30,7 @@
         <v-flex xs4>
           <br />
           <v-card color="white darken-2" class="gray--text">
-            <v-flex align-self-center xs10>
+            <v-flex align-self-center xs12>
               <v-layout>
                 <v-flex xs3></v-flex>
                 <v-card-title>
@@ -55,48 +55,23 @@
         <v-flex xs4>
           <br />
           <v-card color="white darken-2" class="gray--text">
-            <v-flex align-self-center xs10>
+            <v-flex align-self-center xs12>
               <v-layout>
-                <v-flex xs2></v-flex>
+                <v-flex xs3></v-flex>
                 <v-card-title>
-                  <div class="centrartextocard text-center">Cédulas</div>
+                  <div class="centrartextocard text-center">
+                    Ranking de docentes
+                  </div>
                 </v-card-title>
               </v-layout>
             </v-flex>
             <v-divider dark></v-divider>
             <v-flex>
-              <v-list dense>
-                <v-list-item-group color="primary">
-                  <v-list-item @click="redirect('validacion-instructores')">
-                    <v-list-item-content>
-                      <v-list-item-title
-                        ><strong
-                          >IDENTIFICACIÓN DEL INSTRUCTOR FORMATO RPDC-11</strong
-                        >
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-list-item @click="redirect('cedula-pre-autorizada')">
-                    <v-list-item-content>
-                      <v-list-item-title
-                        ><strong>PREAUTORIZACIÓN DE CURSOS-RUDC-06</strong>
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-list-item
-                    @click="redirect('factibilidad-justificacion-registradas')"
-                  >
-                    <v-list-item-content>
-                      <v-list-item-title
-                        ><strong
-                          >FACTIBILIDAD Y JUSTIFICACIÓN DE CURSOS DE
-                          CAPACITACIÓN FORMATO RUDC-04</strong
-                        >
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
+              <v-img
+                src="@/assets/img/registrosexitosos.png"
+                height="125px"
+                contain
+              ></v-img>
             </v-flex>
             <v-flex><br /></v-flex>
           </v-card>
@@ -104,32 +79,7 @@
       </v-layout>
     </v-row>
     <v-row>
-      <v-layout style="background-color: #e0e0e0; margin-right: 195px">
-        <v-flex xs4>
-          <br />
-          <v-card color="white darken-2" class="gray--text">
-            <v-flex align-self-center xs8>
-              <v-layout>
-                <v-flex xs3></v-flex>
-                <v-card-title>
-                  <div class="centrartextocard text-center">
-                    Lorem ipsum dolor
-                  </div>
-                </v-card-title>
-              </v-layout>
-            </v-flex>
-            <v-flex><br /></v-flex>
-            <v-flex>
-              <v-img
-                src="@/assets/img/graficacircular.png"
-                height="130px"
-                contain
-              ></v-img>
-            </v-flex>
-            <v-flex><br /></v-flex>
-          </v-card>
-        </v-flex>
-        <v-flex xs1></v-flex>
+      <v-layout style="background-color: #e0e0e0">
         <v-layout column>
           <v-flex xs3>
             <br />
@@ -198,7 +148,31 @@
             </v-card>
           </v-flex>
         </v-layout>
-        <v-flex xs3></v-flex>
+        <v-flex xs1></v-flex>
+        <v-flex xs8>
+          <br />
+          <v-card color="white darken-2" class="gray--text">
+            <v-flex align-self-center xs12>
+              <v-layout>
+                <v-flex xs3></v-flex>
+                <v-card-title>
+                  <div class="centrartextocard text-center">
+                    Lorem ipsum dolor
+                  </div>
+                </v-card-title>
+              </v-layout>
+            </v-flex>
+            <v-flex><br /></v-flex>
+            <v-flex>
+              <v-img
+                src="@/assets/img/graficacircular.png"
+                height="130px"
+                contain
+              ></v-img>
+            </v-flex>
+            <v-flex><br /></v-flex>
+          </v-card>
+        </v-flex>
       </v-layout>
     </v-row>
     <v-row>
@@ -212,10 +186,6 @@
 <script>
 export default {
   data: () => ({}),
-  methods: {
-    redirect(url) {
-      this.$router.push(url);
-    },
-  },
+  methods: {},
 };
 </script>
