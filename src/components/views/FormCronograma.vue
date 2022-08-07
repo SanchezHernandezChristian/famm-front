@@ -304,10 +304,9 @@ export default {
       if (me.$refs.form_addcron.validate()) {
         try {
           if (me.cronograma.idCronograma) {
-            await AuthService.updateCronograma(me.cronograma);
-          } else {
-            await AuthService.addCronograma(me.cronograma);
+            await AuthService.deleteCronograma(me.cronograma.idCronograma);
           }
+          await AuthService.addCronograma(me.cronograma);
           Object.assign(me.$data, me.$options.data());
           me.$refs.form_addcron.resetValidation();
           me.$swal(

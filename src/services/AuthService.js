@@ -179,11 +179,6 @@ export default {
             .post(url + 'create-cronograma', data)
             .then(response => response.data);
     },
-    updateCronograma(data) {
-        return axios
-            .put(url + 'update-cronograma', data)
-            .then(response => response.data);
-    },
     deleteCronograma(id) {
         return axios.delete(`${url}delete-cronograma/${id}`).then(response => response.data);
     },
