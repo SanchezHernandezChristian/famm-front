@@ -412,7 +412,6 @@
             v-show="validate == 0"
             >Guardar cambios</v-btn
           >
-          <v-btn class="m-1">Eliminar</v-btn>
           <v-btn class="m-1" @click="close">Cancelar</v-btn>
         </v-col>
       </v-row>
@@ -504,6 +503,8 @@ export default {
         me.items_municipios = response.municipios;
         me.items_escolaridad = response2.data;
         me.teacher = response3.data;
+        me.teacher.estatus = response3.data.estatus.toString();
+        me.teacher.certificado = response3.data.certificado.toString();
         me.teacher.id = me.teacher.idDocente;
         me.teacher.documento_obtenido = "TITULO PROFESIONAL";
       } catch (error) {

@@ -50,19 +50,19 @@
           <v-chip color="blue"> {{ item.clave }} </v-chip>
         </template>
         <template v-slot:item.estatus="{ item }">
-          <v-chip :color="getEstatusColor(item.estatus)">
+          <v-chip :color="item.estatus == 0 ? 'orange' : 'green'">
             <div v-if="item.estatus == 0">NUEVO INGRESO</div>
             <div v-else>EN SERVICIO</div>
           </v-chip>
         </template>
         <template v-slot:item.estado_du="{ item }">
-          <v-chip :color="getAprobacionColor(item.estatus)">
+          <v-chip :color="item.estatus == 0 ? 'yellow' : 'green'">
             <div v-if="item.estatus == 0">EN ESPERA</div>
             <div v-else>VALIDADO</div>
           </v-chip>
         </template>
         <template v-slot:item.aprobado_dg="{ item }">
-          <v-chip :color="getAprobacionColor(item.estatus)">
+          <v-chip :color="item.estatus == 0 ? 'yellow' : 'green'">
             <div v-if="item.estatus == 0">EN ESPERA</div>
             <div v-else>VALIDADO</div>
           </v-chip>
@@ -130,7 +130,7 @@ export default {
       })
         .then((result) => {
           if (result.isConfirmed) {
-            return AuthService.deleteDocenteValidacion(id);
+            return AuthService.deleteTeacher(id);
           }
         })
         .then((response) => {
@@ -147,16 +147,6 @@ export default {
           console.log(error);
           this.$swal("Error!", "No se pudo eliminar el instructor.", "error");
         });
-    },
-
-    getEstatusColor(status) {
-      if (status == 0) return "orange";
-      else return "green";
-    },
-
-    getAprobacionColor(status) {
-      if (status == 0) return "yellow";
-      else return "green";
     },
 
     editItem(id, edit) {

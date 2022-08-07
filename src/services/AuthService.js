@@ -40,7 +40,10 @@ export default {
         return axios.post(url + `create-teacher-p${method}`, data).then(response => response.data);
     },
     updateTeacher(data) {
-        return axios.put(url + 'update-teacher', data).then(response => response.data);
+        return axios.put(url + 'delete-teacher', data).then(response => response.data);
+    },
+    deleteTeacher(id) {
+        return axios.delete(`${url}delete-teacher/${id}`).then(response => response.data);
     },
     getDiscapacidades() {
         return axios.get(url + 'discapacidades').then(response => response.data);
@@ -200,7 +203,4 @@ export default {
     deleteFactibilidadJustificacion(idFactibilidad) {
         return axios.delete(url + 'delete-factibility/' + idFactibilidad).then(response => response.data);
     },
-    deleteDocenteValidacion(id) {
-        return axios.delete(`${url}delete-instructor-validacion/${id}`).then(response => response.data);
-    }
 };
