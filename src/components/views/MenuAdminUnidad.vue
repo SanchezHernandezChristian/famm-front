@@ -28,8 +28,6 @@
             color="#f46722"
             elevation="0"
             class="ma-2"
-            v-bind="attrs"
-            v-on="on"
             style="font-size: 20px; color: #ffffff"
             ><i class="fa fa-cogs" aria-hidden="true"></i>
             Configuración
@@ -41,8 +39,6 @@
             color="#f46722"
             elevation="0"
             class="ma-2"
-            v-bind="attrs"
-            v-on="on"
             style="font-size: 20px; color: #ffffff"
             ><i class="fa fa-user-o" aria-hidden="true"></i>
             Mi cuenta
@@ -54,8 +50,6 @@
             color="#f46722"
             elevation="0"
             class="ma-2"
-            v-bind="attrs"
-            v-on="on"
             style="font-size: 20px; color: #ffffff"
             @click="logout"
             ><i class="fa fa-arrow-right" aria-hidden="true"></i>
@@ -66,7 +60,7 @@
     </v-row>
     <v-row style="background-color: white">
       <v-layout>
-        <v-flex align-self-center xs1>
+        <v-flex align-self-center xs2>
           <v-menu transition="scroll-y-transition">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -77,9 +71,25 @@
                 v-bind="attrs"
                 v-on="on"
                 style="font-size: 13px; color: #8996a0"
-                @click="selectDashboard()"
                 ><v-icon color="#8996a0">mdi-home</v-icon>
                 Dashboard
+              </v-btn>
+            </template>
+          </v-menu>
+        </v-flex>
+        <v-flex align-self-center xs2>
+          <v-menu transition="scroll-y-transition">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                depressed
+                color="#FFFFFF"
+                elevation="0"
+                class="ma-2"
+                v-bind="attrs"
+                v-on="on"
+                style="font-size: 13px; color: #8996a0"
+                ><v-icon color="#8996a0">mdi-chart-bar</v-icon>
+                Graficas
               </v-btn>
             </template>
           </v-menu>
@@ -94,21 +104,17 @@
                 class="ma-2"
                 v-bind="attrs"
                 v-on="on"
-                style="font-size: 14px; color: #8996a0"
-                ><i class="fa fa-users" aria-hidden="true"></i>
-                Cédula de preautorización de cursos RUDC-06
+                style="font-size: 13px; color: #8996a0"
+                ><v-icon color="#8996a0">mdi-swap-horizontal-bold</v-icon>
+                Pre autorización de cursos
               </v-btn>
             </template>
             <v-list>
               <v-list-item
-                v-for="(item, index) in roles"
+                v-for="(item, index) in items_preautorizacion"
                 :key="index"
-                @click="selectItem(item)"
-                active-class="bg-active"
+                @click="selectItem(item.value)"
               >
-                <!--<v-list-item-title>{{
-                  item.cursos[0][nombre_curso]
-                }}</v-list-item-title>-->
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
@@ -124,58 +130,23 @@
                 class="ma-2"
                 v-bind="attrs"
                 v-on="on"
-                style="font-size: 14px; color: #8996a0"
-                ><i class="fa fa-users" aria-hidden="true"></i>
-                Relación de Participantes
+                style="font-size: 13px; color: #8996a0"
+                ><v-icon color="#8996a0">mdi-check-bold</v-icon>
+                Cursos activos
               </v-btn>
             </template>
             <v-list>
               <v-list-item
-                v-for="(item, index) in menu"
+                v-for="(item, index) in items_cursos"
                 :key="index"
-                @click="selectItem(item)"
-                active-class="bg-active"
+                @click="selectItem(item.value)"
               >
-                <!--<v-list-item-title>{{
-                  item.cursos[0][nombre_curso]
-                }}</v-list-item-title>-->
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
         </v-flex>
-        <v-flex align-self-center xs5>
-          <v-menu transition="scroll-y-transition">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                depressed
-                color="#FFFFFF"
-                elevation="0"
-                class="ma-2"
-                v-bind="attrs"
-                v-on="on"
-                style="font-size: 15x; color: #8996a0"
-                ><i class="fa fa-users" aria-hidden="true"></i>
-                Factibilidad y justificación de cursos de capacitación formato
-                RUDC-04
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="(item, index) in menu2"
-                :key="index"
-                @click="selectItem(item)"
-                active-class="bg-active"
-              >
-                <!--<v-list-item-title>{{
-                  item.cursos[0][nombre_curso]
-                }}</v-list-item-title>-->
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-flex>
-        <v-flex align-self-center xs1>
+        <v-flex align-self-center xs2>
           <v-menu transition="scroll-y-transition">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -187,7 +158,7 @@
                 v-on="on"
                 style="font-size: 13px; color: #8996a0"
                 @click="cursosAsignados()"
-                ><v-icon color="#8996a0">mdi-home</v-icon>
+                ><v-icon color="#8996a0">mdi-check-all</v-icon>
                 Cursos asignados
               </v-btn>
             </template>
@@ -205,25 +176,36 @@ export default {
   name: "MenuAdmin",
   components: {},
   data: () => ({
-    roles: [{ title: "Cédulas de preautorización registradas" }],
-    menu: [{ title: "Relación de participantes registrados" }],
-    menu2: [{ title: "Factibilidades y justificaciones registradas" }],
-    logged_in: false,
-    dialog: false,
     items: [{ title: "Unidad" }],
     user: [{ title: "Cerrar sesión", icon: "" }],
+    items_cursos: [
+      { title: "Validación de calificaciones", value: "" },
+      { title: "Oficio de remisión RUDC-13", value: "" },
+      { title: "Acta", value: "" },
+      { title: "Reporte", value: "" },
+      { title: "Control", value: "" },
+      { title: "Registro", value: "" },
+      { title: "Acta de clausura RUDC-21", value: "" },
+    ],
+    items_preautorizacion: [
+      { title: "Validar RDPC-11", value: "validacion-instructores" },
+      { title: "Cédula de preautorización", value: "cedula-pre-autorizada" },
+      { title: "Validar cronograma RUDC-08", value: "cronograma" },
+      {
+        title: "Relación de participntes",
+        value: "relacion-participantes-registrados",
+      },
+      { title: "Croquis formato RUDC-10", value: "" },
+      { title: "Validar lista de asistencia RUDC-15", value: "" },
+      {
+        title: "Factibilidad y justificación",
+        value: "factibilidad-justificacion-registradas",
+      },
+      { title: "Formato de autorización", value: "" },
+      { title: "Oficio y bitácora RUDC-03", value: "" },
+    ],
   }),
   methods: {
-    selectItem(item) {
-      //if (item.title == 'Perfil') this.profile();
-      if (item.title == "Cédulas de preautorización registradas")
-        this.cedulaPreautorizacion();
-      if (item.title == "Relación de participantes registrados")
-        this.relacionParticipantes();
-      if (item.title == "Factibilidades y justificaciones registradas")
-        this.factibilidadJustificacion();
-    },
-
     async mounted() {
       let me = this;
 
@@ -235,6 +217,12 @@ export default {
         } catch (error) {
           console.log(error);
         }
+      }
+    },
+
+    selectItem(route) {
+      if (route) {
+        this.$router.push(route);
       }
     },
 
@@ -254,55 +242,19 @@ export default {
       }
     },
 
-    selectDashboard() {
-      this.seleccionDashboard();
-    },
-
-    async seleccionDashboard() {
-      try {
-        this.$router.push("dashboard-admin-unidad");
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
-    async cedulaPreautorizacion() {
-      try {
-        this.$router.push("cedula-pre-autorizada");
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
-    async relacionParticipantes() {
-      try {
-        this.$router.push("relacion-participantes-registrados");
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
-    async factibilidadJustificacion() {
-      try {
-        this.$router.push("factibilidad-justificacion-registradas");
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
     redirect() {
       this.$store.dispatch("logout");
       if (this.$route.name == "Home") this.$router.go();
       else this.$router.push("/");
     },
 
-    async cursosAsignados(){
+    async cursosAsignados() {
       try {
         this.$router.push("cursos-asignados-unidad");
       } catch (error) {
         console.log(error);
       }
-    }
+    },
   },
 };
 </script>

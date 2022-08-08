@@ -42,6 +42,9 @@ export default {
     updateTeacher(data) {
         return axios.put(url + 'update-teacher', data).then(response => response.data);
     },
+    deleteTeacher(id) {
+        return axios.delete(`${url}delete-teacher/${id}`).then(response => response.data);
+    },
     getDiscapacidades() {
         return axios.get(url + 'discapacidades').then(response => response.data);
     },
@@ -176,11 +179,6 @@ export default {
             .post(url + 'create-cronograma', data)
             .then(response => response.data);
     },
-    updateCronograma(data) {
-        return axios
-            .put(url + 'update-cronograma', data)
-            .then(response => response.data);
-    },
     deleteCronograma(id) {
         return axios.delete(`${url}delete-cronograma/${id}`).then(response => response.data);
     },
@@ -199,9 +197,6 @@ export default {
     },
     deleteFactibilidadJustificacion(idFactibilidad) {
         return axios.delete(url + 'delete-factibility/' + idFactibilidad).then(response => response.data);
-    },
-    deleteDocenteValidacion(id) {
-        return axios.delete(`${url}delete-instructor-validacion/${id}`).then(response => response.data);
     },
     getAllAssign() {
         return axios.get(url + 'all-assign-grade').then(response => response.data);
