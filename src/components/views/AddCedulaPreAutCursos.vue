@@ -361,7 +361,7 @@
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
         </v-row>
-        <!-- <v-row justify="center" align="center">
+        <v-row justify="center" align="center">
           <v-layout row justify-center>
             <v-flex align-self-center xs4> </v-flex>
             <v-flex align-self-center xs2><label>PROFESIÓN</label></v-flex>
@@ -371,14 +371,13 @@
                   outlined
                   class="bordeRedondoElement"
                   :rules="rules"
-                  v-model="items_docentes.rfc"
-                  disabled
+                  v-model="form_pre_aut.profesion"
                 ></v-text-field
               ></v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
-        </v-row> -->
+        </v-row>
         <v-row justify="center" align="start">
           <v-layout row justify-center>
             <v-flex align-self-center xs4> </v-flex>
@@ -629,6 +628,17 @@
                   value="DESPLAZAMIENTO INSTRUCTOR Y UNIDAD MÓVIL"
                 ></v-radio>
               </v-radio-group>
+            </v-flex>
+            <v-flex align-self-center xs2> </v-flex>
+          </v-layout>
+        </v-row>
+        <v-row justify="center" align="start">
+          <v-layout row justify-center style="height: 90px">
+            <v-flex align-self-center xs4> </v-flex>
+            <v-flex align-self-center xs2>
+              <label>HORARIO</label>
+            </v-flex>
+            <v-flex align-self-center xs4>
             </v-flex>
             <v-flex align-self-center xs2> </v-flex>
           </v-layout>
@@ -945,11 +955,16 @@ export default {
         totalInscritos: null,
         totalHombres: null,
         totalMujeres: null,
+        profesion: null,
+        esValido: null,
       },
       selectMunicipio: {},
       selectCurso: {},
       selectEspecialidad: {},
       selectDocente: {},
+      user: {
+        idUnidad: null
+        },
     };
   },
 
@@ -959,14 +974,22 @@ export default {
       try {
         const response = await AuthService.getMunicipios();
         const response2 = await AuthService.getEscolaridad();
-        const response3 = await AuthService.getCursos();
+        //const response3 = await AuthService.getCursos();
         const response4 = await AuthService.getDocentes();
         const response5 = await AuthService.getEspecialidades();
         me.items_municipios = response.municipios;
         me.items_escolaridad = response2.data;
-        me.items_cursos = response3.cursos;
+        //me.items_cursos = response3.cursos;
         me.items_docentes = response4.data;
         me.items_especialidades = response5.especialidades;
+        const response3 = await AuthService.getProfile();
+        this.user.idUnidad = response3.idCentro_capacitacion;
+        console.log("idUnidad", this.user.idUnidad);
+        const response6 = await AuthService.getAllAssignUnidad(
+          this.user.idUnidad
+        );
+        this.items_cursos = response6.cursos;
+        console.log("cursosAsignados", this.items_cursos);
       } catch (error) {
         console.log("Error", error.response);
       }

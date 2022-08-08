@@ -1,5 +1,5 @@
 <template>
-  <v-footer color="primary lighten-1" dark inset width="auto" padless>
+  <v-footer color="orangeFooter lighten-1" dark inset width="auto" padless>
     <v-container>
       <v-layout row justify-center>
         <v-flex align-self-center xs4> &copy; FAMM 2022 Todos los derechos reservados. </v-flex>

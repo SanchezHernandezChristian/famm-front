@@ -178,6 +178,16 @@ const routes = [
     name: 'ViewValidacionInstructores',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewValidacionInstructores.vue')
   },
+  {
+    path: '/cursos-asignados',
+    name: 'ViewCursosAsignadosAdministrador',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewCursosAsignadosAdministrador.vue')
+  },  
+  {
+    path: '/cursos-asignados-unidad',
+    name: 'ViewCursosAsignadosUnidad',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewCursosAsignadosUnidad.vue')
+  },   
 ]
 
 const router = new VueRouter({

@@ -1,48 +1,60 @@
 <template>
   <v-container fluid>
-    <v-row class="fondodashboardadmin">
+    <v-row class="fondodashboardadminnegro">
       <v-layout>
         <v-flex align-self-center xs2>
           <v-img
             max-height="25%"
             max-width="50%"
-            src="@/assets/img/logoBlanco.png"
+            src="@/assets/img/logo.png"
             @click="redirect"
           ></v-img>
         </v-flex>
-        <v-flex align-self-center xs>
-          <label>UNIDAD DE CAPACITACIÓN</label>
-        </v-flex>
-        <v-flex align-self-center xs1
-          ><i class="fa fa-envelope-open-o" aria-hidden="true"></i
-        ></v-flex>
+        <v-flex align-self-center xs9> </v-flex>
         <v-flex align-self-center xs1>
-          <i class="fa fa-user-o" aria-hidden="true"></i>
+          <label>Ayuda</label>
+        </v-flex>
+      </v-layout>
+    </v-row>
+    <v-row class="fondodashboardadminnaranja">
+      <v-layout>
+        <v-flex align-self-center xs2>
+          <label>ADMINISTRADOR DE UNIDAD</label>
+        </v-flex>
+        <v-flex align-self-center xs5> </v-flex>
+        <v-flex align-self-center xs2>
+          <v-btn
+            depressed
+            color="#f46722"
+            elevation="0"
+            class="ma-2"
+            style="font-size: 20px; color: #ffffff"
+            ><i class="fa fa-cogs" aria-hidden="true"></i>
+            Configuración
+          </v-btn>
         </v-flex>
         <v-flex align-self-center xs2>
-          <v-menu offset-y v-for="(item, index) in items" :key="index">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-bind="attrs"
-                v-on="on"
-                style="color: #ffffff; background-color: #2b4c7b"
-                elevation="0"
-              >
-                {{ item.title }}
-                <v-icon color="#ffffff">mdi-menu-down</v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="(item, index) in user"
-                :key="index"
-                link
-                @click="selectSection()"
-              >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
+          <v-btn
+            depressed
+            color="#f46722"
+            elevation="0"
+            class="ma-2"
+            style="font-size: 20px; color: #ffffff"
+            ><i class="fa fa-user-o" aria-hidden="true"></i>
+            Mi cuenta
+          </v-btn></v-flex
+        >
+        <v-flex align-self-center xs1
+          ><v-btn
+            depressed
+            color="#f46722"
+            elevation="0"
+            class="ma-2"
+            style="font-size: 20px; color: #ffffff"
+            @click="logout"
+            ><i class="fa fa-arrow-right" aria-hidden="true"></i>
+            Salir
+          </v-btn>
         </v-flex>
       </v-layout>
     </v-row>
@@ -58,9 +70,8 @@
                 class="ma-2"
                 v-bind="attrs"
                 v-on="on"
-                style="font-size: 15px; color: #bdbbbd"
-                @click="selectItem('')"
-                ><v-icon color="#bdbbbd">mdi-home</v-icon>
+                style="font-size: 13px; color: #8996a0"
+                ><v-icon color="#8996a0">mdi-home</v-icon>
                 Dashboard
               </v-btn>
             </template>
@@ -76,8 +87,8 @@
                 class="ma-2"
                 v-bind="attrs"
                 v-on="on"
-                style="font-size: 15px; color: #bdbbbd"
-                ><v-icon color="#bdbbbd">mdi-chart-bar</v-icon>
+                style="font-size: 13px; color: #8996a0"
+                ><v-icon color="#8996a0">mdi-chart-bar</v-icon>
                 Graficas
               </v-btn>
             </template>
@@ -93,8 +104,8 @@
                 class="ma-2"
                 v-bind="attrs"
                 v-on="on"
-                style="font-size: 15px; color: #bdbbbd"
-                ><v-icon color="#bdbbbd">mdi-swap-horizontal-bold</v-icon>
+                style="font-size: 13px; color: #8996a0"
+                ><v-icon color="#8996a0">mdi-swap-horizontal-bold</v-icon>
                 Pre autorización de cursos
               </v-btn>
             </template>
@@ -119,8 +130,8 @@
                 class="ma-2"
                 v-bind="attrs"
                 v-on="on"
-                style="font-size: 15x; color: #bdbbbd"
-                ><v-icon color="#bdbbbd">mdi-check-bold</v-icon>
+                style="font-size: 13px; color: #8996a0"
+                ><v-icon color="#8996a0">mdi-check-bold</v-icon>
                 Cursos activos
               </v-btn>
             </template>
@@ -138,12 +149,18 @@
         <v-flex align-self-center xs2>
           <v-menu transition="scroll-y-transition">
             <template v-slot:activator="{ on, attrs }">
-              <v-text-field
+              <v-btn
+                depressed
+                color="#FFFFFF"
+                elevation="0"
+                class="ma-2"
                 v-bind="attrs"
                 v-on="on"
-                label="Buscar"
-                prepend-icon="mdi-magnify"
-              ></v-text-field>
+                style="font-size: 13px; color: #8996a0"
+                @click="cursosAsignados()"
+                ><v-icon color="#8996a0">mdi-check-all</v-icon>
+                Cursos asignados
+              </v-btn>
             </template>
           </v-menu>
         </v-flex>
@@ -229,6 +246,14 @@ export default {
       this.$store.dispatch("logout");
       if (this.$route.name == "Home") this.$router.go();
       else this.$router.push("/");
+    },
+
+    async cursosAsignados() {
+      try {
+        this.$router.push("cursos-asignados-unidad");
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

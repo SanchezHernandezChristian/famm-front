@@ -198,4 +198,10 @@ export default {
     deleteFactibilidadJustificacion(idFactibilidad) {
         return axios.delete(url + 'delete-factibility/' + idFactibilidad).then(response => response.data);
     },
+    getAllAssign() {
+        return axios.get(url + 'all-assign-grade').then(response => response.data);
+    },    
+    getAllAssignUnidad(idUnidad) {
+        return axios.get(`${url}all-assign-grade/${idUnidad}`).then(response => response.data);
+    },
 };
