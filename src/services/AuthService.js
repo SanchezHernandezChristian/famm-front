@@ -202,5 +202,11 @@ export default {
     },
     deleteDocenteValidacion(id) {
         return axios.delete(`${url}delete-instructor-validacion/${id}`).then(response => response.data);
-    }
+    },
+    getAllAssign() {
+        return axios.get(url + 'all-assign-grade').then(response => response.data);
+    },    
+    getAllAssignUnidad(idUnidad) {
+        return axios.get(`${url}all-assign-grade/${idUnidad}`).then(response => response.data);
+    },
 };
