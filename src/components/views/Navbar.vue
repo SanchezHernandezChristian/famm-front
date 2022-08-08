@@ -1,6 +1,6 @@
 <template>
-  <v-app-bar fill-height>
-    <v-app-bar absolute color="white" class="hidden-sm-and-down">
+  <v-app-bar fill-height elevation="0">
+    <v-app-bar absolute color="white" class="hidden-sm-and-down" elevation="0">
       <v-toolbar-title class="col-2"
         ><v-img
           max-height="25%"

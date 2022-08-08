@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12" class="m-0 p-0">
-        <div class="indigo darken-4 text-center">
+        <div class="darken-4 text-center" style="background-color: #8996a0;">
           <p class="white--text pt-3 mb-2">
             Facilitador para el Acceso a Módulos tecnológicos y Monitoreo
             educativo
@@ -12,7 +12,7 @@
       <v-col cols="12" class="m-0 p-0">
         <div class="text-center">
           <h5>
-            <p style="color: #394f79">
+            <p style="color: #f46722">
               <strong
                 >CÉDULA DE IDENTIFICACIÓN DEL INSTRUCTOR FORMATO RPDC-11</strong
               >
@@ -22,12 +22,12 @@
       </v-col>
       <v-col cols="12" class="m-0 p-0">
         <div class="text-center">
-          <p style="color: #aeacac">
+          <p style="color: #8996a0">
             <strong
               >Rellena todos los campos para completar tu registro.</strong
             >
           </p>
-          <p style="color: #aeacac">
+          <p style="color: #8996a0">
             <strong>*Todos los campos son obligatorios.</strong>
           </p>
         </div>
@@ -119,13 +119,13 @@
                           dense
                           label="NUEVO INGRESO"
                           value="0"
-                          class="font-weight-black"
+                          class="font-weight-black-instructor"
                         ></v-radio>
                         <v-radio
                           dense
                           label="EN SERVICIO"
                           value="1"
-                          class="font-weight-black"
+                          class="font-weight-black-instructor"
                         ></v-radio>
                         <v-spacer></v-spacer>
                       </v-radio-group>
@@ -155,13 +155,13 @@
                           dense
                           label="EN COMPETENCIA LABORAL"
                           value="0"
-                          class="font-weight-black"
+                          class="font-weight-black-instructor"
                         ></v-radio>
                         <v-radio
                           dense
                           label="EN ROCO"
                           value="1"
-                          class="font-weight-black"
+                          class="font-weight-black-instructor"
                         ></v-radio>
                         <v-spacer></v-spacer>
                       </v-radio-group>
@@ -181,7 +181,7 @@
                     </v-col>
                   </v-row>
                   <v-row justify="center">
-                    <v-col cols="2" class="text-right">
+                    <v-col cols="2" class="text-right font-text-instructor">
                       <strong>NOMBRE:</strong>
                     </v-col>
                     <v-col cols="3">
@@ -212,7 +212,7 @@
                     </v-col>
                   </v-row>
                   <v-row justify="center">
-                    <v-col cols="2" class="text-right">
+                    <v-col cols="2" class="text-right font-text-instructor">
                       <strong>DOMICILIO:</strong>
                     </v-col>
                     <v-col cols="3">
@@ -373,19 +373,19 @@
                           dense
                           label="FEMENINO"
                           value="M"
-                          class="font-weight-black"
+                          class="font-weight-black-instructor"
                         ></v-radio>
                         <v-radio
                           dense
                           label="MASCULINO"
                           value="H"
-                          class="font-weight-black"
+                          class="font-weight-black-instructor"
                         ></v-radio>
                       </v-radio-group>
                     </v-col>
                   </v-row>
                   <v-row justify="center">
-                    <v-col cols="2" class="text-right">
+                    <v-col cols="2" class="text-right font-text-instructor">
                       <strong>IDENTIFICACIÓN:</strong>
                     </v-col>
                     <v-col cols="3">
@@ -419,7 +419,7 @@
                     </v-col>
                   </v-row>
                   <v-row justify="center">
-                    <v-col cols="2" class="text-right">
+                    <v-col cols="2" class="text-right font-text-instructor">
                       <strong>ESCOLARIDAD:</strong>
                     </v-col>
                     <v-col cols="3">
@@ -457,7 +457,7 @@
             <v-stepper-content step="2">
               <v-card class="mb-12">
                 <v-form ref="form_experiencia" lazy-validation>
-                  <strong>EXPERIENCIA COMO INSTRUCTOR</strong>
+                  <strong class="font-text-instructor">EXPERIENCIA COMO INSTRUCTOR</strong>
                   <ExperienciaDocente
                     v-for="(row, index) in items_expdocente"
                     :key="'s2row1' + index"
@@ -480,7 +480,7 @@
                       >
                     </v-col>
                   </v-row>
-                  <strong>FORMACIÓN DOCENTE (PARA INSTRUCTOR)</strong>
+                  <strong class="font-text-instructor">FORMACIÓN DOCENTE (PARA INSTRUCTOR)</strong>
                   <FormacionDocente
                     v-for="(row, index) in items_instdocente"
                     :key="'s2row2' + index"
@@ -503,7 +503,7 @@
                       >
                     </v-col>
                   </v-row>
-                  <strong>EXPERIENCIA LABORAL</strong>
+                  <strong class="font-text-instructor">EXPERIENCIA LABORAL</strong>
                   <ExperienciaLaboralDocente
                     v-for="(row, index) in items_explabdocente"
                     :key="'s2row3' + index"
@@ -525,7 +525,7 @@
                       >
                     </v-col>
                   </v-row>
-                  <strong>OFERTA DE CAPACITACIÓN</strong>
+                  <strong class="font-text-instructor">OFERTA DE CAPACITACIÓN</strong>
                   <v-row class="mt-1">
                     <v-col cols="8">
                       <v-autocomplete
@@ -553,7 +553,7 @@
             <v-stepper-content step="3">
               <v-card class="mb-12">
                 <v-form ref="form_documentos" lazy-validation>
-                  <strong>DOCUMENTOS QUE PRESENTA</strong>
+                  <strong class="font-text-instructor">DOCUMENTOS QUE PRESENTA</strong>
                   <v-row justify="center">
                     <v-col cols="6">
                       <v-file-input

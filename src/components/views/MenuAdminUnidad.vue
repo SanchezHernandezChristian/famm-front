@@ -1,48 +1,66 @@
 <template>
   <v-container fluid>
-    <v-row class="fondodashboardadmin">
+    <v-row class="fondodashboardadminnegro">
       <v-layout>
         <v-flex align-self-center xs2>
           <v-img
             max-height="25%"
             max-width="50%"
-            src="@/assets/img/logoBlanco.png"
+            src="@/assets/img/logo.png"
             @click="redirect"
           ></v-img>
         </v-flex>
-        <v-flex align-self-center xs>
-          <label>UNIDAD DE CAPACITACIÓN</label>
-        </v-flex>
-        <v-flex align-self-center xs1
-          ><i class="fa fa-envelope-open-o" aria-hidden="true"></i
-        ></v-flex>
+        <v-flex align-self-center xs9> </v-flex>
         <v-flex align-self-center xs1>
-          <i class="fa fa-user-o" aria-hidden="true"></i>
+          <label>Ayuda</label>
+        </v-flex>
+      </v-layout>
+    </v-row>
+    <v-row class="fondodashboardadminnaranja">
+      <v-layout>
+        <v-flex align-self-center xs2>
+          <label>ADMINISTRADOR DE UNIDAD</label>
+        </v-flex>
+        <v-flex align-self-center xs5> </v-flex>
+        <v-flex align-self-center xs2>
+          <v-btn
+            depressed
+            color="#f46722"
+            elevation="0"
+            class="ma-2"
+            v-bind="attrs"
+            v-on="on"
+            style="font-size: 20px; color: #ffffff"
+            ><i class="fa fa-cogs" aria-hidden="true"></i>
+            Configuración
+          </v-btn>
         </v-flex>
         <v-flex align-self-center xs2>
-          <v-menu offset-y v-for="(item, index) in items" :key="index">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                v-bind="attrs"
-                v-on="on"
-                style="color: #ffffff; background-color: #2b4c7b"
-                elevation="0"
-              >
-                {{ item.title }}
-                <v-icon color="#ffffff">mdi-menu-down</v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="(item, index) in user"
-                :key="index"
-                link
-                @click="selectSection()"
-              >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
+          <v-btn
+            depressed
+            color="#f46722"
+            elevation="0"
+            class="ma-2"
+            v-bind="attrs"
+            v-on="on"
+            style="font-size: 20px; color: #ffffff"
+            ><i class="fa fa-user-o" aria-hidden="true"></i>
+            Mi cuenta
+          </v-btn></v-flex
+        >
+        <v-flex align-self-center xs1
+          ><v-btn
+            depressed
+            color="#f46722"
+            elevation="0"
+            class="ma-2"
+            v-bind="attrs"
+            v-on="on"
+            style="font-size: 20px; color: #ffffff"
+            @click="logout"
+            ><i class="fa fa-arrow-right" aria-hidden="true"></i>
+            Salir
+          </v-btn>
         </v-flex>
       </v-layout>
     </v-row>
@@ -58,15 +76,15 @@
                 class="ma-2"
                 v-bind="attrs"
                 v-on="on"
-                style="font-size: 13px; color: #bdbbbd"
+                style="font-size: 13px; color: #8996a0"
                 @click="selectDashboard()"
-                ><v-icon color="#bdbbbd">mdi-home</v-icon>
+                ><v-icon color="#8996a0">mdi-home</v-icon>
                 Dashboard
               </v-btn>
             </template>
           </v-menu>
         </v-flex>
-        <v-flex align-self-center xs4>
+        <v-flex align-self-center xs3>
           <v-menu transition="scroll-y-transition">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -76,7 +94,7 @@
                 class="ma-2"
                 v-bind="attrs"
                 v-on="on"
-                style="font-size: 14px; color: #bdbbbd"
+                style="font-size: 14px; color: #8996a0"
                 ><i class="fa fa-users" aria-hidden="true"></i>
                 Cédula de preautorización de cursos RUDC-06
               </v-btn>
@@ -86,6 +104,7 @@
                 v-for="(item, index) in roles"
                 :key="index"
                 @click="selectItem(item)"
+                active-class="bg-active"
               >
                 <!--<v-list-item-title>{{
                   item.cursos[0][nombre_curso]
@@ -105,7 +124,7 @@
                 class="ma-2"
                 v-bind="attrs"
                 v-on="on"
-                style="font-size: 14px; color: #bdbbbd"
+                style="font-size: 14px; color: #8996a0"
                 ><i class="fa fa-users" aria-hidden="true"></i>
                 Relación de Participantes
               </v-btn>
@@ -115,6 +134,7 @@
                 v-for="(item, index) in menu"
                 :key="index"
                 @click="selectItem(item)"
+                active-class="bg-active"
               >
                 <!--<v-list-item-title>{{
                   item.cursos[0][nombre_curso]
@@ -134,7 +154,7 @@
                 class="ma-2"
                 v-bind="attrs"
                 v-on="on"
-                style="font-size: 15x; color: #bdbbbd"
+                style="font-size: 15x; color: #8996a0"
                 ><i class="fa fa-users" aria-hidden="true"></i>
                 Factibilidad y justificación de cursos de capacitación formato
                 RUDC-04
@@ -145,6 +165,7 @@
                 v-for="(item, index) in menu2"
                 :key="index"
                 @click="selectItem(item)"
+                active-class="bg-active"
               >
                 <!--<v-list-item-title>{{
                   item.cursos[0][nombre_curso]
@@ -152,6 +173,24 @@
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
+          </v-menu>
+        </v-flex>
+        <v-flex align-self-center xs1>
+          <v-menu transition="scroll-y-transition">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                depressed
+                color="#FFFFFF"
+                elevation="0"
+                class="ma-2"
+                v-bind="attrs"
+                v-on="on"
+                style="font-size: 13px; color: #8996a0"
+                @click="cursosAsignados()"
+                ><v-icon color="#8996a0">mdi-home</v-icon>
+                Cursos asignados
+              </v-btn>
+            </template>
           </v-menu>
         </v-flex>
       </v-layout>
@@ -181,7 +220,7 @@ export default {
         this.cedulaPreautorizacion();
       if (item.title == "Relación de participantes registrados")
         this.relacionParticipantes();
-      if(item.title == 'Factibilidades y justificaciones registradas')
+      if (item.title == "Factibilidades y justificaciones registradas")
         this.factibilidadJustificacion();
     },
 
@@ -256,6 +295,14 @@ export default {
       if (this.$route.name == "Home") this.$router.go();
       else this.$router.push("/");
     },
+
+    async cursosAsignados(){
+      try {
+        this.$router.push("cursos-asignados-unidad");
+      } catch (error) {
+        console.log(error);
+      }
+    }
   },
 };
 </script>
