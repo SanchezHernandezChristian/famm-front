@@ -20,6 +20,7 @@ export default new Vuetify({
         warning: '#FFC107',
         barraBanner: '#22375e',
         btnInscribirse: '#ee44aa',
+        orangeFooter: '#f46722',
       },
     },
   },

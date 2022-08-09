@@ -136,7 +136,31 @@ width: 100%;
   color: #ffffff;
 }
 
+.fondodashboardadminnaranja {
+  background-color: #f46722;
+  color: #ffffff;
+}
+
+.fondodashboardadminnegro {
+  background-color: #020407;
+  color: #ffffff;
+}
+
 .centrartextocard {
   text-align: center;
   color: gray;
+}
+
+.bg-active {
+  background-color: #2c2e35;
+  color : white !important;
+}
+
+.font-weight-black-instructor{
+  color: #8996a0;
+  font-weight: bold;
+}
+
+.font-text-instructor{
+  color: #8996a0;
 }

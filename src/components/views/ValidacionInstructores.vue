@@ -18,20 +18,21 @@
             <v-toolbar-title>Contenido</v-toolbar-title>
             <v-divider class="mx-4" inset vertical></v-divider>
             <v-spacer></v-spacer>
-            <v-dialog v-model="dialog" persistent max-width="800px">
+            <v-dialog v-model="dialog" persistent max-width="1200px">
               <v-card>
                 <v-card-title>
                   <v-btn icon outlined @click="close" class="mr-2">
                     <v-icon>mdi-close</v-icon>
                   </v-btn>
-                  <span class="text-h5" v-if="validate">Validar docente</span>
-                  <span class="text-h5" v-else>Editar docente</span>
+                  <span class="text-h5" v-if="mode == 1">Editar docente</span>
+                  <span class="text-h5" v-if="mode == 2">Validar docente</span>
+                  <span class="text-h5" v-if="mode == 3">Ver docente</span>
                 </v-card-title>
 
                 <v-card-text>
                   <FormValidacionInstructor
                     :id="teacher_id"
-                    :validate="validate"
+                    :mode="mode"
                     @close="close"
                     v-if="dialog"
                   />
@@ -50,31 +51,49 @@
           <v-chip color="blue"> {{ item.clave }} </v-chip>
         </template>
         <template v-slot:item.estatus="{ item }">
-          <v-chip :color="getEstatusColor(item.estatus)">
-            <div v-if="item.estatus == 0">NUEVO INGRESO</div>
-            <div v-else>EN SERVICIO</div>
+          <v-chip :color="item.estatus > 0 ? 'green' : 'orange'">
+            <div v-if="item.estatus > 0">EN SERVICIO</div>
+            <div v-else>NUEVO INGRESO</div>
           </v-chip>
         </template>
-        <template v-slot:item.estado_du="{ item }">
-          <v-chip :color="getAprobacionColor(item.estatus)">
-            <div v-if="item.estatus == 0">EN ESPERA</div>
-            <div v-else>VALIDADO</div>
+        <template v-slot:item.esValido="{ item }">
+          <v-chip :color="item.esValido > 0 ? 'green' : 'yellow'">
+            <div v-if="item.esValido > 0">VALIDADO</div>
+            <div v-else>EN ESPERA</div>
           </v-chip>
         </template>
-        <template v-slot:item.aprobado_dg="{ item }">
-          <v-chip :color="getAprobacionColor(item.estatus)">
-            <div v-if="item.estatus == 0">EN ESPERA</div>
-            <div v-else>VALIDADO</div>
+        <template v-slot:item.esValidoDs="{ item }">
+          <v-chip :color="item.esValidoDs > 0 ? 'green' : 'yellow'">
+            <div v-if="item.esValidoDs > 0">VALIDADO</div>
+            <div v-else>EN ESPERA</div>
           </v-chip>
         </template>
         <template v-slot:item.actions="{ item }">
-          <v-icon small class="mr-2" @click="editItem(item.idDocente, 0)">
+          <v-icon small class="mr-2" @click="editItem(item.idDocente, 3)">
+            mdi-eye
+          </v-icon>
+          <v-icon
+            small
+            class="mr-2"
+            @click="editItem(item.idDocente, 1)"
+            v-show="role < 1"
+          >
             mdi-pencil
           </v-icon>
-          <v-icon small class="mr-2" @click="deleteItem(item.idDocente)">
+          <v-icon
+            small
+            class="mr-2"
+            @click="deleteItem(item.idDocente)"
+            v-show="role < 1"
+          >
             mdi-delete
           </v-icon>
-          <v-icon small class="mr-2" @click="editItem(item.idDocente, 1)">
+          <v-icon
+            small
+            class="mr-2"
+            @click="editItem(item.idDocente, 2)"
+            v-show="showValidateButton(item.esValido, item.esValidoDs)"
+          >
             mdi-check-bold
           </v-icon>
         </template>
@@ -97,24 +116,32 @@ export default {
       { text: "Nombre del instructor", value: "nombre" },
       { text: "Clave del instructor", value: "clave" },
       { text: "Estatus", value: "estatus" },
-      { text: "Aprobado D.U.", value: "estado_du" },
-      { text: "Aprobado D.G.", value: "aprobado_dg" },
+      { text: "Aprobado Admin Unidad", value: "esValido" },
+      { text: "Aprobado Depto Sup. A", value: "esValidoDs" },
       { text: "", value: "actions" },
     ],
     items_docentes: [],
     dialog: false,
-    validate: 0,
+    mode: 1,
+    role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = DIRECTIVO DEPARTAMENTO
     teacher_id: null,
   }),
 
   mounted() {
     this.fetchDocentes();
+    this.fetchRoles();
   },
 
   methods: {
     async fetchDocentes() {
       let response = await AuthService.getDocentes();
       this.items_docentes = response.data;
+    },
+
+    async fetchRoles() {
+      let response = await AuthService.getProfile();
+      if (response.Rol == "ADMINISTRADOR UNIDAD") this.role = 0;
+      else this.role = 1;
     },
 
     deleteItem(id) {
@@ -130,7 +157,7 @@ export default {
       })
         .then((result) => {
           if (result.isConfirmed) {
-            return AuthService.deleteDocenteValidacion(id);
+            return AuthService.deleteTeacher(id);
           }
         })
         .then((response) => {
@@ -149,20 +176,19 @@ export default {
         });
     },
 
-    getEstatusColor(status) {
-      if (status == 0) return "orange";
-      else return "green";
-    },
-
-    getAprobacionColor(status) {
-      if (status == 0) return "yellow";
-      else return "green";
-    },
-
-    editItem(id, edit) {
-      this.validate = edit;
+    editItem(id, mode) {
+      this.mode = mode;
       this.teacher_id = id;
       this.dialog = true;
+    },
+
+    showValidateButton(esValido, esValidoDs) {
+      if (this.role < 1) {
+        return esValido < 1;
+      } else {
+        // return esValidoDs < 1;
+        return typeof esValidoDs == "undefined" || esValidoDs < 1;
+      }
     },
 
     close() {

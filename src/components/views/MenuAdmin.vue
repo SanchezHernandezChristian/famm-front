@@ -138,7 +138,7 @@ export default {
   components: {},
   data: () => ({
     roles: [{ title: 'Usuarios registrados' }, { title: 'Añadir usuario' }],
-    cursos: [{ title: 'Cursos registrados' }, { title: 'Asignar curso' }, { title: 'Centros de capacitación' }, { title: 'Especialidades registradas' }],
+    cursos: [{ title: 'Cursos registrados' }, { title: 'Asignar curso' }, { title: 'Centros de capacitación' }, { title: 'Especialidades registradas' }, { title: 'Cursos asignados' }],
     logged_in: false,
     dialog: false,
     items: [{ title: 'CHRISTIAN HERNANDEZ' }],
@@ -153,6 +153,7 @@ export default {
       if (item.title == 'Asignar curso') this.asignarCurso();
       if (item.title == 'Centros de capacitación') this.centrosCapacitacion();
       if (item.title == 'Especialidades registradas') this.addEspecialidad();
+      if (item.title == 'Cursos asignados') this.asignCurso();
     },
 
     async mounted() {
@@ -258,6 +259,14 @@ export default {
       if (this.$route.name == 'Home') this.$router.go();
       else this.$router.push('/');
     },
+
+    async asignCurso(){
+      try {
+        this.$router.push('cursos-asignados');
+      } catch (error) {
+        console.log(error);
+      }
+    }
   },
 };
 </script>

@@ -27,18 +27,25 @@
             {{ item.cronograma.nombre_curso }}
           </div>
         </template>
-        <template v-slot:item.horas="{ item }">
+        <template v-slot:item.duracion_horas="{ item }">
           <v-chip color="yellow">
-            {{ item.contenido_cronograma[0].horas }}
+            {{ item.cronograma.duracion_horas }}
           </v-chip>
         </template>
-        <template v-slot:item.clave="{}">
-          <v-chip color="blue" class="font-italic"> Sin clave </v-chip>
+        <template v-slot:item.clave_curso="{ item }">
+          <v-chip color="blue">
+            {{ item.cronograma.clave_curso }}
+          </v-chip>
         </template>
-        <template v-slot:item.tema="{ item }">
+        <template v-slot:item.clave_especialidad="{ item }">
           <v-chip color="orange">{{
-            item.contenido_cronograma[0].tema
+            item.cronograma.clave_especialidad
           }}</v-chip>
+        </template>
+        <template v-slot:item.descripcion_curso="{ item }">
+          <div class="font-italic" v-show="!item.descripcion_curso">
+            Sin descripción
+          </div>
         </template>
         <template v-slot:item.actions="{ item }">
           <v-btn elevation="2" class="mr-2">Asignar</v-btn>
@@ -60,16 +67,17 @@
 
 <script>
 import AuthService from "@/services/AuthService.js";
+import CronogramaService from "@/services/CronogramaService.js";
 
 export default {
   name: "Users",
   data: () => ({
     headers: [
       { text: "Nombre de curso", value: "nombre_curso" },
-      { text: "Horas", value: "horas" },
-      { text: "Clave de curso", value: "clave" },
-      { text: "Especialidad", value: "tema" },
-      { text: "Descripción", value: "subtema" },
+      { text: "Horas", align: "center", value: "duracion_horas" },
+      { text: "Clave de curso", align: "center", value: "clave_curso" },
+      { text: "Especialidad", align: "center", value: "clave_especialidad" },
+      { text: "Descripción", value: "descripcion_curso" },
       { text: "", value: "actions" },
     ],
     items_cronogramas: [],
@@ -84,7 +92,9 @@ export default {
       if (me.$store.getters.isLoggedIn) {
         try {
           const response = await AuthService.fetchCronogramas();
-          me.items_cronogramas = response.data;
+          me.items_cronogramas = await CronogramaService.mapCronogramas(
+            response.data
+          );
         } catch (error) {
           console.log(error);
         }
