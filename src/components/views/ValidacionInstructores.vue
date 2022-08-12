@@ -135,7 +135,9 @@ export default {
   methods: {
     async fetchDocentes() {
       let response = await AuthService.getDocentes();
-      this.items_docentes = response.data;
+      this.items_docentes = response.data.filter((item) => {
+        return this.role > 0 ? item.esValido : item;
+      });
     },
 
     async fetchRoles() {
