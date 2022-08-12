@@ -180,29 +180,51 @@ export default {
     user: [{ title: "Cerrar sesión", icon: "" }],
     items_cursos: [
       { title: "Validación de calificaciones", value: "" },
-      { title: "Oficio de remisión RUDC-13", value: "" },
-      { title: "Acta", value: "" },
-      { title: "Reporte", value: "" },
-      { title: "Control", value: "" },
-      { title: "Registro", value: "" },
-      { title: "Acta de clausura RUDC-21", value: "" },
+      {
+        title: "Oficio de remisión del expediente técnico 2° RUDC-13",
+        value: "",
+      },
+      { title: "Acta de inicio del curso de capacitación", value: "" },
+      { title: "Reporte de supervisión unidad de capacitación", value: "" },
+      { title: "Control estadístico por curso", value: "" },
+      {
+        title: "Registro de inscripción, acreditación y certificación",
+        value: "",
+      },
+      {
+        title: "Acta de clausura del curso de capacitación RUDC-21",
+        value: "",
+      },
     ],
     items_preautorizacion: [
-      { title: "Validar RDPC-11", value: "validacion-instructores" },
-      { title: "Cédula de preautorización", value: "cedula-pre-autorizada" },
-      { title: "Validar cronograma RUDC-08", value: "cronograma" },
       {
-        title: "Relación de participntes",
+        title: "Validar cédulas de identificación del instructor RDPC-11",
+        value: "validacion-instructores",
+      },
+      {
+        title: "Cédulas de pre-autorización de cursos de capacitación",
+        value: "cedula-pre-autorizada",
+      },
+      {
+        title: "Validar cronogramas de actividades RUDC-08",
+        value: "cronograma",
+      },
+      {
+        title: "Relaciones de participantes",
         value: "relacion-participantes-registrados",
       },
       { title: "Croquis formato RUDC-10", value: "" },
       { title: "Validar lista de asistencia RUDC-15", value: "" },
       {
-        title: "Factibilidad y justificación",
+        title: "Factibilidad y justificación de cursos de capacitación",
         value: "factibilidad-justificacion-registradas",
       },
-      { title: "Formato de autorización", value: "" },
-      { title: "Oficio y bitácora RUDC-03", value: "" },
+      {
+        title: "Formato de pago",
+        value: "",
+      },
+      { title: "Oficio de autorización", value: "" },
+      { title: "Oficio de solicitud de curso y bitácora RUDC-03", value: "" },
     ],
   }),
   methods: {
