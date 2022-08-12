@@ -114,8 +114,20 @@
             accept="image/png, image/jpeg, image/bmp"
             :rules="[rules.size]"
             @change="selectFile"
+            v-show="enableEditPicture"
             :disabled="mode > 1"
           ></v-file-input>
+          <div id="input-usage">
+            <v-input
+              append-icon="mdi-close"
+              prepend-icon="mdi-paperclip"
+              @click="clickedEditPicture"
+              v-show="!enableEditPicture"
+              :disabled="mode > 1"
+            >
+              imagen_guardada.jpg
+            </v-input>
+          </div>
         </v-col>
       </v-row>
       <v-row justify="center">
@@ -527,6 +539,7 @@ export default {
       comentarios_valido_ds: null,
     },
     role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = DIRECTIVO DEPARTAMENTO
+    enableEditPicture: false,
   }),
 
   async mounted() {
@@ -543,8 +556,9 @@ export default {
         me.teacher.c_Municipio = parseInt(response3.data.c_Municipio);
         me.teacher.estatus = response3.data.estatus.toString();
         me.teacher.certificado = response3.data.certificado.toString();
+        me.teacher.esValido = response3.data.esValido == 1 ? 1 : 0;
+        me.teacher.esValidoDs = response3.data.esValidoDs == 1 ? 1 : 0;
         me.teacher.id = me.teacher.idDocente;
-        me.teacher.esValidoDs = 1;
         if (response4.Rol == "ADMINISTRADOR UNIDAD") me.role = 0;
         else me.role = 1;
       } catch (error) {
@@ -558,14 +572,15 @@ export default {
       let me = this;
       if (me.$refs.form_teacher.validate()) {
         try {
-          /* let formData = new FormData();
+          let formData = new FormData();
           for (const key in me.teacher) {
             formData.append(key, me.teacher[key]);
           }
-          for (var pair of formData.entries()) {
-            console.log(pair[0] + ", " + pair[1]);
-          }*/
-          await AuthService.updateTeacher(me.teacher);
+          formData.append("_method", "PUT");
+          // for (var pair of formData.entries()) {
+          //   console.log(pair[0] + ", " + pair[1]);
+          // }
+          await AuthService.updateTeacher(formData);
           Object.assign(me.$data, me.$options.data());
           me.$refs.form_teacher.resetValidation();
           me.$swal(
@@ -608,16 +623,16 @@ export default {
       if (this.role < 1) {
         return this.mode == 2 && this.teacher.esValido < 1;
       } else {
-        // return this.mode == 2 && this.teacher.esValidoDs < 1;
-        return (
-          this.mode == 2 &&
-          (typeof esValidoDs == "undefined" || this.teacher.esValidoDs < 1)
-        );
+        return this.mode == 2 && this.teacher.esValidoDs < 1;
       }
     },
 
     selectFile(file) {
       this.teacher.fotografia = file;
+    },
+
+    clickedEditPicture() {
+      this.enableEditPicture = true;
     },
 
     close() {
@@ -626,3 +641,12 @@ export default {
   },
 };
 </script>
+
+<style>
+#input-usage .v-input__slot {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  padding-bottom: 12px;
+  padding-top: 12px;
+  padding-left: 10px;
+}
+</style>
