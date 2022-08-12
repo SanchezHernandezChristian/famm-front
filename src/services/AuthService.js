@@ -40,7 +40,7 @@ export default {
         return axios.post(url + `create-teacher-p${method}`, data).then(response => response.data);
     },
     updateTeacher(data) {
-        return axios.put(url + 'update-teacher', data).then(response => response.data);
+        return axios.post(url + 'update-teacher', data).then(response => response.data);
     },
     deleteTeacher(id) {
         return axios.delete(`${url}delete-teacher/${id}`).then(response => response.data);
@@ -200,7 +200,7 @@ export default {
     },
     getAllAssign() {
         return axios.get(url + 'all-assign-grade').then(response => response.data);
-    },    
+    },
     getAllAssignUnidad(idUnidad) {
         return axios.get(`${url}all-assign-grade/${idUnidad}`).then(response => response.data);
     },
