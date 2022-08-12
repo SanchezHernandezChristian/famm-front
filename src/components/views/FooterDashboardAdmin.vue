@@ -1,8 +1,8 @@
 <template>
-  <v-footer color="orangeFooter lighten-1" dark inset width="auto" padless>
+  <v-footer color="blackFooter lighten-1" dark inset width="auto" padless>
     <v-container>
       <v-layout row justify-center>
-        <v-flex align-self-center xs4> &copy; FAMM 2022 Todos los derechos reservados. </v-flex>
+        <v-flex align-self-center xs4> &copy; e-ICAPET Todos los derechos reservados. </v-flex>
         <v-flex align-self-center xs2>
           <label>Condiciones de uso</label>
         </v-flex>
