@@ -188,8 +188,7 @@ export default {
       if (this.role < 1) {
         return esValido < 1;
       } else {
-        // return esValidoDs < 1;
-        return typeof esValidoDs == "undefined" || esValidoDs < 1;
+        return esValidoDs < 1;
       }
     },
 
