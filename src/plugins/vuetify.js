@@ -21,6 +21,7 @@ export default new Vuetify({
         barraBanner: '#22375e',
         btnInscribirse: '#ee44aa',
         orangeFooter: '#f46722',
+        blackFooter: '#020407',
       },
     },
   },
