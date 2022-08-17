@@ -458,7 +458,7 @@
             color="primary"
             dark
             class="m-1"
-            @click="update()"
+            @click="store()"
             v-show="mode == 1"
             >Guardar cambios</v-btn
           >
@@ -568,19 +568,22 @@ export default {
   },
 
   methods: {
-    async update() {
+    async store() {
       let me = this;
       if (me.$refs.form_teacher.validate()) {
         try {
           let formData = new FormData();
+          let idDocente = me.teacher.idDocente;
           for (const key in me.teacher) {
             formData.append(key, me.teacher[key]);
           }
-          formData.append("_method", "PUT");
-          // for (var pair of formData.entries()) {
-          //   console.log(pair[0] + ", " + pair[1]);
-          // }
-          await AuthService.updateTeacher(formData);
+          if (me.mode > 0) {
+            formData.append("_method", "PUT");
+            await AuthService.updateTeacher(formData);
+          } else {
+            let response = await AuthService.addTeacher(formData);
+            idDocente = response.data;
+          }
           Object.assign(me.$data, me.$options.data());
           me.$refs.form_teacher.resetValidation();
           me.$swal(
@@ -589,6 +592,7 @@ export default {
             "success"
           ).then(() => {
             me.close();
+            this.$emit("saved", idDocente);
           });
         } catch (error) {
           console.log(error);
@@ -610,13 +614,13 @@ export default {
     validate() {
       if (this.role < 1) this.teacher.esValido = 1;
       else this.teacher.esValidoDs = 1;
-      this.update();
+      this.store();
     },
 
     reject() {
       if (this.role < 1) this.teacher.esValido = 0;
       else this.teacher.esValidoDs = 0;
-      this.update();
+      this.store();
     },
 
     showValidateButton() {
