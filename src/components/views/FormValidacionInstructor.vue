@@ -538,7 +538,7 @@ export default {
       comentarios_valido: null,
       comentarios_valido_ds: null,
     },
-    role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = DIRECTIVO DEPARTAMENTO
+    role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = DEPARTAMENTO DE SUPERVISIÓN ACADEMICA
     enableEditPicture: false,
   }),
 

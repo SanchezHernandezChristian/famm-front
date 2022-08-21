@@ -182,12 +182,17 @@ const routes = [
     path: '/cursos-asignados',
     name: 'ViewCursosAsignadosAdministrador',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewCursosAsignadosAdministrador.vue')
-  },  
+  },
   {
     path: '/cursos-asignados-unidad',
     name: 'ViewCursosAsignadosUnidad',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewCursosAsignadosUnidad.vue')
-  },   
+  },
+  {
+    path: '/login',
+    name: 'ViewLoginTeacher',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewLoginTeacher.vue')
+  },
 ]
 
 const router = new VueRouter({
