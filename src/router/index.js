@@ -187,6 +187,16 @@ const routes = [
     path: '/cursos-asignados-unidad',
     name: 'ViewCursosAsignadosUnidad',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewCursosAsignadosUnidad.vue')
+  },    
+  {
+    path: '/formatos-pago-registrados',
+    name: 'ViewFormatosPagoRegistrados',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewFormatosPagoRegistrados.vue')
+  },       
+  {
+    path: '/form-formato-pago',
+    name: 'ViewFormatoPago',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewFormatoPago.vue')
   },   
 ]
 

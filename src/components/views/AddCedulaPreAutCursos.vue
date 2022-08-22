@@ -633,17 +633,180 @@
           </v-layout>
         </v-row>
         <v-row justify="center" align="start">
-          <v-layout row justify-center style="height: 90px">
+          <v-layout row justify-center style="height: 120px">
             <v-flex align-self-center xs4> </v-flex>
             <v-flex align-self-center xs2>
               <label>HORARIO</label>
             </v-flex>
-            <v-flex align-self-center xs4>
+            <v-flex align-self-center xs3>
+              <v-col>
+                <v-select
+                  v-model="selectDia"
+                  :items="items_dias"
+                  item-text="nombreDia"
+                  item-value="idDia"
+                  return-object
+                  dense
+                  outlined
+                  class="bordeRedondoElement"
+                  ref="sDia"
+                  label="Seleccione un día"
+                  clearable
+                ></v-select>
+              </v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </v-row>
+        <v-row justify="center" align="center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs4> </v-flex>
+            <v-flex align-self-center xs2> </v-flex>
+            <v-flex align-self-center xs2>
+              <v-menu
+                ref="menu3"
+                v-model="menu3"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="horaInicio"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="horaInicio"
+                    label="Hora inicio"
+                    prepend-icon="mdi-clock-time-four-outline"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    clearable
+                  ></v-text-field>
+                </template>
+                <v-time-picker
+                  format="24hr"
+                  v-if="menu3"
+                  v-model="horaInicio"
+                  full-width
+                  @click:minute="$refs.menu3.save(horaInicio)"
+                ></v-time-picker>
+              </v-menu>
+            </v-flex>
+            <v-flex align-self-center xs2>
+              <v-menu
+                ref="menu4"
+                v-model="menu4"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="horaFin"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="horaFin"
+                    label="Hora término"
+                    prepend-icon="mdi-clock-time-four-outline"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    clearable
+                  ></v-text-field>
+                </template>
+                <v-time-picker
+                  format="24hr"
+                  v-if="menu4"
+                  v-model="horaFin"
+                  full-width
+                  @click:minute="$refs.menu4.save(horaFin)"
+                ></v-time-picker>
+              </v-menu>
             </v-flex>
             <v-flex align-self-center xs2> </v-flex>
           </v-layout>
         </v-row>
         <v-row justify="center" align="center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs4> </v-flex>
+            <v-flex align-self-center xs2></v-flex>
+            <v-flex align-self-center xs2> </v-flex>
+            <v-flex align-self-center xs2> </v-flex>
+            <v-flex align-self-center xs2> </v-flex>
+          </v-layout>
+        </v-row>
+        <v-row justify="center" align="center" style="height: 65px">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs4> </v-flex>
+            <v-flex align-self-center xs2></v-flex>
+            <v-flex align-self-center xs2>
+              <v-btn text @click="addHorario">
+                <small>Agregar horario</small></v-btn
+              >
+            </v-flex>
+            <v-flex align-self-center xs2> </v-flex>
+            <v-flex align-self-center xs2> </v-flex>
+          </v-layout>
+        </v-row>
+        <v-row justify="center" align="center" style="height: 220px">
+          <v-layout row justify-start>
+            <v-flex align-self-center xs4> </v-flex>
+            <v-flex align-self-start xs6>
+              <v-data-table
+                :headers="headers"
+                :items="form_pre_aut.horario"
+                item-key="nombreDia"
+                class="elevation-1"
+              >
+                <template v-slot:top>
+                  <v-toolbar flat>
+                    <v-dialog v-model="dialogDelete" width="500">
+                      <v-card>
+                        <v-card-title class="text-h5 white lighten-2">
+                          Eliminar horario
+                        </v-card-title>
+                        <v-card-text>
+                          ¿Estás seguro que quieres eliminar el horario
+                          seleccionado? Recuerda que no podrás recuperar la
+                          información.
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-btn
+                            outlined
+                            color="gray"
+                            class="bordeRedondoElement"
+                            @click="dialogDelete = false"
+                          >
+                            Cancelar
+                          </v-btn>
+                          <v-btn
+                            outlined
+                            style="color: #ffffff; background-color: #2b4c7b"
+                            class="bordeRedondoElement"
+                            @click="deleteHorario"
+                            >Continuar</v-btn
+                          >
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </v-toolbar>
+                </template>
+                <template v-slot:[`item.actions`]="{ item }">
+                  <v-btn text @click="deleteItem(item)">
+                    <v-icon small>mdi-window-close</v-icon
+                    ><small>Eliminar</small></v-btn
+                  >
+                </template></v-data-table
+              ></v-flex
+            >
+            <v-flex align-self-center xs2> </v-flex>
+          </v-layout>
+        </v-row>
+        <v-row justify="center" align="center" style="height: 200px"> </v-row>
+        <v-row justify="center" align="center" style="height: 120px">
           <v-layout row justify-center>
             <v-flex align-self-center xs4> </v-flex>
             <v-flex align-self-center xs2
@@ -702,7 +865,9 @@
         <v-row justify="center" align="center">
           <v-layout row justify-center>
             <v-flex align-self-center xs4> </v-flex>
-            <v-flex align-self-center xs2><label>CAMPO DE FORMACIÓN PROFESIONAL</label></v-flex>
+            <v-flex align-self-center xs2
+              ><label>CAMPO DE FORMACIÓN PROFESIONAL</label></v-flex
+            >
             <v-flex align-self-center xs3>
               <v-col>
                 <v-text-field
@@ -887,7 +1052,9 @@
             ><v-btn outlined color="gray" @click="clean">LIMPIAR</v-btn></v-flex
           >
           <v-flex align-self-center xs2
-            ><v-btn outlined color="gray" @click="cancel">CANCELAR</v-btn></v-flex
+            ><v-btn outlined color="gray" @click="cancel"
+              >CANCELAR</v-btn
+            ></v-flex
           >
           <v-flex align-self-center xs1></v-flex>
           <v-flex align-self-center xs1><label>Página 2 de 2</label></v-flex>
@@ -956,15 +1123,53 @@ export default {
         totalHombres: null,
         totalMujeres: null,
         profesion: null,
-        esValido: null,
+        //esValido: null,
+        horario: [
+          // {
+          //     dia: "Lunes",
+          //     hora_inicio: "10:00",
+          //     hora_termino: "14:00"
+          // },
+          // {
+          //     dia: "Jueves",
+          //     hora_inicio: "16:00",
+          //     hora_termino: "18:00"
+          // },
+        ],
       },
       selectMunicipio: {},
       selectCurso: {},
       selectEspecialidad: {},
       selectDocente: {},
       user: {
-        idUnidad: null
+        idUnidad: null,
+      },
+      items_dias: [
+        { idDia: 1, nombreDia: "Lunes" },
+        { idDia: 2, nombreDia: "Martes" },
+        { idDia: 3, nombreDia: "Miércoles" },
+        { idDia: 4, nombreDia: "Jueves" },
+        { idDia: 5, nombreDia: "Viernes" },
+      ],
+      selectDia: {},
+      horaInicio: null,
+      horaFin: null,
+      menu3: false,
+      menu4: false,
+      dialogDelete: null,
+      headers: [
+        {
+          text: "Día de la semana",
+          align: "start",
+          sortable: false,
+          value: "dia",
         },
+        { text: "Hora de Inicio", value: "hora_inicio" },
+        { text: "Hora de Término", value: "hora_termino" },
+        { text: " ", value: "actions" },
+      ],
+      editedItem: "",
+      editedIndex: -1,
     };
   },
 
@@ -974,7 +1179,7 @@ export default {
       try {
         const response = await AuthService.getMunicipios();
         const response2 = await AuthService.getEscolaridad();
-        //const response3 = await AuthService.getCursos();
+        //const response6 = await AuthService.getCursos();
         const response4 = await AuthService.getDocentes();
         const response5 = await AuthService.getEspecialidades();
         me.items_municipios = response.municipios;
@@ -1004,8 +1209,7 @@ export default {
           me.form_pre_aut.c_Municipio = this.selectMunicipio.c_Municipio;
           me.form_pre_aut.idCurso = this.selectCurso.idCurso;
           me.form_pre_aut.idDocente = this.selectDocente.idDocente;
-          me.form_pre_aut.idEspecialidad =
-            this.selectCurso.idEspecialidad;
+          me.form_pre_aut.idEspecialidad = this.selectCurso.idEspecialidad;
           console.log(me.form_pre_aut);
           await AuthService.addCedulaPreAut(me.form_pre_aut);
           Object.assign(me.$data, me.$options.data());
@@ -1049,13 +1253,25 @@ export default {
       this.section1 = true;
     },
 
-    async calcular(){
-        this.form_pre_aut.costoTotal = this.form_pre_aut.totalHorasCurso * this.form_pre_aut.costoHora;
+    async calcular() {
+      this.form_pre_aut.costoTotal =
+        this.form_pre_aut.totalHorasCurso * this.form_pre_aut.costoHora;
     },
 
-    async ctotalInscritos(){
-        //parseInt(this.duracion, 10),
-        this.form_pre_aut.totalInscritos = parseInt(this.form_pre_aut.totalMujeres,10) + parseInt(this.form_pre_aut.totalHombres,10);
+    async ctotalInscritos() {
+      //parseInt(this.duracion, 10),
+      this.form_pre_aut.totalInscritos =
+        parseInt(this.form_pre_aut.totalMujeres, 10) +
+        parseInt(this.form_pre_aut.totalHombres, 10);
+    },
+
+    async addHorario() {
+      this.form_pre_aut.horario.push({
+        dia: this.selectDia.nombreDia,
+        hora_inicio: this.horaInicio,
+        hora_termino: this.horaFin,
+      });
+      this.$swal("Guardado", "Horario guardado correctamente.", "success");
     },
 
     async clean() {
@@ -1066,9 +1282,36 @@ export default {
       }
     },
 
-    async cancel(){
+    async cancel() {
       this.$router.push("/cedula-pre-autorizada");
-    }
+    },
+
+    deleteItem(item) {
+      this.editedIndex = this.form_pre_aut.horario.indexOf(item);
+      console.log("deleteIndex ", this.editedIndex);
+      this.editedItem = Object.assign({}, item);
+      console.log("item ", item);
+      this.dialogDelete = true;
+    },
+
+    async deleteHorario() {
+      if (this.form_pre_aut.horario.length > 0)
+        for (var i = 0; i < this.form_pre_aut.horario.length; i++) {
+          if (
+            this.form_pre_aut.horario[i].dia == this.editedItem.dia &&
+            this.form_pre_aut.horario[i].hora_inicio ==
+              this.editedItem.hora_inicio &&
+            this.form_pre_aut.horario[i].hora_termino ==
+              this.editedItem.hora_termino
+          ) {
+            this.form_pre_aut.horario.splice(i, 1);
+            break;
+          }
+        }
+
+      this.$swal("Borrado", "Horario borrado correctamente.", "success");
+      this.dialogDelete = false;
+    },
   },
 };
 </script>
