@@ -42,14 +42,29 @@
         </v-btn>
       </v-col>
       <v-col cols="1">
-        <v-btn
-          depressed
-          color="#FFFFFF"
-          elevation="0"
-          style="font-size: 12px; color: #8996a0"
-          ><v-icon color="#8996a0">mdi-monitor</v-icon>
-          Mis cursos
-        </v-btn>
+        <v-menu transition="scroll-y-transition">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              depressed
+              color="#FFFFFF"
+              elevation="0"
+              v-bind="attrs"
+              v-on="on"
+              style="font-size: 13px; color: #8996a0"
+              ><v-icon color="#8996a0">mdi-monitor</v-icon>
+              Mis cursos
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="(item, index) in items_cursos"
+              :key="index"
+              @click="selectItem(item.clave_curso)"
+            >
+              <v-list-item-title>{{ item.nombre_curso }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-col>
     </v-row>
     <v-row>
@@ -74,20 +89,28 @@
 </template>
 
 <script>
+import AuthService from "@/services/AuthService.js";
 import UserCard from "../UserCard.vue";
 
 export default {
   components: {
     UserCard,
   },
-  created() {
+  async created() {
     this.dataUser = JSON.parse(localStorage.getItem("vuex")).user;
     this.dataUser.EstatusPerfil = 1;
+
+    const response = await AuthService.getProfileDocente();
+    const response2 = await AuthService.getAllAssignGradeByTeacher(
+      response.idDocente
+    );
+    this.items_cursos = response2.data;
   },
   data: () => ({
     isLoggedIn: true,
     username: "INSTRUCTOR",
     dataUser: null,
+    items_cursos: [],
   }),
   methods: {
     formRegistro() {
@@ -98,6 +121,15 @@ export default {
       } else if (me.dataUser.Rol == "PROFESOR") {
         me.$router.push("/form-registro-instructor");
       }
+    },
+
+    selectItem(clave_curso) {
+      this.$router.push({
+        name: "ViewDocenteCurso",
+        params: {
+          clave_curso: clave_curso,
+        },
+      });
     },
   },
 };

@@ -104,6 +104,9 @@ export default {
             .get(url + 'all-assign-grade/' + id)
             .then(response => response.data);
     },
+    getAllAssignGradeByTeacher(id) {
+        return axios.get(`${url}all-assign-grade-teacher/${id}`).then(response => response.data);
+    },
     addCenter(center_data) {
         return axios
             .post(url + 'add-training-center', center_data)
