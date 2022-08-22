@@ -94,7 +94,7 @@ export default {
           const rol = response.user.Rol;
           this.$store.dispatch("login", { token, user });
           switch (rol) {
-            case "ADMINISTRADOR":
+            case "ADMINISTRADOR GENERAL":
               this.$router.push("/dashboard-admin");
               break;
             case "ADMINISTRADOR UNIDAD":
