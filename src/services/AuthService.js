@@ -19,6 +19,9 @@ export default {
     getProfile() {
         return axios.get(url + 'user-profile').then(response => response.data.data);
     },
+    getProfileDocente() {
+        return axios.get(url + 'user-profile').then(response => response.data.docente);
+    },
     getCursos() {
         return axios.get(url + 'all-grade').then(response => response.data);
     },
@@ -100,6 +103,9 @@ export default {
         return axios
             .get(url + 'all-assign-grade/' + id)
             .then(response => response.data);
+    },
+    getAllAssignGradeByTeacher(id) {
+        return axios.get(`${url}all-assign-grade-teacher/${id}`).then(response => response.data);
     },
     addCenter(center_data) {
         return axios

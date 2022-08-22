@@ -123,7 +123,7 @@ export default {
     items_docentes: [],
     dialog: false,
     mode: 1,
-    role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = DIRECTIVO DEPARTAMENTO
+    role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = DEPARTAMENTO DE SUPERVISIÓN ACADEMICA
     teacher_id: null,
   }),
 

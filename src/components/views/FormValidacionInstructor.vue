@@ -114,7 +114,7 @@
             accept="image/png, image/jpeg, image/bmp"
             :rules="[rules.size]"
             @change="selectFile"
-            v-show="enableEditPicture"
+            v-show="enableEditPicture || mode < 1"
             :disabled="mode > 1"
           ></v-file-input>
           <div id="input-usage">
@@ -122,7 +122,7 @@
               append-icon="mdi-close"
               prepend-icon="mdi-paperclip"
               @click="clickedEditPicture"
-              v-show="!enableEditPicture"
+              v-show="!enableEditPicture && mode > 0"
               :disabled="mode > 1"
             >
               imagen_guardada.jpg
@@ -407,10 +407,22 @@
             :rules="[rules.required]"
             item-text="nombre"
             item-value="id"
-            label="Documento obtenido"
+            label="Carrera"
             v-model="teacher.profesion"
             :readonly="mode > 1"
           ></v-text-field>
+        </v-col>
+        <v-col cols="3">
+          <v-file-input
+            label="Documento obtenido"
+            outlined
+            dense
+            show-size
+            accept="application/pdf"
+            :rules="[rules.size]"
+            @change="selectFile2"
+            :disabled="mode > 1"
+          ></v-file-input>
         </v-col>
       </v-row>
       <v-row justify="center" v-if="mode == 2">
@@ -458,7 +470,7 @@
             color="primary"
             dark
             class="m-1"
-            @click="update()"
+            @click="store()"
             v-show="mode == 1"
             >Guardar cambios</v-btn
           >
@@ -537,8 +549,9 @@ export default {
       esValidoDs: null,
       comentarios_valido: null,
       comentarios_valido_ds: null,
+      documento_obtenido: null,
     },
-    role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = DIRECTIVO DEPARTAMENTO
+    role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = DEPARTAMENTO DE SUPERVISIÓN ACADEMICA
     enableEditPicture: false,
   }),
 
@@ -548,17 +561,24 @@ export default {
       try {
         const response = await AuthService.getMunicipios();
         const response2 = await AuthService.getEscolaridad();
-        const response3 = await AuthService.getDocente(me.id);
         const response4 = await AuthService.getProfile();
         me.items_municipios = response.municipios;
         me.items_escolaridad = response2.data;
-        me.teacher = response3.data;
-        me.teacher.c_Municipio = parseInt(response3.data.c_Municipio);
-        me.teacher.estatus = response3.data.estatus.toString();
-        me.teacher.certificado = response3.data.certificado.toString();
-        me.teacher.esValido = response3.data.esValido == 1 ? 1 : 0;
-        me.teacher.esValidoDs = response3.data.esValidoDs == 1 ? 1 : 0;
-        me.teacher.id = me.teacher.idDocente;
+        if (me.mode > 0) {
+          const response3 = await AuthService.getDocente(me.id);
+          me.teacher = response3.data;
+          me.teacher.c_Municipio = parseInt(response3.data.c_Municipio);
+          me.teacher.estatus = response3.data.estatus.toString();
+          me.teacher.certificado = response3.data.certificado.toString();
+          me.teacher.esValido = response3.data.esValido == 1 ? 1 : 0;
+          me.teacher.esValidoDs = response3.data.esValidoDs == 1 ? 1 : 0;
+          me.teacher.id = me.teacher.idDocente;
+          me.teacher.documento_obtenido = null;
+        } else {
+          me.teacher.nombre = response4.nombres;
+          me.teacher.apellido_paterno = response4.primer_apellido;
+          me.teacher.apellido_materno = response4.segundo_apellido;
+        }
         if (response4.Rol == "ADMINISTRADOR UNIDAD") me.role = 0;
         else me.role = 1;
       } catch (error) {
@@ -568,19 +588,24 @@ export default {
   },
 
   methods: {
-    async update() {
+    async store() {
       let me = this;
       if (me.$refs.form_teacher.validate()) {
         try {
           let formData = new FormData();
+          let idDocente = me.teacher.idDocente;
           for (const key in me.teacher) {
-            formData.append(key, me.teacher[key]);
+            if (me.mode == 1 && key != "idEscolaridad" && key != "fotografia")
+              formData.append(key, me.teacher[key]);
+            if (me.mode < 1) formData.append(key, me.teacher[key]);
           }
-          formData.append("_method", "PUT");
-          // for (var pair of formData.entries()) {
-          //   console.log(pair[0] + ", " + pair[1]);
-          // }
-          await AuthService.updateTeacher(formData);
+          if (me.mode > 0) {
+            formData.append("_method", "PUT");
+            await AuthService.updateTeacher(formData);
+          } else {
+            let response = await AuthService.addTeacher(formData);
+            idDocente = response.data;
+          }
           Object.assign(me.$data, me.$options.data());
           me.$refs.form_teacher.resetValidation();
           me.$swal(
@@ -589,6 +614,7 @@ export default {
             "success"
           ).then(() => {
             me.close();
+            this.$emit("saved", idDocente);
           });
         } catch (error) {
           console.log(error);
@@ -610,13 +636,13 @@ export default {
     validate() {
       if (this.role < 1) this.teacher.esValido = 1;
       else this.teacher.esValidoDs = 1;
-      this.update();
+      this.store();
     },
 
     reject() {
       if (this.role < 1) this.teacher.esValido = 0;
       else this.teacher.esValidoDs = 0;
-      this.update();
+      this.store();
     },
 
     showValidateButton() {
@@ -629,6 +655,10 @@ export default {
 
     selectFile(file) {
       this.teacher.fotografia = file;
+    },
+
+    selectFile2(file) {
+      this.teacher.documento_obtenido = file;
     },
 
     clickedEditPicture() {

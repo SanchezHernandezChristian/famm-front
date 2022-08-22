@@ -37,7 +37,7 @@ export default {
   created() {
     var rol = JSON.parse(localStorage.getItem('vuex')).user ? JSON.parse(localStorage.getItem('vuex')).user.Rol : '';
     if (rol) {
-      if (rol == 'ADMINISTRADOR') this.$router.push('/dashboard-admin');
+      if (rol == 'ADMINISTRADOR GENERAL') this.$router.push('/dashboard-admin');
       else this.$router.push('/page-principal');
     }
   },

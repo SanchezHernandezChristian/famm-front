@@ -1,86 +1,78 @@
 <template>
-  <v-container fluid>
+  <v-container fluid style="background-color: #e0e0e0; height: 100%">
     <v-row>
-      <v-alert
-        v-if="!dataUser.EstatusPerfil"
-        border="left"
-        justify="space-around"
-        color="red"
-        dark
-      >
-        <span class="float-left"
-          >Los datos del instructor no han sido capturados.</span
-        >
-        <span class="float-right"
-          >Click
-          <v-btn dark outlined @click="redirectFormRegistro()"> aquí </v-btn>
-          para capturarlos</span
-        >
-      </v-alert>
-      <v-row v-else>
-        <div>
-          <p></p>
-          <br />
-          <br />
-        </div>
-      </v-row>
-    </v-row>
-    <v-row>
-      <v-col>
-        <div style="margin-left: 25px">
-          <v-row>
-            <v-layout column justify-center>
-              <v-flex>
-                <v-list>
-                  <v-list-item
-                    v-for="(item, index) in misCursos"
-                    :key="index"
-                    @click="selectSidebarItem(item)"
-                  >
-                    <v-list-item-title style="color: #394f79; font-size: 25px"
-                      ><strong>{{ item.title }}</strong></v-list-item-title
+      <v-layout style="background-color: #e0e0e0">
+        <v-layout column>
+          <v-flex xs3>
+            <br />
+            <v-card color="white darken-2" class="gray--text">
+              <v-flex align-self-center xs>
+                <v-layout>
+                  <v-card-title>
+                    <div class="centrartextocard text-center">
+                      Alumnos registrados
+                    </div>
+                  </v-card-title>
+                  <v-card-title>
+                    <div
+                      class="centrartextocard text-center"
+                      style="color: green; font-size: 20px"
                     >
-                  </v-list-item>
-                </v-list>
+                      600
+                    </div>
+                  </v-card-title>
+                </v-layout>
               </v-flex>
-              <v-flex><br /></v-flex>
-              <v-flex>
-                <v-list>
-                  <v-list-item v-for="(item, index) in main" :key="index">
-                    <v-list-item-title
-                      style="color: #aeacac; font-size: 20px"
-                      >{{ item.title }}</v-list-item-title
+            </v-card>
+          </v-flex>
+          <v-flex xs4>
+            <br />
+            <v-card color="white darken-2" class="gray--text">
+              <v-flex align-self-center xs>
+                <v-layout>
+                  <v-card-title>
+                    <div class="centrartextocard text-center">
+                      Docentes registrados
+                    </div>
+                  </v-card-title>
+                  <v-card-title>
+                    <div
+                      class="centrartextocard text-center"
+                      style="color: green; font-size: 20px"
                     >
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-title style="color: #394f79; font-size: 20px"
-                      >TODAS LAS ESPECIALIDADES
-                      <i
-                        class="fa fa-arrow-circle-right fa-lg"
-                        aria-hidden="true"
-                      ></i
-                    ></v-list-item-title>
-                  </v-list-item>
-                </v-list>
+                      600
+                    </div>
+                  </v-card-title>
+                </v-layout>
               </v-flex>
-              <v-flex><br /></v-flex>
-              <v-flex>
-                <v-list>
-                  <v-list-item v-for="(item, index) in extras" :key="index">
-                    <v-list-item-title
-                      style="color: #aeacac; font-size: 20px"
-                      >{{ item.title }}</v-list-item-title
+            </v-card>
+          </v-flex>
+          <v-flex xs4>
+            <br />
+            <v-card color="white darken-2" class="gray--text">
+              <v-flex align-self-center xs>
+                <v-layout>
+                  <v-card-title>
+                    <div class="centrartextocard text-center">
+                      Alumnos de baja
+                    </div>
+                  </v-card-title>
+                  <v-card-title>
+                    <div
+                      class="centrartextocard text-center"
+                      style="color: red; font-size: 20px"
                     >
-                  </v-list-item>
-                </v-list>
+                      56
+                    </div>
+                  </v-card-title>
+                </v-layout>
               </v-flex>
-            </v-layout>
-          </v-row>
-        </div>
-      </v-col>
-    </v-row>
-    <v-row>
-      <div style="height: 200px"></div>
+            </v-card>
+          </v-flex>
+        </v-layout>
+        <v-flex xs1></v-flex>
+        <v-flex xs8> </v-flex>
+      </v-layout>
     </v-row>
   </v-container>
 </template>
@@ -88,43 +80,5 @@
 <script>
 export default {
   name: "PagePrincipalAlumno",
-  data() {
-    return {
-      misCursos: [
-        { title: "MIS CURSOS" },
-        { title: "Mis apuntes" },
-        { title: "Mis proyectos" },
-        { title: "Mis certificados" },
-        { title: "Editar datos" },
-        { title: "Cronograma" },
-      ],
-      main: [
-        { title: "Unidades de capacitación" },
-        { title: "Campos de formación profesional" },
-        { title: "Cursos mejor valorados" },
-        { title: "Cursos nuevos" },
-        { title: "Cursos cerca de tu localidad" },
-      ],
-      extras: [{ title: "Configuración" }, { title: "Ayuda" }],
-      dataUser: "",
-    };
-  },
-  created() {
-    this.dataUser = JSON.parse(localStorage.getItem("vuex")).user;
-  },
-  methods: {
-    redirectFormRegistro() {
-      this.$router.push("/form-registro-instructor");
-    },
-
-    redirectViewCronograma() {
-      this.$router.push("/cronograma");
-    },
-
-    selectSidebarItem(item) {
-      if (item.title == "Editar datos") this.redirectFormRegistro();
-      if (item.title == "Cronograma") this.redirectViewCronograma();
-    },
-  },
 };
 </script>
