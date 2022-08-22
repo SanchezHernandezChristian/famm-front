@@ -194,6 +194,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewCursosAsignadosUnidad.vue')
   },
   {
+    path: '/formatos-pago-registrados',
+    name: 'ViewFormatosPagoRegistrados',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewFormatosPagoRegistrados.vue')
+  },
+  {
+    path: '/form-formato-pago',
+    name: 'ViewFormatoPago',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewFormatoPago.vue')
+  },
+  {
     path: '/login',
     name: 'ViewLoginTeacher',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewLoginTeacher.vue')
