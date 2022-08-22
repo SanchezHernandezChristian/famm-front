@@ -98,6 +98,8 @@ export default {
     deleteId: 0,
     editedIndex: -1,
     editId: 0,
+    idCursoDelete: null,
+    idUnidadDelete: null,
   }),
 
   async mounted() {
@@ -121,12 +123,12 @@ export default {
       try {
         let idDeleteCurso = this.deleteId;
         console.log("confirmDeleteid ", idDeleteCurso);
-        const response = await AuthService.deleteCursoAsignado(idDeleteCurso);
+        const response = await AuthService.deleteAssignGrade(this.idCursoDelete,this.idUnidadDelete);
         this.datarespuestaDelete = response;
         if (response.serverCode == 200) {
           this.dialogDelete = false;
           //this.mostrarAlertDelete = true;
-          this.$swal("Eliminado", "Curso asignado eliminada correctamente.", "success");
+          this.$swal("Eliminado", "Curso asignado eliminado correctamente.", "success");
           this.reloadTable();
         } else {
           let error_msg =
@@ -152,6 +154,10 @@ export default {
       this.deleteId = this.editedItem.id;
       console.log("editedItem.id ", this.deleteId);
       this.dialogDelete = true;
+      this.idCursoDelete = this.editedItem.idCurso;
+      console.log("idCursoDelete ", this.idCursoDelete);
+      this.idUnidadDelete = this.editedItem.idUnidad;
+      console.log("idUnidadDelete ", this.idUnidadDelete);
     },
   },
 };

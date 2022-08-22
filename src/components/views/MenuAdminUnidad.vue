@@ -221,7 +221,7 @@ export default {
       },
       {
         title: "Formato de pago",
-        value: "",
+        value: "formatos-pago-registrados",
       },
       { title: "Oficio de autorización", value: "" },
       { title: "Oficio de solicitud de curso y bitácora RUDC-03", value: "" },
