@@ -53,6 +53,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/RegistroInstructorForm.vue')
   },
   {
+    path: '/form-cedula-instructor',
+    name: 'CédulaInstructorForm',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewCedulaInstructor.vue')
+  },
+  {
     path: '/dashboard-instructor',
     name: 'ViewDashboardInstructor',
     // route level code-splitting
@@ -182,12 +187,32 @@ const routes = [
     path: '/cursos-asignados',
     name: 'ViewCursosAsignadosAdministrador',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewCursosAsignadosAdministrador.vue')
-  },  
+  },
   {
     path: '/cursos-asignados-unidad',
     name: 'ViewCursosAsignadosUnidad',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewCursosAsignadosUnidad.vue')
-  },   
+  },
+  {
+    path: '/formatos-pago-registrados',
+    name: 'ViewFormatosPagoRegistrados',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewFormatosPagoRegistrados.vue')
+  },
+  {
+    path: '/form-formato-pago',
+    name: 'ViewFormatoPago',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewFormatoPago.vue')
+  },
+  {
+    path: '/login',
+    name: 'ViewLoginTeacher',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewLoginTeacher.vue')
+  },
+  {
+    path: '/docente-curso',
+    name: 'ViewDocenteCurso',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewDocenteCurso.vue')
+  },
 ]
 
 const router = new VueRouter({

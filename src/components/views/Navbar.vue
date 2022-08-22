@@ -6,6 +6,7 @@
           max-height="25%"
           max-width="50%"
           src="@/assets/img/logo.png"
+          class="clickable"
           @click="redirect"
         ></v-img
       ></v-toolbar-title>
@@ -63,12 +64,13 @@
                 :key="index"
                 @click="selectElement()"
               >
-                <v-list-item-title>{{ item.nombre_especialidad }}</v-list-item-title>
+                <v-list-item-title>{{
+                  item.nombre_especialidad
+                }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu></v-col
         >
-        <v-col cols="2"></v-col>
         <v-col cols="2" class="pt-4">
           <v-spacer></v-spacer>
           <v-responsive max-width="260">
@@ -82,7 +84,7 @@
             ></v-text-field>
           </v-responsive>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="6">
           <v-row
             justify="center"
             align="center"
@@ -92,11 +94,14 @@
             <UserCard />
           </v-row>
           <v-row flex v-else>
-            <v-col cols="5" class="ma-2">
+            <v-col cols="4" class="ma-2">
               <Registro />
             </v-col>
-            <v-col cols="5" class="ma-2">
+            <v-col cols="4" class="ma-2">
               <Login />
+            </v-col>
+            <v-col cols="3" class="ma-1">
+              <v-btn outlined @click="login_teacher">Acceso docente</v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -159,6 +164,9 @@
             <v-col cols="5" class="ma-2">
               <Login />
             </v-col>
+            <v-col cols="5">
+              <v-btn outlined @click="login_teacher">Acceso docente</v-btn>
+            </v-col>
           </v-row>
         </v-card>
       </v-dialog>
@@ -215,6 +223,16 @@ export default {
       if (this.$route.name == "Home") this.$router.go();
       else this.$router.push("/");
     },
+
+    login_teacher() {
+      this.$router.push("login");
+    },
   },
 };
 </script>
+
+<style>
+.clickable {
+  cursor: pointer;
+}
+</style>

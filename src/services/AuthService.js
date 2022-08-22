@@ -19,6 +19,9 @@ export default {
     getProfile() {
         return axios.get(url + 'user-profile').then(response => response.data.data);
     },
+    getProfileDocente() {
+        return axios.get(url + 'user-profile').then(response => response.data.docente);
+    },
     getCursos() {
         return axios.get(url + 'all-grade').then(response => response.data);
     },
@@ -100,6 +103,9 @@ export default {
         return axios
             .get(url + 'all-assign-grade/' + id)
             .then(response => response.data);
+    },
+    getAllAssignGradeByTeacher(id) {
+        return axios.get(`${url}all-assign-grade-teacher/${id}`).then(response => response.data);
     },
     addCenter(center_data) {
         return axios
@@ -203,5 +209,27 @@ export default {
     },
     getAllAssignUnidad(idUnidad) {
         return axios.get(`${url}all-assign-grade/${idUnidad}`).then(response => response.data);
+    },
+    deleteAssignGrade(idCurso,idUnidad) {
+        return axios.delete(`${url}delete-assign-grade/${idCurso}/${idUnidad}`).then(response => response.data);
+    },
+    getAllPayment() {
+        return axios.get(url + 'all-payment').then(response => response.data);
+    },
+    getPayment(id_curso) {
+        return axios.get(`${url}get-payment/${id_curso}`).then(response => response.data);
+    },
+    deletePayment(id_delete) {
+        return axios.delete(`${url}delete-payment/${id_delete}`).then(response => response.data);
+    },
+    createPayment(payment_data) {
+        return axios
+            .post(url + 'create-payment', payment_data)
+            .then(response => response.data);
+    },
+    updatePayment(pay_data) {
+        return axios
+            .put(url + 'update-payment', pay_data)
+            .then(response => response.data);
     },
 };

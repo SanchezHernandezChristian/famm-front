@@ -7,6 +7,7 @@
             max-height="25%"
             max-width="50%"
             src="@/assets/img/logo.png"
+            class="clickable"
             @click="redirect"
           ></v-img>
         </v-flex>
@@ -16,10 +17,10 @@
         </v-flex>
       </v-layout>
     </v-row>
-    <v-row class="fondodashboardadminnaranja">
+    <v-row class="fondodashboardadminnaranja" v-if="isLoggedIn">
       <v-layout>
         <v-flex align-self-center xs2>
-          <label>ADMINISTRADOR DE UNIDAD</label>
+          <label>{{ username }}</label>
         </v-flex>
         <v-flex align-self-center xs5> </v-flex>
         <v-flex align-self-center xs2>
@@ -58,7 +59,7 @@
         </v-flex>
       </v-layout>
     </v-row>
-    <v-row style="background-color: white">
+    <v-row style="background-color: white" v-if="isLoggedIn">
       <v-layout>
         <v-flex align-self-center xs2>
           <v-menu transition="scroll-y-transition">
@@ -176,8 +177,6 @@ export default {
   name: "MenuAdmin",
   components: {},
   data: () => ({
-    items: [{ title: "Unidad" }],
-    user: [{ title: "Cerrar sesión", icon: "" }],
     items_cursos: [
       { title: "Validación de calificaciones", value: "" },
       {
@@ -221,27 +220,28 @@ export default {
       },
       {
         title: "Formato de pago",
-        value: "",
+        value: "formatos-pago-registrados",
       },
       { title: "Oficio de autorización", value: "" },
       { title: "Oficio de solicitud de curso y bitácora RUDC-03", value: "" },
     ],
+    isLoggedIn: false,
+    username: "",
   }),
-  methods: {
-    async mounted() {
-      let me = this;
+  async mounted() {
+    let me = this;
 
-      if (this.$store.getters.isLoggedIn) {
-        try {
-          const response = await AuthService.getProfile();
-          me.items[0].title = response.Nombre;
-          console.log(response.Nombre);
-        } catch (error) {
-          console.log(error);
-        }
+    me.isLoggedIn = me.$store.getters.isLoggedIn;
+    if (me.isLoggedIn) {
+      try {
+        const response = await AuthService.getProfile();
+        me.username = response.Rol;
+      } catch (error) {
+        console.log(error);
       }
-    },
-
+    }
+  },
+  methods: {
     selectItem(route) {
       if (route) {
         this.$router.push(route);
