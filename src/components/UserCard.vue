@@ -2,14 +2,13 @@
   <div style="float: right; text-align: right">
     <v-menu offset-y open-on-hover>
       <template v-slot:activator="{ on }">
-        <v-avatar color="primary" size="48" v-on="on">
-          <span class="text-white"
-            ><i class="fa fa-user-o" aria-hidden="true"
-          /></span>
+        <v-avatar color="primary" size="38" v-on="on" class="clickable">
+          <v-icon dark> mdi-account-circle </v-icon>
         </v-avatar>
       </template>
-      <v-list>
+      <v-list class="orange">
         <v-list-item
+          class="white--text"
           v-for="(item, index) in items"
           :key="index"
           @click="selectSection(item)"
@@ -37,35 +36,27 @@ export default {
   data: () => ({
     items: [
       {
-        title: "",
-        icon: "mdi-account-circle",
-        colorfont: "#394f79",
-        sizefont: "15px",
+        title: "Perfil",
+        icon: "mdi-account-circle-outline",
+        value: 1,
       },
-      { title: "Perfil", icon: "" },
-      { title: "Configuración", icon: "" },
-      { title: "Cerrar sesión", icon: "" },
+      { title: "Configuración", icon: "mdi-cog-outline", value: 2 },
+      { title: "Salir", icon: "mdi-arrow-right-bold-outline", value: 3 },
     ],
   }),
 
-  async mounted() {
-    let me = this;
-    me.items[0].title = "mail.example@outlook.com";
-
-    if (this.$store.getters.isLoggedIn) {
-      try {
-        const response = await AuthService.getProfile();
-        me.items[0].title = response.Nombre;
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  },
-
   methods: {
     selectSection(item) {
-      if (item.title == "Cerrar sesión") this.logout();
-      if (item.title == "Perfil") this.profile();
+      switch (item.value) {
+        case 1:
+          this.profile();
+          break;
+        case 3:
+          this.logout();
+          break;
+        default:
+          break;
+      }
     },
 
     async logout() {
@@ -80,7 +71,9 @@ export default {
 
     async profile() {
       try {
-        this.$router.push("page-principal");
+        if (JSON.parse(localStorage.getItem("vuex")).user.Rol == "PROFESOR")
+          this.$router.push("form-cedula-instructor");
+        else this.$router.push("page-principal");
       } catch (error) {
         console.log(error);
       }
