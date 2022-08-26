@@ -26,29 +26,13 @@
       <v-form ref="form">
         <v-layout row justify-center>
           <v-flex align-self-center xs2>
-            <v-text-field
-              dense
-              outlined
-              :rules="rules"
-              v-model="nombreCurso"
-            ></v-text-field>
+            <v-text-field dense outlined :rules="rules" v-model="nombreCurso"></v-text-field>
           </v-flex>
           <v-flex align-self-center xs1>
-            <v-text-field
-              dense
-              outlined
-              :rules="rules"
-              v-model="duracion"
-              type="number"
-            ></v-text-field>
+            <v-text-field dense outlined :rules="rules" v-model="duracion" type="number"></v-text-field>
           </v-flex>
           <v-flex align-self-center xs1>
-            <v-text-field
-              dense
-              outlined
-              :rules="rules"
-              v-model="claveCurso"
-            ></v-text-field>
+            <v-text-field dense outlined :rules="rules" v-model="claveCurso"></v-text-field>
           </v-flex>
           <v-flex align-self-center xs2 cols-2>
             <v-select
@@ -64,12 +48,7 @@
             ></v-select>
           </v-flex>
           <v-flex align-self-center xs6>
-            <v-text-field
-              dense
-              outlined
-              :rules="rules"
-              v-model="descripcionCurso"
-            ></v-text-field>
+            <v-text-field dense outlined :rules="rules" v-model="descripcionCurso"></v-text-field>
           </v-flex>
         </v-layout>
       </v-form>
@@ -85,27 +64,14 @@
             <div class="text-center">
               <v-dialog v-model="dialog" width="500">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn outlined color="gray" v-bind="attrs" v-on="on">
-                    Agregar
-                  </v-btn>
+                  <v-btn outlined color="gray" v-bind="attrs" v-on="on"> Agregar </v-btn>
                 </template>
                 <v-card>
-                  <v-card-title class="text-h5 white lighten-2">
-                    ¡ATENCIÓN!
-                  </v-card-title>
-                  <v-card-text>
-                    SI TODOS LOS DATOS SON CORRECTOS DA CLICK EN CONTINUAR
-                  </v-card-text>
+                  <v-card-title class="text-h5 white lighten-2"> ¡ATENCIÓN! </v-card-title>
+                  <v-card-text> SI TODOS LOS DATOS SON CORRECTOS DA CLICK EN CONTINUAR </v-card-text>
                   <v-card-actions>
-                    <v-btn outlined color="gray" @click="dialog = false">
-                      Cancelar
-                    </v-btn>
-                    <v-btn
-                      outlined
-                      style="color: #ffffff; background-color: #2b4c7b"
-                      @click="createGrade"
-                      >Continuar</v-btn
-                    >
+                    <v-btn outlined color="gray" @click="dialog = false"> Cancelar </v-btn>
+                    <v-btn outlined style="color: #ffffff; background-color: #2b4c7b" @click="createGrade">Continuar</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -120,21 +86,14 @@
           <v-flex align-self-baseline xs2></v-flex>
           <v-flex align-self-center xs5></v-flex>
           <v-flex align-self-center xs5>
-            <v-alert type="success" v-if="mostrarAlert">{{
-              datarespuesta.mensaje
-            }}</v-alert>
+            <v-alert type="success" v-if="mostrarAlert">{{ datarespuesta.mensaje }}</v-alert>
           </v-flex>
         </v-layout>
       </div>
     </v-row>
     <v-row>
       <h2 style="color: #2b4c7b">Cursos registrados</h2>
-      <v-data-table
-        :headers="headers"
-        :items="cursos"
-        item-key="nombre_curso"
-        class="elevation-1"
-      >
+      <v-data-table :headers="headers" :items="cursos" item-key="nombre_curso" class="elevation-1">
         <template v-slot:[`item.duracion_horas`]="{ item }">
           <v-chip color="yellow">
             {{ item.duracion_horas }}
@@ -162,16 +121,9 @@
                 </v-row>
                 <v-row justify="center" align="center" style="height: 70px">
                   <v-layout row justify-center>
-                    <v-flex align-self-baseline xs4
-                      ><label> Nombre del curso</label></v-flex
-                    >
+                    <v-flex align-self-baseline xs4><label> Nombre del curso</label></v-flex>
                     <v-flex align-self-baseline xs7>
-                      <v-text-field
-                        dense
-                        outlined
-                        class="bordeRedondoElement"
-                        v-model="editedItem.nombre_curso"
-                      ></v-text-field>
+                      <v-text-field dense outlined class="bordeRedondoElement" v-model="editedItem.nombre_curso"></v-text-field>
                     </v-flex>
                     <v-flex align-self-baseline xs1></v-flex>
                   </v-layout>
@@ -179,16 +131,9 @@
                 <v-row justify="center" align="center" style="height: 70px">
                   <div>
                     <v-layout row justify-center>
-                      <v-flex align-self-baseline xs4
-                        ><label>Duración de horas</label></v-flex
-                      >
+                      <v-flex align-self-baseline xs4><label>Duración de horas</label></v-flex>
                       <v-flex align-self-center xs7>
-                        <v-text-field
-                          dense
-                          outlined
-                          class="bordeRedondoElement"
-                          v-model="editedItem.duracion_horas"
-                        ></v-text-field>
+                        <v-text-field dense outlined class="bordeRedondoElement" v-model="editedItem.duracion_horas"></v-text-field>
                       </v-flex>
                       <v-flex align-self-center xs1> </v-flex>
                     </v-layout>
@@ -197,17 +142,9 @@
                 <v-row justify="center" align="center" style="height: 70px">
                   <div>
                     <v-layout row justify-center>
-                      <v-flex align-self-baseline xs4
-                        ><label>Clave de curso</label></v-flex
-                      >
+                      <v-flex align-self-baseline xs4><label>Clave de curso</label></v-flex>
                       <v-flex align-self-center xs7>
-                        <v-text-field
-                          dense
-                          outlined
-                          class="bordeRedondoElement"
-                          disabled
-                          v-model="editedItem.clave_curso"
-                        ></v-text-field>
+                        <v-text-field dense outlined class="bordeRedondoElement" disabled v-model="editedItem.clave_curso"></v-text-field>
                       </v-flex>
                       <v-flex align-self-center xs1> </v-flex>
                     </v-layout>
@@ -216,16 +153,9 @@
                 <v-row justify="center" align="center" style="height: 80px">
                   <div>
                     <v-layout row justify-center>
-                      <v-flex align-self-baseline xs4
-                        ><label>Especialidad</label></v-flex
-                      >
+                      <v-flex align-self-baseline xs4><label>Especialidad</label></v-flex>
                       <v-flex align-self-center xs7>
-                        <v-combobox
-                          dense
-                          outlined
-                          class="bordeRedondoElement"
-                          v-model="editedItem.nombre_especialidad"
-                        ></v-combobox>
+                        <v-combobox dense outlined class="bordeRedondoElement" v-model="editedItem.nombre_especialidad"></v-combobox>
                       </v-flex>
                       <v-flex align-self-center xs1> </v-flex>
                     </v-layout>
@@ -234,16 +164,9 @@
                 <v-row justify="center" align="center">
                   <div>
                     <v-layout row justify-center>
-                      <v-flex align-self-baseline xs4
-                        ><label>Descripción</label></v-flex
-                      >
+                      <v-flex align-self-baseline xs4><label>Descripción</label></v-flex>
                       <v-flex align-self-center xs7>
-                        <v-textarea
-                          outlined
-                          name="input-7-4"
-                          label=""
-                          v-model="editedItem.descripcion_curso"
-                        ></v-textarea>
+                        <v-textarea outlined name="input-7-4" label="" v-model="editedItem.descripcion_curso"></v-textarea>
                       </v-flex>
                       <v-flex align-self-center xs1> </v-flex>
                     </v-layout>
@@ -265,57 +188,26 @@
                     "
                     >Guardar cambios</v-btn
                   >
-                  <v-btn
-                    outlined
-                    color="gray"
-                    class="bordeRedondoElement"
-                    @click="dialogEdit = false"
-                  >
-                    Cancelar
-                  </v-btn>
+                  <v-btn outlined color="gray" class="bordeRedondoElement" @click="dialogEdit = false"> Cancelar </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
             <v-dialog v-model="dialogDelete" width="500">
               <v-card>
-                <v-card-title class="text-h5 white lighten-2">
-                  Eliminar curso
-                </v-card-title>
-                <v-card-text>
-                  ¿Estás seguro que quieres eliminar el curso seleccionado?
-                  Recuerda que no podrás recuperar la información.
-                </v-card-text>
+                <v-card-title class="text-h5 white lighten-2"> Eliminar curso </v-card-title>
+                <v-card-text> ¿Estás seguro que quieres eliminar el curso seleccionado? Recuerda que no podrás recuperar la información. </v-card-text>
                 <v-card-actions>
-                  <v-btn
-                    outlined
-                    color="gray"
-                    class="bordeRedondoElement"
-                    @click="dialogDelete = false"
-                  >
-                    Cancelar
-                  </v-btn>
-                  <v-btn
-                    outlined
-                    style="color: #ffffff; background-color: #2b4c7b"
-                    class="bordeRedondoElement"
-                    @click="deleteCurso()"
-                    >Continuar</v-btn
-                  >
+                  <v-btn outlined color="gray" class="bordeRedondoElement" @click="dialogDelete = false"> Cancelar </v-btn>
+                  <v-btn outlined style="color: #ffffff; background-color: #2b4c7b" class="bordeRedondoElement" @click="deleteCurso()">Continuar</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
           </v-toolbar>
         </template>
-        <template v-slot:[`item.asignar`]="{ item }">
-          <v-btn @click="asignarCurso(item)">Asignar</v-btn> </template
+        <template v-slot:[`item.asignar`]="{ item }"> <v-btn @click="asignarCurso(item)">Asignar</v-btn> </template
         ><template v-slot:[`item.actions`]="{ item }">
-          <v-btn text @click="editItem(item)"
-            ><v-icon small>mdi-pencil</v-icon><small>Editar</small></v-btn
-          >
-          <v-btn text @click="deleteItem(item)">
-            <v-icon small>mdi-window-close</v-icon
-            ><small>Eliminar</small></v-btn
-          >
+          <v-btn text @click="editItem(item)"><v-icon small>mdi-pencil</v-icon><small>Editar</small></v-btn>
+          <v-btn text @click="deleteItem(item)"> <v-icon small>mdi-window-close</v-icon><small>Eliminar</small></v-btn>
         </template></v-data-table
       >
     </v-row>
@@ -325,9 +217,7 @@
           <v-flex align-self-baseline xs2></v-flex>
           <v-flex align-self-center xs5></v-flex>
           <v-flex align-self-center xs5>
-            <v-alert type="success" v-if="mostrarAlertDelete">{{
-              datarespuestaDelete.mensaje
-            }}</v-alert>
+            <v-alert type="success" v-if="mostrarAlertDelete">{{ datarespuestaDelete.mensaje }}</v-alert>
           </v-flex>
         </v-layout>
       </div>
@@ -338,9 +228,7 @@
           <v-flex align-self-baseline xs2></v-flex>
           <v-flex align-self-center xs5></v-flex>
           <v-flex align-self-center xs5>
-            <v-alert type="success" v-if="mostrarAlertEdit">{{
-              datarespuestaEdit.mensaje
-            }}</v-alert>
+            <v-alert type="success" v-if="mostrarAlertEdit">{{ datarespuestaEdit.mensaje }}</v-alert>
           </v-flex>
         </v-layout>
       </div>
@@ -349,25 +237,25 @@
 </template>
 
 <script>
-import AuthService from "@/services/AuthService.js";
+import AuthService from '@/services/AuthService.js';
 
 export default {
-  name: "AddCurso",
+  name: 'AddCurso',
 
   data: () => ({
     valid: false,
-    rules: [(v) => !!v || "Required"],
-    nombreCurso: "",
-    duracion: "",
-    claveCurso: "",
-    descripcionCurso: "",
+    rules: [(v) => !!v || 'Required'],
+    nombreCurso: '',
+    duracion: '',
+    claveCurso: '',
+    descripcionCurso: '',
     select: {
       idEspecialidad: 0,
-      nombre_especialidad: "",
-      clave_especialidad: "",
-      campo_formacion: "",
-      subsector: "",
-      sector: "",
+      nombre_especialidad: '',
+      clave_especialidad: '',
+      campo_formacion: '',
+      subsector: '',
+      sector: '',
     }, //<-- el seleccionado estará aquí
     items: Array, // <-- La lista de especliades
     mostrarAlert: false,
@@ -382,20 +270,20 @@ export default {
     //Elementos para la tabla
     headers: [
       {
-        text: "Nombre del curso",
-        align: "start",
+        text: 'Nombre del curso',
+        align: 'start',
         sortable: false,
-        value: "nombre_curso",
+        value: 'nombre_curso',
       },
-      { text: "Horas", value: "duracion_horas" },
-      { text: "Clave de curso", value: "clave_curso" },
-      { text: "Especialidad", value: "nombre_especialidad" },
-      { text: "Descripcion", value: "descripcion_curso" },
-      { text: " ", value: "asignar" },
-      { text: " ", value: "actions" },
+      { text: 'Horas', value: 'duracion_horas' },
+      { text: 'Clave de curso', value: 'clave_curso' },
+      { text: 'Especialidad', value: 'nombre_especialidad' },
+      { text: 'Descripcion', value: 'descripcion_curso' },
+      { text: ' ', value: 'asignar' },
+      { text: ' ', value: 'actions' },
     ],
     cursos: [],
-    editedItem: "",
+    editedItem: '',
     selected: [],
     deleteId: 0,
     editedIndex: -1,
@@ -409,7 +297,7 @@ export default {
       this.items = listespecialidades.especialidades;
       const listcursos = await AuthService.getCursos();
       this.cursos = listcursos.cursos;
-      console.log("cursos", this.cursos);
+      console.log('cursos', this.cursos);
     } catch (error) {
       console.log(error);
     }
@@ -431,39 +319,32 @@ export default {
           this.especialidadValid = true;
         }
         if (!this.especialidadValid) {
-          this.$swal("Advertencia", "Seleccione una especialidad", "warning");
+          this.$swal('Advertencia', 'Seleccione una especialidad', 'warning');
         } else {
           const response = await AuthService.addGrade(data);
           this.datarespuesta = response;
           if (response.serverCode == 200) {
             this.dialog = false;
             //this.mostrarAlert = true;
-            this.$swal(
-              "Registrado",
-              "Curso registrado correctamente.",
-              "success"
-            );
+            this.$swal('Registrado', 'Curso registrado correctamente.', 'success');
             this.reloadTable();
           } else {
-            this.$swal("Error", response.message, "error");
+            this.$swal('Error', response.message, 'error');
           }
         }
       } catch (error) {
         this.dialog = false;
         console.log(error);
         console.log(error.response.data.errors);
-        let error_msg =
-          error.response.data.errors[
-            Object.keys(error.response.data.errors)[0]
-          ][0];
-        this.$swal("Error", error_msg, "error");
+        let error_msg = error.response.data.errors[Object.keys(error.response.data.errors)[0]][0];
+        this.$swal('Error', error_msg, 'error');
       }
     },
 
     async reloadTable() {
       const listcursos = await AuthService.getCursos();
       this.cursos = listcursos.cursos;
-      console.log("cursosReload", this.cursos);
+      console.log('cursosReload', this.cursos);
     },
 
     async clean() {
@@ -475,13 +356,7 @@ export default {
       }
     },
 
-    async editCurso(
-      nombre_cursoEdit,
-      duracion_horasEdit,
-      clave_cursoEdit,
-      idEspecialidadEdit,
-      descripcion_cursoEdit
-    ) {
+    async editCurso(nombre_cursoEdit, duracion_horasEdit, clave_cursoEdit, idEspecialidadEdit, descripcion_cursoEdit) {
       try {
         let data = {
           id: this.editId,
@@ -491,64 +366,54 @@ export default {
           idEspecialidad: parseInt(idEspecialidadEdit, 10),
           descripcion_curso: descripcion_cursoEdit,
         };
-        console.log("dataEdit", data);
+        console.log('dataEdit', data);
         const responseUpdate = await AuthService.updateGrade(data);
         this.datarespuestaEdit = responseUpdate;
         if (responseUpdate.serverCode == 200) {
           this.dialogEdit = false;
           //this.mostrarAlertEdit = true;
-          this.$swal("Editado", "Curso editado correctamente.", "success");
+          this.$swal('Editado', 'Curso editado correctamente.', 'success');
           this.reloadTable();
         } else {
           console.log(responseUpdate.data.errors);
-          let error_msg =
-            responseUpdate.data.errors[
-              Object.keys(responseUpdate.data.errors)[0]
-            ][0];
-          this.$swal("Error", error_msg, "error");
+          let error_msg = responseUpdate.data.errors[Object.keys(responseUpdate.data.errors)[0]][0];
+          this.$swal('Error', error_msg, 'error');
         }
         console.log(data);
       } catch (error) {
         console.log(error);
         console.log(error.response.data.errors);
-        let error_msg =
-          error.response.data.errors[
-            Object.keys(error.response.data.errors)[0]
-          ][0];
-        this.$swal("Error", error_msg, "error");
+        let error_msg = error.response.data.errors[Object.keys(error.response.data.errors)[0]][0];
+        this.$swal('Error', error_msg, 'error');
       }
     },
 
     async deleteCurso() {
       try {
         let idDeleteCurso = this.deleteId;
-        console.log("confirmDeleteid ", idDeleteCurso);
+        console.log('confirmDeleteid ', idDeleteCurso);
         const response = await AuthService.deleteGrade(idDeleteCurso);
         this.datarespuestaDelete = response;
         if (response.serverCode == 200) {
           this.dialogDelete = false;
           //this.mostrarAlertDelete = true;
-          this.$swal("Eliminado", "Curso borrado correctamente.", "success");
+          this.$swal('Eliminado', 'Curso borrado correctamente.', 'success');
           this.reloadTable();
         } else {
-          let error_msg =
-            response.data.errors[Object.keys(response.data.errors)[0]][0];
-          this.$swal("Error", error_msg, "error");
+          let error_msg = response.data.errors[Object.keys(response.data.errors)[0]][0];
+          this.$swal('Error', error_msg, 'error');
         }
       } catch (error) {
         console.log(error);
         console.log(error.response.data.errors);
-        let error_msg =
-          error.response.data.errors[
-            Object.keys(error.response.data.errors)[0]
-          ][0];
-        this.$swal("Error", error_msg, "error");
+        let error_msg = error.response.data.errors[Object.keys(error.response.data.errors)[0]][0];
+        this.$swal('Error', error_msg, 'error');
       }
     },
 
     async asignarCurso() {
       try {
-        this.$router.push("asignar-curso");
+        this.$router.push('asignar-curso');
       } catch (error) {
         console.log(error);
       }
@@ -556,21 +421,21 @@ export default {
 
     editItem(item) {
       this.editedIndex = this.cursos.indexOf(item);
-      console.log("editedIndex ", this.editedIndex);
+      console.log('editedIndex ', this.editedIndex);
       this.editedItem = Object.assign({}, item);
-      console.log("editedItem ", this.editedItem);
+      console.log('editedItem ', this.editedItem);
       this.dialogEdit = true;
-      console.log("item edit ", item);
+      console.log('item edit ', item);
       this.editId = this.editedItem.idCurso;
-      console.log("editedItem.idCurso ", this.editId);      
+      console.log('editedItem.idCurso ', this.editId);
     },
     deleteItem(item) {
       this.editedIndex = this.cursos.indexOf(item);
-      console.log("deleteIndex ", this.editedIndex);
+      console.log('deleteIndex ', this.editedIndex);
       this.editedItem = Object.assign({}, item);
-      console.log("deleteItem ", this.editedItem);
+      console.log('deleteItem ', this.editedItem);
       this.deleteId = this.editedItem.idCurso;
-      console.log("editedItem.idCurso ", this.deleteId);
+      console.log('editedItem.idCurso ', this.deleteId);
       this.dialogDelete = true;
     },
   },

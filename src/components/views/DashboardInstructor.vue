@@ -4,22 +4,19 @@
       <v-layout style="background-color: #e0e0e0">
         <v-layout column>
           <v-flex xs3>
+            <v-alert v-if="!dataUser.EstatusPerfil" border="left" justify="space-around" color="red" dark>
+              <span class="float-left">Los datos del usuario no han sido capturados.</span>
+              <span class="float-right">Click <v-btn dark outlined @click="formRegistro()"> aquí </v-btn> para capturarlos</span>
+            </v-alert>
             <br />
             <v-card color="white darken-2" class="gray--text">
               <v-flex align-self-center xs>
                 <v-layout>
                   <v-card-title>
-                    <div class="centrartextocard text-center">
-                      Alumnos registrados
-                    </div>
+                    <div class="centrartextocard text-center">Alumnos registrados</div>
                   </v-card-title>
                   <v-card-title>
-                    <div
-                      class="centrartextocard text-center"
-                      style="color: green; font-size: 20px"
-                    >
-                      600
-                    </div>
+                    <div class="centrartextocard text-center" style="color: green; font-size: 20px">600</div>
                   </v-card-title>
                 </v-layout>
               </v-flex>
@@ -31,17 +28,10 @@
               <v-flex align-self-center xs>
                 <v-layout>
                   <v-card-title>
-                    <div class="centrartextocard text-center">
-                      Docentes registrados
-                    </div>
+                    <div class="centrartextocard text-center">Docentes registrados</div>
                   </v-card-title>
                   <v-card-title>
-                    <div
-                      class="centrartextocard text-center"
-                      style="color: green; font-size: 20px"
-                    >
-                      600
-                    </div>
+                    <div class="centrartextocard text-center" style="color: green; font-size: 20px">600</div>
                   </v-card-title>
                 </v-layout>
               </v-flex>
@@ -53,17 +43,10 @@
               <v-flex align-self-center xs>
                 <v-layout>
                   <v-card-title>
-                    <div class="centrartextocard text-center">
-                      Alumnos de baja
-                    </div>
+                    <div class="centrartextocard text-center">Alumnos de baja</div>
                   </v-card-title>
                   <v-card-title>
-                    <div
-                      class="centrartextocard text-center"
-                      style="color: red; font-size: 20px"
-                    >
-                      56
-                    </div>
+                    <div class="centrartextocard text-center" style="color: red; font-size: 20px">56</div>
                   </v-card-title>
                 </v-layout>
               </v-flex>
@@ -79,6 +62,25 @@
 
 <script>
 export default {
-  name: "PagePrincipalAlumno",
+  name: 'PagePrincipalAlumno',
+  data() {
+    return {
+      dataUser: [],
+    };
+  },
+
+  created() {
+    this.dataUser = JSON.parse(localStorage.getItem('vuex')).user;
+  },
+  methods: {
+    formRegistro() {
+      let me = this;
+      if (me.dataUser.Rol == 'ALUMNO') {
+        me.$router.push('/form-registro');
+      } else if (me.dataUser.Rol == 'PROFESOR') {
+        me.$router.push('/form-registro-instructor');
+      }
+    },
+  },
 };
 </script>
