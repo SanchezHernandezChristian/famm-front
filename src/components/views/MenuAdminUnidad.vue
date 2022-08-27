@@ -197,7 +197,7 @@ export default {
     ],
     items_preautorizacion: [
       {
-        title: "Validar cédulas de identificación del instructor RDPC-11",
+        title: "Validar cédulas de identificación del instructor",
         value: "validacion-instructores",
       },
       {
@@ -205,15 +205,15 @@ export default {
         value: "cedula-pre-autorizada",
       },
       {
-        title: "Validar cronogramas de actividades RUDC-08",
+        title: "Validar cronogramas de actividades",
         value: "cronograma",
       },
       {
         title: "Relaciones de participantes",
         value: "relacion-participantes-registrados",
       },
-      { title: "Croquis formato RUDC-10", value: "" },
-      { title: "Validar lista de asistencia RUDC-15", value: "" },
+      { title: "Croquis formato", value: "" },
+      { title: "Validar lista de asistencia", value: "" },
       {
         title: "Factibilidad y justificación de cursos de capacitación",
         value: "factibilidad-justificacion-registradas",
@@ -223,7 +223,7 @@ export default {
         value: "formatos-pago-registrados",
       },
       { title: "Oficio de autorización", value: "" },
-      { title: "Oficio de solicitud de curso y bitácora RUDC-03", value: "" },
+      { title: "Oficio de solicitud de curso y bitácora", value: "" },
     ],
     isLoggedIn: false,
     username: "",
