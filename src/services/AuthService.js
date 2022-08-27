@@ -1,5 +1,5 @@
 import axios from 'axios';
-const url = ' http://127.0.0.1:8000/api/';
+const url = ' http://54.243.26.45//api/';
 export default {
     login(credentials) {
         return axios
@@ -233,4 +233,10 @@ export default {
             .put(url + 'update-payment', pay_data)
             .then(response => response.data);
     },
+    getFullValidCedulas(){
+        return axios.get(url + 'full-valid-cedulas').then(response => response.data);
+    },
+    getAllValidCedulas(){
+        return axios.get(url + 'all-valid-cedulas').then(response => response.data);
+    }
 };
