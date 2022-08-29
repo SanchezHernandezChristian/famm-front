@@ -22,6 +22,11 @@ export default new Vuetify({
 });
 Vue.use(VueSweetalert2);
 Vue.use(VueSignaturePad);
+// Navbar components
+const components = require.context("@/components/partials/navbar", true, /\.vue$/i);
+components.keys().map((key) => {
+    return Vue.component(key.split("/").pop().split(".")[0], components(key).default);
+});
 // set auth header
 Axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.token}`;
 Axios.defaults.headers.common['Content-Type'] = 'application/json';

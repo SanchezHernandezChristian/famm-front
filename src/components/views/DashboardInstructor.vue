@@ -1,14 +1,9 @@
 <template>
-  <v-container fluid style="background-color: #e0e0e0; height: 100%">
+  <v-container fluid class="max-height" style="background-color: #e0e0e0">
     <v-row>
       <v-layout style="background-color: #e0e0e0">
         <v-layout column>
           <v-flex xs3>
-            <v-alert v-if="!dataUser.EstatusPerfil" border="left" justify="space-around" color="red" dark>
-              <span class="float-left">Los datos del usuario no han sido capturados.</span>
-              <span class="float-right">Click <v-btn dark outlined @click="formRegistro()"> aquí </v-btn> para capturarlos</span>
-            </v-alert>
-            <br />
             <v-card color="white darken-2" class="gray--text">
               <v-flex align-self-center xs>
                 <v-layout>

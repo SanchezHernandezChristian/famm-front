@@ -40,7 +40,6 @@
 footer {
   /*background-color: #394f79;*/
   background-color: #2b4c7b;
-  margin-top: 50px;
 }
 
 .bannerMinText{
@@ -166,6 +165,10 @@ width: 100%;
 }
 
 .fondodashboardadmingeneral {
-  background-color: #522369;
+  background-color: #522369 !important;
   color: #ffffff;
+}
+
+.max-height {
+  height: 100%;
 }

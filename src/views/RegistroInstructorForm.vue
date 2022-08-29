@@ -1,24 +1,22 @@
 <template>
-  <div class="form-registro-instructor">
-    <Navbar />
-    <FormDatosRegistroInstructor />
-    <Footer />
-  </div>
+    <div>
+        <NavbarApp color="orange" actions="NavOptionsTeacher" />
+        <FormDatosRegistroInstructor />
+        <FooterDashboardAdmin />
+    </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import Navbar from "@/components/views/Navbar.vue";
-// import FormDatosRegistroInstructor from "@/components/views/FormDatosRegistroInstructor.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 import FormDatosRegistroInstructor from "@/components/views/FormDatosRegistroCapacitador.vue";
-import Footer from "@/components/views/Footer.vue";
+import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 
 export default {
-  name: "form-registro-instructor",
-  components: {
-    Navbar,
-    FormDatosRegistroInstructor,
-    Footer,
-  },
+    name: "form-registro-instructor",
+    components: {
+        NavbarApp,
+        FormDatosRegistroInstructor,
+        FooterDashboardAdmin,
+    },
 };
 </script>

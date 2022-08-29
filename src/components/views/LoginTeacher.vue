@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid style="height: 100%">
+  <v-container fluid class="max-height">
     <v-form ref="form_login_teacher" lazy-validation>
       <v-row justify="center" dense>
         <v-col cols="5">
