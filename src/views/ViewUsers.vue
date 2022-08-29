@@ -1,6 +1,6 @@
 <template>
   <div class="agregar-usuario">
-    <MenuAdmin />
+    <MenuAdminGeneral />
     <Users />
     <FooterDashboardAdmin />
   </div>
@@ -9,12 +9,12 @@
 <script>
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import Users from "@/components/views/Users.vue";
-import MenuAdmin from "@/components/views/MenuAdmin.vue";
+import MenuAdminGeneral from "@/components/views/MenuAdminGeneral.vue";
 
 export default {
   name: "users",
   components: {
-    MenuAdmin,
+    MenuAdminGeneral,
     Users,
     FooterDashboardAdmin,
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="agregar-usuario">
-    <MenuAdmin />
+    <MenuAdminGeneral />
     <AddUser />
     <FooterDashboardAdmin />
   </div>
@@ -10,12 +10,12 @@
 // @ is an alias to /src
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import AddUser from "@/components/views/AddUser.vue";
-import MenuAdmin from "@/components/views/MenuAdmin.vue";
+import MenuAdminGeneral from "@/components/views/MenuAdminGeneral.vue";
 
 export default {
   name: "ViewUsers",
   components: {
-    MenuAdmin,
+    MenuAdminGeneral,
     AddUser,
     FooterDashboardAdmin,
   },
