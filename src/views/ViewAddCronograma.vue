@@ -18,6 +18,6 @@ export default {
     NavbarApp,
     FormCronograma,
     FooterDashboardAdmin,
-  },
+},
 };
 </script>

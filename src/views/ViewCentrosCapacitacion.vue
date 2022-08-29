@@ -18,6 +18,6 @@ export default {
     NavbarApp,
     CentrosCapacitacion,
     FooterDashboardAdmin,
-  },
+},
 };
 </script>

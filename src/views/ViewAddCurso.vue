@@ -18,6 +18,6 @@ export default {
     NavbarApp,
     AddCurso,
     FooterDashboardAdmin,
-  },
+},
 };
 </script>
