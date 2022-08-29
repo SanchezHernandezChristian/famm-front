@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="max-height">
     <v-row justify="center" align="center">
       <br />
       <h2 style="color: #2b4c7b">Cronograma</h2>

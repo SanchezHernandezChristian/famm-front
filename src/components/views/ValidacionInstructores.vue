@@ -1,12 +1,18 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="max-height">
     <v-row justify="center" align="center">
       <br />
       <h2>IDENTIFICACIÓN DEL INSTRUCTOR FORMATO RPDC-11</h2>
       <h3 style="color: #2b4c7b" class="mt-2">Instructores registrados</h3>
     </v-row>
     <v-row class="mt-2">
-      <v-data-table :headers="headers" :items="items_docentes" :items-per-page="5" item-key="idDocente" class="elevation-1">
+      <v-data-table
+        :headers="headers"
+        :items="items_docentes"
+        :items-per-page="5"
+        item-key="idDocente"
+        class="elevation-1"
+      >
         <template v-slot:top>
           <v-toolbar flat>
             <v-toolbar-title>Contenido</v-toolbar-title>
@@ -24,7 +30,12 @@
                 </v-card-title>
 
                 <v-card-text>
-                  <FormValidacionInstructor :id="teacher_id" :mode="mode" @close="close" v-if="dialog" />
+                  <FormValidacionInstructor
+                    :id="teacher_id"
+                    :mode="mode"
+                    @close="close"
+                    v-if="dialog"
+                  />
                 </v-card-text>
               </v-card>
             </v-dialog>
@@ -58,10 +69,33 @@
           </v-chip>
         </template>
         <template v-slot:item.actions="{ item }">
-          <v-icon small class="mr-2" @click="editItem(item.idDocente, 3)"> mdi-eye </v-icon>
-          <v-icon small class="mr-2" @click="editItem(item.idDocente, 1)" v-show="role < 1"> mdi-pencil </v-icon>
-          <v-icon small class="mr-2" @click="deleteItem(item.idDocente)" v-show="role < 1"> mdi-delete </v-icon>
-          <v-icon small class="mr-2" @click="editItem(item.idDocente, 2)" v-show="showValidateButton(item.esValido, item.esValidoDs)"> mdi-check-bold </v-icon>
+          <v-btn text class="mr-2" @click="editItem(item.idDocente, 3)">
+            <v-icon small> mdi-eye </v-icon> Ver
+          </v-btn>
+          <v-btn
+            text
+            class="mr-2"
+            @click="editItem(item.idDocente, 1)"
+            v-show="role < 1"
+          >
+            <v-icon small> mdi-pencil </v-icon> Editar
+          </v-btn>
+          <v-btn
+            text
+            class="mr-2"
+            @click="deleteItem(item.idDocente)"
+            v-show="role < 1"
+          >
+            <v-icon small class="mr-2"> mdi-delete </v-icon> Eliminar
+          </v-btn>
+          <v-btn
+            text
+            class="mr-2"
+            @click="editItem(item.idDocente, 2)"
+            v-show="showValidateButton(item.esValido, item.esValidoDs)"
+          >
+            <v-icon small> mdi-check-bold </v-icon> Validar
+          </v-btn>
         </template>
       </v-data-table>
     </v-row>
@@ -69,22 +103,22 @@
 </template>
 
 <script>
-import AuthService from '@/services/AuthService.js';
-import FormValidacionInstructor from '@/components/views/FormValidacionInstructor.vue';
+import AuthService from "@/services/AuthService.js";
+import FormValidacionInstructor from "@/components/views/FormValidacionInstructor.vue";
 
 export default {
-  name: 'Validacion',
+  name: "Validacion",
   components: {
     FormValidacionInstructor,
   },
   data: () => ({
     headers: [
-      { text: 'Nombre del instructor', value: 'nombre' },
-      { text: 'Clave del instructor', value: 'clave' },
-      { text: 'Estatus', value: 'estatus' },
-      { text: 'Aprobado Admin Unidad', value: 'esValido' },
-      { text: 'Aprobado Depto Sup. A', value: 'esValidoDs' },
-      { text: '', value: 'actions' },
+      { text: "Nombre del instructor", value: "nombre" },
+      { text: "Clave del instructor", value: "clave" },
+      { text: "Estatus", value: "estatus" },
+      { text: "Aprobado Admin Unidad", value: "esValido" },
+      { text: "Aprobado Depto Sup. A", value: "esValidoDs" },
+      { text: "", value: "actions" },
     ],
     items_docentes: [],
     dialog: false,
@@ -108,20 +142,20 @@ export default {
 
     async fetchRoles() {
       let response = await AuthService.getProfile();
-      if (response.Rol == 'ADMINISTRADOR UNIDAD') this.role = 0;
+      if (response.Rol == "ADMINISTRADOR UNIDAD") this.role = 0;
       else this.role = 1;
     },
 
     deleteItem(id) {
       this.$swal({
-        title: '¿Desea eliminar este instructor?',
-        text: 'Esta acción no se puede deshacer.',
-        icon: 'warning',
+        title: "¿Desea eliminar este instructor?",
+        text: "Esta acción no se puede deshacer.",
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, eliminar',
-        cancelButtonText: 'Cancelar',
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, eliminar",
+        cancelButtonText: "Cancelar",
       })
         .then((result) => {
           if (result.isConfirmed) {
@@ -130,13 +164,17 @@ export default {
         })
         .then((response) => {
           if (response && response.serverCode == 200) {
-            this.$swal('Eliminado!', 'El instructor se ha eliminado.', 'success');
+            this.$swal(
+              "Eliminado!",
+              "El instructor se ha eliminado.",
+              "success"
+            );
             this.getItems();
           }
         })
         .catch((error) => {
           console.log(error);
-          this.$swal('Error!', 'No se pudo eliminar el instructor.', 'error');
+          this.$swal("Error!", "No se pudo eliminar el instructor.", "error");
         });
     },
 

@@ -1,6 +1,6 @@
 <template>
   <div class="form-relacion-participantes">
-    <MenuAdminUnidad />
+    <NavbarApp color="orange" actions="NavOptionsAdminUnidad" />
     <AddRelacionParticipantes />
     <FooterDashboardAdmin />
   </div>
@@ -10,12 +10,12 @@
 // @ is an alias to /src
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import AddRelacionParticipantes from "@/components/views/AddRelacionParticipantes.vue";
-import MenuAdminUnidad from "@/components/views/MenuAdminUnidad.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
   name: "ViewAddRelacionParticipantes",
   components: {
-    MenuAdminUnidad,
+    NavbarApp,
     AddRelacionParticipantes,
     FooterDashboardAdmin,
   },

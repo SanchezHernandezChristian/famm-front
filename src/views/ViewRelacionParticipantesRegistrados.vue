@@ -1,6 +1,6 @@
 <template>
   <div class="relacion-participantes-registrados">
-    <MenuAdminUnidad />
+    <NavbarApp color="orange" actions="NavOptionsAdminUnidad" />
     <RelacionParticipantesRegistrados />
     <FooterDashboardAdmin />
   </div>
@@ -10,12 +10,12 @@
 // @ is an alias to /src
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import RelacionParticipantesRegistrados from "@/components/views/RelacionParticipantesRegistrados.vue";
-import MenuAdminUnidad from "@/components/views/MenuAdminUnidad.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
   name: "ViewRelacionParticipantesRegistrados",
   components: {
-    MenuAdminUnidad,
+    NavbarApp,
     RelacionParticipantesRegistrados,
     FooterDashboardAdmin,
   },

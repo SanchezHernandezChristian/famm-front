@@ -1,6 +1,6 @@
 <template>
   <div class="form-formato-pago">
-    <MenuAdminUnidad />
+    <NavbarApp color="orange" actions="NavOptionsAdminUnidad" />
     <FormFormatoPago />
     <FooterDashboardAdmin />
   </div>
@@ -10,12 +10,12 @@
 // @ is an alias to /src
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import FormFormatoPago from "@/components/views/FormFormatoPago.vue";
-import MenuAdminUnidad from "@/components/views/MenuAdminUnidad.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
   name: "form-formato-pago",
   components: {
-    MenuAdminUnidad,
+    NavbarApp,
     FormFormatoPago,
     FooterDashboardAdmin,
   },
