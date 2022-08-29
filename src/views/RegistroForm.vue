@@ -1,23 +1,23 @@
 <template>
   <div class="form-registro">
-    <Navbar />
+    <NavbarApp color="orange" actions="NavOptionsStudent" />
     <FormDatosRegistro />
-    <Footer />
+    <FooterDashboardAdmin />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Navbar from "@/components/views/Navbar.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 import FormDatosRegistro from "@/components/views/FormDatosRegistro.vue";
-import Footer from "@/components/views/Footer.vue";
+import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 
 export default {
   name: "form-registro",
   components: {
-    Navbar,
+    NavbarApp,
     FormDatosRegistro,
-    Footer,
+    FooterDashboardAdmin,
   },
 };
 </script>
