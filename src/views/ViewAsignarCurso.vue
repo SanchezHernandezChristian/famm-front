@@ -1,6 +1,6 @@
 <template>
   <div class="asignar-curso">
-    <MenuAdmin />
+    <MenuAdminGeneral />
     <AsignarCurso />
     <FooterDashboardAdmin />
   </div>
@@ -10,14 +10,14 @@
 // @ is an alias to /src
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import AsignarCurso from "@/components/views/AsignarCurso.vue";
-import MenuAdmin from "@/components/views/MenuAdmin.vue";
+import MenuAdminGeneral from "../components/views/MenuAdminGeneral.vue";
 
 export default {
   name: "asignar-curso",
   components: {
-    MenuAdmin,
+    MenuAdminGeneral,
     AsignarCurso,
-    FooterDashboardAdmin,
-  },
+    FooterDashboardAdmin,    
+},
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="cursos-asignados">
-    <MenuAdmin />
+    <MenuAdminGeneral />
     <CursosAsignadosAdministrador />
     <FooterDashboardAdmin />
   </div>
@@ -10,12 +10,12 @@
 // @ is an alias to /src
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import CursosAsignadosAdministrador from "@/components/views/CursosAsignadosAdministrador.vue";
-import MenuAdmin from "@/components/views/MenuAdmin.vue";
+import MenuAdminGeneral from "@/components/views/MenuAdminGeneral.vue";
 
 export default {
   name: "cursos-asignados",
   components: {
-    MenuAdmin,
+    MenuAdminGeneral,
     CursosAsignadosAdministrador,
     FooterDashboardAdmin,
   },

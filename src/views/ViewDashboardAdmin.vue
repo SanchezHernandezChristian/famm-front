@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-admin">
-    <MenuAdmin />
+    <MenuAdminGeneral />
     <DashboardAdministrativo />
     <FooterDashboardAdmin />
   </div>
@@ -10,12 +10,12 @@
 // @ is an alias to /src
 import DashboardAdministrativo from "@/components/views/DashboardAdministrativo.vue";
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
-import MenuAdmin from "@/components/views/MenuAdmin.vue";
+import MenuAdminGeneral from "@/components/views/MenuAdminGeneral.vue";
 
 export default {
   name: "dashboard-admin",
   components: {
-    MenuAdmin,
+    MenuAdminGeneral,
     DashboardAdministrativo,
     FooterDashboardAdmin,
   },
