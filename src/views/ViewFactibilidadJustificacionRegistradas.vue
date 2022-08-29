@@ -1,6 +1,6 @@
 <template>
   <div class="factibilidad-justificacion-registradas">
-    <MenuAdminUnidad />
+    <NavbarApp color="orange" actions="NavOptionsAdminUnidad" />
     <FactibilidadJustificacionRegistradas />
     <FooterDashboardAdmin />
   </div>
@@ -10,12 +10,12 @@
 // @ is an alias to /src
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import FactibilidadJustificacionRegistradas from "@/components/views/FactibilidadJustificacionRegistradas.vue";
-import MenuAdminUnidad from "@/components/views/MenuAdminUnidad.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
   name: "ViewFactibilidadJustificacionRegistradas",
   components: {
-    MenuAdminUnidad,
+    NavbarApp,
     FactibilidadJustificacionRegistradas,
     FooterDashboardAdmin,
   },

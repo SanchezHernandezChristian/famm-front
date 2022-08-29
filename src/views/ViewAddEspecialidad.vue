@@ -1,6 +1,6 @@
 <template>
-  <div class="agregar-especialidad">
-    <MenuAdminGeneral />
+  <div>
+    <NavbarApp />
     <AddEspecialidad />
     <FooterDashboardAdmin />
   </div>
@@ -10,12 +10,12 @@
 // @ is an alias to /src
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import AddEspecialidad from "@/components/views/AddEspecialidad.vue";
-import MenuAdminGeneral from "@/components/views/MenuAdminGeneral.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
   name: "agregar-especialidad",
   components: {
-    MenuAdminGeneral,
+    NavbarApp,
     AddEspecialidad,
     FooterDashboardAdmin,
   },

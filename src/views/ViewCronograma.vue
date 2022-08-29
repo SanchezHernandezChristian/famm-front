@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MenuAdminGeneral />
+    <NavbarApp color="orange" actions="NavOptionsAdminUnidad" />
     <Cronograma />
     <FooterDashboardAdmin />
   </div>
@@ -9,12 +9,12 @@
 <script>
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import Cronograma from "@/components/views/Cronograma.vue";
-import MenuAdminGeneral from "@/components/views/MenuAdminGeneral.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
   name: "users",
   components: {
-    MenuAdminGeneral,
+    NavbarApp,
     Cronograma,
     FooterDashboardAdmin,
   },

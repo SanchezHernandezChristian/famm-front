@@ -1,6 +1,6 @@
 <template>
   <div class="formatos-pago-registrados">
-    <MenuAdminUnidad />
+    <NavbarApp color="orange" actions="NavOptionsAdminUnidad" />
     <FormatosPagoRegistrados />
     <FooterDashboardAdmin />
   </div>
@@ -10,12 +10,12 @@
 // @ is an alias to /src
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import FormatosPagoRegistrados from "@/components/views/FormatosPagoRegistrados.vue";
-import MenuAdminUnidad from "@/components/views/MenuAdminUnidad.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
   name: "formatos-pago-registrados",
   components: {
-    MenuAdminUnidad,
+    NavbarApp,
     FormatosPagoRegistrados,
     FooterDashboardAdmin,
   },

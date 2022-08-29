@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid style="background-color: #e0e0e0">
+  <v-container fluid class="max-height" style="background-color: #e0e0e0">
     <v-row>
       <v-layout>
         <v-flex xs4>

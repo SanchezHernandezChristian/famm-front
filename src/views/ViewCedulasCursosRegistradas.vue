@@ -1,6 +1,6 @@
 <template>
   <div class="cedula-pre-autorizada">
-    <MenuAdminUnidad />
+    <NavbarApp color="orange" actions="NavOptionsAdminUnidad" />
     <CedulaCursosRegistradas />
     <FooterDashboardAdmin />
   </div>
@@ -10,12 +10,12 @@
 // @ is an alias to /src
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import CedulaCursosRegistradas from "@/components/views/CedulaCursosRegistradas.vue";
-import MenuAdminUnidad from "@/components/views/MenuAdminUnidad.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
   name: "ViewCedulasCursosRegistradas",
   components: {
-    MenuAdminUnidad,
+    NavbarApp,
     CedulaCursosRegistradas,
     FooterDashboardAdmin,
   },

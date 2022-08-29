@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MenuAdminGeneral />
+    <NavbarApp color="orange" actions="NavOptionsAdminUnidad" />
     <FormCronograma />
     <FooterDashboardAdmin />
   </div>
@@ -10,12 +10,12 @@
 // @ is an alias to /src
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import FormCronograma from "@/components/views/FormCronograma.vue";
-import MenuAdminGeneral from "../components/views/MenuAdminGeneral.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
   name: "ViewUsers",
-  components: {    
-    MenuAdminGeneral,
+  components: {
+    NavbarApp,
     FormCronograma,
     FooterDashboardAdmin,
 },

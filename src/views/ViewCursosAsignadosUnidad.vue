@@ -1,6 +1,6 @@
 <template>
   <div class="cursos-asignados-unidad">
-    <MenuAdminUnidad />
+    <NavbarApp color="orange" actions="NavOptionsAdminUnidad" />
     <CursosAsignadosUnidad />
     <FooterDashboardAdmin />
   </div>
@@ -10,12 +10,12 @@
 // @ is an alias to /src
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import CursosAsignadosUnidad from "@/components/views/CursosAsignadosUnidad.vue";
-import MenuAdminUnidad from "@/components/views/MenuAdminUnidad.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
   name: "ViewCursosAsignadosUnidad",
   components: {
-    MenuAdminUnidad,
+    NavbarApp,
     CursosAsignadosUnidad,
     FooterDashboardAdmin,
   },

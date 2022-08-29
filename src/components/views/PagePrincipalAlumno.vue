@@ -1,18 +1,5 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <v-alert v-if="!dataUser.EstatusPerfil" border="left" justify="space-around" color="red" dark>
-        <span class="float-left">Los datos del usuario no han sido capturados.</span>
-        <span class="float-right">Click <v-btn dark outlined @click="formRegistro()"> aquí </v-btn> para capturarlos</span>
-      </v-alert>
-      <v-row v-else>
-        <div>
-          <p></p>
-          <br />
-          <br />
-        </div>
-      </v-row>
-    </v-row>
+  <v-container fluid class="max-height">
     <v-row>
       <v-col>
         <div style="margin-left: 25px">
@@ -105,26 +92,7 @@ export default {
         { title: 'Cursos cerca de tu localidad' },
       ],
       extras: [{ title: 'Configuración' }, { title: 'Ayuda' }],
-      dataUser: '',
     };
-  },
-  created() {
-    this.dataUser = JSON.parse(localStorage.getItem('vuex')).user;
-  },
-  methods: {
-    getImgUrl(pic) {
-      var images = require.context('@/assets/', false);
-      return images('./' + pic);
-    },
-    formRegistro() {
-      let me = this;
-
-      if (me.dataUser.Rol == 'ALUMNO') {
-        me.$router.push('/form-registro');
-      } else if (me.dataUser.Rol == 'PROFESOR') {
-        me.$router.push('/form-registro-instructor');
-      }
-    },
   },
 };
 </script>

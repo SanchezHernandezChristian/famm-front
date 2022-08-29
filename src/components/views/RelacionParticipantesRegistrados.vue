@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid pt-6>
+  <v-container fluid class="max-height" pt-6>
     <v-row justify="center" align="center">
       <h2 style="color: #2b4c7b">Relación de participantes registrados</h2>
     </v-row>
@@ -8,7 +8,7 @@
         <v-flex align-self-center xs10> </v-flex>
         <v-flex align-self-start xs1> </v-flex>
         <v-flex align-self-center xs1>
-          <v-btn outlined color="gray" @click="newForm">Crear Nuevo</v-btn>
+          <v-btn color="orange" @click="newForm">Crear Nuevo</v-btn>
         </v-flex>
       </v-layout>
     </v-row>

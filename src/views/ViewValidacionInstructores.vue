@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MenuAdminUnidad />
+    <NavbarApp color="orange" actions="NavOptionsAdminUnidad" />
     <ValidacionInstructores />
     <FooterDashboardAdmin />
   </div>
@@ -10,12 +10,12 @@
 // @ is an alias to /src
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import ValidacionInstructores from "@/components/views/ValidacionInstructores.vue";
-import MenuAdminUnidad from "@/components/views/MenuAdminUnidad.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
   name: "ViewValidacionInstructores",
   components: {
-    MenuAdminUnidad,
+    NavbarApp,
     ValidacionInstructores,
     FooterDashboardAdmin,
   },

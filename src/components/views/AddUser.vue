@@ -212,8 +212,7 @@
           <v-layout row justify-center>
             <v-flex align-self-baseline xs1>
               <v-btn
-                outlined
-                color="gray"
+                color="orange"
                 class="bordeRedondoElement"
                 @click="store"
                 >Guardar</v-btn
