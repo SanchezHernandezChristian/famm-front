@@ -32,10 +32,14 @@
           </v-container>
         </template>
         <template v-slot:item.actions="{ item }">
-          <v-icon small class="mr-2" @click="editItem(item.id)">
-            mdi-pencil
-          </v-icon>
-          <v-icon small @click="deleteItem(item.id)"> mdi-delete </v-icon>
+          <v-btn text small class="ma-2" @click="editItem(item.id)">
+            <v-icon small class="mr-2"> mdi-pencil </v-icon>
+            Editar
+          </v-btn>
+          <v-btn text small class="ma-2" @click="deleteItem(item.id)">
+            <v-icon small> mdi-delete </v-icon>
+            Eliminar
+          </v-btn>
         </template>
       </v-data-table>
     </v-row>

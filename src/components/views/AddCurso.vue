@@ -64,7 +64,7 @@
             <div class="text-center">
               <v-dialog v-model="dialog" width="500">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn outlined color="gray" v-bind="attrs" v-on="on"> Agregar </v-btn>
+                  <v-btn color="orange" v-bind="attrs" v-on="on"> Agregar </v-btn>
                 </template>
                 <v-card>
                   <v-card-title class="text-h5 white lighten-2"> ¡ATENCIÓN! </v-card-title>

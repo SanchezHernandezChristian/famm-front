@@ -1,87 +1,242 @@
 <template>
     <v-row>
-        <v-col cols="1">
-            <v-btn
-                depressed
-                color="#FFFFFF"
-                elevation="0"
-                style="font-size: 12px; color: #8996a0"
-                ><v-icon color="#8996a0">mdi-home</v-icon>
-                Inicio
-            </v-btn>
-        </v-col>
-        <v-col cols="1">
-            <v-btn
-                depressed
-                color="#FFFFFF"
-                elevation="0"
-                style="font-size: 12px; color: #8996a0"
-                ><v-icon color="#8996a0">mdi-chart-bar</v-icon>
-                Graficas
-            </v-btn>
-        </v-col>
-        <v-col cols="1">
-            <v-menu transition="scroll-y-transition">
-                <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                        depressed
-                        color="#FFFFFF"
-                        elevation="0"
-                        v-bind="attrs"
-                        v-on="on"
-                        style="font-size: 13px; color: #8996a0"
-                        ><v-icon color="#8996a0">mdi-monitor</v-icon>
-                        Mis cursos
-                    </v-btn>
-                </template>
-                <v-list>
-                    <v-list-item
-                        v-for="(item, index) in items_cursos"
-                        :key="index"
-                        @click="selectItem(item.clave_curso)"
-                    >
-                        <v-list-item-title>{{
-                            item.nombre_curso
-                        }}</v-list-item-title>
-                    </v-list-item>
-                </v-list>
-            </v-menu>
-        </v-col>
-        <v-col cols="1">
-            <v-btn
-                depressed
-                color="#FFFFFF"
-                elevation="0"
-                style="font-size: 12px; color: #8996a0"
-                ><v-icon color="#8996a0">mdi-chart-bar</v-icon>
-                Mis datos
-            </v-btn>
-        </v-col>
+        <v-layout>
+            <v-flex align-self-center xs2>
+                <v-menu transition="scroll-y-transition">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                            depressed
+                            color="#FFFFFF"
+                            elevation="0"
+                            class="ma-2"
+                            v-bind="attrs"
+                            v-on="on"
+                            style="font-size: 20px; color: #bdbbbd"
+                            @click="seleccionDashboard()"
+                            ><v-icon color="#bdbbbd">mdi-home</v-icon>
+                            Dashboard
+                        </v-btn>
+                    </template>
+                </v-menu>
+            </v-flex>
+            <v-flex align-self-center xs2>
+                <v-menu transition="scroll-y-transition">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                            depressed
+                            color="#FFFFFF"
+                            elevation="0"
+                            class="ma-2"
+                            v-bind="attrs"
+                            v-on="on"
+                            style="font-size: 20px; color: #bdbbbd"
+                            ><v-icon color="#bdbbbd">mdi-chart-bar</v-icon>
+                            Gráficas
+                        </v-btn>
+                    </template>
+                </v-menu>
+            </v-flex>
+            <v-flex align-self-center xs2>
+                <v-menu transition="scroll-y-transition">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                            depressed
+                            color="#FFFFFF"
+                            elevation="0"
+                            class="ma-2"
+                            v-bind="attrs"
+                            v-on="on"
+                            style="font-size: 20px; color: #bdbbbd"
+                            ><v-icon color="#bdbbbd">mdi-email</v-icon>
+                            Email
+                        </v-btn>
+                    </template>
+                </v-menu>
+            </v-flex>
+            <v-flex align-self-center xs2>
+                <v-menu transition="scroll-y-transition">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                            depressed
+                            color="#FFFFFF"
+                            elevation="0"
+                            class="ma-2"
+                            v-bind="attrs"
+                            v-on="on"
+                            style="font-size: 20px; color: #bdbbbd"
+                            ><v-icon color="#bdbbbd">mdi-account</v-icon>
+                            Perfil
+                        </v-btn>
+                    </template>
+                </v-menu>
+            </v-flex>
+            <v-flex align-self-center xs3>
+                <v-menu transition="scroll-y-transition">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                            depressed
+                            color="#FFFFFF"
+                            elevation="0"
+                            class="ma-2"
+                            v-bind="attrs"
+                            v-on="on"
+                            style="font-size: 20px; color: #bdbbbd"
+                            ><i class="fa fa-users" aria-hidden="true"></i>
+                            Roles de usuario
+                        </v-btn>
+                    </template>
+                    <v-list>
+                        <v-list-item
+                            v-for="(item, index) in roles"
+                            :key="index"
+                            @click="selectItem(item)"
+                        >
+                            <!--<v-list-item-title>{{
+                  item.cursos[0][nombre_curso]
+                }}</v-list-item-title>-->
+                            <v-list-item-title>{{
+                                item.title
+                            }}</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
+            </v-flex>
+            <v-flex align-self-center xs2>
+                <v-menu transition="scroll-y-transition">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                            depressed
+                            color="#FFFFFF"
+                            elevation="0"
+                            class="ma-2"
+                            v-bind="attrs"
+                            v-on="on"
+                            style="font-size: 20px; color: #bdbbbd"
+                            ><i class="fa fa-users" aria-hidden="true"></i>
+                            Cursos
+                        </v-btn>
+                    </template>
+                    <v-list>
+                        <v-list-item
+                            v-for="(item, index) in cursos"
+                            :key="index"
+                            @click="selectItem(item)"
+                        >
+                            <!--<v-list-item-title>{{
+                  item.cursos[0][nombre_curso]
+                }}</v-list-item-title>-->
+                            <v-list-item-title>{{
+                                item.title
+                            }}</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
+            </v-flex>
+            <v-flex align-self-center xs2>
+                <v-menu transition="scroll-y-transition">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                            depressed
+                            color="#FFFFFF"
+                            elevation="0"
+                            class="ma-2"
+                            v-bind="attrs"
+                            v-on="on"
+                            style="font-size: 20px; color: #bdbbbd"
+                            ><i class="fa fa-cogs" aria-hidden="true"></i>
+                            Configuración
+                        </v-btn>
+                    </template>
+                </v-menu>
+            </v-flex>
+        </v-layout>
     </v-row>
 </template>
 
 <script>
-import AuthService from "@/services/AuthService.js";
-
 export default {
     data: () => ({
-        items_cursos: [],
+        roles: [{ title: "Usuarios registrados" }, { title: "Añadir usuario" }],
+        cursos: [
+            { title: "Cursos registrados" },
+            { title: "Asignar curso" },
+            { title: "Centros de capacitación" },
+            { title: "Especialidades registradas" },
+            { title: "Cursos asignados" },
+        ],
     }),
-    async created() {
-        const response = await AuthService.getProfileDocente();
-        const response2 = await AuthService.getAllAssignGradeByTeacher(
-            response.idDocente
-        );
-        this.items_cursos = response2.data;
-    },
     methods: {
-        selectItem(clave_curso) {
-            this.$router.push({
-                name: "ViewDocenteCurso",
-                params: {
-                    clave_curso: clave_curso,
-                },
-            });
+        selectItem(item) {
+            //if (item.title == 'Perfil') this.profile();
+            if (item.title == "Añadir usuario") this.addUser();
+            if (item.title == "Usuarios registrados") this.redirectUsers();
+            if (item.title == "Cursos registrados") this.addCurso();
+            if (item.title == "Asignar curso") this.asignarCurso();
+            if (item.title == "Centros de capacitación")
+                this.centrosCapacitacion();
+            if (item.title == "Especialidades registradas")
+                this.addEspecialidad();
+            if (item.title == "Cursos asignados") this.asignCurso();
+        },
+
+        async seleccionDashboard() {
+            try {
+                this.$router.push("dashboard-admin");
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async addUser() {
+            try {
+                this.$router.push("agregar-usuario");
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        redirectUsers() {
+            this.$router.push("users");
+        },
+
+        async addCurso() {
+            try {
+                this.$router.push("agregar-curso");
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async asignarCurso() {
+            try {
+                this.$router.push("asignar-curso");
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async centrosCapacitacion() {
+            try {
+                this.$router.push("centros-capacitacion");
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async addEspecialidad() {
+            try {
+                this.$router.push("agregar-especialidad");
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async asignCurso() {
+            try {
+                this.$router.push("cursos-asignados");
+            } catch (error) {
+                console.log(error);
+            }
         },
     },
 };
