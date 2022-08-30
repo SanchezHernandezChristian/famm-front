@@ -128,7 +128,7 @@ export default {
     },
 
     async mounted() {
-      let me = this;
+      //let me = this;
 
       if (this.$store.getters.isLoggedIn) {
         try {
