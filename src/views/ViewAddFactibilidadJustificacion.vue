@@ -1,6 +1,6 @@
 <template>
   <div class="form-factibilidad-justificacion">
-    <MenuAdminUnidad />
+    <NavbarApp color="orange" actions="NavOptionsAdminUnidad" />
     <AddFactibilidadJustificacion />
     <FooterDashboardAdmin />
   </div>
@@ -10,12 +10,12 @@
 // @ is an alias to /src
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import AddFactibilidadJustificacion from "@/components/views/AddFactibilidadJustificacion.vue";
-import MenuAdminUnidad from "@/components/views/MenuAdminUnidad.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
   name: "ViewAddFactibilidadJustificacion",
   components: {
-    MenuAdminUnidad,
+    NavbarApp,
     AddFactibilidadJustificacion,
     FooterDashboardAdmin,
 },

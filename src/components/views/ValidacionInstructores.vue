@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="max-height">
     <v-row justify="center" align="center">
       <br />
       <h2>IDENTIFICACIÓN DEL INSTRUCTOR FORMATO RPDC-11</h2>
@@ -69,33 +69,33 @@
           </v-chip>
         </template>
         <template v-slot:item.actions="{ item }">
-          <v-icon small class="mr-2" @click="editItem(item.idDocente, 3)">
-            mdi-eye
-          </v-icon>
-          <v-icon
-            small
+          <v-btn text class="mr-2" @click="editItem(item.idDocente, 3)">
+            <v-icon small> mdi-eye </v-icon> Ver
+          </v-btn>
+          <v-btn
+            text
             class="mr-2"
             @click="editItem(item.idDocente, 1)"
             v-show="role < 1"
           >
-            mdi-pencil
-          </v-icon>
-          <v-icon
-            small
+            <v-icon small> mdi-pencil </v-icon> Editar
+          </v-btn>
+          <v-btn
+            text
             class="mr-2"
             @click="deleteItem(item.idDocente)"
             v-show="role < 1"
           >
-            mdi-delete
-          </v-icon>
-          <v-icon
-            small
+            <v-icon small class="mr-2"> mdi-delete </v-icon> Eliminar
+          </v-btn>
+          <v-btn
+            text
             class="mr-2"
             @click="editItem(item.idDocente, 2)"
             v-show="showValidateButton(item.esValido, item.esValidoDs)"
           >
-            mdi-check-bold
-          </v-icon>
+            <v-icon small> mdi-check-bold </v-icon> Validar
+          </v-btn>
         </template>
       </v-data-table>
     </v-row>

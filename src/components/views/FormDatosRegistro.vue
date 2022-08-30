@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="max-height">
     <v-row>
       <div class="indigo darken-4 text-center">
         <p class="white--text pt-3 mb-2">Facilitador para el Acceso a Módulos tecnológicos y Monitoreo educativo</p>
@@ -433,7 +433,7 @@
     </v-form>
     <v-row>
       <v-col cols="12" align="center" class="pt-5">
-        <v-btn color="success" dark x-large @click="register">Guardar</v-btn>
+        <v-btn color="orange" dark x-large @click="register">Guardar</v-btn>
       </v-col>
     </v-row>
   </v-container>

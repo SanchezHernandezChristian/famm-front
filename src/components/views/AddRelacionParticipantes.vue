@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container class="max-height" fluid>
     <v-row>
       <v-col cols="12" class="m-0 p-0">
         <div>
@@ -137,7 +137,7 @@
               <div class="text-center">
                 <v-dialog v-model="dialog" width="500">
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn color="primary" v-bind="attrs" v-on="on">
+                    <v-btn color="orange" v-bind="attrs" v-on="on">
                       GUARDAR
                     </v-btn>
                   </template>

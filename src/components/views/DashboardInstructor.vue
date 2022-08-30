@@ -1,25 +1,17 @@
 <template>
-  <v-container fluid style="background-color: #e0e0e0; height: 100%">
+  <v-container fluid class="max-height" style="background-color: #e0e0e0">
     <v-row>
       <v-layout style="background-color: #e0e0e0">
         <v-layout column>
           <v-flex xs3>
-            <br />
             <v-card color="white darken-2" class="gray--text">
               <v-flex align-self-center xs>
                 <v-layout>
                   <v-card-title>
-                    <div class="centrartextocard text-center">
-                      Alumnos registrados
-                    </div>
+                    <div class="centrartextocard text-center">Alumnos registrados</div>
                   </v-card-title>
                   <v-card-title>
-                    <div
-                      class="centrartextocard text-center"
-                      style="color: green; font-size: 20px"
-                    >
-                      600
-                    </div>
+                    <div class="centrartextocard text-center" style="color: green; font-size: 20px">600</div>
                   </v-card-title>
                 </v-layout>
               </v-flex>
@@ -31,17 +23,10 @@
               <v-flex align-self-center xs>
                 <v-layout>
                   <v-card-title>
-                    <div class="centrartextocard text-center">
-                      Docentes registrados
-                    </div>
+                    <div class="centrartextocard text-center">Docentes registrados</div>
                   </v-card-title>
                   <v-card-title>
-                    <div
-                      class="centrartextocard text-center"
-                      style="color: green; font-size: 20px"
-                    >
-                      600
-                    </div>
+                    <div class="centrartextocard text-center" style="color: green; font-size: 20px">600</div>
                   </v-card-title>
                 </v-layout>
               </v-flex>
@@ -53,17 +38,10 @@
               <v-flex align-self-center xs>
                 <v-layout>
                   <v-card-title>
-                    <div class="centrartextocard text-center">
-                      Alumnos de baja
-                    </div>
+                    <div class="centrartextocard text-center">Alumnos de baja</div>
                   </v-card-title>
                   <v-card-title>
-                    <div
-                      class="centrartextocard text-center"
-                      style="color: red; font-size: 20px"
-                    >
-                      56
-                    </div>
+                    <div class="centrartextocard text-center" style="color: red; font-size: 20px">56</div>
                   </v-card-title>
                 </v-layout>
               </v-flex>
@@ -79,6 +57,25 @@
 
 <script>
 export default {
-  name: "PagePrincipalAlumno",
+  name: 'PagePrincipalAlumno',
+  data() {
+    return {
+      dataUser: [],
+    };
+  },
+
+  created() {
+    this.dataUser = JSON.parse(localStorage.getItem('vuex')).user;
+  },
+  methods: {
+    formRegistro() {
+      let me = this;
+      if (me.dataUser.Rol == 'ALUMNO') {
+        me.$router.push('/form-registro');
+      } else if (me.dataUser.Rol == 'PROFESOR') {
+        me.$router.push('/form-registro-instructor');
+      }
+    },
+  },
 };
 </script>

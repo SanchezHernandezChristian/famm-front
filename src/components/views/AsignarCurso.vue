@@ -63,7 +63,7 @@
         <v-layout row justify-center>
           <v-flex align-self-baseline xs2></v-flex>
           <v-flex align-self-center xs2>
-            <v-btn outlined color="gray" class="bordeRedondoElement" @click="asignaCurso()">ASIGNAR</v-btn>
+            <v-btn color="orange" class="bordeRedondoElement" @click="asignaCurso()">ASIGNAR</v-btn>
           </v-flex>
           <v-flex align-self-center xs2>
             <v-btn outlined color="gray" class="bordeRedondoElement" @click="cancel">CANCELAR</v-btn>

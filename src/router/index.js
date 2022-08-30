@@ -53,11 +53,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/RegistroInstructorForm.vue')
   },
   {
-    path: '/form-cedula-instructor',
-    name: 'CédulaInstructorForm',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ViewCedulaInstructor.vue')
-  },
-  {
     path: '/dashboard-instructor',
     name: 'ViewDashboardInstructor',
     // route level code-splitting

@@ -12,6 +12,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import VueSignaturePad from 'vue-signature-pad';
 
+
 Vue.config.productionTip = false;
 Vue.use(Vuetify);
 export default new Vuetify({
@@ -21,15 +22,23 @@ export default new Vuetify({
 });
 Vue.use(VueSweetalert2);
 Vue.use(VueSignaturePad);
-
+// Navbar components
+const components = require.context("@/components/partials/navbar", true, /\.vue$/i);
+components.keys().map((key) => {
+    return Vue.component(key.split("/").pop().split(".")[0], components(key).default);
+});
 // set auth header
 Axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.token}`;
 Axios.defaults.headers.common['Content-Type'] = 'application/json';
 Axios.defaults.headers.common['Accept'] = 'application/json';
 
 new Vue({
+  el: '#app',
+
   vuetify,
   router,
   store,
   render: (h) => h(App),
+
+
 }).$mount('#app');

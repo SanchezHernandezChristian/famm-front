@@ -1,22 +1,22 @@
 <template>
-  <div>
-    <MenuAdminUnidad />
-    <LoginTeacher />
-    <FooterDashboardAdmin />
-  </div>
+    <div>
+        <NavbarApp />
+        <LoginTeacher />
+        <FooterDashboardAdmin />
+    </div>
 </template>
 
 <script>
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 import LoginTeacher from "@/components/views/LoginTeacher.vue";
-import MenuAdminUnidad from "@/components/views/MenuAdminUnidad.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
-  name: "users",
-  components: {
-    MenuAdminUnidad,
-    LoginTeacher,
-    FooterDashboardAdmin,
-  },
+    name: "login-teacher",
+    components: {
+        NavbarApp,
+        LoginTeacher,
+        FooterDashboardAdmin,
+    },
 };
 </script>
