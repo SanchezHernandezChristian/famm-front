@@ -595,9 +595,7 @@ export default {
           let formData = new FormData();
           let idDocente = me.teacher.idDocente;
           for (const key in me.teacher) {
-            if (me.mode == 1 && key != "idEscolaridad" && key != "fotografia")
-              formData.append(key, me.teacher[key]);
-            if (me.mode < 1) formData.append(key, me.teacher[key]);
+            formData.append(key, me.teacher[key]);
           }
           if (me.mode > 0) {
             formData.append("_method", "PUT");
