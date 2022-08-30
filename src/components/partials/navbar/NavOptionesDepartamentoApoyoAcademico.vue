@@ -1,7 +1,7 @@
 <template>
     <v-row>
         <v-layout>
-            <v-flex align-self-center xs2>
+            <v-flex align-self-center xs1>
                 <v-menu transition="scroll-y-transition">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
@@ -112,6 +112,9 @@
                     </template>
                 </v-menu>
             </v-flex>
+            <v-flex align-self-center xs2>
+                <v-icon color="#bdbbbd">mdi-magnify</v-icon><input type="search" placeholder="Buscar...">
+            </v-flex>
         </v-layout>
     </v-row>
 </template>
@@ -120,7 +123,6 @@
 export default {
     data: () => ({
         items_cursos: [
-            { title: "Validación de calificaciones", value: "" },
             {
                 title: "Oficio de remisión del expediente técnico 2°",
                 value: "",
@@ -131,44 +133,16 @@ export default {
                 value: "",
             },
             { title: "Control estadístico por curso", value: "" },
-            {
-                title: "Registro de inscripción, acreditación y certificación",
-                value: "",
-            },
-            {
-                title: "Acta de clausura del curso de capacitación",
-                value: "",
-            },
         ],
         items_preautorizacion: [
-            {
-                title: "Validar cédulas de identificación del instructor",
-                value: "validacion-instructores",
-            },
             {
                 title: "Cédulas de pre-autorización de cursos de capacitación",
                 value: "cedula-pre-autorizada",
             },
             {
-                title: "Validar cronogramas de actividades",
-                value: "cronograma",
-            },
-            {
-                title: "Relaciones de participantes",
-                value: "relacion-participantes-registrados",
-            },
-            { title: "Croquis formato", value: "" },
-            { title: "Validar lista de asistencia", value: "" },
-            {
                 title: "Factibilidad y justificación de cursos de capacitación",
                 value: "factibilidad-justificacion-registradas",
             },
-            {
-                title: "Formato de pago",
-                value: "formatos-pago-registrados",
-            },
-            { title: "Oficio de autorización", value: "" },
-            { title: "Oficio de solicitud de curso y bitácora", value: "" },
         ],
     }),
     methods: {

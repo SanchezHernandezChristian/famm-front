@@ -120,55 +120,21 @@
 export default {
     data: () => ({
         items_cursos: [
-            { title: "Validación de calificaciones", value: "" },
-            {
-                title: "Oficio de remisión del expediente técnico 2°",
-                value: "",
-            },
-            { title: "Acta de inicio del curso de capacitación", value: "" },
-            {
-                title: "Reporte de supervisión unidad de capacitación",
-                value: "",
-            },
-            { title: "Control estadístico por curso", value: "" },
             {
                 title: "Registro de inscripción, acreditación y certificación",
-                value: "",
-            },
-            {
-                title: "Acta de clausura del curso de capacitación",
                 value: "",
             },
         ],
         items_preautorizacion: [
             {
-                title: "Validar cédulas de identificación del instructor",
-                value: "validacion-instructores",
-            },
-            {
                 title: "Cédulas de pre-autorización de cursos de capacitación",
                 value: "cedula-pre-autorizada",
             },
             {
-                title: "Validar cronogramas de actividades",
-                value: "cronograma",
+                title: "Validación formato de pago",
+                value: "",
             },
-            {
-                title: "Relaciones de participantes",
-                value: "relacion-participantes-registrados",
-            },
-            { title: "Croquis formato", value: "" },
-            { title: "Validar lista de asistencia", value: "" },
-            {
-                title: "Factibilidad y justificación de cursos de capacitación",
-                value: "factibilidad-justificacion-registradas",
-            },
-            {
-                title: "Formato de pago",
-                value: "formatos-pago-registrados",
-            },
-            { title: "Oficio de autorización", value: "" },
-            { title: "Oficio de solicitud de curso y bitácora", value: "" },
+            { title: "Validación de oficio de autorización", value: "" },
         ],
     }),
     methods: {
