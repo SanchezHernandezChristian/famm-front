@@ -112,7 +112,7 @@ export default {
     cursos: [{ title: 'Cursos registrados' }, { title: 'Asignar curso' }, { title: 'Centros de capacitación' }, { title: 'Especialidades registradas' }, { title: 'Cursos asignados' }],
     logged_in: false,
     dialog: false,
-    items: [{ title: 'CHRISTIAN HERNANDEZ' }],
+    //items: [{ title: 'CHRISTIAN HERNANDEZ' }],
     user: [{ title: 'Cerrar sesión', icon: '' }],
   }),
   methods: {
@@ -133,7 +133,7 @@ export default {
       if (this.$store.getters.isLoggedIn) {
         try {
           const response = await AuthService.getProfile();
-          me.items[0].title = response.Nombre;
+          //me.items[0].title = response.Nombre;
           console.log(response.Nombre);
         } catch (error) {
           console.log(error);
