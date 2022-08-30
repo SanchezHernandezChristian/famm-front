@@ -1,7 +1,7 @@
 <template>
     <v-row>
         <v-layout>
-            <v-flex align-self-center xs2>
+            <v-flex align-self-center xs1>
                 <v-menu transition="scroll-y-transition">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
@@ -19,7 +19,7 @@
                     </template>
                 </v-menu>
             </v-flex>
-            <v-flex align-self-center xs2>
+            <v-flex align-self-center xs1>
                 <v-menu transition="scroll-y-transition">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
@@ -35,42 +35,8 @@
                         </v-btn>
                     </template>
                 </v-menu>
-            </v-flex>
+            </v-flex>            
             <v-flex align-self-center xs2>
-                <v-menu transition="scroll-y-transition">
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-btn
-                            depressed
-                            color="#FFFFFF"
-                            elevation="0"
-                            class="ma-2"
-                            v-bind="attrs"
-                            v-on="on"
-                            style="font-size: 20px; color: #bdbbbd"
-                            ><v-icon color="#bdbbbd">mdi-email</v-icon>
-                            Email
-                        </v-btn>
-                    </template>
-                </v-menu>
-            </v-flex>
-            <v-flex align-self-center xs2>
-                <v-menu transition="scroll-y-transition">
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-btn
-                            depressed
-                            color="#FFFFFF"
-                            elevation="0"
-                            class="ma-2"
-                            v-bind="attrs"
-                            v-on="on"
-                            style="font-size: 20px; color: #bdbbbd"
-                            ><v-icon color="#bdbbbd">mdi-account</v-icon>
-                            Perfil
-                        </v-btn>
-                    </template>
-                </v-menu>
-            </v-flex>
-            <v-flex align-self-center xs3>
                 <v-menu transition="scroll-y-transition">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
@@ -82,12 +48,12 @@
                             v-on="on"
                             style="font-size: 20px; color: #bdbbbd"
                             ><i class="fa fa-users" aria-hidden="true"></i>
-                            Roles de usuario
+                            Usuarios
                         </v-btn>
                     </template>
                     <v-list>
                         <v-list-item
-                            v-for="(item, index) in roles"
+                            v-for="(item, index) in users"
                             :key="index"
                             @click="selectItem(item)"
                         >
@@ -112,7 +78,7 @@
                             v-bind="attrs"
                             v-on="on"
                             style="font-size: 20px; color: #bdbbbd"
-                            ><i class="fa fa-users" aria-hidden="true"></i>
+                            ><v-icon color="#bdbbbd">mdi-monitor</v-icon>
                             Cursos
                         </v-btn>
                     </template>
@@ -143,11 +109,53 @@
                             v-bind="attrs"
                             v-on="on"
                             style="font-size: 20px; color: #bdbbbd"
-                            ><i class="fa fa-cogs" aria-hidden="true"></i>
-                            Configuración
+                            ><v-icon color="#bdbbbd">mdi-school</v-icon>
+                            Especialidades
                         </v-btn>
                     </template>
+                    <v-list>
+                        <v-list-item
+                            v-for="(item, index) in especialidades"
+                            :key="index"
+                            @click="selectItem(item)"
+                        >
+                            <v-list-item-title>{{
+                                item.title
+                            }}</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
                 </v-menu>
+            </v-flex>
+            <v-flex align-self-center xs2>
+                <v-menu transition="scroll-y-transition">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                            depressed
+                            color="#FFFFFF"
+                            elevation="0"
+                            class="ma-2"
+                            v-bind="attrs"
+                            v-on="on"
+                            style="font-size: 20px; color: #bdbbbd"
+                            ><v-icon color="#bdbbbd">mdi-map</v-icon>
+                            Unidades
+                        </v-btn>
+                    </template>
+                    <v-list>
+                        <v-list-item
+                            v-for="(item, index) in unidades"
+                            :key="index"
+                            @click="selectItem(item)"
+                        >
+                            <v-list-item-title>{{
+                                item.title
+                            }}</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
+            </v-flex>
+            <v-flex align-self-center xs2>
+                <v-icon color="#bdbbbd">mdi-magnify</v-icon><input type="search" placeholder="Buscar...">
             </v-flex>
         </v-layout>
     </v-row>
@@ -156,13 +164,20 @@
 <script>
 export default {
     data: () => ({
-        roles: [{ title: "Usuarios registrados" }, { title: "Añadir usuario" }],
+        users: [{ title: "Usuarios registrados" }, //{ title: "Añadir usuario" }
+    ],
         cursos: [
             { title: "Cursos registrados" },
             { title: "Asignar curso" },
-            { title: "Centros de capacitación" },
+            // { title: "Centros de capacitación" },
+            // { title: "Especialidades registradas" },
+            // { title: "Cursos asignados" },
+        ],
+        especialidades: [
             { title: "Especialidades registradas" },
-            { title: "Cursos asignados" },
+        ],
+        unidades: [
+            { title: "Unidades de capacitación" },
         ],
     }),
     methods: {
@@ -172,7 +187,7 @@ export default {
             if (item.title == "Usuarios registrados") this.redirectUsers();
             if (item.title == "Cursos registrados") this.addCurso();
             if (item.title == "Asignar curso") this.asignarCurso();
-            if (item.title == "Centros de capacitación")
+            if (item.title == "Unidades de capacitación")
                 this.centrosCapacitacion();
             if (item.title == "Especialidades registradas")
                 this.addEspecialidad();

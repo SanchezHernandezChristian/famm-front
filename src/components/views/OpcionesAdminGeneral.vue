@@ -1,34 +1,5 @@
 <template>
   <v-container fluid>
-    <v-row class="fondodashboardadmin">
-      <v-layout>
-        <v-flex align-self-center xs2>
-          <v-img max-height="25%" max-width="50%" src="@/assets/img/logoBlanco.png" @click="redirect"></v-img>
-        </v-flex>
-        <v-flex align-self-center xs>
-          <label>ADMINISTRATIVO</label>
-        </v-flex>
-        <v-flex align-self-center xs1><i class="fa fa-envelope-open-o" aria-hidden="true"></i></v-flex>
-        <v-flex align-self-center xs1>
-          <i class="fa fa-user-o" aria-hidden="true"></i>
-        </v-flex>
-        <v-flex align-self-center xs2>
-          <v-menu offset-y v-for="(item, index) in items" :key="index">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on" style="color: #ffffff; background-color: #2b4c7b" elevation="0">
-                {{ item.title }}
-                <v-icon color="#ffffff">mdi-menu-down</v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item v-for="(item, index) in user" :key="index" link @click="selectSection()">
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </v-flex>
-      </v-layout>
-    </v-row>
     <v-row style="background-color: white">
       <v-layout>
         <v-flex align-self-center xs2>
@@ -141,7 +112,7 @@ export default {
     cursos: [{ title: 'Cursos registrados' }, { title: 'Asignar curso' }, { title: 'Centros de capacitación' }, { title: 'Especialidades registradas' }, { title: 'Cursos asignados' }],
     logged_in: false,
     dialog: false,
-    items: [{ title: 'CHRISTIAN HERNANDEZ' }],
+    //items: [{ title: 'CHRISTIAN HERNANDEZ' }],
     user: [{ title: 'Cerrar sesión', icon: '' }],
   }),
   methods: {
@@ -157,12 +128,12 @@ export default {
     },
 
     async mounted() {
-      let me = this;
+      //let me = this;
 
       if (this.$store.getters.isLoggedIn) {
         try {
           const response = await AuthService.getProfile();
-          me.items[0].title = response.Nombre;
+          //me.items[0].title = response.Nombre;
           console.log(response.Nombre);
         } catch (error) {
           console.log(error);

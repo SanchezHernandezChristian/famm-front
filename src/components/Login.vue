@@ -84,6 +84,8 @@ export default {
           if (rol == 'ADMINISTRADOR GENERAL') this.$router.push('/dashboard-admin');          
           else if (rol == 'ADMINISTRADOR UNIDAD' || rol == 'DEPARTAMENTO DE SUPERVISIÓN ACADEMICA') this.$router.push('/dashboard-admin-unidad');
           else if (rol == 'PROFESOR') this.$router.push('/dashboard-instructor');
+          else if (rol == 'DEPARTAMENTO DE APOYO ACADÉMICO') this.$router.push('/dashboard-departamento-academico');
+          else if (rol == 'DIRECCIÓN TÉCNICA ACADÉMICA') this.$router.push('/dashboard-dt-academica');
           else this.$router.push('/page-principal');
           //else this.$router.push('/form-registro');
         } catch (error) {
