@@ -208,19 +208,17 @@
       </v-row>
       <v-row> <br /> </v-row>
       <v-row justify="center" align="start" style="height: 80px">
-        <div class="text-center">
-          <v-layout row justify-center>
-            <v-flex align-self-baseline xs1>
-              <v-btn
-                color="orange"
-                class="bordeRedondoElement"
-                @click="store"
-                >Guardar</v-btn
-              >
-            </v-flex>
-            <v-flex align-self-center xs11> </v-flex>
-          </v-layout>
-        </div>
+        <v-col cols="12">
+          <v-btn class="bordeRedondoElement ml-3" @click="clean()">
+            Borrar los campos
+          </v-btn>
+          <v-btn class="bordeRedondoElement ml-3" @click="cancel()">
+            Cancelar
+          </v-btn>
+          <v-btn color="orange" class="bordeRedondoElement ml-3" @click="store">
+            Guardar
+          </v-btn>
+        </v-col>
       </v-row>
     </v-form>
   </v-container>
@@ -326,7 +324,7 @@ export default {
           if (me.user.id) {
             if (me.user.email == me.email_edit) me.user.email = null;
             await AuthService.updateUser(me.user);
-          } else{
+          } else {
             me.user.idCentro_capacitacion = this.select.id;
             await AuthService.signUp(me.user);
           }
@@ -348,6 +346,16 @@ export default {
           "warning"
         );
       }
+    },
+
+    clean() {
+      Object.assign(this.$data, this.$options.data());
+      this.$refs.form_addusr.resetValidation();
+      this.fetchRoles();
+    },
+
+    cancel() {
+      this.$router.push("users");
     },
   },
 };
