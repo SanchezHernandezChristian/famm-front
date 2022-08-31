@@ -224,6 +224,14 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewDashboardDireccionTAcademica.vue')
   },
+  {
+    path: '/dashboard-departamento-supervision',
+    name: 'ViewDashboardDepartamentoSupervisionAcademica',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewDashboardDepartamentoSupervisionAcademica.vue')
+  },
 ]
 
 const router = new VueRouter({
