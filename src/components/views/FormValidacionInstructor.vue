@@ -412,18 +412,6 @@
             :readonly="mode > 1"
           ></v-text-field>
         </v-col>
-        <v-col cols="3">
-          <v-file-input
-            label="Documento obtenido"
-            outlined
-            dense
-            show-size
-            accept="application/pdf"
-            :rules="[rules.size]"
-            @change="selectFile2"
-            :disabled="mode > 1"
-          ></v-file-input>
-        </v-col>
       </v-row>
       <v-row justify="center" v-if="mode == 2">
         <v-col cols="10">
@@ -549,10 +537,10 @@ export default {
       esValidoDs: null,
       comentarios_valido: null,
       comentarios_valido_ds: null,
-      documento_obtenido: null,
     },
     role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = DEPARTAMENTO DE SUPERVISIÓN ACADEMICA
     enableEditPicture: false,
+    teacherEdit: false, // Determina si un docente accesa el formulario
   }),
 
   async mounted() {
@@ -573,7 +561,6 @@ export default {
           me.teacher.esValido = response3.data.esValido == 1 ? 1 : 0;
           me.teacher.esValidoDs = response3.data.esValidoDs == 1 ? 1 : 0;
           me.teacher.id = me.teacher.idDocente;
-          me.teacher.documento_obtenido = null;
         } else {
           me.teacher.nombre = response4.nombres;
           me.teacher.apellido_paterno = response4.primer_apellido;
@@ -581,6 +568,7 @@ export default {
         }
         if (response4.Rol == "ADMINISTRADOR UNIDAD") me.role = 0;
         else me.role = 1;
+        me.teacherEdit = response4.Rol == "PROFESOR";
       } catch (error) {
         console.log("Error", error.response);
       }
@@ -594,10 +582,12 @@ export default {
         try {
           let formData = new FormData();
           let idDocente = me.teacher.idDocente;
+          if (me.teacherEdit) {
+            me.teacher.esValido = -1;
+            me.teacher.esValidoDs = -1;
+          }
           for (const key in me.teacher) {
-            if (me.mode == 1 && key != "idEscolaridad" && key != "fotografia")
-              formData.append(key, me.teacher[key]);
-            if (me.mode < 1) formData.append(key, me.teacher[key]);
+            formData.append(key, me.teacher[key]);
           }
           if (me.mode > 0) {
             formData.append("_method", "PUT");
@@ -655,10 +645,6 @@ export default {
 
     selectFile(file) {
       this.teacher.fotografia = file;
-    },
-
-    selectFile2(file) {
-      this.teacher.documento_obtenido = file;
     },
 
     clickedEditPicture() {

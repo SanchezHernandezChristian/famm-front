@@ -1,8 +1,12 @@
 <template>
   <v-container fluid>
-    <v-row justify="center" align="center">
-      <br />
-      <h2 style="color: #2b4c7b">Usuarios registrados</h2>
+    <v-row class="mb-4">
+      <v-col cols="12" class="d-flex flex-row">
+        <h2 style="color: #2b4c7b">Usuarios registrados</h2>
+        <v-btn small color="orange" dark class="ma-2" @click="addUser">
+          CREAR NUEVO
+        </v-btn>
+      </v-col>
     </v-row>
     <v-row>
       <v-data-table
@@ -14,29 +18,29 @@
         show-select
         class="elevation-1"
       >
-        <template v-slot:item.fullname="{ item }">
+        <template v-slot:[`item.fullname`]="{ item }">
           <div v-if="item.nombres || item.primer_apellido">
             {{ item.nombres }} {{ item.primer_apellido }}
             {{ item.segundo_apellido }}
           </div>
           <div class="font-italic" v-else>Sin nombre</div>
         </template>
-        <template v-slot:item.idRol="{ item }">
+        <template v-slot:[`item.idRol`]="{ item }">
           <v-chip :color="getColor(item.idRol)" dark>
             {{ item.nombre_rol }}
           </v-chip>
         </template>
-        <template v-slot:item.adm="{}">
+        <template v-slot:[`item.adm`]="{}">
           <v-container class="px-0" fluid>
             <v-switch></v-switch>
           </v-container>
         </template>
-        <template v-slot:item.actions="{ item }">
-          <v-btn text small class="ma-2" @click="editItem(item.id)">
+        <template v-slot:[`item.actions`]="{ item }">
+          <v-btn text small @click="editItem(item.id)">
             <v-icon small class="mr-2"> mdi-pencil </v-icon>
             Editar
           </v-btn>
-          <v-btn text small class="ma-2" @click="deleteItem(item.id)">
+          <v-btn text small @click="deleteItem(item.id)">
             <v-icon small> mdi-delete </v-icon>
             Eliminar
           </v-btn>
@@ -58,7 +62,7 @@ export default {
       { text: "CORREO", value: "email" },
       { text: "FECHA DE ALTA", value: "created_at" },
       { text: "ADMINISTRAR", value: "adm" },
-      { text: "OPCIONES", value: "actions" },
+      { text: "OPCIONES", align: "center", value: "actions" },
     ],
     items_users: [],
   }),
@@ -114,6 +118,10 @@ export default {
           id: id,
         },
       });
+    },
+
+    addUser() {
+      this.$router.push("agregar-usuario");
     },
 
     getColor(role) {

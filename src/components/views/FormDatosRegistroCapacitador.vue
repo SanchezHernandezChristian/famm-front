@@ -44,19 +44,31 @@
       <v-col cols="12">
         <v-stepper non-linear v-model="e1">
           <v-stepper-header>
-            <v-stepper-step step="1" editable :rules="[() => s1_valid]">
+            <v-stepper-step
+              step="1"
+              :editable="mode < 1"
+              :rules="[() => s1_valid]"
+            >
               Información
             </v-stepper-step>
 
             <v-divider></v-divider>
 
-            <v-stepper-step step="2" editable :rules="[() => s2_valid]">
+            <v-stepper-step
+              step="2"
+              :editable="mode < 1"
+              :rules="[() => s2_valid]"
+            >
               Experiencia
             </v-stepper-step>
 
             <v-divider></v-divider>
 
-            <v-stepper-step step="3" editable :rules="[() => s3_valid]">
+            <v-stepper-step
+              step="3"
+              :editable="mode < 1"
+              :rules="[() => s3_valid]"
+            >
               Documentos
             </v-stepper-step>
           </v-stepper-header>
@@ -64,12 +76,19 @@
           <v-stepper-items>
             <v-stepper-content step="1">
               <v-card class="mb-12">
-                <FormValidacionInstructor ref="teacher" @saved="saved" />
+                <FormValidacionInstructor
+                  :id="idDocente"
+                  :mode="mode"
+                  ref="teacher"
+                  @saved="saved"
+                />
               </v-card>
 
-              <v-btn color="primary" @click="store"> Guardar </v-btn>
+              <v-btn color="primary" @click="store" v-show="mode < 1">
+                Guardar
+              </v-btn>
 
-              <v-btn text> Volver </v-btn>
+              <v-btn text v-show="mode < 1"> Volver </v-btn>
             </v-stepper-content>
 
             <v-stepper-content step="2">
@@ -373,6 +392,8 @@ export default {
       items_expdocente: [],
       items_instdocente: [],
       items_explabdocente: [],
+      mode: 0, // 0 = Registro, 1 = Edición
+      idDocente: null,
     };
   },
 
@@ -381,7 +402,12 @@ export default {
     if (me.$store.getters.isLoggedIn) {
       try {
         const response = await AuthService.getCursos();
+        const response2 = await AuthService.getProfileDocente();
         me.items_cursos = response.cursos;
+        if (response2) {
+          me.mode = 1;
+          me.idDocente = response2.idDocente;
+        }
       } catch (error) {
         console.log("Error", error.response);
       }
@@ -480,6 +506,7 @@ export default {
     saved(idDocente) {
       this.expTeacher.idDocente = idDocente;
       this.e1 = 2;
+      if (this.mode == 1) this.$router.push("/dashboard-instructor");
     },
   },
 };
