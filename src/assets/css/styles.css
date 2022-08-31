@@ -173,6 +173,10 @@ width: 100%;
   height: 100%;
 }
 
+.v-list-item:hover{
+  background-color: orange !important;
+}
+
 .v-list .v-list-item--active { 
   background-color: orange !important;
   color: black !important;

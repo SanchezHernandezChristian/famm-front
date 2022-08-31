@@ -174,8 +174,7 @@
                 </v-row>
                 <v-card-actions>
                   <v-btn
-                    outlined
-                    color="gray"
+                    color="orange"
                     class="bordeRedondoElement"
                     @click="
                       editCurso(
@@ -188,7 +187,7 @@
                     "
                     >Guardar cambios</v-btn
                   >
-                  <v-btn outlined color="gray" class="bordeRedondoElement" @click="dialogEdit = false"> Cancelar </v-btn>
+                  <v-btn color="gray" class="bordeRedondoElement" @click="dialogEdit = false"> Cancelar </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -257,7 +256,7 @@ export default {
       subsector: '',
       sector: '',
     }, //<-- el seleccionado estará aquí
-    items: Array, // <-- La lista de especliades
+    items: [], // <-- La lista de especliades
     mostrarAlert: false,
     mostrarAlertEdit: false,
     mostrarAlertDelete: false,
@@ -297,7 +296,6 @@ export default {
       this.items = listespecialidades.especialidades;
       const listcursos = await AuthService.getCursos();
       this.cursos = listcursos.cursos;
-      console.log('cursos', this.cursos);
     } catch (error) {
       console.log(error);
     }
