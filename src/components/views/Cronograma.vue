@@ -1,36 +1,12 @@
 <template>
   <v-container fluid class="max-height">
     <v-row justify="center" align="center">
-      <br />
-      <h2 style="color: #2b4c7b">Cronograma</h2>
-      <!-- <v-btn
-        small
-        class="ma-2"
-        fab
-        outlined
-        color="primary"
-        @click="addCronograma"
-      >
-        <v-icon dark> mdi-plus </v-icon>
-      </v-btn> -->
-      <br />
-      <p>
-        
-      </p>
-    </v-row>
-    <v-row justify="center" align="center">
-      <v-layout row justify-start>
-        <v-flex align-self-center xs10> </v-flex>
-        <v-flex align-self-start xs1> </v-flex>
-        <v-flex align-self-center xs1>
-          <v-btn
-            outlined
-            style="color: white; background-color: #f46722"
-            @click="addCronograma"
-            >Crear Nuevo</v-btn
-          >
-        </v-flex>
-      </v-layout>
+      <v-col cols="12" class="d-flex flex-row">
+        <h2 style="color: #2b4c7b">Cronograma</h2>
+        <v-btn small color="orange" dark class="ma-2" @click="addCronograma">
+          CREAR NUEVO
+        </v-btn>
+      </v-col>
     </v-row>
     <v-row>
       <v-data-table
@@ -45,25 +21,24 @@
             {{ item.cronograma.nombre_curso }}
           </div>
         </template>
-        <template v-slot:[`item.duracion_horas`]="{ item }">
-          <v-chip color="yellow">
-            {{ item.cronograma.duracion_horas }}
-          </v-chip>
-        </template>
         <template v-slot:[`item.clave_curso`]="{ item }">
           <v-chip color="blue">
             {{ item.cronograma.clave_curso }}
           </v-chip>
         </template>
-        <template v-slot:[`item.clave_especialidad`]="{ item }">
-          <v-chip color="orange">{{
-            item.cronograma.clave_especialidad
-          }}</v-chip>
+        <template v-slot:[`item.duracion_horas`]="{ item }">
+          <v-chip color="orange">
+            {{ item.cronograma.duracion_horas }}
+          </v-chip>
         </template>
-        <template v-slot:[`item.descripcion_curso`]="{ item }">
-          <div class="font-italic" v-show="!item.descripcion_curso">
-            Sin descripción
-          </div>
+        <template v-slot:[`item.nombre_especialidad`]="{ item }">
+          {{ item.cronograma.nombre_especialidad }}
+        </template>
+        <template v-slot:[`item.aprobado`]="{ item }">
+          <v-chip :color="item.aprobado > 0 ? 'green' : 'yellow'">
+            <div v-if="item.aprobado > 0">APROBADO</div>
+            <div v-else>EN ESPERA</div>
+          </v-chip>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
           <!-- <v-btn elevation="2" class="mr-2">Asignar</v-btn> -->
@@ -100,19 +75,19 @@ export default {
   data: () => ({
     headers: [
       { text: "Nombre de curso", value: "nombre_curso" },
-      { text: "Horas", align: "center", value: "duracion_horas" },
       { text: "Clave de curso", align: "center", value: "clave_curso" },
-      { text: "Especialidad", align: "center", value: "clave_especialidad" },
-      { text: "Descripción", value: "descripcion_curso" },
+      { text: "Horas", align: "center", value: "duracion_horas" },
+      { text: "Especialidad", value: "nombre_especialidad" },
+      { text: "Aprobado A.U.", value: "aprobado" },
       { text: "", value: "actions" },
     ],
     items_cronogramas: [],
   }),
   mounted() {
-    this.getItems();
+    this.fetchCronogramas();
   },
   methods: {
-    async getItems() {
+    async fetchCronogramas() {
       let me = this;
 
       if (me.$store.getters.isLoggedIn) {
@@ -150,7 +125,7 @@ export default {
               "El cronograma se ha eliminado.",
               "success"
             );
-            this.getItems();
+            this.fetchCronogramas();
           }
         })
         .catch((error) => {

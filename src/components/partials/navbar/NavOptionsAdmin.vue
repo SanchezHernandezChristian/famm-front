@@ -1,7 +1,7 @@
 <template>
     <v-row>
         <v-layout>
-            <v-flex align-self-center xs1>
+            <v-flex align-self-center xs2>
                 <v-menu transition="scroll-y-transition">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
@@ -36,7 +36,7 @@
                     </template>
                 </v-menu>
             </v-flex>            
-            <v-flex align-self-center xs2>
+            <v-flex align-self-center xs1>
                 <v-menu transition="scroll-y-transition">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn

@@ -262,8 +262,7 @@
                 </v-row>
                 <v-card-actions>
                   <v-btn
-                    outlined
-                    color="gray"
+                    color="orange"
                     class="bordeRedondoElement"
                     @click="
                       editEspecialidad(

@@ -64,8 +64,8 @@
           </v-toolbar>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-          <v-btn text @click="editItem(item)"
-            ><v-icon small>mdi-eye-outline</v-icon><small>Ver/Editar</small></v-btn
+          <v-btn text @click="verItem(item)"
+            ><v-icon small>mdi-eye-outline</v-icon><small>Ver</small></v-btn
           >
           <v-btn text @click="deleteItem(item)">
             <v-icon small>mdi-window-close</v-icon
@@ -81,10 +81,10 @@
 import AuthService from "@/services/AuthService.js";
 
 export default {
-  name: "RelacionParticpantesRegistrados",
+  name: "CursosAsignadosUnidad",
 
   data: () => ({
-    dialog: false,
+    dialogVer: false,
     dialogDelete: false,
     //Elementos para la tabla
     headers: [
@@ -97,8 +97,6 @@ export default {
       { text: "Clave del curso", value: "clave_curso" },
       { text: "Horas", value: "duracion_horas" },
       { text: "Especialidad", value: "nombre_especialidad" },
-      { text: "Aprobado D.T.", value: "" },
-      { text: "Aprobado D.A.", value: "" },
       { text: " ", value: "actions" },
     ],
     cursosAsignados: [],
@@ -162,6 +160,17 @@ export default {
           ][0];
         this.$swal("Error", error_msg, "error");
       }
+    },
+
+    verItem(item) {
+      this.editedIndex = this.cedulas.indexOf(item);
+      console.log("verIndex ", this.editedIndex);
+      this.editedItem = Object.assign({}, item);
+      console.log("verItem ", this.editedItem);
+      this.dialogVer = true;
+      console.log("item ver ", item);
+      this.editId = this.editedItem.id;
+      console.log("verItem.idCedula ", this.editId);
     },
 
     deleteItem(item) {
