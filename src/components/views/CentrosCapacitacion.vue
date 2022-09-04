@@ -30,7 +30,7 @@
               dense
               outlined
               class="bordeRedondoElement"
-              :rules="rules"
+              :rules="[rules.required]"
               v-model="nombreCentro"
             ></v-text-field>
           </v-flex>
@@ -39,7 +39,7 @@
               dense
               outlined
               class="bordeRedondoElement"
-              :rules="rules"
+              :rules="[rules.required]"
               v-model="directorCentro"
             ></v-text-field>
           </v-flex>
@@ -48,7 +48,7 @@
               dense
               outlined
               class="bordeRedondoElement"
-              :rules="rules"
+              :rules="[rules.required, rules.phone_number]"
               v-model="telefonoCentro"
             ></v-text-field>
           </v-flex>
@@ -57,7 +57,7 @@
               dense
               outlined
               class="bordeRedondoElement"
-              :rules="rules"
+              :rules="[rules.required]"
               v-model="direccionCentro"
             ></v-text-field>
           </v-flex>
@@ -66,7 +66,7 @@
               dense
               outlined
               class="bordeRedondoElement"
-              :rules="rules"
+              :rules="[rules.required]"
               v-model="tipoCentro"
             ></v-text-field>
           </v-flex>
@@ -75,8 +75,8 @@
     </v-row>
     <v-row justify="center" align="center" style="height: 30px">
       <v-layout row justify-start>
-        <v-flex align-self-center xs10> </v-flex>
-        <v-flex align-self-start xs1>
+        <v-flex align-self-center xs8> </v-flex>
+        <v-flex align-self-start xs2>
           <v-btn color="gray" @click="clean">Borrar los campos</v-btn>
         </v-flex>
         <v-flex align-self-center xs1>
@@ -212,6 +212,8 @@
                           dense
                           outlined
                           class="bordeRedondoElement"
+                          type="number"
+                          :rules="[rules.required, rules.phone_number]"
                           v-model="editedItem.telefono"
                         ></v-text-field>
                       </v-flex>
@@ -286,10 +288,10 @@
             <v-dialog v-model="dialogDelete" width="500">
               <v-card>
                 <v-card-title class="text-h5 white lighten-2">
-                  Eliminar centro de capacitación
+                  Eliminar unidad de capacitación
                 </v-card-title>
                 <v-card-text>
-                  ¿Estás seguro que quieres eliminar el centro seleccionado?
+                  ¿Estás seguro que quieres eliminar la unidad seleccionado?
                   Recuerda que no podrás recuperar la información.
                 </v-card-text>
                 <v-card-actions>
@@ -360,7 +362,13 @@ export default {
 
   data: () => ({
     valid: false,
-    rules: [(v) => !!v || "Required"],
+    rules: {
+      required: (value) => !!value || "Campo requerido",
+      phone_number: (value) => {
+        const pattern_pnumber = /^\d{10}$/;
+        return pattern_pnumber.test(value) || "Número telefónico inválido";
+      },
+    },
     nombreCentro: "",
     directorCentro: "",
     telefonoCentro: "",
@@ -379,7 +387,7 @@ export default {
     //Elementos para la tabla
     headers: [
       {
-        text: "Nombre del centro de capacitación",
+        text: "Nombre de la unidad de capacitación",
         align: "start",
         sortable: false,
         value: "nombre",
@@ -404,7 +412,6 @@ export default {
       this.items = listespecialidades.especialidades;
       const listCenters = await AuthService.getAllCenters();
       this.centros = listCenters.data;
-      console.log("centros", this.centros);
     } catch (error) {
       console.log(error);
     }
@@ -431,7 +438,7 @@ export default {
             //this.mostrarAlert = true;
             this.$swal(
               "Registrado",
-              "Centro de capacitación registrado correctamente.",
+              "Unidad de capacitación registrada correctamente.",
               "success"
             );
             this.reloadTable();
@@ -490,7 +497,7 @@ export default {
           //this.mostrarAlertEdit = true;
           this.$swal(
             "Editado",
-            "Centro de capacitación editado correctamente.",
+            "Unidad de capacitación editada correctamente.",
             "success"
           );
           this.reloadTable();
@@ -520,7 +527,7 @@ export default {
           //this.mostrarAlertDelete = true;
           this.$swal(
             "Eliminado",
-            "Centro de capacitación borrado correctamente.",
+            "Unidad de capacitación borrada correctamente.",
             "success"
           );
           this.reloadTable();
