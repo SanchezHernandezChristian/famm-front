@@ -294,15 +294,12 @@ export default {
     };
   },
   async mounted() {
-    let me = this;
-    if (me.$store.getters.isLoggedIn) {
+    if (this.$store.getters.isLoggedIn) {
       try {
-        const response1 = await AuthService.getCursos();
-        const response2 = await AuthService.getAllCenters();
-        const response3 = await AuthService.getAllAssignGrade();
-        me.items_cursos = response1.cursos;
-        me.items_unidad = response2.data;
-        me.items_cursos_asignados = response3.cursos;
+        this.fetchCursos();
+        if (this.$route.params.curso) {
+          this.selectCurso = this.$route.params.curso;
+        }
       } catch (error) {
         console.log("Error", error);
       }
@@ -314,6 +311,15 @@ export default {
     },
   },
   methods: {
+    async fetchCursos(){
+      let me = this;
+      const response1 = await AuthService.getCursos();
+      const response2 = await AuthService.getAllCenters();
+      const response3 = await AuthService.getAllAssignGrade();
+      me.items_cursos = response1.cursos;
+      me.items_unidad = response2.data;
+      me.items_cursos_asignados = response3.cursos;
+    },
     async asignaCurso() {
       let me = this;
       if (me.$refs.form_asigna_curso.validate()) {
@@ -425,6 +431,7 @@ export default {
     clean() {
       Object.assign(this.$data, this.$options.data());
       this.$refs.form_asigna_curso.resetValidation();
+      this.fetchCursos();
     },
     cancel() {
       this.$router.push("agregar-curso");

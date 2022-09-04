@@ -26,13 +26,13 @@
       <v-form ref="form">
         <v-layout row justify-center>
           <v-flex align-self-center xs2>
-            <v-text-field dense outlined :rules="rules" v-model="nombreCurso"></v-text-field>
+            <v-text-field dense outlined :rules="[rules.required]" v-model="nombreCurso"></v-text-field>
           </v-flex>
           <v-flex align-self-center xs1>
-            <v-text-field dense outlined :rules="rules" v-model="duracion" type="number"></v-text-field>
+            <v-text-field dense outlined :rules="[rules.required, rules.phone_number]" v-model="duracion"></v-text-field>
           </v-flex>
           <v-flex align-self-center xs1>
-            <v-text-field dense outlined :rules="rules" v-model="claveCurso"></v-text-field>
+            <v-text-field dense outlined :rules="[rules.required]" v-model="claveCurso"></v-text-field>
           </v-flex>
           <v-flex align-self-center xs2 cols-2>
             <v-select
@@ -40,7 +40,7 @@
               :items="items"
               item-text="nombre_especialidad"
               item-value="idEspecialidad"
-              :rules="rules"
+              :rules="[rules.required]"
               required
               return-object
               dense
@@ -48,7 +48,7 @@
             ></v-select>
           </v-flex>
           <v-flex align-self-center xs6>
-            <v-text-field dense outlined :rules="rules" v-model="descripcionCurso"></v-text-field>
+            <v-text-field dense outlined :rules="[rules.required]" v-model="descripcionCurso"></v-text-field>
           </v-flex>
         </v-layout>
       </v-form>
@@ -243,7 +243,13 @@ export default {
 
   data: () => ({
     valid: false,
-    rules: [(v) => !!v || 'Required'],
+    rules: {
+      required: (value) => !!value || "Campo requerido",
+      phone_number: (value) => {
+        const pattern_pnumber = /^\d{10}$/;
+        return pattern_pnumber.test(value) || "Número telefónico inválido";
+      },
+    },
     nombreCurso: '',
     duracion: '',
     claveCurso: '',
@@ -409,9 +415,14 @@ export default {
       }
     },
 
-    async asignarCurso() {
+    async asignarCurso(item) {
       try {
-        this.$router.push('asignar-curso');
+        this.$router.push({
+          name: "ViewAsignarCurso",
+          params: {
+            curso: item
+          }
+        });
       } catch (error) {
         console.log(error);
       }
