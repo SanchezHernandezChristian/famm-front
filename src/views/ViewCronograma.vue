@@ -1,6 +1,6 @@
 <template>
   <div class="max-height">
-    <NavbarApp color="orange" actions="NavOptionsAdminUnidad" />
+    <NavbarApp color="orange" :actions="active_actions" />
     <Cronograma />
     <FooterDashboardAdmin />
   </div>
@@ -17,6 +17,13 @@ export default {
     NavbarApp,
     Cronograma,
     FooterDashboardAdmin,
+  },
+  data: () => ({
+    active_actions: "NavOptionsAdminUnidad",
+  }),
+  created() {
+    if (this.$store.getters.getUser.Rol == "PROFESOR")
+      this.active_actions = "NavOptionsTeacher";
   },
 };
 </script>

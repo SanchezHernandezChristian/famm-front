@@ -139,7 +139,7 @@ export default {
     items_cronogramas: [],
     dialog: false,
     mode: 1,
-    role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = DEPARTAMENTO DE SUPERVISIÓN ACADEMICA
+    role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = INSTRUCTOR
     cronograma_id: null,
   }),
 
