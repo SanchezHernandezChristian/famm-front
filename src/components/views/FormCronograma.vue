@@ -200,6 +200,22 @@
           ></v-text-field>
         </v-col>
       </v-row>
+      <v-row justify="center" v-if="mode == 2">
+        <v-col cols="10">
+          <v-textarea
+            dense
+            auto-grow
+            outlined
+            rows="3"
+            row-height="25"
+            shaped
+            label="Comentarios"
+            :rules="[rules.required]"
+            v-model="cronograma.comentarios"
+            v-if="role < 1"
+          ></v-textarea>
+        </v-col>
+      </v-row>
       <v-row justify="center" align="center">
         <v-col cols="12" class="text-center">
           <v-btn
@@ -340,7 +356,7 @@ export default {
           encargado_curso: data.cronograma.encargado_curso,
           contenido_cronograma: data.contenido_cronograma,
           valido: data.valido == 1 ? 1 : 0,
-          comentarios: data.comentarios,
+          comentarios: data.cronograma.comentarios,
         };
       } catch (error) {
         console.log(error);
@@ -389,14 +405,15 @@ export default {
           data = {
             idCronograma: me.cronograma.idCronograma,
             valido: me.cronograma.valido,
+            comentarios: me.cronograma.comentarios,
           };
           await AuthService.updateCronograma(data);
-          Object.assign(me.$data, me.$options.data());
           me.$swal(
             "Hecho",
             "La información del cronograma se ha guardado correctamente.",
             "success"
           ).then(() => {
+            Object.assign(me.$data, me.$options.data());
             me.redirect();
           });
         } catch (error) {
