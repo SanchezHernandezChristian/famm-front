@@ -127,16 +127,16 @@ export default {
     teacher_id: null,
   }),
 
-  mounted() {
-    this.fetchDocentes();
-    this.fetchRoles();
+  async mounted() {
+    await this.fetchRoles();
+    await this.fetchDocentes();
   },
 
   methods: {
     async fetchDocentes() {
       let response = await AuthService.getDocentes();
       this.items_docentes = response.data.filter((item) => {
-        return this.role > 0 ? item.esValido : item;
+        return this.role > 0 ? item.esValido > 0 : item;
       });
     },
 
