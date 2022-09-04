@@ -185,6 +185,9 @@ export default {
             .post(url + 'create-cronograma', data)
             .then(response => response.data);
     },
+    updateCronograma(data) {
+        return axios.put(url + 'update-cronograma', data).then(response => response.data);
+    },
     deleteCronograma(id) {
         return axios.delete(`${url}delete-cronograma/${id}`).then(response => response.data);
     },
@@ -233,10 +236,10 @@ export default {
             .put(url + 'update-payment', pay_data)
             .then(response => response.data);
     },
-    getFullValidCedulas(){
+    getFullValidCedulas() {
         return axios.get(url + 'full-valid-cedulas').then(response => response.data);
     },
-    getAllValidCedulas(){
+    getAllValidCedulas() {
         return axios.get(url + 'all-valid-cedulas').then(response => response.data);
     }
 };

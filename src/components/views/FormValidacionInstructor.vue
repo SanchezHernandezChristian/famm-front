@@ -449,19 +449,21 @@
             class="m-1"
             @click="validate()"
             v-show="showValidateButton()"
-            >Validar</v-btn
           >
-          <v-btn class="m-1" @click="reject()" v-show="showValidateButton()"
-            >Rechazar</v-btn
-          >
+            Validar
+          </v-btn>
+          <v-btn class="m-1" @click="reject()" v-show="showValidateButton()">
+            Rechazar
+          </v-btn>
           <v-btn
-            color="primary"
+            color="orange"
             dark
             class="m-1"
             @click="store()"
             v-show="mode == 1"
-            >Guardar cambios</v-btn
           >
+            Guardar cambios
+          </v-btn>
           <v-btn class="m-1" @click="close()">Cancelar</v-btn>
         </v-col>
       </v-row>

@@ -3,10 +3,7 @@
     <v-row justify="center" align="center">
       <br />
       <p></p>
-      <h2 style="color: #2b4c7b" v-if="cronograma.idCronograma">
-        Añadir cronograma/Editar
-      </h2>
-      <h2 style="color: #2b4c7b" v-else>Añadir cronograma</h2>
+      <h2 style="color: #2b4c7b" v-if="mode < 1">Añadir cronograma</h2>
     </v-row>
     <v-row>
       <v-col cols="12" class="m-0 p-0">
@@ -43,6 +40,7 @@
             item-value="idCurso"
             label="Nombre del curso"
             v-model="cronograma.idCurso"
+            :readonly="mode > 1"
           ></v-autocomplete>
         </v-col>
       </v-row>
@@ -58,6 +56,7 @@
               label="CURSO DE EXTENSIÓN"
               value="1"
               class="font-weight-black"
+              :readonly="mode > 1"
             ></v-radio>
             <v-radio
               dense
@@ -70,6 +69,7 @@
               label="A DISTANCIA"
               value="3"
               class="font-weight-black"
+              :readonly="mode > 1"
             ></v-radio>
             <v-spacer></v-spacer>
           </v-radio-group>
@@ -92,11 +92,12 @@
                 <v-dialog v-model="dialog" max-width="800px">
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
-                      color="primary"
+                      color="orange"
                       dark
                       class="mb-2"
                       v-bind="attrs"
                       v-on="on"
+                      :disabled="mode > 1"
                     >
                       Nuevo elemento
                     </v-btn>
@@ -174,11 +175,15 @@
                 </v-dialog>
               </v-toolbar>
             </template>
-            <template v-slot:item.actions="{ item }">
-              <v-icon small class="mr-2" @click="editItem(item)">
-                mdi-pencil
-              </v-icon>
-              <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+            <template v-slot:[`item.actions`]="{ item }">
+              <v-btn text @click="editItem(item)" :disabled="mode > 1">
+                <v-icon small class="mr-2"> mdi-pencil </v-icon>
+                <small>Editar</small>
+              </v-btn>
+              <v-btn text @click="deleteItem(item)" :disabled="mode > 1">
+                <v-icon small class="mr-2">mdi-delete</v-icon>
+                <small>Eliminar</small>
+              </v-btn>
             </template>
           </v-data-table>
         </v-col>
@@ -191,17 +196,47 @@
             outlined
             :rules="[rules.required]"
             v-model="cronograma.encargado_curso"
+            :readonly="mode > 1"
           ></v-text-field>
         </v-col>
       </v-row>
       <v-row justify="center" align="center">
         <v-col cols="12" class="text-center">
-          <v-btn elevation="2" raised rounded class="mr-3" @click="store"
-            >Guardado</v-btn
+          <v-btn
+            color="orange"
+            elevation="2"
+            raised
+            rounded
+            class="m-1"
+            @click="validate()"
+            v-show="role < 1 && mode == 2 && cronograma.valido < 1"
           >
-          <v-btn color="primary" elevation="2" raised rounded @click="redirect"
-            >Cancelar</v-btn
+            Validar
+          </v-btn>
+          <v-btn
+            elevation="2"
+            raised
+            rounded
+            class="m-1"
+            @click="reject()"
+            v-show="role < 1 && mode == 2 && cronograma.valido < 1"
           >
+            Rechazar
+          </v-btn>
+          <v-btn
+            color="orange"
+            elevation="2"
+            raised
+            rounded
+            class="mr-3"
+            @click="store()"
+            v-show="mode < 2"
+          >
+            Guardar cambios
+          </v-btn>
+          <v-btn elevation="2" raised rounded @click="redirect()">
+            Cancelar
+          </v-btn>
         </v-col>
       </v-row>
     </v-form>
@@ -212,7 +247,17 @@
 import AuthService from "@/services/AuthService.js";
 
 export default {
-  name: "ViewAddCronograma",
+  name: "FormCronograma",
+  props: {
+    id: {
+      type: Number,
+      default: null,
+    },
+    mode: {
+      type: Number,
+      default: 0, // 0 = Registro, 1 = Edición, 2 = Validación, 3 = Visualización
+    },
+  },
   data: () => ({
     rules: {
       required: (value) => !!value || "Campo requerido",
@@ -242,22 +287,28 @@ export default {
       tipo_curso: null,
       encargado_curso: null,
       contenido_cronograma: [],
+      valido: null,
+      comentarios: null,
     },
     items_cursos: [],
     items_docentes: [],
+    role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = INSTRUCTOR
   }),
 
   async created() {
     let me = this;
+    let auth;
 
     me.fetchCursos();
     me.fetchDocentes();
-    if (me.$route.params.id) {
-      me.getCronograma(me.$route.params.id);
-    } else {
-      let auth = await AuthService.getProfile();
+    auth = await AuthService.getProfile();
+
+    if (auth.Rol == "ADMINISTRADOR UNIDAD") me.role = 0;
+    else me.role = 1;
+
+    if (me.id) me.getCronograma(me.id);
+    else
       me.cronograma.encargado_curso = `${auth.nombres} ${auth.primer_apellido} ${auth.segundo_apellido}`;
-    }
   },
 
   computed: {
@@ -288,6 +339,8 @@ export default {
           tipo_curso: data.cronograma.tipo_curso.toString(),
           encargado_curso: data.cronograma.encargado_curso,
           contenido_cronograma: data.contenido_cronograma,
+          valido: data.valido == 1 ? 1 : 0,
+          comentarios: data.comentarios,
         };
       } catch (error) {
         console.log(error);
@@ -328,8 +381,43 @@ export default {
       }
     },
 
+    async update() {
+      let me = this;
+      let data;
+      if (me.cronograma.idCronograma) {
+        try {
+          data = {
+            idCronograma: me.cronograma.idCronograma,
+            valido: me.cronograma.valido,
+          };
+          await AuthService.updateCronograma(data);
+          Object.assign(me.$data, me.$options.data());
+          me.$swal(
+            "Hecho",
+            "La información del cronograma se ha guardado correctamente.",
+            "success"
+          ).then(() => {
+            me.redirect();
+          });
+        } catch (error) {
+          me.$swal("Error", error.response.data.message, "error");
+        }
+      }
+    },
+
+    validate() {
+      this.cronograma.valido = 1;
+      this.update();
+    },
+
+    reject() {
+      this.cronograma.valido = -1;
+      this.update();
+    },
+
     redirect() {
-      this.$router.push("cronograma");
+      if (this.$route.name != "ViewCronograma") this.$router.push("cronograma");
+      else this.$emit("close");
     },
 
     editItem(item) {

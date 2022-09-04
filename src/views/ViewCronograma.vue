@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="max-height">
     <NavbarApp color="orange" actions="NavOptionsAdminUnidad" />
     <Cronograma />
     <FooterDashboardAdmin />

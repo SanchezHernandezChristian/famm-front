@@ -11,7 +11,6 @@ export default {
                     cronograma.cronograma.clave_curso = curso.clave_curso;
                     cronograma.cronograma.nombre_especialidad = curso.nombre_especialidad;
                     cronograma.cronograma.duracion_horas = curso.duracion_horas;
-                    cronograma.cronograma.aprobado = 0;
                     break;
                 }
             }
