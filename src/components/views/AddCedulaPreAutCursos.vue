@@ -971,7 +971,7 @@ export default {
     },
 
     async addHorario() {
-      var i = 0;
+      var aux = 0;
       if (this.form_pre_aut.horario.length > 0){
         for (var i = 0; i < this.form_pre_aut.horario.length; i++) {
           if (
@@ -979,19 +979,20 @@ export default {
             this.form_pre_aut.horario[i].hora_inicio == this.horaInicio &&
             this.form_pre_aut.horario[i].hora_termino == this.horaFin
           ) 
-          i++;
-        }
-        if (i > 0)
-          me.$swal('Advertencia', 'Ya existe un horario para el mismo día.', 'warning');
-        else{
-            this.form_pre_aut.horario.push({
-              dia: this.selectDia.nombreDia,
-              hora_inicio: this.horaInicio,
-              hora_termino: this.horaFin,
-            });
-            this.$swal('Guardado', 'Horario guardado correctamente.', 'success');
+          aux =+ 1;
         }
       }      
+      if (aux > 0)
+        this.$swal('Advertencia', 'Ya existe un horario para el mismo día.', 'warning');
+      else{
+        this.form_pre_aut.horario.push({
+          dia: this.selectDia.nombreDia,
+          hora_inicio: this.horaInicio,
+          hora_termino: this.horaFin,
+        });
+        this.$swal('Guardado', 'Horario guardado correctamente.', 'success');
+      }
+      aux = 0;
     },
 
     async clean() {
