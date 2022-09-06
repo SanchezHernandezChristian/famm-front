@@ -422,7 +422,7 @@
                       :rules="rules"
                     ></v-text-field>
                   </template>
-                  <v-date-picker v-model="form_pre_aut.periodoTermino" no-title scrollable locale="es-MX" :rules="rules">
+                  <v-date-picker v-model="form_pre_aut.periodoTermino" no-title scrollable locale="es-MX" :rules="rules" min="form_pre_aut.periodoInicio">
                     <v-spacer></v-spacer>
                     <v-btn text color="primary" @click="menu2 = false"> Cancel </v-btn>
                     <v-btn text color="primary" @click="$refs.menu2.save(form_pre_aut.periodoTermino)"> OK </v-btn>
@@ -488,6 +488,7 @@
                   ref="sDia"
                   label="Seleccione un día"
                   clearable
+                  :rules="rules"
                 ></v-select>
               </v-col>
             </v-flex>
@@ -519,6 +520,7 @@
                     v-bind="attrs"
                     v-on="on"
                     clearable
+                    :rules="rules"
                   ></v-text-field>
                 </template>
                 <v-time-picker format="24hr" v-if="menu3" v-model="horaInicio" full-width @click:minute="$refs.menu3.save(horaInicio)"></v-time-picker>
@@ -545,6 +547,7 @@
                     v-bind="attrs"
                     v-on="on"
                     clearable
+                    :rules="rules"
                   ></v-text-field>
                 </template>
                 <v-time-picker format="24hr" v-if="menu4" v-model="horaFin" full-width @click:minute="$refs.menu4.save(horaFin)"></v-time-picker>
@@ -921,12 +924,19 @@ export default {
           me.form_pre_aut.idDocente = this.selectDocente.idDocente;
           me.form_pre_aut.idEspecialidad = this.selectCurso.idEspecialidad;
           console.log(me.form_pre_aut);
-          await AuthService.addCedulaPreAut(me.form_pre_aut);
-          Object.assign(me.$data, me.$options.data());
-          me.$refs.form_cedula.resetValidation();
-          me.$swal('Guardado', 'Información guardada correctamente.', 'success').then(() => {
+          if(me.form_pre_aut.periodoInicio > me.form_pre_aut.periodoTermino){
+            me.$swal('Advertencia', 'La fecha de inicio debe ser menor a la fecha de término.', 'warning');
+          }else
+          if(me.horaInicio > me.horaFin){
+            me.$swal('Advertencia', 'La hora de inicio debe ser menor a la hora de término.', 'warning');
+          }else{
+            await AuthService.addCedulaPreAut(me.form_pre_aut);
+            Object.assign(me.$data, me.$options.data());
+            me.$refs.form_cedula.resetValidation();
+            me.$swal('Guardado', 'Información guardada correctamente.', 'success').then(() => {
             me.$router.push('/cedula-pre-autorizada');
           });
+        }
         } catch (error) {
           console.log(error.response);
           me.$swal('Error', 'Error al intentar guardar la información.', 'error');
@@ -961,12 +971,27 @@ export default {
     },
 
     async addHorario() {
-      this.form_pre_aut.horario.push({
-        dia: this.selectDia.nombreDia,
-        hora_inicio: this.horaInicio,
-        hora_termino: this.horaFin,
-      });
-      this.$swal('Guardado', 'Horario guardado correctamente.', 'success');
+      var i = 0;
+      if (this.form_pre_aut.horario.length > 0){
+        for (var i = 0; i < this.form_pre_aut.horario.length; i++) {
+          if (
+            this.form_pre_aut.horario[i].dia == this.selectDia.nombreDia &&
+            this.form_pre_aut.horario[i].hora_inicio == this.horaInicio &&
+            this.form_pre_aut.horario[i].hora_termino == this.horaFin
+          ) 
+          i++;
+        }
+        if (i > 0)
+          me.$swal('Advertencia', 'Ya existe un horario para el mismo día.', 'warning');
+        else{
+            this.form_pre_aut.horario.push({
+              dia: this.selectDia.nombreDia,
+              hora_inicio: this.horaInicio,
+              hora_termino: this.horaFin,
+            });
+            this.$swal('Guardado', 'Horario guardado correctamente.', 'success');
+        }
+      }      
     },
 
     async clean() {
