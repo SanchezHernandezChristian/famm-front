@@ -56,6 +56,23 @@
         Mis datos
       </v-btn>
     </v-col>
+    <v-col cols="1">
+      <v-menu transition="scroll-y-transition">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            depressed
+            color="#FFFFFF"
+            elevation="0"
+            v-bind="attrs"
+            v-on="on"
+            style="font-size: 13px; color: #8996a0"
+            @click="redirect()"
+            ><v-icon color="#8996a0">mdi-format-list-bulleted-square</v-icon>
+            Cronogramas
+          </v-btn>
+        </template>
+      </v-menu>
+    </v-col>
   </v-row>
 </template>
 
@@ -87,6 +104,10 @@ export default {
 
     editProfile() {
       this.$router.push("form-registro-instructor");
+    },
+
+    redirect() {
+      this.$router.push("cronograma");
     },
   },
 };

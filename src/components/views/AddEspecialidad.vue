@@ -161,105 +161,112 @@
                   <br />
                   <h2 style="color: #2b4c7b">Editar especialidad</h2>
                 </v-row>
-                <v-row justify="center" align="center" style="height: 70px">
-                  <div>
-                    <v-layout row justify-center>
-                      <br />
-                      <p></p>
-                      <v-flex align-self-baseline xs4
-                        ><label> Nombre</label></v-flex
-                      >
-                      <v-flex align-self-baseline xs7>
-                        <v-text-field
-                          dense
-                          outlined
-                          class="bordeRedondoElement"
-                          v-model="editedItem.nombre_especialidad"
-                        ></v-text-field>
-                      </v-flex>
-                      <v-flex align-self-baseline xs1></v-flex>
-                    </v-layout>
-                  </div>
-                </v-row>
-                <v-row justify="center" align="center" style="height: 70px">
-                  <div>
-                    <v-layout row justify-center>
-                      <br />
-                      <p></p>
-                      <v-flex align-self-baseline xs4
-                        ><label>Clave especialidad</label></v-flex
-                      >
-                      <v-flex align-self-center xs7>
-                        <v-text-field
-                          dense
-                          outlined
-                          class="bordeRedondoElement"
-                          v-model="editedItem.clave_especialidad"
-                          disabled
-                        ></v-text-field>
-                      </v-flex>
-                      <v-flex align-self-center xs1> </v-flex>
-                    </v-layout>
-                  </div>
-                </v-row>
-                <v-row justify="center" align="center" style="height: 70px">
-                  <div>
-                    <v-layout row justify-center>
-                      <br />
-                      <p></p>
-                      <v-flex align-self-baseline xs4
-                        ><label>Campo Formación</label></v-flex
-                      >
-                      <v-flex align-self-center xs7>
-                        <v-text-field
-                          dense
-                          outlined
-                          class="bordeRedondoElement"
-                          v-model="editedItem.campo_formacion"
-                        ></v-text-field>
-                      </v-flex>
-                      <v-flex align-self-center xs1> </v-flex>
-                    </v-layout>
-                  </div>
-                </v-row>
-                <v-row justify="center" align="center" style="height: 70px">
-                  <div>
-                    <v-layout row justify-center>
-                      <br />
-                      <p></p>
-                      <v-flex align-self-baseline xs4
-                        ><label>Subsector</label></v-flex
-                      >
-                      <v-flex align-self-center xs7>
-                        <v-text-field
-                          dense
-                          outlined
-                          class="bordeRedondoElement"
-                          v-model="editedItem.subsector"
-                        ></v-text-field>
-                      </v-flex>
-                      <v-flex align-self-center xs1> </v-flex>
-                    </v-layout>
-                  </div>
-                </v-row>
-                <v-row justify="center" align="center" style="height: 70px">
-                  <div>
-                    <v-layout row justify-center>
-                      <v-flex align-self-baseline xs4
-                        ><label>Sector</label></v-flex
-                      >
-                      <v-flex align-self-center xs7>
-                        <v-text-field
-                          dense
-                          outlined
-                          class="bordeRedondoElement"
-                          v-model="editedItem.sector"
-                        ></v-text-field>
-                      </v-flex>
-                      <v-flex align-self-center xs1> </v-flex>
-                    </v-layout>
-                  </div>
-                </v-row>
+                <v-form ref="form_edit">
+                  <v-row justify="center" align="center" style="height: 70px">
+                    <div>
+                      <v-layout row justify-center>
+                        <br />
+                        <p></p>
+                        <v-flex align-self-baseline xs4
+                          ><label> Nombre</label></v-flex
+                        >
+                        <v-flex align-self-baseline xs7>
+                          <v-text-field
+                            dense
+                            outlined
+                            class="bordeRedondoElement"
+                            :rules="rules"
+                            v-model="editedItem.nombre_especialidad"
+                          ></v-text-field>
+                        </v-flex>
+                        <v-flex align-self-baseline xs1></v-flex>
+                      </v-layout>
+                    </div>
+                  </v-row>
+                  <v-row justify="center" align="center" style="height: 70px">
+                    <div>
+                      <v-layout row justify-center>
+                        <br />
+                        <p></p>
+                        <v-flex align-self-baseline xs4
+                          ><label>Clave especialidad</label></v-flex
+                        >
+                        <v-flex align-self-center xs7>
+                          <v-text-field
+                            dense
+                            outlined
+                            class="bordeRedondoElement"
+                            :rules="rules"
+                            v-model="editedItem.clave_especialidad"
+                            disabled
+                          ></v-text-field>
+                        </v-flex>
+                        <v-flex align-self-center xs1> </v-flex>
+                      </v-layout>
+                    </div>
+                  </v-row>
+                  <v-row justify="center" align="center" style="height: 70px">
+                    <div>
+                      <v-layout row justify-center>
+                        <br />
+                        <p></p>
+                        <v-flex align-self-baseline xs4
+                          ><label>Campo Formación</label></v-flex
+                        >
+                        <v-flex align-self-center xs7>
+                          <v-text-field
+                            dense
+                            outlined
+                            class="bordeRedondoElement"
+                            :rules="rules"
+                            v-model="editedItem.campo_formacion"
+                          ></v-text-field>
+                        </v-flex>
+                        <v-flex align-self-center xs1> </v-flex>
+                      </v-layout>
+                    </div>
+                  </v-row>
+                  <v-row justify="center" align="center" style="height: 70px">
+                    <div>
+                      <v-layout row justify-center>
+                        <br />
+                        <p></p>
+                        <v-flex align-self-baseline xs4
+                          ><label>Subsector</label></v-flex
+                        >
+                        <v-flex align-self-center xs7>
+                          <v-text-field
+                            dense
+                            outlined
+                            class="bordeRedondoElement"
+                            :rules="rules"
+                            v-model="editedItem.subsector"
+                          ></v-text-field>
+                        </v-flex>
+                        <v-flex align-self-center xs1> </v-flex>
+                      </v-layout>
+                    </div>
+                  </v-row>
+                  <v-row justify="center" align="center" style="height: 70px">
+                    <div>
+                      <v-layout row justify-center>
+                        <v-flex align-self-baseline xs4
+                          ><label>Sector</label></v-flex
+                        >
+                        <v-flex align-self-center xs7>
+                          <v-text-field
+                            dense
+                            outlined
+                            class="bordeRedondoElement"
+                            :rules="rules"
+                            v-model="editedItem.sector"
+                          ></v-text-field>
+                        </v-flex>
+                        <v-flex align-self-center xs1> </v-flex>
+                      </v-layout>
+                    </div>
+                  </v-row>
+                </v-form>
                 <v-card-actions>
                   <v-btn
                     color="orange"
@@ -461,6 +468,7 @@ export default {
     async clean() {
       try {
         this.$refs.form.reset();
+        this.$refs.form_edit.reset();
         this.mostrarAlert = false;
       } catch (error) {
         console.log(error);
@@ -474,39 +482,43 @@ export default {
       subsectorEdit,
       sectorEdit
     ) {
-      try {
-        let data = {
-          id: this.idEspecialidadEdit,
-          nombre_especialidad: nombreEdit,
-          clave_especialidad: claveEdit,
-          campo_formacion: campoEdit,
-          subsector: subsectorEdit,
-          sector: sectorEdit,
-        };
-        console.log(data);
-        const responseUpdate = await AuthService.updateEspecialidad(data);
-        this.datarespuestaEdit = responseUpdate;
-        if (responseUpdate.serverCode == 200) {
-          this.dialogEdit = false;
-          //this.mostrarAlertEdit = true;
-          this.$swal(
-            "Editado",
-            "Especialidad editada correctamente.",
-            "success"
-          );
-          this.reloadTable();
-        } else {
-          this.$swal("Error", responseUpdate.message, "error");
+      if (this.$refs.form_edit.validate()) {
+        try {
+          let data = {
+            id: this.idEspecialidadEdit,
+            nombre_especialidad: nombreEdit,
+            clave_especialidad: claveEdit,
+            campo_formacion: campoEdit,
+            subsector: subsectorEdit,
+            sector: sectorEdit,
+          };
+          console.log(data);
+          const responseUpdate = await AuthService.updateEspecialidad(data);
+          this.datarespuestaEdit = responseUpdate;
+          if (responseUpdate.serverCode == 200) {
+            this.dialogEdit = false;
+            //this.mostrarAlertEdit = true;
+            this.$swal(
+              "Editado",
+              "Especialidad editada correctamente.",
+              "success"
+            );
+            this.reloadTable();
+          } else {
+            this.$swal("Error", responseUpdate.message, "error");
+          }
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+          console.log(error.response.data.errors);
+          let error_msg =
+            error.response.data.errors[
+              Object.keys(error.response.data.errors)[0]
+            ][0];
+          this.$swal("Error", error_msg, "error");
         }
-        console.log(data);
-      } catch (error) {
-        console.log(error);
-        console.log(error.response.data.errors);
-        let error_msg =
-          error.response.data.errors[
-            Object.keys(error.response.data.errors)[0]
-          ][0];
-        this.$swal("Error", error_msg, "error");
+      } else {
+        this.$swal("Advertencia", "Complete todos los campos", "warning");
       }
     },
 
