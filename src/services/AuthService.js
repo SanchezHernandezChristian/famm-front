@@ -147,6 +147,9 @@ export default {
             .post(url + 'create-cedula', data_cedula)
             .then(response => response.data);
     },
+    getCedula(id) {
+        return axios.get(`${url}get-cedula/${id}`).then(response => response.data);
+    },
     getAllCedulas() {
         return axios.get(url + 'all-cedulas').then(response => response.data);
     },
