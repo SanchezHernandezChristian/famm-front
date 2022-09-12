@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="max-height">
     <v-row>
       <v-col>
         <div style="margin-left: 25px">
@@ -18,17 +18,35 @@
                   <v-list-item>
                     <v-list-item-title style="font-size: 25px"
                       >Cronograma
-                      <a
-                        href=""
-                        class="orange--text text-decoration-none"
-                        style="font-size: 18px"
-                        >Ver/Editar</a
+                      <v-btn
+                        color="white"
+                        text
+                        small
+                        class="orange--text mr-3"
+                        @click="redirect('ViewAddCronograma')"
                       >
+                        Capturar
+                      </v-btn>
+                      <v-btn
+                        color="white"
+                        text
+                        small
+                        class="orange--text mr-3"
+                        @click="redirect('ViewAddCronograma')"
+                      >
+                        Ver/Editar
+                      </v-btn>
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-title style="font-size: 25px"
                       >Lista de asistencia
+                      <a
+                        href=""
+                        class="orange--text text-decoration-none mr-4"
+                        style="font-size: 18px"
+                        >Capturar</a
+                      >
                       <a
                         href=""
                         class="orange--text text-decoration-none"
@@ -42,6 +60,12 @@
                       >Memoria RUDC-18
                       <a
                         href=""
+                        class="orange--text text-decoration-none mr-4"
+                        style="font-size: 18px"
+                        >Capturar</a
+                      >
+                      <a
+                        href=""
                         class="orange--text text-decoration-none"
                         style="font-size: 18px"
                         >Ver/Editar</a
@@ -53,6 +77,12 @@
                       >Calificaciones
                       <a
                         href=""
+                        class="orange--text text-decoration-none mr-4"
+                        style="font-size: 18px"
+                        >Capturar</a
+                      >
+                      <a
+                        href=""
                         class="orange--text text-decoration-none"
                         style="font-size: 18px"
                         >Ver/Editar</a
@@ -62,6 +92,12 @@
                   <v-list-item>
                     <v-list-item-title style="font-size: 25px">
                       Reporte de supervisión
+                      <a
+                        href=""
+                        class="orange--text text-decoration-none mr-4"
+                        style="font-size: 18px"
+                        >Capturar</a
+                      >
                       <a
                         href=""
                         class="orange--text text-decoration-none"
@@ -88,18 +124,25 @@
 import AuthService from "@/services/AuthService.js";
 
 export default {
-  props: {
-    clave_curso: {
-      type: String,
-      default: null,
-    },
-  },
   data: () => ({
     nombre_curso: "",
   }),
   async created() {
-    let response = await AuthService.getCursoIndividual(this.clave_curso);
-    this.nombre_curso = response.curso.nombre_curso;
+    let clave_curso = this.$route.params.clave_curso;
+    if (clave_curso) {
+      let response = await AuthService.getCursoIndividual(clave_curso);
+      this.nombre_curso = response.curso.nombre_curso;
+    }
+  },
+  methods: {
+    redirect(route) {
+      this.$router.push({
+        name: route,
+        params: {
+          e: 1,
+        },
+      });
+    },
   },
 };
 </script>

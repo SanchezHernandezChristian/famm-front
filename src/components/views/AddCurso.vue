@@ -26,13 +26,13 @@
       <v-form ref="form">
         <v-layout row justify-center>
           <v-flex align-self-center xs2>
-            <v-text-field dense outlined :rules="rules" v-model="nombreCurso"></v-text-field>
+            <v-text-field dense outlined :rules="[rules.required]" v-model="nombreCurso"></v-text-field>
           </v-flex>
           <v-flex align-self-center xs1>
-            <v-text-field dense outlined :rules="rules" v-model="duracion" type="number"></v-text-field>
+            <v-text-field dense outlined :rules="[rules.required, rules.rulenumber]" v-model="duracion"></v-text-field>
           </v-flex>
           <v-flex align-self-center xs1>
-            <v-text-field dense outlined :rules="rules" v-model="claveCurso"></v-text-field>
+            <v-text-field dense outlined :rules="[rules.required]" v-model="claveCurso"></v-text-field>
           </v-flex>
           <v-flex align-self-center xs2 cols-2>
             <v-select
@@ -40,7 +40,7 @@
               :items="items"
               item-text="nombre_especialidad"
               item-value="idEspecialidad"
-              :rules="rules"
+              :rules="[rules.required]"
               required
               return-object
               dense
@@ -48,7 +48,7 @@
             ></v-select>
           </v-flex>
           <v-flex align-self-center xs6>
-            <v-text-field dense outlined :rules="rules" v-model="descripcionCurso"></v-text-field>
+            <v-text-field dense outlined :rules="[rules.required]" v-model="descripcionCurso"></v-text-field>
           </v-flex>
         </v-layout>
       </v-form>
@@ -174,8 +174,7 @@
                 </v-row>
                 <v-card-actions>
                   <v-btn
-                    outlined
-                    color="gray"
+                    color="orange"
                     class="bordeRedondoElement"
                     @click="
                       editCurso(
@@ -188,7 +187,7 @@
                     "
                     >Guardar cambios</v-btn
                   >
-                  <v-btn outlined color="gray" class="bordeRedondoElement" @click="dialogEdit = false"> Cancelar </v-btn>
+                  <v-btn color="gray" class="bordeRedondoElement" @click="dialogEdit = false"> Cancelar </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -244,7 +243,10 @@ export default {
 
   data: () => ({
     valid: false,
-    rules: [(v) => !!v || 'Required'],
+    rules: {
+      required: (value) => !!value || "Campo requerido",
+      rulenumber: (v) => v > 0 || 'El valor debe ser mayor a cero',
+    },
     nombreCurso: '',
     duracion: '',
     claveCurso: '',
@@ -257,7 +259,7 @@ export default {
       subsector: '',
       sector: '',
     }, //<-- el seleccionado estará aquí
-    items: Array, // <-- La lista de especliades
+    items: [], // <-- La lista de especliades
     mostrarAlert: false,
     mostrarAlertEdit: false,
     mostrarAlertDelete: false,
@@ -297,7 +299,6 @@ export default {
       this.items = listespecialidades.especialidades;
       const listcursos = await AuthService.getCursos();
       this.cursos = listcursos.cursos;
-      console.log('cursos', this.cursos);
     } catch (error) {
       console.log(error);
     }
@@ -411,9 +412,14 @@ export default {
       }
     },
 
-    async asignarCurso() {
+    async asignarCurso(item) {
       try {
-        this.$router.push('asignar-curso');
+        this.$router.push({
+          name: "ViewAsignarCurso",
+          params: {
+            curso: item
+          }
+        });
       } catch (error) {
         console.log(error);
       }

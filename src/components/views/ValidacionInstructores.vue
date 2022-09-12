@@ -41,34 +41,34 @@
             </v-dialog>
           </v-toolbar>
         </template>
-        <template v-slot:item.nombre="{ item }">
+        <template v-slot:[`item.nombre`]="{ item }">
           <div>
             {{ item.nombre }} {{ item.apellido_paterno }}
             {{ item.apellido_materno }}
           </div>
         </template>
-        <template v-slot:item.clave="{ item }">
+        <template v-slot:[`item.clave`]="{ item }">
           <v-chip color="blue"> {{ item.clave }} </v-chip>
         </template>
-        <template v-slot:item.estatus="{ item }">
+        <template v-slot:[`item.estatus`]="{ item }">
           <v-chip :color="item.estatus > 0 ? 'green' : 'orange'">
             <div v-if="item.estatus > 0">EN SERVICIO</div>
             <div v-else>NUEVO INGRESO</div>
           </v-chip>
         </template>
-        <template v-slot:item.esValido="{ item }">
+        <template v-slot:[`item.esValido`]="{ item }">
           <v-chip :color="item.esValido > 0 ? 'green' : 'yellow'">
             <div v-if="item.esValido > 0">VALIDADO</div>
             <div v-else>EN ESPERA</div>
           </v-chip>
         </template>
-        <template v-slot:item.esValidoDs="{ item }">
+        <template v-slot:[`item.esValidoDs`]="{ item }">
           <v-chip :color="item.esValidoDs > 0 ? 'green' : 'yellow'">
             <div v-if="item.esValidoDs > 0">VALIDADO</div>
             <div v-else>EN ESPERA</div>
           </v-chip>
         </template>
-        <template v-slot:item.actions="{ item }">
+        <template v-slot:[`item.actions`]="{ item }">
           <v-btn text class="mr-2" @click="editItem(item.idDocente, 3)">
             <v-icon small> mdi-eye </v-icon> Ver
           </v-btn>
@@ -76,7 +76,7 @@
             text
             class="mr-2"
             @click="editItem(item.idDocente, 1)"
-            v-show="role < 1"
+            v-show="role < 1 && item.esValido < 1"
           >
             <v-icon small> mdi-pencil </v-icon> Editar
           </v-btn>
@@ -127,16 +127,16 @@ export default {
     teacher_id: null,
   }),
 
-  mounted() {
-    this.fetchDocentes();
-    this.fetchRoles();
+  async mounted() {
+    await this.fetchRoles();
+    await this.fetchDocentes();
   },
 
   methods: {
     async fetchDocentes() {
       let response = await AuthService.getDocentes();
       this.items_docentes = response.data.filter((item) => {
-        return this.role > 0 ? item.esValido : item;
+        return this.role > 0 ? item.esValido > 0 : item;
       });
     },
 
@@ -169,7 +169,7 @@ export default {
               "El instructor se ha eliminado.",
               "success"
             );
-            this.getItems();
+            this.fetchDocentes();
           }
         })
         .catch((error) => {

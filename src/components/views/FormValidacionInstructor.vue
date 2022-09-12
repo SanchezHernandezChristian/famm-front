@@ -412,18 +412,6 @@
             :readonly="mode > 1"
           ></v-text-field>
         </v-col>
-        <v-col cols="3">
-          <v-file-input
-            label="Documento obtenido"
-            outlined
-            dense
-            show-size
-            accept="application/pdf"
-            :rules="[rules.size]"
-            @change="selectFile2"
-            :disabled="mode > 1"
-          ></v-file-input>
-        </v-col>
       </v-row>
       <v-row justify="center" v-if="mode == 2">
         <v-col cols="10">
@@ -461,19 +449,21 @@
             class="m-1"
             @click="validate()"
             v-show="showValidateButton()"
-            >Validar</v-btn
           >
-          <v-btn class="m-1" @click="reject()" v-show="showValidateButton()"
-            >Rechazar</v-btn
-          >
+            Validar
+          </v-btn>
+          <v-btn class="m-1" @click="reject()" v-show="showValidateButton()">
+            Rechazar
+          </v-btn>
           <v-btn
-            color="primary"
+            color="orange"
             dark
             class="m-1"
             @click="store()"
             v-show="mode == 1"
-            >Guardar cambios</v-btn
           >
+            Guardar cambios
+          </v-btn>
           <v-btn class="m-1" @click="close()">Cancelar</v-btn>
         </v-col>
       </v-row>
@@ -549,10 +539,10 @@ export default {
       esValidoDs: null,
       comentarios_valido: null,
       comentarios_valido_ds: null,
-      documento_obtenido: null,
     },
     role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = DEPARTAMENTO DE SUPERVISIÓN ACADEMICA
     enableEditPicture: false,
+    teacherEdit: false, // Determina si un docente accesa el formulario
   }),
 
   async mounted() {
@@ -573,7 +563,6 @@ export default {
           me.teacher.esValido = response3.data.esValido == 1 ? 1 : 0;
           me.teacher.esValidoDs = response3.data.esValidoDs == 1 ? 1 : 0;
           me.teacher.id = me.teacher.idDocente;
-          me.teacher.documento_obtenido = null;
         } else {
           me.teacher.nombre = response4.nombres;
           me.teacher.apellido_paterno = response4.primer_apellido;
@@ -581,6 +570,7 @@ export default {
         }
         if (response4.Rol == "ADMINISTRADOR UNIDAD") me.role = 0;
         else me.role = 1;
+        me.teacherEdit = response4.Rol == "PROFESOR";
       } catch (error) {
         console.log("Error", error.response);
       }
@@ -594,6 +584,10 @@ export default {
         try {
           let formData = new FormData();
           let idDocente = me.teacher.idDocente;
+          if (me.teacherEdit) {
+            me.teacher.esValido = -1;
+            me.teacher.esValidoDs = -1;
+          }
           for (const key in me.teacher) {
             formData.append(key, me.teacher[key]);
           }
@@ -608,7 +602,7 @@ export default {
           me.$refs.form_teacher.resetValidation();
           me.$swal(
             "Hecho",
-            "Información guardada correctamente.",
+            "Información guardada correctamente, se enviará nuevamente a validación. Para mayor información comunicarse al icarpet.",
             "success"
           ).then(() => {
             me.close();
@@ -653,10 +647,6 @@ export default {
 
     selectFile(file) {
       this.teacher.fotografia = file;
-    },
-
-    selectFile2(file) {
-      this.teacher.documento_obtenido = file;
     },
 
     clickedEditPicture() {

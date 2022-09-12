@@ -1,7 +1,7 @@
 <template>
   <v-container fluid pt-6>
     <v-row justify="center" align="center">
-      <h2 style="color: #2b4c7b">Agregar centro de capacitación</h2>
+      <h2 style="color: #2b4c7b">Agregar unidades de capacitación</h2>
     </v-row>
     <v-row justify="center" align="center" class="pb-3 pt-6 mb-2">
       <v-layout row justify-center>
@@ -30,7 +30,7 @@
               dense
               outlined
               class="bordeRedondoElement"
-              :rules="rules"
+              :rules="[rules.required]"
               v-model="nombreCentro"
             ></v-text-field>
           </v-flex>
@@ -39,7 +39,7 @@
               dense
               outlined
               class="bordeRedondoElement"
-              :rules="rules"
+              :rules="[rules.required]"
               v-model="directorCentro"
             ></v-text-field>
           </v-flex>
@@ -48,7 +48,7 @@
               dense
               outlined
               class="bordeRedondoElement"
-              :rules="rules"
+              :rules="[rules.required, rules.phone_number]"
               v-model="telefonoCentro"
             ></v-text-field>
           </v-flex>
@@ -57,7 +57,7 @@
               dense
               outlined
               class="bordeRedondoElement"
-              :rules="rules"
+              :rules="[rules.required]"
               v-model="direccionCentro"
             ></v-text-field>
           </v-flex>
@@ -66,7 +66,7 @@
               dense
               outlined
               class="bordeRedondoElement"
-              :rules="rules"
+              :rules="[rules.required]"
               v-model="tipoCentro"
             ></v-text-field>
           </v-flex>
@@ -75,16 +75,16 @@
     </v-row>
     <v-row justify="center" align="center" style="height: 30px">
       <v-layout row justify-start>
-        <v-flex align-self-center xs10> </v-flex>
-        <v-flex align-self-start xs1>
-          <v-btn outlined color="gray" @click="clean">Borrar</v-btn>
+        <v-flex align-self-center xs8> </v-flex>
+        <v-flex align-self-start xs2>
+          <v-btn color="gray" @click="clean">Borrar los campos</v-btn>
         </v-flex>
         <v-flex align-self-center xs1>
           <template>
             <div class="text-center">
               <v-dialog v-model="dialog" width="500">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn outlined color="gray" v-bind="attrs" v-on="on">
+                  <v-btn color="orange" v-bind="attrs" v-on="on">
                     Agregar
                   </v-btn>
                 </template>
@@ -127,7 +127,7 @@
       </div>
     </v-row>
     <v-row>
-      <h2 style="color: #2b4c7b">Centros registrados</h2>
+      <h2 style="color: #2b4c7b">Unidades registradas</h2>
       <v-data-table
         :headers="headers"
         :items="centros"
@@ -157,7 +157,7 @@
               <v-card class="p-5">
                 <v-row justify="center" align="center">
                   <br />
-                  <h2 style="color: #2b4c7b">Editar centro de capacitación</h2>
+                  <h2 style="color: #2b4c7b">Editar unidad de capacitación</h2>
                 </v-row>
                 <v-row justify="center" align="center" style="height: 70px">
                   <div>
@@ -212,6 +212,8 @@
                           dense
                           outlined
                           class="bordeRedondoElement"
+                          type="number"
+                          :rules="[rules.required, rules.phone_number]"
                           v-model="editedItem.telefono"
                         ></v-text-field>
                       </v-flex>
@@ -259,8 +261,7 @@
                 </v-row>
                 <v-card-actions>
                   <v-btn
-                    outlined
-                    color="gray"
+                    color="orange"
                     class="bordeRedondoElement"
                     @click="
                       editCenter(
@@ -287,10 +288,10 @@
             <v-dialog v-model="dialogDelete" width="500">
               <v-card>
                 <v-card-title class="text-h5 white lighten-2">
-                  Eliminar centro de capacitación
+                  Eliminar unidad de capacitación
                 </v-card-title>
                 <v-card-text>
-                  ¿Estás seguro que quieres eliminar el centro seleccionado?
+                  ¿Estás seguro que quieres eliminar la unidad seleccionado?
                   Recuerda que no podrás recuperar la información.
                 </v-card-text>
                 <v-card-actions>
@@ -361,7 +362,13 @@ export default {
 
   data: () => ({
     valid: false,
-    rules: [(v) => !!v || "Required"],
+    rules: {
+      required: (value) => !!value || "Campo requerido",
+      phone_number: (value) => {
+        const pattern_pnumber = /^\d{10}$/;
+        return pattern_pnumber.test(value) || "Número telefónico inválido";
+      },
+    },
     nombreCentro: "",
     directorCentro: "",
     telefonoCentro: "",
@@ -380,7 +387,7 @@ export default {
     //Elementos para la tabla
     headers: [
       {
-        text: "Nombre del centro de capacitación",
+        text: "Nombre de la unidad de capacitación",
         align: "start",
         sortable: false,
         value: "nombre",
@@ -405,7 +412,6 @@ export default {
       this.items = listespecialidades.especialidades;
       const listCenters = await AuthService.getAllCenters();
       this.centros = listCenters.data;
-      console.log("centros", this.centros);
     } catch (error) {
       console.log(error);
     }
@@ -432,7 +438,7 @@ export default {
             //this.mostrarAlert = true;
             this.$swal(
               "Registrado",
-              "Centro de capacitación registrado correctamente.",
+              "Unidad de capacitación registrada correctamente.",
               "success"
             );
             this.reloadTable();
@@ -491,7 +497,7 @@ export default {
           //this.mostrarAlertEdit = true;
           this.$swal(
             "Editado",
-            "Centro de capacitación editado correctamente.",
+            "Unidad de capacitación editada correctamente.",
             "success"
           );
           this.reloadTable();
@@ -521,7 +527,7 @@ export default {
           //this.mostrarAlertDelete = true;
           this.$swal(
             "Eliminado",
-            "Centro de capacitación borrado correctamente.",
+            "Unidad de capacitación borrada correctamente.",
             "success"
           );
           this.reloadTable();

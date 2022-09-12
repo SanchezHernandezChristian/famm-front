@@ -106,6 +106,12 @@ export default {
             case "PROFESOR":
               this.$router.push("/dashboard-instructor");
               break;
+            case "DEPARTAMENTO DE APOYO ACADÉMICO":
+              this.$router.push("/dashboard-departamento-academico");
+              break;
+            case "DIRECCIÓN TÉCNICA ACADÉMICA":
+              this.$router.push("/dashboard-dt-academica");
+              break;
             default:
               this.$router.push("/page-principal");
               break;

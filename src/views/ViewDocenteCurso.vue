@@ -1,29 +1,22 @@
 <template>
-  <div>
-    <MenuTeacher />
-    <DocenteCurso :clave_curso="clave_curso" />
+  <div class="max-height">
+    <NavbarApp color="orange" actions="NavOptionsTeacher" />
+    <DocenteCurso />
     <FooterDashboardAdmin />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import MenuTeacher from "@/components/views/MenuTeacher.vue";
+import NavbarApp from "@/components/views/NavbarApp.vue";
 import DocenteCurso from "@/components/views/DocenteCurso.vue";
 import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
 
 export default {
   name: "ViewDocenteCurso",
   components: {
-    MenuTeacher,
+    NavbarApp,
     DocenteCurso,
     FooterDashboardAdmin,
-  },
-  data: () => ({
-    clave_curso: "",
-  }),
-  created() {
-    this.clave_curso = this.$route.params.clave_curso;
   },
 };
 </script>
