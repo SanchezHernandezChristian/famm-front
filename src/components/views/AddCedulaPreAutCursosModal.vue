@@ -1013,7 +1013,6 @@
           </v-flex>
           <v-flex align-self-center xs2>
             <v-btn
-              outlined
               color="orange"
               @click="validateDA()"
               v-show="role == 2 && mode == 2 && form_pre_aut.esValido_DA < 1"
@@ -1193,7 +1192,7 @@ export default {
           await me.getCedula(me.id);
         }
       } catch (error) {
-        console.log("Error", error.response);
+        console.log("Error", error);
       }
     }
   },
@@ -1201,7 +1200,14 @@ export default {
   methods: {
     async getCedula(id) {
       let cedula = await AuthService.getCedula(id);
+      let cursos = await AuthService.getCursos();
       this.form_pre_aut = cedula.data;
+      cursos.cursos.forEach((curso) => {
+        if (this.form_pre_aut.idCurso == curso.idCurso) {
+          this.selectCurso = curso;
+          return;
+        }
+      });
     },
     async createCedula() {
       let me = this;

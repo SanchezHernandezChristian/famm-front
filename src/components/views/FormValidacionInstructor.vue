@@ -602,7 +602,7 @@ export default {
           me.$refs.form_teacher.resetValidation();
           me.$swal(
             "Hecho",
-            "Información guardada correctamente.",
+            "Información guardada correctamente, se enviará nuevamente a validación. Para mayor información comunicarse al icarpet.",
             "success"
           ).then(() => {
             me.close();
