@@ -1,6 +1,6 @@
 <template>
     <div>
-        <NavbarApp color="orange" actions="NavOptionsDireccionTAcademica" />
+        <NavbarApp color="orange" actions="NavOptionesDepartamentoApoyoAcademico" />
         <DashboardAdminUnidad />
         <FooterDashboardAdmin />
     </div>

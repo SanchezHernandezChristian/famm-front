@@ -29,7 +29,7 @@
             <v-text-field dense outlined :rules="[rules.required]" v-model="nombreCurso"></v-text-field>
           </v-flex>
           <v-flex align-self-center xs1>
-            <v-text-field dense outlined :rules="[rules.required, rules.phone_number]" v-model="duracion"></v-text-field>
+            <v-text-field dense outlined :rules="[rules.required, rules.rulenumber]" v-model="duracion"></v-text-field>
           </v-flex>
           <v-flex align-self-center xs1>
             <v-text-field dense outlined :rules="[rules.required]" v-model="claveCurso"></v-text-field>
@@ -245,10 +245,7 @@ export default {
     valid: false,
     rules: {
       required: (value) => !!value || "Campo requerido",
-      phone_number: (value) => {
-        const pattern_pnumber = /^\d{10}$/;
-        return pattern_pnumber.test(value) || "Número telefónico inválido";
-      },
+      rulenumber: (v) => v > 0 || 'El valor debe ser mayor a cero',
     },
     nombreCurso: '',
     duracion: '',

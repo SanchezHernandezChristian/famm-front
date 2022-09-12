@@ -1,5 +1,6 @@
 import axios from 'axios';
 const url = 'http://54.209.224.205/api/';
+
 export default {
     login(credentials) {
         return axios

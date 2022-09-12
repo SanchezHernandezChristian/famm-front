@@ -137,7 +137,7 @@ export default {
         items_preautorizacion: [
             {
                 title: "Cédulas de pre-autorización de cursos de capacitación",
-                value: "cedula-pre-autorizada",
+                value: "cedula-pre-autorizada-apoyo",
             },
             {
                 title: "Factibilidad y justificación de cursos de capacitación",
@@ -153,12 +153,12 @@ export default {
         },
 
         seleccionDashboard() {
-            this.$router.push("dashboard-admin-unidad");
+            this.$router.push("dashboard-departamento-academico");
         },
 
         async cursosAsignados() {
             try {
-                this.$router.push("cursos-asignados-unidad");
+                //this.$router.push("cursos-asignados-unidad");
             } catch (error) {
                 console.log(error);
             }
