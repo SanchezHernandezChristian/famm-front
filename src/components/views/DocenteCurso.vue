@@ -25,6 +25,15 @@
                         class="orange--text mr-3"
                         @click="redirect('ViewAddCronograma')"
                       >
+                        Capturar
+                      </v-btn>
+                      <v-btn
+                        color="white"
+                        text
+                        small
+                        class="orange--text mr-3"
+                        @click="redirect('ViewAddCronograma')"
+                      >
                         Ver/Editar
                       </v-btn>
                     </v-list-item-title>
@@ -32,6 +41,12 @@
                   <v-list-item>
                     <v-list-item-title style="font-size: 25px"
                       >Lista de asistencia
+                      <a
+                        href=""
+                        class="orange--text text-decoration-none mr-4"
+                        style="font-size: 18px"
+                        >Capturar</a
+                      >
                       <a
                         href=""
                         class="orange--text text-decoration-none"
@@ -45,6 +60,12 @@
                       >Memoria RUDC-18
                       <a
                         href=""
+                        class="orange--text text-decoration-none mr-4"
+                        style="font-size: 18px"
+                        >Capturar</a
+                      >
+                      <a
+                        href=""
                         class="orange--text text-decoration-none"
                         style="font-size: 18px"
                         >Ver/Editar</a
@@ -56,6 +77,12 @@
                       >Calificaciones
                       <a
                         href=""
+                        class="orange--text text-decoration-none mr-4"
+                        style="font-size: 18px"
+                        >Capturar</a
+                      >
+                      <a
+                        href=""
                         class="orange--text text-decoration-none"
                         style="font-size: 18px"
                         >Ver/Editar</a
@@ -65,6 +92,12 @@
                   <v-list-item>
                     <v-list-item-title style="font-size: 25px">
                       Reporte de supervisión
+                      <a
+                        href=""
+                        class="orange--text text-decoration-none mr-4"
+                        style="font-size: 18px"
+                        >Capturar</a
+                      >
                       <a
                         href=""
                         class="orange--text text-decoration-none"
