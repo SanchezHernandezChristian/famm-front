@@ -243,7 +243,16 @@ export default {
     getFullValidCedulas() {
         return axios.get(url + 'full-valid-cedulas').then(response => response.data);
     },
+    getPreValidCedulas() {
+        return axios.get(url + 'pre-valid-cedulas').then(response => response.data);
+    },
     getAllValidCedulas() {
         return axios.get(url + 'all-valid-cedulas').then(response => response.data);
-    }
+    },
+    getEspecialidad(id_e) {
+        return axios.get(`${url}get-specialty/${id_e}`).then(response => response.data);
+    },
+    getHorarioCedula(id_h) {
+        return axios.get(`${url}get-horario-cedula/${id_h}`).then(response => response.data);
+    },
 };

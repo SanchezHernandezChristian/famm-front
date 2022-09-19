@@ -6,12 +6,6 @@
     <v-row justify="center" align="center" style="height: 70px">
       <v-layout row justify-start>
         <v-flex align-self-center xs1>
-          <v-btn
-            outlined
-            style="background-color: #f46722; color: #ffffff"
-            @click="newForm"
-            >Crear nueva cédula</v-btn
-          >
         </v-flex>
         <v-flex align-self-center xs10> </v-flex>
         <v-flex align-self-start xs1> </v-flex>
@@ -1795,16 +1789,16 @@
             </v-dialog>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
-            <v-btn text @click="validItem(item)"
+            <v-btn v-if="!item.esValido_DT" text @click="validItem(item)"
               ><v-icon small>mdi-check</v-icon><small>Validar</small></v-btn
             >
             <v-btn text @click="verItem(item)"
               ><v-icon small>mdi-eye-outline</v-icon><small>Ver</small></v-btn
             >
-            <v-btn v-if="!item.esValido" text @click="editItem(item)"
+            <v-btn v-if="!item.esValido_DT && !item.esValido" text @click="editItem(item)"
               ><v-icon small>mdi-pencil</v-icon><small>Editar</small></v-btn
             >
-            <v-btn v-if="!item.esValido" text @click="deleteItem(item)">
+            <v-btn v-if="!item.esValido_DT || !item.esValido_DA && !item.esValido" text @click="deleteItem(item)">
               <v-icon small>mdi-window-close</v-icon
               ><small>Eliminar</small></v-btn
             >
@@ -1904,7 +1898,7 @@ export default {
 
   async mounted() {
     try {
-      const response = await AuthService.getAllCedulas();
+      const response = await AuthService.getPreValidCedulas();
       this.cedulas = response.data;
       console.log("cedulas", this.cedulas);
     } catch (error) {
@@ -1922,7 +1916,7 @@ export default {
     },
 
     async reloadTable() {
-      const response = await AuthService.getAllCedulas();
+      const response = await AuthService.getPreValidCedulas();
       this.cedulas = response.data;
       console.log("cedulas", this.cedulas);
     },
@@ -1967,7 +1961,7 @@ export default {
       try {
         let data = {
           id: idCedula,
-          esValido: true,
+          esValido_DT: true,
         };
         const responseValid = await AuthService.updateCedulaPreAutorizacion(
           data
@@ -1977,7 +1971,7 @@ export default {
           this.dialogEdit = false;
           this.$swal(
             "Validado",
-            "Cédula de pre-autorización validada por el administrador de unidad correctamente.",
+            "Cédula de pre-autorización validada correctamente.",
             "success"
           );
           this.reloadTable();
