@@ -134,7 +134,7 @@ export default {
                 title: "Validación formato de pago",
                 value: "",
             },
-            { title: "Validación de oficio de autorización", value: "" },
+            { title: "Validación de oficio de autorización", value: "oficio-solicitud" },
         ],
     }),
     methods: {

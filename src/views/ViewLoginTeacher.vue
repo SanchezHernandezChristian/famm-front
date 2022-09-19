@@ -1,9 +1,9 @@
 <template>
-    <div>
-        <NavbarApp />
-        <LoginTeacher />
-        <FooterDashboardAdmin />
-    </div>
+  <div class="max-height">
+    <NavbarApp />
+    <LoginTeacher />
+    <FooterDashboardAdmin />
+  </div>
 </template>
 
 <script>
@@ -12,11 +12,11 @@ import LoginTeacher from "@/components/views/LoginTeacher.vue";
 import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
-    name: "login-teacher",
-    components: {
-        NavbarApp,
-        LoginTeacher,
-        FooterDashboardAdmin,
-    },
+  name: "login-teacher",
+  components: {
+    NavbarApp,
+    LoginTeacher,
+    FooterDashboardAdmin,
+  },
 };
 </script>
