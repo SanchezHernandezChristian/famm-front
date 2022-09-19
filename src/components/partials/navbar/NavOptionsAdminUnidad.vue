@@ -167,7 +167,7 @@ export default {
                 title: "Formato de pago",
                 value: "formatos-pago-registrados",
             },
-            { title: "Oficio de autorización", value: "" },
+            { title: "Oficio de solicitud", value: "oficio-solicitud" },
             { title: "Oficio de solicitud de curso y bitácora", value: "" },
         ],
     }),

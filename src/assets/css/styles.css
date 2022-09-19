@@ -181,3 +181,15 @@ width: 100%;
   background-color: orange !important;
   color: black !important;
 }
+
+.border-bottom {
+  border-bottom-style: solid;
+  border-bottom-width: thick;
+  border-bottom: black;
+}
+
+.border-top {
+  border-bottom-style: solid;
+  border-bottom-width: thick;
+  border-bottom: black;
+}
