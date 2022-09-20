@@ -215,8 +215,7 @@ export default {
         return axios.get(url + 'all-assign-grade').then(response => response.data);
     },
     getAllAssignUnidad(idUnidad) {
-        console.log(idUnidad)
-        return axios.get(`${url}all-assign-grade/1`).then(response => response.data);
+        return axios.get(`${url}all-assign-grade/${idUnidad}`).then(response => response.data);
     },
     deleteAssignGrade(idCurso, idUnidad) {
         return axios.delete(`${url}delete-assign-grade/${idCurso}/${idUnidad}`).then(response => response.data);
@@ -243,7 +242,16 @@ export default {
     getFullValidCedulas() {
         return axios.get(url + 'full-valid-cedulas').then(response => response.data);
     },
+    getPreValidCedulas() {
+        return axios.get(url + 'pre-valid-cedulas').then(response => response.data);
+    },
     getAllValidCedulas() {
         return axios.get(url + 'all-valid-cedulas').then(response => response.data);
-    }
+    },
+    getEspecialidad(id_e) {
+        return axios.get(`${url}get-specialty/${id_e}`).then(response => response.data);
+    },
+    getHorarioCedula(id_h) {
+        return axios.get(`${url}get-horario-cedula/${id_h}`).then(response => response.data);
+    },
 };

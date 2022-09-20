@@ -5,7 +5,8 @@
     </v-row>
     <v-row justify="center" align="center" style="height: 70px">
       <v-layout row justify-start>
-        <v-flex align-self-center xs1> </v-flex>
+        <v-flex align-self-center xs1>
+        </v-flex>
         <v-flex align-self-center xs10> </v-flex>
         <v-flex align-self-start xs1> </v-flex>
       </v-layout>
@@ -72,16 +73,13 @@
                     >
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-select
-                          v-model="editedItem.nombre_curso"
-                          :rules="rules"
-                          required
-                          return-object
-                          dense
+                        <v-text-field
                           outlined
                           class="bordeRedondoElement"
+                          :rules="rules"
+                          v-model="editedItem.nombre_curso"
                           disabled
-                        ></v-select>
+                        ></v-text-field>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -222,13 +220,14 @@
                     >
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-select
-                          v-model="editedItem.c_Municipio"
-                          dense
+                        <v-text-field
                           outlined
                           class="bordeRedondoElement"
+                          :rules="rules"
+                          v-model="editedItem.Descripcion"
                           disabled
-                        ></v-select>
+                        ></v-text-field
+                      >
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -282,16 +281,13 @@
                     >
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-select
-                          v-model="editedItem.nombre"
-                          :rules="rules"
-                          required
-                          return-object
-                          dense
+                        <v-text-field
                           outlined
                           class="bordeRedondoElement"
+                          :rules="rules"
+                          v-model="docenteCedula.nombre"
                           disabled
-                        ></v-select>
+                        ></v-text-field>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -307,7 +303,7 @@
                           outlined
                           class="bordeRedondoElement"
                           :rules="rules"
-                          v-model="editedItem.rfc"
+                          v-model="docenteCedula.rfc"
                           disabled
                         ></v-text-field
                       ></v-col>
@@ -325,7 +321,7 @@
                           outlined
                           class="bordeRedondoElement"
                           :rules="rules"
-                          v-model="editedItem.curp"
+                          v-model="docenteCedula.curp"
                           disabled
                         ></v-text-field
                       ></v-col>
@@ -345,7 +341,7 @@
                           outlined
                           class="bordeRedondoElement"
                           :rules="rules"
-                          v-model="editedItem.profesion"
+                          v-model="docenteCedula.profesion"
                           disabled
                         ></v-text-field
                       ></v-col>
@@ -645,7 +641,7 @@
                     <v-flex align-self-start xs6>
                       <v-data-table
                         :headers="headersDia"
-                        :items="editedItem.horario"
+                        :items="horariosCedula"
                         item-key="nombreDia"
                         class="elevation-1"
                       ></v-data-table
@@ -688,7 +684,7 @@
                           outlined
                           class="bordeRedondoElement"
                           :rules="rules"
-                          v-model="editedItem.nombre_especialidad"
+                          v-model="especialidad.nombre_especialidad"
                           disabled
                         ></v-text-field
                       ></v-col>
@@ -708,7 +704,7 @@
                           outlined
                           class="bordeRedondoElement"
                           :rules="rules"
-                          v-model="editedItem.subsector"
+                          v-model="especialidad.subsector"
                           disabled
                         ></v-text-field
                       ></v-col>
@@ -728,7 +724,7 @@
                           outlined
                           class="bordeRedondoElement"
                           :rules="rules"
-                          v-model="editedItem.campo_formacion"
+                          v-model="especialidad.campo_formacion"
                           disabled
                         ></v-text-field
                       ></v-col>
@@ -847,15 +843,12 @@
                     >
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-select
-                          v-model="editedItem.nombre_curso"
-                          :rules="rules"
-                          required
-                          return-object
-                          dense
+                        <v-text-field
                           outlined
                           class="bordeRedondoElement"
-                        ></v-select>
+                          :rules="rules"
+                          v-model="editedItem.nombre_curso"
+                        ></v-text-field>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -991,18 +984,13 @@
                     >
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-select
-                          v-model="editedItem.c_Municipio"
-                          :items="items_municipios"
-                          item-text="Descripcion"
-                          item-value="c_Municipio"
-                          :rules="rules"
-                          required
-                          return-object
-                          dense
+                        <v-text-field
                           outlined
                           class="bordeRedondoElement"
-                        ></v-select>
+                          :rules="rules"
+                          v-model="editedItem.Descripcion"
+                        ></v-text-field
+                      >
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -1054,15 +1042,12 @@
                     >
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-select
-                          v-model="editedItem.nombre"
-                          :rules="rules"
-                          required
-                          return-object
-                          dense
+                        <v-text-field
                           outlined
                           class="bordeRedondoElement"
-                        ></v-select>
+                          :rules="rules"
+                          v-model="docenteCedula.nombre"
+                        ></v-text-field>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -1078,7 +1063,7 @@
                           outlined
                           class="bordeRedondoElement"
                           :rules="rules"
-                          v-model="editedItem.rfc"
+                          v-model="docenteCedula.rfc"
                           disabled
                         ></v-text-field
                       ></v-col>
@@ -1096,7 +1081,7 @@
                           outlined
                           class="bordeRedondoElement"
                           :rules="rules"
-                          v-model="editedItem.curp"
+                          v-model="docenteCedula.curp"
                           disabled
                         ></v-text-field
                       ></v-col>
@@ -1116,7 +1101,7 @@
                           outlined
                           class="bordeRedondoElement"
                           :rules="rules"
-                          v-model="editedItem.profesion"
+                          v-model="docenteCedula.profesion"
                         ></v-text-field
                       ></v-col>
                     </v-flex>
@@ -1508,7 +1493,7 @@
                     <v-flex align-self-start xs6>
                       <v-data-table
                         :headers="headersDia"
-                        :items="editedItem.horario"
+                        :items="horariosCedula"
                         item-key="nombreDia"
                         class="elevation-1"
                       >
@@ -1593,7 +1578,7 @@
                           outlined
                           class="bordeRedondoElement"
                           :rules="rules"
-                          v-model="editedItem.nombre_especialidad"
+                          v-model="especialidad.nombre_especialidad"
                           disabled
                         ></v-text-field
                       ></v-col>
@@ -1613,7 +1598,7 @@
                           outlined
                           class="bordeRedondoElement"
                           :rules="rules"
-                          v-model="editedItem.subsector"
+                          v-model="especialidad.subsector"
                           disabled
                         ></v-text-field
                       ></v-col>
@@ -1633,7 +1618,7 @@
                           outlined
                           class="bordeRedondoElement"
                           :rules="rules"
-                          v-model="editedItem.campo_formacion"
+                          v-model="especialidad.campo_formacion"
                           disabled
                         ></v-text-field
                       ></v-col>
@@ -1751,8 +1736,8 @@
                   </h2>
                 </v-row>
                 <v-card-text>
-                  ¿Estás seguro que quiere validar la cédula de
-                  pre-autorización seleccionada?
+                  ¿Estás seguro que quiere validar la cédula de pre-autorización
+                  seleccionada?
                 </v-card-text>
                 <v-card-actions>
                   <v-btn
@@ -1906,22 +1891,16 @@ export default {
       { text: "Hora de Término", value: "hora_termino" },
       { text: " ", value: "actions" },
     ],
+    especialidad: [],
+    horariosCedula: [],
+    docenteCedula: [],
   }),
 
   async mounted() {
     try {
-      switch (this.$store.getters.getUser.Rol) {
-        case "ADMINISTRADOR UNIDAD":
-          this.role = 0;
-          break;
-        case "DIRECCIÓN TÉCNICA ACADÉMICA":
-          this.role = 1;
-          break;
-        case "DEPARTAMENTO DE APOYO ACADÉMICO":
-          this.role = 2;
-          break;
-      }
-      await this.reloadTable();
+      const response = await AuthService.getAllValidCedulas();
+      this.cedulas = response.data;
+      console.log("cedulas", this.cedulas);
     } catch (error) {
       console.log(error);
     }
@@ -1937,18 +1916,13 @@ export default {
     },
 
     async reloadTable() {
-      const response = await AuthService.getAllCedulas();
-      this.cedulas = response.data.filter((item) => {
-        if (this.role == 1) return item.esValido_DA > 0;
-        else return item;
-      });
+      const response = await AuthService.getAllValidCedulas();
+      this.cedulas = response.data;
+      console.log("cedulas", this.cedulas);
     },
 
     async editCedula(data_item) {
       try {
-        let data = {
-          //id: idCedula,
-        };
         console.log("dataEdit", data_item);
         const responseUpdate = await AuthService.updateCedulaPreAutorizacion(
           data_item
@@ -1972,7 +1946,6 @@ export default {
             ][0];
           this.$swal("Error", error_msg, "error");
         }
-        console.log(data);
       } catch (error) {
         console.log(error);
         console.log(error.response.data.errors);
@@ -1997,8 +1970,8 @@ export default {
         if (responseValid.serverCode == 200) {
           this.dialogEdit = false;
           this.$swal(
-            "Editado",
-            "Cédula de pre-autorización validada por el departamento de apoyo académico correctamente.",
+            "Validado",
+            "Cédula de pre-autorización validada correctamente.",
             "success"
           );
           this.reloadTable();
@@ -2071,6 +2044,7 @@ export default {
       console.log("item ver ", item);
       this.editId = this.editedItem.id;
       console.log("verItem.idCedula ", this.editId);
+      this.rellenar(this.editedItem);
     },
     editItem(item) {
       this.editedIndex = this.cedulas.indexOf(item);
@@ -2081,6 +2055,7 @@ export default {
       console.log("item edit ", item);
       this.editId = this.editedItem.id;
       console.log("editedItem.idCedula ", this.editId);
+      this.rellenar(this.editedItem);
     },
     deleteItem(item) {
       this.editedIndex = this.cedulas.indexOf(item);
@@ -2090,6 +2065,17 @@ export default {
       this.deleteId = this.editedItem.id;
       console.log("editedItem.idCedula ", this.deleteId);
       this.dialogDelete = true;
+    },
+
+    async rellenar(item_data) {
+      const response_es = await AuthService.getEspecialidad(
+        item_data.idEspecialidad
+      );
+      this.especialidad = response_es.data;
+      const response_h = await AuthService.getHorarioCedula(item_data.id);
+      this.horariosCedula = response_h.data;
+      const response_d = await AuthService.getDocente(item_data.idDocente);
+      this.docenteCedula = response_d.data;
     },
 
     async calcular() {
