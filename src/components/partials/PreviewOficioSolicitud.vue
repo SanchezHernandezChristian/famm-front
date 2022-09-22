@@ -27,7 +27,7 @@
       </v-col>
       <v-col cols="12">
         <p>
-          Para ser impartido a: <strong>{{ impartido }}</strong>
+          Para ser impartido a: <strong>{{ recibiraCurso }}</strong>
         </p>
       </v-col>
       <v-col cols="12" class="mb-4">
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-// import AuthService from "@/services/AuthService.js";
+import AuthService from "@/services/AuthService.js";
 
 export default {
   name: "PreviewOficioSolicitud",
@@ -60,15 +60,11 @@ export default {
       type: Number,
       default: null,
     },
-    name: {
-      type: String,
-      default: "",
-    },
   },
 
   data: () => ({
     nombre_curso: "",
-    impartido: "",
+    recibiraCurso: "",
     tipo_curso: "",
   }),
 
@@ -79,11 +75,11 @@ export default {
   },
 
   methods: {
-    getOficio(id) {
-      console.log("Oficio", id);
-      this.nombre_curso = this.name;
-      this.impartido = "PÚBLICO GENERAL";
-      this.tipo_curso = "Curso de competencia laboral";
+    async getOficio(id) {
+      const oficio = await AuthService.getOficioSolicitud(id);
+      this.nombre_curso = oficio.data[0].nombre_curso;
+      this.recibiraCurso = oficio.data[0].recibiraCurso;
+      this.tipo_curso = oficio.data[0].descripcion;
     },
   },
 };
