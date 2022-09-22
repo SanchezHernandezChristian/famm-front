@@ -21,9 +21,9 @@
     <v-row class="mt-2">
       <v-data-table
         :headers="headers"
-        :items="items_cursos"
+        :items="items_oficios"
         :items-per-page="15"
-        item-key="idCurso"
+        item-key="idOficio"
         class="elevation-1"
       >
         <template v-slot:top>
@@ -44,7 +44,6 @@
                   <FormOficioSolicitud
                     :id="curso_id"
                     :mode="mode"
-                    :name="curso_name"
                     @close="closeModal"
                     v-if="dialog"
                   />
@@ -56,49 +55,45 @@
         <template v-slot:[`item.clave_curso`]="{ item }">
           <v-chip color="blue"> {{ item.clave_curso }} </v-chip>
         </template>
-        <template v-slot:[`item.estatus`]="{ item }">
-          <v-chip :color="isValid(item.estatus) ? 'green' : 'yellow'">
-            <div v-if="isValid(item.estatus)">VALIDADO</div>
+        <template v-slot:[`item.valido`]="{ item }">
+          <v-chip :color="isValid(item.valido) ? 'green' : 'yellow'">
+            <div v-if="isValid(item.valido)">VALIDADO</div>
             <div v-else>EN ESPERA</div>
           </v-chip>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-          <v-btn
-            text
-            class="mr-2"
-            @click="viewItem(item.idCurso, item.nombre_curso)"
-          >
+          <v-btn text class="mr-2" @click="viewItem(item.idOficio)">
             <v-icon small> mdi-eye </v-icon> Ver
           </v-btn>
           <v-btn
             text
             class="mr-2"
-            @click="editItem(item.idCurso, item.nombre_curso)"
-            v-show="permission_edit(item.estatus)"
+            @click="editItem(item.idOficio)"
+            v-show="permission_edit(item.valido)"
           >
             <v-icon small> mdi-pencil </v-icon> Editar
           </v-btn>
           <v-btn
             text
             class="mr-2"
-            @click="sendItem(item.idCurso, item.nombre_curso)"
-            v-show="permission_edit(item.estatus)"
+            @click="sendItem(item.idOficio)"
+            v-show="permission_edit(item.valido)"
           >
             <v-icon small> mdi-send-outline </v-icon> Enviar a validación
           </v-btn>
           <v-btn
             text
             class="mr-2"
-            @click="deleteItem(item.idCurso, item.idUnidad)"
-            v-show="permission_edit(item.estatus)"
+            @click="deleteItem(item.idOficio)"
+            v-show="permission_edit(item.valido)"
           >
             <v-icon small class="mr-2"> mdi-delete </v-icon> Eliminar
           </v-btn>
           <v-btn
             text
             class="mr-2"
-            @click="validateItem(item.idCurso, item.nombre_curso)"
-            v-show="permission_validate(item.estatus)"
+            @click="validateItem(item.idOficio)"
+            v-show="permission_validate(item.valido)"
           >
             <v-icon small> mdi-check-bold </v-icon> Validar
           </v-btn>
@@ -132,19 +127,18 @@ export default {
     headers: [
       { text: "Nombre del curso", value: "nombre_curso" },
       { text: "Clave del curso", value: "clave_curso" },
-      { text: "Aprobado D.T.A.", value: "estatus" },
+      { text: "Aprobado D.T.A.", value: "valido" },
       { text: "", value: "actions" },
     ],
-    items_cursos: [],
+    items_oficios: [],
     dialog: false,
     mode: 1,
     role: 0,
     curso_id: null,
-    curso_name: "",
   }),
 
   async mounted() {
-    await this.fetchCursos();
+    await this.fetchOficios();
   },
 
   computed: {
@@ -154,30 +148,21 @@ export default {
   },
 
   methods: {
-    async fetchCursos() {
-      let cursos = [];
-      let profile = await AuthService.getProfile();
+    async fetchOficios() {
       this.role = this.$store.getters.getUser.Rol;
+      const oficios = await AuthService.getOficiosSolicitud();
 
-      if (this.role == ROL_ADMIN_UNIDAD) {
-        cursos = await AuthService.getAllAssignUnidad(
-          profile.idCentro_capacitacion
-        );
-      } else {
-        cursos = await AuthService.getAllAssignGrade();
-      }
-
-      this.items_cursos = cursos.cursos.filter((item) => {
+      this.items_oficios = oficios.data.filter((item) => {
         return this.role == ROL_DIRECCION_TECNICA
-          ? item.estatus == ESTATUS_ENVIADO_VALIDACION ||
-              item.estatus == ESTATUS_VALIDADO
+          ? item.valido == ESTATUS_ENVIADO_VALIDACION ||
+              item.valido == ESTATUS_VALIDADO
           : item;
       });
     },
 
-    deleteItem(idCurso, idUnidad) {
+    deleteItem(id) {
       this.$swal({
-        title: "¿Desea eliminar este curso?",
+        title: "¿Desea eliminar este oficio?",
         text: "Esta acción no se puede deshacer.",
         icon: "warning",
         showCancelButton: true,
@@ -188,18 +173,18 @@ export default {
       })
         .then((result) => {
           if (result.isConfirmed) {
-            return AuthService.deleteAssignGrade(idCurso, idUnidad);
+            return AuthService.deleteOficioSolicitud(id);
           }
         })
         .then((response) => {
           if (response && response.serverCode == 200) {
-            this.$swal("Eliminado!", "El curso se ha eliminado.", "success");
-            this.fetchCursos();
+            this.$swal("Eliminado!", "El oficio se ha eliminado.", "success");
+            this.fetchOficios();
           }
         })
         .catch((error) => {
           console.log(error);
-          this.$swal("Error!", "No se pudo eliminar el curso.", "error");
+          this.$swal("Error!", "No se pudo eliminar el oficio.", "error");
         });
     },
 
@@ -208,49 +193,48 @@ export default {
       this.openModal();
     },
 
-    editItem(id, nombre_curso) {
+    editItem(id) {
       this.mode = EDIT_MODE;
-      this.openModal(id, nombre_curso);
+      this.openModal(id);
     },
 
-    sendItem(id, nombre_curso) {
+    sendItem(id) {
       this.mode = SEND_VALIDATE_MODE;
-      this.openModal(id, nombre_curso);
+      this.openModal(id);
     },
 
-    validateItem(id, nombre_curso) {
+    validateItem(id) {
       this.mode = VALIDATE_MODE;
-      this.openModal(id, nombre_curso);
+      this.openModal(id);
     },
 
-    viewItem(id, nombre_curso) {
+    viewItem(id) {
       this.mode = VIEW_MODE;
-      this.openModal(id, nombre_curso);
+      this.openModal(id);
     },
 
-    permission_edit(estatus) {
-      return this.role == ROL_ADMIN_UNIDAD && estatus == ESTATUS_CREADO;
+    permission_edit(valido) {
+      return this.role == ROL_ADMIN_UNIDAD && valido == ESTATUS_CREADO;
     },
 
-    permission_validate(estatus) {
+    permission_validate(valido) {
       return (
         this.role == ROL_DIRECCION_TECNICA &&
-        estatus == ESTATUS_ENVIADO_VALIDACION
+        valido == ESTATUS_ENVIADO_VALIDACION
       );
     },
 
-    isValid(estatus) {
-      return estatus > ESTATUS_ENVIADO_VALIDACION;
+    isValid(valido) {
+      return valido > ESTATUS_ENVIADO_VALIDACION;
     },
 
-    openModal(curso_id = null, nombre_curso = "") {
+    openModal(curso_id = null) {
       this.curso_id = curso_id;
-      this.curso_name = nombre_curso;
       this.dialog = true;
     },
 
     closeModal() {
-      this.fetchCursos();
+      this.fetchOficios();
       this.dialog = false;
     },
   },
