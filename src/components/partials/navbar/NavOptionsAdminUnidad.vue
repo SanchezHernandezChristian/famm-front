@@ -120,16 +120,17 @@
 export default {
     data: () => ({
         items_cursos: [
-            { title: "Validación de calificaciones", value: "" },
             {
                 title: "Oficio de remisión del expediente técnico 2°",
                 value: "",
             },
             { title: "Acta de inicio del curso de capacitación", value: "" },
+            { title: "Validación de calificaciones", value: "" },
             {
                 title: "Reporte de supervisión unidad de capacitación",
                 value: "",
             },
+            { title: "Validación memoria descriptiva y fotográfica del curso", value: "" },
             { title: "Control estadístico por curso", value: "" },
             {
                 title: "Registro de inscripción, acreditación y certificación",
@@ -145,6 +146,16 @@ export default {
                 title: "Validar cédulas de identificación del instructor",
                 value: "validacion-instructores",
             },
+            { title: "Oficio de solicitud de curso y bitácora de observación", value: "" },
+            { title: "Oficio de solicitud", value: "oficio-solicitud" },
+            {
+                title: "Factibilidad y justificación de cursos de capacitación",
+                value: "factibilidad-justificacion-registradas",
+            },
+            {
+                title: "Relaciones de participantes",
+                value: "relacion-participantes-registrados",
+            },
             {
                 title: "Cédulas de pre-autorización de cursos de capacitación",
                 value: "cedula-pre-autorizada",
@@ -153,22 +164,12 @@ export default {
                 title: "Validar cronogramas de actividades",
                 value: "cronograma",
             },
-            {
-                title: "Relaciones de participantes",
-                value: "relacion-participantes-registrados",
-            },
             { title: "Croquis formato", value: "" },
-            { title: "Validar lista de asistencia", value: "" },
-            {
-                title: "Factibilidad y justificación de cursos de capacitación",
-                value: "factibilidad-justificacion-registradas",
-            },
             {
                 title: "Formato de pago",
                 value: "formatos-pago-registrados",
             },
-            { title: "Oficio de autorización", value: "" },
-            { title: "Oficio de solicitud de curso y bitácora", value: "" },
+            { title: "Validar lista de asistencia", value: "" },
         ],
     }),
     methods: {

@@ -248,6 +248,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewCedulasCursosRegistradasDepartamentoApoyoA.vue')
   },
+  {
+    path: '/oficio-solicitud',
+    name: 'OficioSolicitud',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewOficioSolicitud.vue')
+  },
 ]
 
 const router = new VueRouter({
