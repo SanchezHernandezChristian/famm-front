@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-layout>
-      <v-flex align-self-center xs2>
+      <v-flex align-self-center xs1>
         <v-menu transition="scroll-y-transition">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -59,6 +59,7 @@
           </v-list>
         </v-menu>
       </v-flex>
+      <v-flex align-self-center xs2> <v-icon color="#bdbbbd">mdi-magnify</v-icon><input type="search" placeholder="Buscar..." /> </v-flex>
     </v-layout>
   </v-row>
 </template>
@@ -68,20 +69,25 @@ export default {
   data: () => ({
     items_cursos: [
       {
-        title: 'Registro de inscripción, acreditación y certificación',
+        title: 'Oficio de remisión del expediente técnico 2°',
         value: '',
       },
+      { title: 'Acta de inicio del curso de capacitación', value: '' },
+      {
+        title: 'Reporte de supervisión unidad de capacitación',
+        value: '',
+      },
+      { title: 'Control estadístico por curso', value: '' },
     ],
     items_preautorizacion: [
       {
         title: 'Cédulas de pre-autorización de cursos de capacitación',
-        value: 'cedula-pre-autorizada-dtacademica',
+        value: 'cedula-pre-autorizada-apoyo',
       },
       {
-        title: 'Validación formato de pago',
-        value: '',
+        title: 'Factibilidad y justificación de cursos de capacitación',
+        value: 'factibilidad-justificacion-registradas',
       },
-      { title: 'Validación de oficio de autorización', value: 'oficio-solicitud' },
     ],
   }),
   methods: {
@@ -92,7 +98,7 @@ export default {
     },
 
     seleccionDashboard() {
-      this.$router.push('dashboard-dt-academica');
+      this.$router.push('dashboard-departamento-academico');
     },
 
     async cursosAsignados() {
