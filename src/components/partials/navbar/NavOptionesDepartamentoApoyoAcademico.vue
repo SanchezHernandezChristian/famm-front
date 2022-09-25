@@ -141,7 +141,7 @@ export default {
             },
             {
                 title: "Factibilidad y justificación de cursos de capacitación",
-                value: "factibilidad-justificacion-registradas",
+                value: "factibilidad-registradas-academico",
             },
         ],
     }),

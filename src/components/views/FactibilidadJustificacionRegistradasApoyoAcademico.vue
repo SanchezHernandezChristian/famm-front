@@ -10,7 +10,7 @@
         <v-flex align-self-center xs10> </v-flex>
         <v-flex align-self-start xs1> </v-flex>
         <v-flex align-self-center xs1>
-          <v-btn color="orange" @click="newForm">Crear Nuevo</v-btn>
+          <!-- <v-btn color="orange" @click="newForm">Crear Nuevo</v-btn> -->
         </v-flex>
       </v-layout>
     </v-row>
@@ -69,6 +69,7 @@
                           class="bordeRedondoElement"
                           :rules="rules"
                           v-model="curso_data.nombre_curso"
+                          disabled
                         ></v-text-field>
                       </v-col>
                     </v-flex>
@@ -86,6 +87,7 @@
                           class="bordeRedondoElement"
                           :rules="rules"
                           v-model="editedItem.lugar"
+                          disabled
                         ></v-text-field
                       ></v-col>
                     </v-flex>
@@ -116,6 +118,7 @@
                               v-bind="attrs"
                               v-on="on"
                               :rules="rules"
+                              disabled
                             ></v-text-field>
                           </template>
                           <v-date-picker
@@ -124,6 +127,7 @@
                             scrollable
                             locale="es-MX"
                             :rules="rules"
+                            disabled
                           >
                             <v-spacer></v-spacer>
                             <v-btn text color="primary" @click="menu = false">
@@ -154,6 +158,7 @@
                           class="bordeRedondoElement"
                           :rules="rules"
                           v-model="editedItem.region"
+                          disabled
                         ></v-text-field>
                       </v-col>
                     </v-flex>
@@ -173,6 +178,7 @@
                           class="bordeRedondoElement"
                           :rules="rules"
                           v-model="editedItem.distrito"
+                          disabled
                         ></v-text-field>
                       </v-col>
                     </v-flex>
@@ -192,6 +198,7 @@
                           class="bordeRedondoElement"
                           :rules="rules"
                           v-model="municipio_data.Descripcion"
+                          disabled
                         ></v-text-field>
                       </v-col>
                     </v-flex>
@@ -211,6 +218,7 @@
                           class="bordeRedondoElement"
                           :rules="rules"
                           v-model="editedItem.localidad"
+                          disabled
                         ></v-text-field>
                       </v-col>
                     </v-flex>
@@ -233,6 +241,7 @@
                           class="bordeRedondoElement"
                           :rules="rules"
                           v-model="editedItem.nombre_representante"
+                          disabled
                         ></v-text-field
                       ></v-col>
                     </v-flex>
@@ -252,6 +261,7 @@
                           class="bordeRedondoElement"
                           :rules="rules"
                           v-model="editedItem.domicilio"
+                          disabled
                         ></v-text-field
                       ></v-col>
                     </v-flex>
@@ -271,6 +281,7 @@
                           class="bordeRedondoElement"
                           :rules="rules"
                           v-model="editedItem.telefono"
+                          disabled
                         ></v-text-field
                       ></v-col>
                     </v-flex>
@@ -291,7 +302,7 @@
                           :rules="rules"
                           type="number"
                           v-model="editedItem.total_hombres"
-                          @input="ctotalInscritos"
+                          disabled
                         ></v-text-field
                       ></v-col>
                     </v-flex>
@@ -312,7 +323,7 @@
                           :rules="rules"
                           type="number"
                           v-model="editedItem.total_mujeres"
-                          @input="ctotalInscritos"
+                          disabled
                         ></v-text-field
                       ></v-col>
                     </v-flex>
@@ -351,6 +362,7 @@
                         row
                         :rules="rules"
                         v-model="editedItem.infraestructura_adecuada"
+                        disabled
                       >
                         <v-radio label="SÍ" value="1"></v-radio>
                         <v-radio label="NO" value="0"></v-radio>
@@ -374,6 +386,7 @@
                         name="input-7-5"
                         v-model="editedItem.detalles"
                         class="bordeRedondoElement"
+                        disabled
                       ></v-textarea>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -395,6 +408,7 @@
                         name="input-7-5"
                         v-model="editedItem.explicacion"
                         class="bordeRedondoElement"
+                        disabled
                       ></v-textarea>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -409,6 +423,7 @@
                         row
                         :rules="rules"
                         v-model="editedItem.positivo"
+                        disabled
                       >
                         <v-radio label="POSITIVO" value="1"></v-radio>
                         <v-radio label="NEGATIVO" value="0"></v-radio>
@@ -430,6 +445,7 @@
                         name="input-7-5"
                         v-model="editedItem.razones"
                         class="bordeRedondoElement"
+                        disabled
                       ></v-textarea>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -452,6 +468,7 @@
                           class="bordeRedondoElement"
                           :rules="rules"
                           v-model="editedItem.nombre_administrativo"
+                          disabled
                         ></v-text-field
                       ></v-col>
                     </v-flex>
@@ -463,16 +480,9 @@
                     outlined
                     color="gray"
                     class="bordeRedondoElement"
-                    @click="editFactibilidad(editedItem)"
-                    >Guardar cambios</v-btn
-                  >
-                  <v-btn
-                    outlined
-                    color="gray"
-                    class="bordeRedondoElement"
                     @click="dialogEdit = false"
                   >
-                    Cancelar
+                    Regresar
                   </v-btn>
                 </v-card-actions>
               </v-card>
@@ -510,7 +520,7 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-            <v-dialog v-model="dialogDelete" width="500">
+            <!-- <v-dialog v-model="dialogDelete" width="500">
               <v-card>
                 <v-card-title class="text-h5 white lighten-2">
                   Eliminar factibilidad y justificación de cursos
@@ -538,21 +548,21 @@
                   >
                 </v-card-actions>
               </v-card>
-            </v-dialog>
+            </v-dialog> -->
           </v-toolbar>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-          <v-btn v-if="!item.valido" text @click="validItem(item)"
+          <v-btn v-if="!item.esValido_DA" text @click="validItem(item)"
             ><v-icon small>mdi-check</v-icon><small>Validar</small></v-btn
           >
           <v-btn text @click="editItem(item)"
             ><v-icon small>mdi-eye-outline</v-icon
-            ><small>ver/Editar</small></v-btn
+            ><small>ver</small></v-btn
           >
-          <v-btn text @click="deleteItem(item)">
+          <!-- <v-btn text @click="deleteItem(item)">
             <v-icon small>mdi-window-close</v-icon
             ><small>Eliminar</small></v-btn
-          >
+          > -->
         </template></v-data-table
       >
     </v-row>
@@ -603,7 +613,7 @@ export default {
 
   async mounted() {
     try {
-      const response = await AuthService.getAllFactibilidades();
+      const response = await AuthService.getPreValidFactibility();
       this.factibilidades = response.data;
       console.log("factibilidades", this.factibilidades);
     } catch (error) {
@@ -613,87 +623,87 @@ export default {
 
   methods: {
     async reloadTable() {
-      const response = await AuthService.getAllFactibilidades();
+      const response = await AuthService.getPreValidFactibility();
       this.factibilidades = response.data;
       console.log("factibilidades", this.factibilidades);
     },
 
-    async newForm() {
-      try {
-        this.$router.push("form-factibilidad-justificacion");
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    // async newForm() {
+    //   try {
+    //     this.$router.push("form-factibilidad-justificacion");
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
 
-    async editFactibilidad(data_item) {
-      try {
-        let data_edit = {
-          id: data_item.idFactibilidad,
-          idCurso: data_item.idCurso,
-          lugar: data_item.lugar,
-          fecha: data_item.fecha,
-          region: data_item.region,
-          distrito: data_item.distrito,
-          c_Municipio: data_item.c_Municipio,
-          localidad: data_item.localidad,
-          nombre_representante: data_item.nombre_representante,
-          domicilio: data_item.domicilio,
-          telefono: data_item.telefono,
-          total_hombres: data_item.total_hombres,
-          total_mujeres: data_item.total_mujeres,
-          total: data_item.total,
-          infraestructura_adecuada: data_item.infraestructura_adecuada,
-          detalles: data_item.detalles,
-          explicacion: data_item.explicacion,
-          positivo: data_item.positivo,
-          razones: data_item.razones,
-          nombre_administrativo: data_item.nombre_administrativo,
-        };
-        console.log("dataEdit", data_edit);
-        const responseUpdate =
-          await AuthService.updateFactibilidadJustificacion(data_edit);
-        this.datarespuestaEdit = responseUpdate;
-        if (responseUpdate.serverCode == 200) {
-          this.dialogEdit = false;
-          //this.mostrarAlertEdit = true;
-          let data_valid = {
-            id: data_item.idFactibilidad,
-            valido: 0,
-          };
-          const responseValid =
-            await AuthService.updateFactibilidadJustificacion(data_valid);
-          this.datarespuestaEdit = responseValid;
-          this.$swal(
-            "Editado",
-            "Factibilidad y justificación del curso editada correctamente. Se enviará nuevamente a validación.",
-            "success"
-          );
-          this.reloadTable();
-        } else {
-          console.log(responseUpdate.data.errors);
-          let error_msg =
-            responseUpdate.data.errors[
-              Object.keys(responseUpdate.data.errors)[0]
-            ][0];
-          this.$swal("Error", error_msg, "error");
-        }
-      } catch (error) {
-        console.log(error);
-        console.log(error.response.data.errors);
-        let error_msg =
-          error.response.data.errors[
-            Object.keys(error.response.data.errors)[0]
-          ][0];
-        this.$swal("Error", error_msg, "error");
-      }
-    },
+    // async editFactibilidad(data_item) {
+    //   try {
+    //     let data_edit = {
+    //       id: data_item.idFactibilidad,
+    //       idCurso: data_item.idCurso,
+    //       lugar: data_item.lugar,
+    //       fecha: data_item.fecha,
+    //       region: data_item.region,
+    //       distrito: data_item.distrito,
+    //       c_Municipio: data_item.c_Municipio,
+    //       localidad: data_item.localidad,
+    //       nombre_representante: data_item.nombre_representante,
+    //       domicilio: data_item.domicilio,
+    //       telefono: data_item.telefono,
+    //       total_hombres: data_item.total_hombres,
+    //       total_mujeres: data_item.total_mujeres,
+    //       total: data_item.total,
+    //       infraestructura_adecuada: data_item.infraestructura_adecuada,
+    //       detalles: data_item.detalles,
+    //       explicacion: data_item.explicacion,
+    //       positivo: data_item.positivo,
+    //       razones: data_item.razones,
+    //       nombre_administrativo: data_item.nombre_administrativo,
+    //     };
+    //     console.log("dataEdit", data_edit);
+    //     const responseUpdate =
+    //       await AuthService.updateFactibilidadJustificacion(data_edit);
+    //     this.datarespuestaEdit = responseUpdate;
+    //     if (responseUpdate.serverCode == 200) {
+    //       this.dialogEdit = false;
+    //       //this.mostrarAlertEdit = true;
+    //       let data_valid = {
+    //         id: data_item.idFactibilidad,
+    //         valido: 0,
+    //       };
+    //       const responseValid =
+    //         await AuthService.updateFactibilidadJustificacion(data_valid);
+    //       this.datarespuestaEdit = responseValid;
+    //       this.$swal(
+    //         "Editado",
+    //         "Factibilidad y justificación del curso editada correctamente. Se enviará nuevamente a validación.",
+    //         "success"
+    //       );
+    //       this.reloadTable();
+    //     } else {
+    //       console.log(responseUpdate.data.errors);
+    //       let error_msg =
+    //         responseUpdate.data.errors[
+    //           Object.keys(responseUpdate.data.errors)[0]
+    //         ][0];
+    //       this.$swal("Error", error_msg, "error");
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //     console.log(error.response.data.errors);
+    //     let error_msg =
+    //       error.response.data.errors[
+    //         Object.keys(error.response.data.errors)[0]
+    //       ][0];
+    //     this.$swal("Error", error_msg, "error");
+    //   }
+    // },
 
     async enviarValidacionFactibilidad(idFactibilidad) {
       try {
         let data = {
           id: idFactibilidad,
-          valido: true,
+          esValido_DA: true,
         };
         const responseValid = await AuthService.updateFactibilidadJustificacion(
           data
@@ -703,7 +713,7 @@ export default {
           this.dialogEdit = false;
           this.$swal(
             "Validado",
-            "Factibilidad y justificación del curso enviada a validación por el administrador de unidad correctamente.",
+            "Factibilidad y justificación del curso validada correctamente por el departamento de apoyo académico.",
             "success"
           );
           this.reloadTable();
@@ -724,38 +734,38 @@ export default {
       }
     },
 
-    async deleteFactibilidad() {
-      try {
-        let idDeleteFactibilidad = this.deleteId;
-        console.log("confirmDeleteid ", idDeleteFactibilidad);
-        const response = await AuthService.deleteFactibilidadJustificacion(
-          idDeleteFactibilidad
-        );
-        this.datarespuestaDelete = response;
-        if (response.serverCode == 200) {
-          this.dialogDelete = false;
-          //this.mostrarAlertDelete = true;
-          this.$swal(
-            "Eliminado",
-            "Factibilidad y justificación del curso eliminada correctamente.",
-            "success"
-          );
-          this.reloadTable();
-        } else {
-          let error_msg =
-            response.data.errors[Object.keys(response.data.errors)[0]][0];
-          this.$swal("Error", error_msg, "error");
-        }
-      } catch (error) {
-        console.log(error);
-        console.log(error.response.data.errors);
-        let error_msg =
-          error.response.data.errors[
-            Object.keys(error.response.data.errors)[0]
-          ][0];
-        this.$swal("Error", error_msg, "error");
-      }
-    },
+    // async deleteFactibilidad() {
+    //   try {
+    //     let idDeleteFactibilidad = this.deleteId;
+    //     console.log("confirmDeleteid ", idDeleteFactibilidad);
+    //     const response = await AuthService.deleteFactibilidadJustificacion(
+    //       idDeleteFactibilidad
+    //     );
+    //     this.datarespuestaDelete = response;
+    //     if (response.serverCode == 200) {
+    //       this.dialogDelete = false;
+    //       //this.mostrarAlertDelete = true;
+    //       this.$swal(
+    //         "Eliminado",
+    //         "Factibilidad y justificación del curso eliminada correctamente.",
+    //         "success"
+    //       );
+    //       this.reloadTable();
+    //     } else {
+    //       let error_msg =
+    //         response.data.errors[Object.keys(response.data.errors)[0]][0];
+    //       this.$swal("Error", error_msg, "error");
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //     console.log(error.response.data.errors);
+    //     let error_msg =
+    //       error.response.data.errors[
+    //         Object.keys(error.response.data.errors)[0]
+    //       ][0];
+    //     this.$swal("Error", error_msg, "error");
+    //   }
+    // },
 
     validItem(item) {
       this.editedIndex = this.factibilidades.indexOf(item);
@@ -778,15 +788,15 @@ export default {
       console.log("editedItem.idFactibilidad ", this.editId);
       this.rellenar(this.editedItem);
     },
-    deleteItem(item) {
-      this.editedIndex = this.factibilidades.indexOf(item);
-      console.log("deleteIndex ", this.editedIndex);
-      this.editedItem = Object.assign({}, item);
-      console.log("deleteItem ", this.editedItem);
-      this.deleteId = this.editedItem.idFactibilidad;
-      console.log("editedItem.idFactibilidad ", this.deleteId);
-      this.dialogDelete = true;
-    },
+    //   deleteItem(item) {
+    //     this.editedIndex = this.factibilidades.indexOf(item);
+    //     console.log("deleteIndex ", this.editedIndex);
+    //     this.editedItem = Object.assign({}, item);
+    //     console.log("deleteItem ", this.editedItem);
+    //     this.deleteId = this.editedItem.idFactibilidad;
+    //     console.log("editedItem.idFactibilidad ", this.deleteId);
+    //     this.dialogDelete = true;
+    //   },
 
     async rellenar(item) {
       console.log("item ", item);
@@ -802,11 +812,11 @@ export default {
       this.editedItem.positivo = item.positivo.toString();
     },
 
-    async ctotalInscritos() {
-      this.editedItem.total =
-        parseInt(this.editedItem.total_mujeres, 10) +
-        parseInt(this.editedItem.total_hombres, 10);
-    },
+    //   async ctotalInscritos() {
+    //     this.editedItem.total =
+    //       parseInt(this.editedItem.total_mujeres, 10) +
+    //       parseInt(this.editedItem.total_hombres, 10);
+    //   },
   },
 };
 </script>
