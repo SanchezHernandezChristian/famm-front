@@ -253,6 +253,11 @@ const routes = [
     name: 'OficioSolicitud',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewOficioSolicitud.vue')
   },
+  {
+    path: '/factibilidad-registradas-academico',
+    name: 'ViewFactibilidadJustificacionRegistradasApoyoAcademico',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewFactibilidadJustificacionRegistradasApoyoAcademico.vue')
+  },
 ]
 
 const router = new VueRouter({
