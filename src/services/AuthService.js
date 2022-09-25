@@ -271,5 +271,14 @@ export default {
     },
     deleteOficioSolicitud(id) {
         return axios.delete(`${url}delete-oficio-solicitud/${id}`).then(response => response.data);
+    },   
+    getGradeUnic(id_grade) {
+        return axios.get(`${url}get-grade-by-id/${id_grade}`).then(response => response.data);
+    },  
+    getMunicipioUnic(id_m) {
+        return axios.get(`${url}get-township/${id_m}`).then(response => response.data);
+    },
+    getPreValidFactibility() {
+        return axios.get(url + 'get-prevalid-factibility').then(response => response.data);
     },
 };

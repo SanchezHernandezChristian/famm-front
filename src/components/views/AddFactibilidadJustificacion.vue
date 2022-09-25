@@ -44,7 +44,32 @@
       <br
     /></v-row>
     <v-form ref="form_factibilidad">
-      <v-layout row>        
+      <v-layout row>
+        <v-row justify="center" align="center">
+          <v-layout row justify-center>
+            <v-flex align-self-center xs4> </v-flex>
+            <v-flex align-self-center xs2
+              ><label>NOMBRE DEL CURSO SOLICITADO</label></v-flex
+            >
+            <v-flex align-self-center xs3>
+              <v-col>
+                <v-select
+                  v-model="selectCurso"
+                  :items="items_cursos"
+                  item-text="nombre_curso"
+                  item-value="idCurso"
+                  :rules="rules"
+                  required
+                  return-object
+                  dense
+                  outlined
+                  class="bordeRedondoElement"
+                ></v-select>
+              </v-col>
+            </v-flex>
+            <v-flex align-self-center xs3> </v-flex>
+          </v-layout>
+        </v-row>
         <v-row justify="center" align="center">
           <v-layout row justify-center>
             <v-flex align-self-center xs4> </v-flex>
@@ -119,17 +144,12 @@
             <v-flex align-self-center xs2><label>REGIÓN</label></v-flex>
             <v-flex align-self-center xs3>
               <v-col>
-                <v-select
-                  :items="items_cursos"
-                  item-text="nombre_curso"
-                  item-value="idCurso"
-                  :rules="rules"
-                  required
-                  return-object
-                  dense
+                <v-text-field
                   outlined
                   class="bordeRedondoElement"
-                ></v-select>
+                  :rules="rules"
+                  v-model="form_f.region"
+                ></v-text-field>
               </v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -141,17 +161,12 @@
             <v-flex align-self-center xs2><label>DISTRITO</label></v-flex>
             <v-flex align-self-center xs3>
               <v-col>
-                <v-select
-                  :items="items_cursos"
-                  item-text="nombre_curso"
-                  item-value="idCurso"
-                  :rules="rules"
-                  required
-                  return-object
-                  dense
+                <v-text-field
                   outlined
                   class="bordeRedondoElement"
-                ></v-select>
+                  :rules="rules"
+                  v-model="form_f.distrito"
+                ></v-text-field>
               </v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -186,18 +201,12 @@
             <v-flex align-self-center xs2><label>LOCALIDAD</label></v-flex>
             <v-flex align-self-center xs3>
               <v-col>
-                <v-select
-                  v-model="selectMunicipio"
-                  :items="items_municipios"
-                  item-text="Descripcion"
-                  item-value="c_Municipio"
-                  :rules="rules"
-                  required
-                  return-object
-                  dense
+                <v-text-field
                   outlined
                   class="bordeRedondoElement"
-                ></v-select>
+                  :rules="rules"
+                  v-model="form_f.localidad"
+                ></v-text-field>
               </v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
@@ -217,7 +226,7 @@
                   outlined
                   class="bordeRedondoElement"
                   :rules="rules"
-                  v-model="form_f.nombreRepresentante"
+                  v-model="form_f.nombre_representante"
                 ></v-text-field
               ></v-col>
             </v-flex>
@@ -254,31 +263,6 @@
                   v-model="form_f.telefono"
                 ></v-text-field
               ></v-col>
-            </v-flex>
-            <v-flex align-self-center xs3> </v-flex>
-          </v-layout>
-        </v-row>
-        <v-row justify="center" align="center">
-          <v-layout row justify-center>
-            <v-flex align-self-center xs4> </v-flex>
-            <v-flex align-self-center xs2
-              ><label>NOMBRE DEL CURSO SOLICITADO</label></v-flex
-            >
-            <v-flex align-self-center xs3>
-              <v-col>
-                <v-select
-                  v-model="selectCurso"
-                  :items="items_cursos"
-                  item-text="nombre_curso"
-                  item-value="idCurso"
-                  :rules="rules"
-                  required
-                  return-object
-                  dense
-                  outlined
-                  class="bordeRedondoElement"
-                ></v-select>
-              </v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -358,8 +342,8 @@
                 :rules="rules"
                 v-model="form_f.infraestructura_adecuada"
               >
-                <v-radio label="SÍ" value="S"></v-radio>
-                <v-radio label="NO" value="N"></v-radio>
+                <v-radio label="SÍ" value="1"></v-radio>
+                <v-radio label="NO" value="0"></v-radio>
               </v-radio-group>
             </v-flex>
             <v-flex align-self-center xs2> </v-flex>
@@ -412,7 +396,7 @@
               <v-radio-group
                 row
                 :rules="rules"
-                v-model="form_f.infraestructura_adecuada"
+                v-model="form_f.positivo"
               >
                 <v-radio label="POSITIVO" value="1"></v-radio>
                 <v-radio label="NEGATIVO" value="0"></v-radio>
@@ -436,7 +420,7 @@
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
-        </v-row>        
+        </v-row>
         <v-row style="height: 40px"></v-row>
         <v-row justify="center" align="center">
           <v-layout row justify-center>
@@ -525,6 +509,7 @@ export default {
       dialog: false,
       menu: false,
       form_f: {
+        idCurso: null,
         lugar: null,
         fecha: null,
         region: null,
@@ -534,7 +519,6 @@ export default {
         nombre_representante: null,
         domicilio: null,
         telefono: null,
-        idCurso: null,
         total_hombres: null,
         total_mujeres: null,
         total: null,
@@ -546,9 +530,12 @@ export default {
         nombre_administrativo: null,
       },
       items_municipios: [],
-      items_cursos: [],      
+      items_cursos: [],
       selectMunicipio: {},
       selectCurso: {},
+      user: {
+        idUnidad: null,
+      },
     };
   },
 
@@ -557,9 +544,17 @@ export default {
     if (me.$store.getters.isLoggedIn) {
       try {
         const response = await AuthService.getMunicipios();
-        const response2 = await AuthService.getCursos();
         me.items_municipios = response.municipios;
-        me.items_cursos = response2.cursos;
+        const responseUser = await AuthService.getProfile();
+        this.user.idUnidad = responseUser.idCentro_capacitacion;
+        console.log("idUnidad", this.user.idUnidad);
+        const response2 = await AuthService.getAllAssignUnidad(
+          this.user.idUnidad
+        );
+        this.items_cursos = response2.cursos;
+        console.log("cursosAsignados", this.cursosAsignados);
+        // const response3 = await AuthService.getCursos();
+        // me.items_cursos = response3.cursos;
       } catch (error) {
         console.log("Error", error.response);
       }
