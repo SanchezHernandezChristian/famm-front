@@ -281,4 +281,10 @@ export default {
     getPreValidFactibility() {
         return axios.get(url + 'get-prevalid-factibility').then(response => response.data);
     },
+    getUserByCenter(id_u) {
+        return axios.get(`${url}get-user-assign-b-center/${id_u}`).then(response => response.data);
+    },
+    getCenterUnic(id_c) {
+        return axios.get(`${url}get-training-center/${id_c}`).then(response => response.data);
+    },
 };

@@ -41,9 +41,9 @@
           <v-chip v-else color="yellow"> EN ESPERA </v-chip>
         </template>
         <template v-slot:[`item.esValido_DA`]="{ item }">
-            <v-chip v-if="item.esValido_DA" color="green"> VALIDADO </v-chip>
-            <v-chip v-else color="yellow"> EN ESPERA </v-chip>
-          </template>
+          <v-chip v-if="item.esValido_DA" color="green"> VALIDADO </v-chip>
+          <v-chip v-else color="yellow"> EN ESPERA </v-chip>
+        </template>
         <template v-slot:top>
           <v-toolbar flat>
             <v-divider class="mx-4" inset vertical></v-divider>
@@ -269,7 +269,7 @@
                         <v-text-field
                           outlined
                           class="bordeRedondoElement"
-                          :rules="rules"
+                          :rules="[rules, rules_number.phone_number]"
                           v-model="editedItem.telefono"
                         ></v-text-field
                       ></v-col>
@@ -288,7 +288,7 @@
                         <v-text-field
                           outlined
                           class="bordeRedondoElement"
-                          :rules="rules"
+                          :rules="[rules, rules_number.natural_number]"
                           type="number"
                           v-model="editedItem.total_hombres"
                           @input="ctotalInscritos"
@@ -309,7 +309,7 @@
                         <v-text-field
                           outlined
                           class="bordeRedondoElement"
-                          :rules="rules"
+                          :rules="[rules, rules_number.natural_number]"
                           type="number"
                           v-model="editedItem.total_mujeres"
                           @input="ctotalInscritos"
@@ -330,7 +330,7 @@
                         <v-text-field
                           outlined
                           class="bordeRedondoElement"
-                          :rules="rules"
+                          :rules="[rules, rules_number.natural_number]"
                           type="number"
                           v-model="editedItem.total"
                           disabled
@@ -451,9 +451,24 @@
                           outlined
                           class="bordeRedondoElement"
                           :rules="rules"
-                          v-model="editedItem.nombre_administrativo"
+                          v-model="nombre_user"
+                          disabled
                         ></v-text-field
-                      ></v-col>
+                      >
+                        <!-- <v-select
+                          v-model="select_user"
+                          :items="items_admis"
+                          item-text="nombres"
+                          item-value="id"
+                          :rules="[rules.required]"
+                          class="bordeRedondoElement"
+                          label="Seleccione un administrativo"
+                          required
+                          return-object
+                          dense
+                          outlined
+                        ></v-select> -->
+                      </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
                   </v-layout>
@@ -568,6 +583,16 @@ export default {
   data: () => ({
     valid: false,
     rules: [(v) => !!v || "Campo requerido"],
+    rules_number: {
+      phone_number: (value) => {
+        const pattern_pnumber = /^\d{10}$/;
+        return pattern_pnumber.test(value) || "Número telefónico inválido";
+      },
+      natural_number: (value) => {
+        const pattern_natnumber = /^[0-9]+$/;
+        return pattern_natnumber.test(value) || "Número inválido";
+      },
+    },
     datarespuesta: [],
     datarespuestaEdit: [],
     datarespuestaDelete: [],
@@ -585,7 +610,7 @@ export default {
       },
       { text: "Lugar", value: "lugar" },
       { text: "Total participantes", value: "total" },
-      { text: "Nombre verificó", value: "nombre_administrativo" },
+      { text: "Detalles", value: "detalles" },
       { text: "Teléfono", value: "telefono" },
       { text: "Enviado Validación", value: "valido" },
       { text: "Aprobado D.A.P.", value: "esValido_DA" },
@@ -599,6 +624,12 @@ export default {
     curso_data: [],
     menu: false,
     municipio_data: [],
+    select_user: [],
+    items_admis: [],
+    user: {
+      idUnidad: null,
+    },
+    nombre_user: null,
   }),
 
   async mounted() {
@@ -648,7 +679,7 @@ export default {
           explicacion: data_item.explicacion,
           positivo: data_item.positivo,
           razones: data_item.razones,
-          nombre_administrativo: data_item.nombre_administrativo,
+          idUsuario: data_item.idUsuario,
         };
         console.log("dataEdit", data_edit);
         const responseUpdate =
@@ -799,7 +830,18 @@ export default {
       console.log("municipio ", this.municipio_data);
       this.editedItem.infraestructura_adecuada =
         item.infraestructura_adecuada.toString();
-      this.editedItem.positivo = item.positivo.toString();
+      this.editedItem.positivo = item.positivo.toString();      
+      const responseUser = await AuthService.getProfile();
+        this.user.idUnidad = responseUser.idCentro_capacitacion;
+        console.log("idUnidad", this.user.idUnidad);
+        const response5 = await AuthService.getUserByCenter(this.user.idUnidad);
+        this.items_admis = response5.data;
+        console.log("administradores ", this.items_admis);
+      const response4 = await AuthService.getUser(item.idUsuario);
+      this.select_user = response4.data;
+      console.log("select_user:  ", this.select_user);
+      this.nombre_user = this.select_user[0].nombres;
+      console.log("nombre_user:  ", this.select_user[0].nombres);
     },
 
     async ctotalInscritos() {
