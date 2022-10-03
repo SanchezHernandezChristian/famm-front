@@ -110,9 +110,9 @@
                 </v-row>
                 <v-row justify="center" align="center" style="height: 70px">
                   <v-layout row justify-center>
-                    <v-flex align-self-baseline xs4
-                      ><label> Nombre del curso</label></v-flex
-                    >
+                    <v-flex align-self-baseline xs4>
+                      <label> Nombre del curso</label>
+                    </v-flex>
                     <v-flex align-self-baseline xs7>
                       <v-text-field
                         dense
@@ -127,9 +127,9 @@
                 <v-row justify="center" align="center" style="height: 70px">
                   <div>
                     <v-layout row justify-center>
-                      <v-flex align-self-baseline xs4
-                        ><label>Duración de horas</label></v-flex
-                      >
+                      <v-flex align-self-baseline xs4>
+                        <label>Duración de horas</label>
+                      </v-flex>
                       <v-flex align-self-center xs7>
                         <v-text-field
                           dense
@@ -145,9 +145,9 @@
                 <v-row justify="center" align="center" style="height: 70px">
                   <div>
                     <v-layout row justify-center>
-                      <v-flex align-self-baseline xs4
-                        ><label>Clave de curso</label></v-flex
-                      >
+                      <v-flex align-self-baseline xs4>
+                        <label>Clave de curso</label>
+                      </v-flex>
                       <v-flex align-self-center xs7>
                         <v-text-field
                           dense
@@ -164,9 +164,9 @@
                 <v-row justify="center" align="center" style="height: 80px">
                   <div>
                     <v-layout row justify-center>
-                      <v-flex align-self-baseline xs4
-                        ><label>Especialidad</label></v-flex
-                      >
+                      <v-flex align-self-baseline xs4>
+                        <label>Especialidad</label>
+                      </v-flex>
                       <v-flex align-self-center xs7>
                         <v-combobox
                           dense
@@ -182,9 +182,9 @@
                 <v-row justify="center" align="center">
                   <div>
                     <v-layout row justify-center>
-                      <v-flex align-self-baseline xs4
-                        ><label>Descripción</label></v-flex
-                      >
+                      <v-flex align-self-baseline xs4>
+                        <label>Descripción</label>
+                      </v-flex>
                       <v-flex align-self-center xs7>
                         <v-textarea
                           outlined
@@ -279,7 +279,7 @@ export default {
       headers: [
         { text: "Nombre del curso", value: "nombre_curso" },
         { text: "Clave del curso", value: "clave_curso" },
-        { text: "Unidad", value: "idUnidad" },
+        { text: "Unidad", value: "nombre" },
         { text: "", align: "center", value: "actions" },
       ],
       dialogDelete: false,
@@ -311,7 +311,7 @@ export default {
     },
   },
   methods: {
-    async fetchCursos(){
+    async fetchCursos() {
       let me = this;
       const response1 = await AuthService.getCursos();
       const response2 = await AuthService.getAllCenters();
