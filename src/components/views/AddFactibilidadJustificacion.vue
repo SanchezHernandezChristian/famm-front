@@ -259,7 +259,7 @@
                 <v-text-field
                   outlined
                   class="bordeRedondoElement"
-                  :rules="rules"
+                  :rules="[rules, rules_number.phone_number]"
                   v-model="form_f.telefono"
                 ></v-text-field
               ></v-col>
@@ -278,7 +278,7 @@
                 <v-text-field
                   outlined
                   class="bordeRedondoElement"
-                  :rules="rules"
+                  :rules="[rules, rules_number.natural_number]"
                   type="number"
                   v-model="form_f.total_hombres"
                   @input="ctotalInscritos"
@@ -299,7 +299,7 @@
                 <v-text-field
                   outlined
                   class="bordeRedondoElement"
-                  :rules="rules"
+                  :rules="[rules, rules_number.natural_number]"
                   type="number"
                   v-model="form_f.total_mujeres"
                   @input="ctotalInscritos"
@@ -320,7 +320,7 @@
                 <v-text-field
                   outlined
                   class="bordeRedondoElement"
-                  :rules="rules"
+                  :rules="[rules, rules_number.natural_number]"
                   type="number"
                   v-model="form_f.total"
                   disabled
@@ -393,11 +393,7 @@
             <v-flex align-self-center xs4> </v-flex>
             <v-flex align-self-center xs2> </v-flex>
             <v-flex align-self-center xs4>
-              <v-radio-group
-                row
-                :rules="rules"
-                v-model="form_f.positivo"
-              >
+              <v-radio-group row :rules="rules" v-model="form_f.positivo">
                 <v-radio label="POSITIVO" value="1"></v-radio>
                 <v-radio label="NEGATIVO" value="0"></v-radio>
               </v-radio-group>
@@ -433,13 +429,27 @@
             >
             <v-flex align-self-center xs3>
               <v-col>
-                <v-text-field
+                <!-- <v-text-field
                   outlined
                   class="bordeRedondoElement"
                   :rules="rules"
                   v-model="form_f.nombre_administrativo"
                 ></v-text-field
-              ></v-col>
+              > -->
+              <v-select
+                v-model="select"
+                :items="items_admis"
+                item-text="nombres"
+                item-value="id"
+                :rules="[rules.required]"
+                class="bordeRedondoElement"
+                label="Seleccione un administrativo"
+                required
+                return-object
+                dense
+                outlined
+              ></v-select>
+            </v-col>
             </v-flex>
             <v-flex align-self-center xs3> </v-flex>
           </v-layout>
@@ -506,6 +516,16 @@ export default {
   data() {
     return {
       rules: [(v) => !!v || "Campo requerido"],
+      rules_number: {
+        phone_number: (value) => {
+          const pattern_pnumber = /^\d{10}$/;
+          return pattern_pnumber.test(value) || "Número telefónico inválido";
+        },
+        natural_number: (value) => {
+          const pattern_natnumber = /^[0-9]+$/;
+          return pattern_natnumber.test(value) || "Número inválido";
+        },
+      },
       dialog: false,
       menu: false,
       form_f: {
@@ -527,7 +547,7 @@ export default {
         explicacion: null,
         positivo: null,
         razones: null,
-        nombre_administrativo: null,
+        idUsuario: null,
       },
       items_municipios: [],
       items_cursos: [],
@@ -536,6 +556,8 @@ export default {
       user: {
         idUnidad: null,
       },
+      items_admis: [],
+      select: {},
     };
   },
 
@@ -553,6 +575,11 @@ export default {
         );
         this.items_cursos = response2.cursos;
         console.log("cursosAsignados", this.cursosAsignados);
+        const response3 = await AuthService.getUserByCenter(
+          this.user.idUnidad
+        );
+        this.items_admis = response3.data;
+        console.log("administradores ", this.items_admis);
         // const response3 = await AuthService.getCursos();
         // me.items_cursos = response3.cursos;
       } catch (error) {
@@ -568,6 +595,7 @@ export default {
         try {
           me.form_f.c_Municipio = this.selectMunicipio.c_Municipio;
           me.form_f.idCurso = this.selectCurso.idCurso;
+          me.form_f.idUsuario = this.select.id;
           console.log(me.form_f);
           await AuthService.addFactibilidadJustificacion(me.form_f);
           Object.assign(me.$data, me.$options.data());

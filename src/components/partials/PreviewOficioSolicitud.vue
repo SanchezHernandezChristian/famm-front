@@ -2,9 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <p class="text-right">
-          Santa María Huatulco, Oaxaca a 19 de septiembre de 2022
-        </p>
+        <p class="text-right">{{ municipio }}, Oaxaca a {{ fecha }}</p>
       </v-col>
       <v-col cols="12" class="mb-4">
         <p class="font-weight-bold m-0 p-0">
@@ -40,10 +38,10 @@
         <p class="font-weight-bold mb-4">Atentamente</p>
         <br />
         <p class="font-weight-bold border-top m-0 p-0">
-          LCDO. Juan Aragón Alcántara
+          {{ director }}
         </p>
         <p class="font-weight-bold m-0 p-0">
-          Encargado de la Oficina de Atención ICAPET HUATULCO
+          Encargado de la Oficina de Atención ICAPET {{ municipio }}
         </p>
       </v-col>
     </v-row>
@@ -52,6 +50,7 @@
 
 <script>
 import AuthService from "@/services/AuthService.js";
+import DateService from "@/services/DateService.js";
 
 export default {
   name: "PreviewOficioSolicitud",
@@ -63,9 +62,12 @@ export default {
   },
 
   data: () => ({
+    fecha: "",
     nombre_curso: "",
     recibiraCurso: "",
     tipo_curso: "",
+    director: "",
+    municipio: "NA",
   }),
 
   async mounted() {
@@ -77,9 +79,15 @@ export default {
   methods: {
     async getOficio(id) {
       const oficio = await AuthService.getOficioSolicitud(id);
+      let nombre = oficio.data[0].nombre.split(", ");
+
+      if (nombre.length > 1) this.municipio = nombre[1];
+
+      this.fecha = DateService.dateToString(oficio.data[0].fecha);
       this.nombre_curso = oficio.data[0].nombre_curso;
       this.recibiraCurso = oficio.data[0].recibiraCurso;
       this.tipo_curso = oficio.data[0].descripcion;
+      this.director = oficio.data[0].director;
     },
   },
 };
