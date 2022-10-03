@@ -180,7 +180,7 @@
         justify="center"
         align="center"
         style="height: 70px"
-        v-if="mostrarUnidadCap"
+        v-if="mostrarUnidadCap || user.idRol === 5"
       >
         <div>
           <v-layout row justify-center>
@@ -285,6 +285,12 @@ export default {
       try {
         const response = await AuthService.fetchRoles();
         me.items_roles = response.data;
+        const listCenters = await AuthService.getAllCenters();
+        this.items = listCenters.data;
+        if (me.user.idCentro_capacitacion != null) {
+          const responseC = await AuthService.getCenterUnic(me.user.idCentro_capacitacion);
+          this.select = responseC.data;
+        }
       } catch (error) {
         console.log(error);
       }
@@ -310,8 +316,6 @@ export default {
     async selectUnidadCapacitacion() {
       if (this.user.idRol == 5) {
         this.mostrarUnidadCap = true;
-        const listCenters = await AuthService.getAllCenters();
-        this.items = listCenters.data;
       } else {
         this.mostrarUnidadCap = false;
       }
@@ -322,7 +326,8 @@ export default {
       if (me.$refs.form_addusr.validate()) {
         try {
           if (me.user.id) {
-            if (me.user.email == me.email_edit) me.user.email = null;
+            if (me.user.email == me.email_edit) me.user.email = null;            
+            me.user.idCentro_capacitacion = this.select.id;
             await AuthService.updateUser(me.user);
           } else {
             me.user.idCentro_capacitacion = this.select.id;
