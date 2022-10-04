@@ -1,9 +1,7 @@
 <template>
   <v-container class="max-height" fluid pt-6>
     <v-row justify="center" align="center">
-      <h2 style="color: #2b4c7b">
-        Factibilidades y justificaciones de cursos registrados
-      </h2>
+      <h2 style="color: #2b4c7b">Factibilidades y justificaciones de cursos registrados</h2>
     </v-row>
     <v-row justify="center" align="center" style="height: 70px">
       <v-layout row justify-start>
@@ -15,12 +13,7 @@
       </v-layout>
     </v-row>
     <v-row>
-      <v-data-table
-        :headers="headers"
-        :items="factibilidades"
-        item-key="nombre_curso"
-        class="elevation-1"
-      >
+      <v-data-table :headers="headers" :items="factibilidades" item-key="nombre_curso" class="elevation-1">
         <template v-slot:[`item.nombre_representante`]="{ item }">
           <v-chip color="yellow">
             {{ item.nombre_representante }}
@@ -41,9 +34,9 @@
           <v-chip v-else color="yellow"> EN ESPERA </v-chip>
         </template>
         <template v-slot:[`item.esValido_DA`]="{ item }">
-            <v-chip v-if="item.esValido_DA" color="green"> VALIDADO </v-chip>
-            <v-chip v-else color="yellow"> EN ESPERA </v-chip>
-          </template>
+          <v-chip v-if="item.esValido_DA" color="green"> VALIDADO </v-chip>
+          <v-chip v-else color="yellow"> EN ESPERA </v-chip>
+        </template>
         <template v-slot:top>
           <v-toolbar flat>
             <v-divider class="mx-4" inset vertical></v-divider>
@@ -52,25 +45,15 @@
               <v-card class="p-5">
                 <v-row justify="center" align="center">
                   <br />
-                  <h2 style="color: #2b4c7b">
-                    Ver/Editar Factibilidad y Justificación
-                  </h2>
+                  <h2 style="color: #2b4c7b">Ver/Editar Factibilidad y Justificación</h2>
                 </v-row>
                 <v-row justify="center" align="center">
                   <v-layout row justify-center>
                     <v-flex align-self-center xs4> </v-flex>
-                    <v-flex align-self-center xs2
-                      ><label>NOMBRE DEL CURSO SOLICITADO</label></v-flex
-                    >
+                    <v-flex align-self-center xs2><label>NOMBRE DEL CURSO SOLICITADO</label></v-flex>
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="curso_data.nombre_curso"
-                          disabled
-                        ></v-text-field>
+                        <v-text-field outlined class="bordeRedondoElement" :rules="rules" v-model="curso_data.nombre_curso" disabled></v-text-field>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -81,15 +64,7 @@
                     <v-flex align-self-center xs4> </v-flex>
                     <v-flex align-self-center xs2><label>LUGAR</label></v-flex>
                     <v-flex align-self-center xs3>
-                      <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="editedItem.lugar"
-                          disabled
-                        ></v-text-field
-                      ></v-col>
+                      <v-col> <v-text-field outlined class="bordeRedondoElement" :rules="rules" v-model="editedItem.lugar" disabled></v-text-field></v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
                   </v-layout>
@@ -121,25 +96,10 @@
                               disabled
                             ></v-text-field>
                           </template>
-                          <v-date-picker
-                            v-model="editedItem.fecha"
-                            no-title
-                            scrollable
-                            locale="es-MX"
-                            :rules="rules"
-                            disabled
-                          >
+                          <v-date-picker v-model="editedItem.fecha" no-title scrollable locale="es-MX" :rules="rules" disabled>
                             <v-spacer></v-spacer>
-                            <v-btn text color="primary" @click="menu = false">
-                              Cancel
-                            </v-btn>
-                            <v-btn
-                              text
-                              color="primary"
-                              @click="$refs.menu.save(editedItem.fecha)"
-                            >
-                              OK
-                            </v-btn>
+                            <v-btn text color="primary" @click="menu = false"> Cancel </v-btn>
+                            <v-btn text color="primary" @click="$refs.menu.save(editedItem.fecha)"> OK </v-btn>
                           </v-date-picker>
                         </v-menu></v-col
                       >
@@ -153,13 +113,7 @@
                     <v-flex align-self-center xs2><label>REGIÓN</label></v-flex>
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="editedItem.region"
-                          disabled
-                        ></v-text-field>
+                        <v-text-field outlined class="bordeRedondoElement" :rules="rules" v-model="editedItem.region" disabled></v-text-field>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -168,18 +122,10 @@
                 <v-row justify="center" align="center">
                   <v-layout row justify-center>
                     <v-flex align-self-center xs4> </v-flex>
-                    <v-flex align-self-center xs2
-                      ><label>DISTRITO</label></v-flex
-                    >
+                    <v-flex align-self-center xs2><label>DISTRITO</label></v-flex>
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="editedItem.distrito"
-                          disabled
-                        ></v-text-field>
+                        <v-text-field outlined class="bordeRedondoElement" :rules="rules" v-model="editedItem.distrito" disabled></v-text-field>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -188,18 +134,10 @@
                 <v-row justify="center" align="center">
                   <v-layout row justify-center>
                     <v-flex align-self-center xs4> </v-flex>
-                    <v-flex align-self-center xs2
-                      ><label>MUNICIPIO</label></v-flex
-                    >
+                    <v-flex align-self-center xs2><label>MUNICIPIO</label></v-flex>
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="municipio_data.Descripcion"
-                          disabled
-                        ></v-text-field>
+                        <v-text-field outlined class="bordeRedondoElement" :rules="rules" v-model="municipio_data.Descripcion" disabled></v-text-field>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -208,18 +146,10 @@
                 <v-row justify="center" align="center">
                   <v-layout row justify-center>
                     <v-flex align-self-center xs4> </v-flex>
-                    <v-flex align-self-center xs2
-                      ><label>LOCALIDAD</label></v-flex
-                    >
+                    <v-flex align-self-center xs2><label>LOCALIDAD</label></v-flex>
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="editedItem.localidad"
-                          disabled
-                        ></v-text-field>
+                        <v-text-field outlined class="bordeRedondoElement" :rules="rules" v-model="editedItem.localidad" disabled></v-text-field>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -228,21 +158,10 @@
                 <v-row justify="center" align="center">
                   <v-layout row justify-center>
                     <v-flex align-self-center xs4> </v-flex>
-                    <v-flex align-self-center xs2
-                      ><label
-                        >NOMBRE DEL REPRESENTANTE DEL GRUPO DE
-                        CAPACITACIÓN</label
-                      ></v-flex
-                    >
+                    <v-flex align-self-center xs2><label>NOMBRE DEL REPRESENTANTE DEL GRUPO DE CAPACITACIÓN</label></v-flex>
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="editedItem.nombre_representante"
-                          disabled
-                        ></v-text-field
+                        <v-text-field outlined class="bordeRedondoElement" :rules="rules" v-model="editedItem.nombre_representante" disabled></v-text-field
                       ></v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -251,19 +170,9 @@
                 <v-row justify="center" align="center">
                   <v-layout row justify-center>
                     <v-flex align-self-center xs4> </v-flex>
-                    <v-flex align-self-center xs2
-                      ><label>DOMICILIO</label></v-flex
-                    >
+                    <v-flex align-self-center xs2><label>DOMICILIO</label></v-flex>
                     <v-flex align-self-center xs3>
-                      <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="editedItem.domicilio"
-                          disabled
-                        ></v-text-field
-                      ></v-col>
+                      <v-col> <v-text-field outlined class="bordeRedondoElement" :rules="rules" v-model="editedItem.domicilio" disabled></v-text-field></v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
                   </v-layout>
@@ -271,19 +180,9 @@
                 <v-row justify="center" align="center">
                   <v-layout row justify-center>
                     <v-flex align-self-center xs4> </v-flex>
-                    <v-flex align-self-center xs2
-                      ><label>TELÉFONO</label></v-flex
-                    >
+                    <v-flex align-self-center xs2><label>TELÉFONO</label></v-flex>
                     <v-flex align-self-center xs3>
-                      <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="editedItem.telefono"
-                          disabled
-                        ></v-text-field
-                      ></v-col>
+                      <v-col> <v-text-field outlined class="bordeRedondoElement" :rules="rules" v-model="editedItem.telefono" disabled></v-text-field></v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
                   </v-layout>
@@ -291,9 +190,7 @@
                 <v-row justify="center" align="center">
                   <v-layout row justify-center>
                     <v-flex align-self-center xs4> </v-flex>
-                    <v-flex align-self-center xs2
-                      ><label>TOTAL PARTICIPANTES HOMBRES</label></v-flex
-                    >
+                    <v-flex align-self-center xs2><label>TOTAL PARTICIPANTES HOMBRES</label></v-flex>
                     <v-flex align-self-center xs3>
                       <v-col>
                         <v-text-field
@@ -312,9 +209,7 @@
                 <v-row justify="center" align="center">
                   <v-layout row justify-center>
                     <v-flex align-self-center xs4> </v-flex>
-                    <v-flex align-self-center xs2
-                      ><label>TOTAL PARTICIPANTES MUJERES</label></v-flex
-                    >
+                    <v-flex align-self-center xs2><label>TOTAL PARTICIPANTES MUJERES</label></v-flex>
                     <v-flex align-self-center xs3>
                       <v-col>
                         <v-text-field
@@ -333,19 +228,10 @@
                 <v-row justify="center" align="center">
                   <v-layout row justify-center>
                     <v-flex align-self-center xs4> </v-flex>
-                    <v-flex align-self-center xs2
-                      ><label>TOTAL INSCRITOS</label></v-flex
-                    >
+                    <v-flex align-self-center xs2><label>TOTAL INSCRITOS</label></v-flex>
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          type="number"
-                          v-model="editedItem.total"
-                          disabled
-                        ></v-text-field
+                        <v-text-field outlined class="bordeRedondoElement" :rules="rules" type="number" v-model="editedItem.total" disabled></v-text-field
                       ></v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -358,12 +244,7 @@
                       <label>INFRAESTRUCTURA ADECUADA Y SUFICIENTE</label>
                     </v-flex>
                     <v-flex align-self-center xs4>
-                      <v-radio-group
-                        row
-                        :rules="rules"
-                        v-model="editedItem.infraestructura_adecuada"
-                        disabled
-                      >
+                      <v-radio-group row :rules="rules" v-model="editedItem.infraestructura_adecuada" disabled>
                         <v-radio label="SÍ" value="1"></v-radio>
                         <v-radio label="NO" value="0"></v-radio>
                       </v-radio-group>
@@ -375,19 +256,9 @@
                 <v-row justify="center" align="center">
                   <v-layout row justify-center>
                     <v-flex align-self-center xs4> </v-flex>
-                    <v-flex align-self-center xs2
-                      ><label
-                        >DETALLE EN QUÉ CONSISTE LA INFRAESTRUCTURA</label
-                      ></v-flex
-                    >
+                    <v-flex align-self-center xs2><label>DETALLE EN QUÉ CONSISTE LA INFRAESTRUCTURA</label></v-flex>
                     <v-flex align-self-center xs3>
-                      <v-textarea
-                        outlined
-                        name="input-7-5"
-                        v-model="editedItem.detalles"
-                        class="bordeRedondoElement"
-                        disabled
-                      ></v-textarea>
+                      <v-textarea outlined name="input-7-5" v-model="editedItem.detalles" class="bordeRedondoElement" disabled></v-textarea>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
                   </v-layout>
@@ -397,19 +268,10 @@
                   <v-layout row justify-center>
                     <v-flex align-self-center xs4> </v-flex>
                     <v-flex align-self-center xs2
-                      ><label
-                        >EXPLICAR DETALLADAMENTE LAS RAZONES POR LAS QUE ES
-                        NECESARIO OPERAR EL CURSO SOLICITADO</label
-                      ></v-flex
+                      ><label>EXPLICAR DETALLADAMENTE LAS RAZONES POR LAS QUE ES NECESARIO OPERAR EL CURSO SOLICITADO</label></v-flex
                     >
                     <v-flex align-self-center xs3>
-                      <v-textarea
-                        outlined
-                        name="input-7-5"
-                        v-model="editedItem.explicacion"
-                        class="bordeRedondoElement"
-                        disabled
-                      ></v-textarea>
+                      <v-textarea outlined name="input-7-5" v-model="editedItem.explicacion" class="bordeRedondoElement" disabled></v-textarea>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
                   </v-layout>
@@ -419,12 +281,7 @@
                     <v-flex align-self-center xs4> </v-flex>
                     <v-flex align-self-center xs2> </v-flex>
                     <v-flex align-self-center xs4>
-                      <v-radio-group
-                        row
-                        :rules="rules"
-                        v-model="editedItem.positivo"
-                        disabled
-                      >
+                      <v-radio-group row :rules="rules" v-model="editedItem.positivo" disabled>
                         <v-radio label="POSITIVO" value="1"></v-radio>
                         <v-radio label="NEGATIVO" value="0"></v-radio>
                       </v-radio-group>
@@ -436,17 +293,9 @@
                 <v-row justify="center" align="center">
                   <v-layout row justify-center>
                     <v-flex align-self-center xs4> </v-flex>
-                    <v-flex align-self-center xs2
-                      ><label>RAZONES</label></v-flex
-                    >
+                    <v-flex align-self-center xs2><label>RAZONES</label></v-flex>
                     <v-flex align-self-center xs3>
-                      <v-textarea
-                        outlined
-                        name="input-7-5"
-                        v-model="editedItem.razones"
-                        class="bordeRedondoElement"
-                        disabled
-                      ></v-textarea>
+                      <v-textarea outlined name="input-7-5" v-model="editedItem.razones" class="bordeRedondoElement" disabled></v-textarea>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
                   </v-layout>
@@ -455,35 +304,17 @@
                 <v-row justify="center" align="center">
                   <v-layout row justify-center>
                     <v-flex align-self-center xs4> </v-flex>
-                    <v-flex align-self-center xs2
-                      ><label
-                        >NOMBRE DEL ADMINISTRATIVO DE LA OFICINA DE ATENCIÓN
-                        ICAPET QUE VERIFICÓ</label
-                      ></v-flex
-                    >
+                    <v-flex align-self-center xs2><label>NOMBRE DEL ADMINISTRATIVO DE LA OFICINA DE ATENCIÓN ICAPET QUE VERIFICÓ</label></v-flex>
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="editedItem.nombre_administrativo"
-                          disabled
-                        ></v-text-field
+                        <v-text-field outlined class="bordeRedondoElement" :rules="rules" v-model="editedItem.nombre_administrativo" disabled></v-text-field
                       ></v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
                   </v-layout>
                 </v-row>
                 <v-card-actions>
-                  <v-btn
-                    outlined
-                    color="gray"
-                    class="bordeRedondoElement"
-                    @click="dialogEdit = false"
-                  >
-                    Regresar
-                  </v-btn>
+                  <v-btn outlined color="gray" class="bordeRedondoElement" @click="dialogEdit = false"> Regresar </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -491,32 +322,14 @@
               <v-card class="p-5">
                 <v-row justify="center" align="center">
                   <br />
-                  <h2 style="color: #2b4c7b">
-                    Validar Factibilidad y Justificación del Curso
-                  </h2>
+                  <h2 style="color: #2b4c7b">Validar Factibilidad y Justificación del Curso</h2>
                 </v-row>
-                <v-card-text>
-                  ¿Estás seguro que quiere validar la factibilidad y
-                  justificación del curso seleccionada?
-                </v-card-text>
+                <v-card-text> ¿Estás seguro que quiere validar la factibilidad y justificación del curso seleccionada? </v-card-text>
                 <v-card-actions>
-                  <v-btn
-                    outlined
-                    color="orangeFooter"
-                    class="bordeRedondoElement"
-                    @click="
-                      enviarValidacionFactibilidad(editedItem.idFactibilidad)
-                    "
+                  <v-btn outlined color="orangeFooter" class="bordeRedondoElement" @click="enviarValidacionFactibilidad(editedItem.idFactibilidad)"
                     >Validar</v-btn
                   >
-                  <v-btn
-                    outlined
-                    color="gray"
-                    class="bordeRedondoElement"
-                    @click="dialogValid = false"
-                  >
-                    Cancelar
-                  </v-btn>
+                  <v-btn outlined color="gray" class="bordeRedondoElement" @click="dialogValid = false"> Cancelar </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -552,13 +365,8 @@
           </v-toolbar>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-          <v-btn v-if="!item.esValido_DA" text @click="validItem(item)"
-            ><v-icon small>mdi-check</v-icon><small>Validar</small></v-btn
-          >
-          <v-btn text @click="editItem(item)"
-            ><v-icon small>mdi-eye-outline</v-icon
-            ><small>ver</small></v-btn
-          >
+          <v-btn v-if="!item.esValido_DA" text @click="validItem(item)"><v-icon small>mdi-check</v-icon><small>Validar</small></v-btn>
+          <v-btn text @click="editItem(item)"><v-icon small>mdi-eye-outline</v-icon><small>ver</small></v-btn>
           <!-- <v-btn text @click="deleteItem(item)">
             <v-icon small>mdi-window-close</v-icon
             ><small>Eliminar</small></v-btn
@@ -570,14 +378,14 @@
 </template>
 
 <script>
-import AuthService from "@/services/AuthService.js";
+import AuthService from '@/services/AuthService.js';
 
 export default {
-  name: "FactibilidadJustificacionRegistradas",
+  name: 'FactibilidadJustificacionRegistradas',
 
   data: () => ({
     valid: false,
-    rules: [(v) => !!v || "Campo requerido"],
+    rules: [(v) => !!v || 'Campo requerido'],
     datarespuesta: [],
     datarespuestaEdit: [],
     datarespuestaDelete: [],
@@ -588,21 +396,20 @@ export default {
     //Elementos para la tabla
     headers: [
       {
-        text: "Representante",
-        align: "start",
+        text: 'Representante',
+        align: 'start',
         sortable: false,
-        value: "nombre_representante",
+        value: 'nombre_representante',
       },
-      { text: "Lugar", value: "lugar" },
-      { text: "Total participantes", value: "total" },
-      { text: "Nombre verificó", value: "nombre_administrativo" },
-      { text: "Teléfono", value: "telefono" },
-      { text: "Enviado Validación", value: "valido" },
-      { text: "Aprobado D.A.P.", value: "esValido_DA" },
-      { text: " ", value: "actions" },
+      { text: 'Lugar', value: 'lugar' },
+      { text: 'Total participantes', value: 'total' },
+      { text: 'Nombre verificó', value: 'nombre_administrativo' },
+      { text: 'Teléfono', value: 'telefono' },
+      { text: 'Aprobado D.A.P.', value: 'esValido_DA' },
+      { text: ' ', value: 'actions' },
     ],
     factibilidades: [],
-    editedItem: "",
+    editedItem: '',
     deleteId: 0,
     editedIndex: -1,
     editId: 0,
@@ -615,7 +422,7 @@ export default {
     try {
       const response = await AuthService.getPreValidFactibility();
       this.factibilidades = response.data;
-      console.log("factibilidades", this.factibilidades);
+      console.log('factibilidades', this.factibilidades);
     } catch (error) {
       console.log(error);
     }
@@ -625,7 +432,7 @@ export default {
     async reloadTable() {
       const response = await AuthService.getPreValidFactibility();
       this.factibilidades = response.data;
-      console.log("factibilidades", this.factibilidades);
+      console.log('factibilidades', this.factibilidades);
     },
 
     // async newForm() {
@@ -705,32 +512,20 @@ export default {
           id: idFactibilidad,
           esValido_DA: true,
         };
-        const responseValid = await AuthService.updateFactibilidadJustificacion(
-          data
-        );
+        const responseValid = await AuthService.updateFactibilidadJustificacion(data);
         this.datarespuestaEdit = responseValid;
         if (responseValid.serverCode == 200) {
           this.dialogEdit = false;
-          this.$swal(
-            "Validado",
-            "Factibilidad y justificación del curso validada correctamente por el departamento de apoyo académico.",
-            "success"
-          );
+          this.$swal('Validado', 'Factibilidad y justificación del curso validada correctamente por el departamento de apoyo académico.', 'success');
           this.reloadTable();
           this.dialogValid = false;
         } else {
-          let error_msg =
-            responseValid.data.errors[
-              Object.keys(responseValid.data.errors)[0]
-            ][0];
-          this.$swal("Error", error_msg, "error");
+          let error_msg = responseValid.data.errors[Object.keys(responseValid.data.errors)[0]][0];
+          this.$swal('Error', error_msg, 'error');
         }
       } catch (error) {
-        let error_msg =
-          error.response.data.errors[
-            Object.keys(error.response.data.errors)[0]
-          ][0];
-        this.$swal("Error", error_msg, "error");
+        let error_msg = error.response.data.errors[Object.keys(error.response.data.errors)[0]][0];
+        this.$swal('Error', error_msg, 'error');
       }
     },
 
@@ -769,23 +564,23 @@ export default {
 
     validItem(item) {
       this.editedIndex = this.factibilidades.indexOf(item);
-      console.log("verIndex ", this.editedIndex);
+      console.log('verIndex ', this.editedIndex);
       this.editedItem = Object.assign({}, item);
-      console.log("verItem ", this.editedItem);
+      console.log('verItem ', this.editedItem);
       this.dialogValid = true;
-      console.log("item ver ", item);
+      console.log('item ver ', item);
       this.editId = this.editedItem.idFactibilidad;
-      console.log("verItem.idFactibilidad ", this.editId);
+      console.log('verItem.idFactibilidad ', this.editId);
     },
     editItem(item) {
       this.editedIndex = this.factibilidades.indexOf(item);
-      console.log("editedIndex ", this.editedIndex);
+      console.log('editedIndex ', this.editedIndex);
       this.editedItem = Object.assign({}, item);
-      console.log("editedItem ", this.editedItem);
+      console.log('editedItem ', this.editedItem);
       this.dialogEdit = true;
-      console.log("item edit ", item);
+      console.log('item edit ', item);
       this.editId = this.editedItem.idFactibilidad;
-      console.log("editedItem.idFactibilidad ", this.editId);
+      console.log('editedItem.idFactibilidad ', this.editId);
       this.rellenar(this.editedItem);
     },
     //   deleteItem(item) {
@@ -799,17 +594,17 @@ export default {
     //   },
 
     async rellenar(item) {
-      console.log("item ", item);
-      console.log("idcurso", item.idCurso);
+      console.log('item ', item);
+      console.log('idcurso', item.idCurso);
       const response2 = await AuthService.getGradeUnic(item.idCurso);
       this.curso_data = response2.curso;
-      console.log("curso ", this.curso_data);
+      console.log('curso ', this.curso_data);
       const response3 = await AuthService.getMunicipioUnic(item.c_Municipio);
       this.municipio_data = response3.data;
-      console.log("municipio ", this.municipio_data);
-      this.editedItem.infraestructura_adecuada =
-        item.infraestructura_adecuada.toString();
+      console.log('municipio ', this.municipio_data);
+      this.editedItem.infraestructura_adecuada = item.infraestructura_adecuada.toString();
       this.editedItem.positivo = item.positivo.toString();
+      console.log(item);
     },
 
     //   async ctotalInscritos() {
