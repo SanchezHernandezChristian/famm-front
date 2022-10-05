@@ -104,7 +104,7 @@ export default {
 
   async mounted() {
     try {
-      const response = await AuthService.getAllAssign();
+      const response = await AuthService.getAllAssignGrade();
       this.cursosAsignados = response.cursos;
       console.log("cursosAsignados", this.cursosAsignados);
     } catch (error) {
@@ -114,7 +114,7 @@ export default {
 
   methods: {
     async reloadTable() {
-      const response = await AuthService.getAllAssign();
+      const response = await AuthService.getAllAssignGrade();
       this.cursosAsignados = response.cursos;
       console.log("cursosAsignados", this.cursosAsignados);
     },
