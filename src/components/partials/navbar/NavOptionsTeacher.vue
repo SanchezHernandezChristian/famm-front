@@ -57,7 +57,7 @@
         Mis datos
       </v-btn>
     </v-col>
-    <v-col cols="1">
+    <!--<v-col cols="1">
       <v-menu transition="scroll-y-transition">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -73,7 +73,7 @@
           </v-btn>
         </template>
       </v-menu>
-    </v-col>
+    </v-col>-->
   </v-row>
 </template>
 
