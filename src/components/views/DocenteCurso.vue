@@ -131,14 +131,18 @@
                   <v-flex align-self-center xs12>
                     <p></p>
                     <br />
-                    <label><strong>INICIO DE CURSO:</strong>{{this.item_cedula.periodoInicio}}</label>
+                    <label
+                      ><strong>INICIO DE CURSO:</strong
+                      >{{ this.item_cedula.periodoInicio }}</label
+                    >
                   </v-flex>
                   <v-flex
                     ><br />
                     <p></p>
                     <br />
                     <label
-                      ><strong>TÉRMINO DE CURSO:</strong>{{this.item_cedula.periodoTermino}}</label
+                      ><strong>TÉRMINO DE CURSO:</strong
+                      >{{ this.item_cedula.periodoTermino }}</label
                     ></v-flex
                   >
                 </v-card>
@@ -155,7 +159,10 @@
                   <v-flex align-self-center xs12>
                     <p></p>
                     <br />
-                    <label><strong>Alumnos inscritos:</strong>{{this.item_cedula.totalInscritos}}</label>
+                    <label
+                      ><strong>Alumnos inscritos:</strong
+                      >{{ this.item_cedula.totalInscritos }}</label
+                    >
                   </v-flex>
                   <v-flex> </v-flex>
                   <v-flex
@@ -200,11 +207,12 @@ export default {
       this.id_curso = response.curso.idCurso;
       let response2 = await AuthService.getCedulaIdCurso(this.id_curso);
       this.item_cedula = response2.data;
-      console.log("cedulacurso ",this.item_cedula);
+      console.log("cedulacurso ", this.item_cedula);
       let response3 = await AuthService.getCronogramaIdCurso(this.id_curso);
       this.item_cronograma = response3.data;
-      console.log("cronogramacurso ",this.item_cronograma);
+      console.log("cronogramacurso ", this.item_cronograma);
       this.valido_c = this.item_cronograma.valido;
+      if (this.item_cronograma.tipo_curso === 3) this.distancia = true;
     }
   },
   methods: {
