@@ -96,15 +96,15 @@ export default {
     },
     getAllAssignGrade() {
         return axios
-            .get(url + 'all-assign-grade')
+            .get(url + 'all-assign-grade-solicitud')
             .then(response => response.data);
     },
-    getAllAssignGradeByCenter() {
-        const id = 1 //Eliminar cuando se tenga el id del centro de capacitacion al que pertenece el usuario
-        return axios
-            .get(url + 'all-assign-grade/' + id)
-            .then(response => response.data);
-    },
+    // getAllAssignGradeByCenter() {
+    //     const id = 1 //Eliminar cuando se tenga el id del centro de capacitacion al que pertenece el usuario
+    //     return axios
+    //         .get(url + 'all-assign-grade/' + id)
+    //         .then(response => response.data);
+    // },
     getAllAssignGradeByTeacher(id) {
         return axios.get(`${url}all-assign-grade-teacher/${id}`).then(response => response.data);
     },
@@ -142,6 +142,9 @@ export default {
     },
     getDocente(id) {
         return axios.get(`${url}get-teacher/${id}`).then(response => response.data);
+    },
+    getCursosDocenteCedula(id) {
+        return axios.get(`${url}get-cursos-docente/${id}`).then(response => response.data);
     },
     addCedulaPreAut(data_cedula) {
         return axios
@@ -211,11 +214,11 @@ export default {
     deleteFactibilidadJustificacion(idFactibilidad) {
         return axios.delete(url + 'delete-factibility/' + idFactibilidad).then(response => response.data);
     },
-    getAllAssign() {
-        return axios.get(url + 'all-assign-grade').then(response => response.data);
-    },
+    // getAllAssign() {
+    //     return axios.get(url + 'all-assign-grade').then(response => response.data);
+    // },
     getAllAssignUnidad(idUnidad) {
-        return axios.get(`${url}all-assign-grade/${idUnidad}`).then(response => response.data);
+        return axios.get(`${url}all-assign-grade-solicitud/${idUnidad}`).then(response => response.data);
     },
     deleteAssignGrade(idCurso, idUnidad) {
         return axios.delete(`${url}delete-assign-grade/${idCurso}/${idUnidad}`).then(response => response.data);
@@ -271,10 +274,10 @@ export default {
     },
     deleteOficioSolicitud(id) {
         return axios.delete(`${url}delete-oficio-solicitud/${id}`).then(response => response.data);
-    },   
+    },
     getGradeUnic(id_grade) {
         return axios.get(`${url}get-grade-by-id/${id_grade}`).then(response => response.data);
-    },  
+    },
     getMunicipioUnic(id_m) {
         return axios.get(`${url}get-township/${id_m}`).then(response => response.data);
     },

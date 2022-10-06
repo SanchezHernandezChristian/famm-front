@@ -6,6 +6,7 @@
         color="#FFFFFF"
         elevation="0"
         style="font-size: 12px; color: #8996a0"
+        @click="goHome()"
         ><v-icon color="#8996a0">mdi-home</v-icon>
         Inicio
       </v-btn>
@@ -86,7 +87,8 @@ export default {
   async created() {
     const response = await AuthService.getProfileDocente();
     if (response) {
-      const response2 = await AuthService.getAllAssignGradeByTeacher(
+      // Se cambia la llamada a getAllAssignGradeByTeacher por getCursosDocenteCedula
+      const response2 = await AuthService.getCursosDocenteCedula(
         response.idDocente
       );
       this.items_cursos = response2.data;
@@ -100,6 +102,10 @@ export default {
           clave_curso: clave_curso,
         },
       });
+    },
+
+    goHome() {
+      this.$router.push("dashboard-instructor");
     },
 
     editProfile() {

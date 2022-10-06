@@ -3,9 +3,7 @@
     <v-row class="mb-4">
       <v-col cols="12" class="d-flex flex-row">
         <h2 style="color: #2b4c7b">Usuarios registrados</h2>
-        <v-btn small color="orange" dark class="ma-2" @click="addUser">
-          CREAR NUEVO
-        </v-btn>
+        <v-btn small color="orange" dark class="ma-2" @click="addUser"> CREAR NUEVO </v-btn>
       </v-col>
     </v-row>
     <v-row>
@@ -17,7 +15,11 @@
         item-key="id"
         show-select
         class="elevation-1"
+        :search="search"
       >
+        <template v-slot:top>
+          <v-text-field v-model="search" label="Buscar" class="mx-4" append-icon="mdi-magnify"></v-text-field>
+        </template>
         <template v-slot:[`item.fullname`]="{ item }">
           <div v-if="item.nombres || item.primer_apellido">
             {{ item.nombres }} {{ item.primer_apellido }}
@@ -51,20 +53,21 @@
 </template>
 
 <script>
-import AuthService from "@/services/AuthService.js";
+import AuthService from '@/services/AuthService.js';
 
 export default {
-  name: "Users",
+  name: 'Users',
   data: () => ({
     headers: [
-      { text: "NOMBRE", value: "fullname" },
-      { text: "Rol de usuario", value: "idRol" },
-      { text: "CORREO", value: "email" },
-      { text: "FECHA DE ALTA", value: "created_at" },
-      { text: "ADMINISTRAR", value: "adm" },
-      { text: "OPCIONES", align: "center", value: "actions" },
+      { text: 'NOMBRE', value: 'fullname' },
+      { text: 'Rol de usuario', value: 'idRol' },
+      { text: 'CORREO', value: 'email' },
+      { text: 'FECHA DE ALTA', value: 'created_at' },
+      { text: 'ADMINISTRAR', value: 'adm' },
+      { text: 'OPCIONES', align: 'center', value: 'actions' },
     ],
     items_users: [],
+    search: '',
   }),
   mounted() {
     this.getItems();
@@ -85,14 +88,14 @@ export default {
 
     deleteItem(id) {
       this.$swal({
-        title: "Desea eliminar?",
-        text: "Esta acción no se puede deshacer.",
-        icon: "warning",
+        title: 'Desea eliminar?',
+        text: 'Esta acción no se puede deshacer.',
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminar",
-        cancelButtonText: "Cancelar",
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminar',
+        cancelButtonText: 'Cancelar',
       })
         .then((result) => {
           if (result.isConfirmed) {
@@ -101,19 +104,19 @@ export default {
         })
         .then((response) => {
           if (response && response.serverCode == 200) {
-            this.$swal("Eliminado!", "El usuario se ha eliminado.", "success");
+            this.$swal('Eliminado!', 'El usuario se ha eliminado.', 'success');
             this.getItems();
           }
         })
         .catch((error) => {
           console.log(error);
-          this.$swal("Error!", "No se pudo eliminar el usuario.", "error");
+          this.$swal('Error!', 'No se pudo eliminar el usuario.', 'error');
         });
     },
 
     editItem(id) {
       this.$router.push({
-        name: "ViewAddUser",
+        name: 'ViewAddUser',
         params: {
           id: id,
         },
@@ -121,13 +124,13 @@ export default {
     },
 
     addUser() {
-      this.$router.push("agregar-usuario");
+      this.$router.push('agregar-usuario');
     },
 
     getColor(role) {
-      if (role == 1) return "red";
-      else if (role == 2) return "orange";
-      else return "green";
+      if (role == 1) return 'red';
+      else if (role == 2) return 'orange';
+      else return 'green';
     },
   },
 };
