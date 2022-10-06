@@ -194,7 +194,7 @@
             label="NOMBRE DEL INSTRUCTOR QUE ELABORÓ"
             dense
             outlined
-            :rules="[rules.required]"
+            :rules="[rules.required, rules.letras]"
             v-model="cronograma.encargado_curso"
             :readonly="mode > 1"
           ></v-text-field>
@@ -277,6 +277,10 @@ export default {
   data: () => ({
     rules: {
       required: (value) => !!value || "Campo requerido",
+      letras: (value) => {
+        const pattern_pnumber = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\\ ]+$/i;
+        return pattern_pnumber.test(value) || "Nombre inválido";
+      },
     },
     dialog: false,
     dialogDelete: false,
@@ -433,7 +437,7 @@ export default {
     },
 
     redirect() {
-      if (this.$route.name != "ViewCronograma") this.$router.push("cronograma");
+      if (this.$route.name != "ViewDashboardInstructor") this.$router.push("dashboard-instructor");
       else this.$emit("close");
     },
 
