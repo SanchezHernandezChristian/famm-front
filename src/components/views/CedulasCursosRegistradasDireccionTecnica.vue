@@ -1,12 +1,11 @@
 <template>
-  <v-container fluid pt-6>
+  <v-container fluid pt-6 class="max-height">
     <v-row justify="center" align="center">
       <h2 style="color: #2b4c7b">Cédulas de Pre-autorización registradas</h2>
     </v-row>
     <v-row justify="center" align="center" style="height: 70px">
       <v-layout row justify-start>
-        <v-flex align-self-center xs1>
-        </v-flex>
+        <v-flex align-self-center xs1> </v-flex>
         <v-flex align-self-center xs10> </v-flex>
         <v-flex align-self-start xs1> </v-flex>
       </v-layout>
@@ -226,8 +225,7 @@
                           :rules="rules"
                           v-model="editedItem.Descripcion"
                           disabled
-                        ></v-text-field
-                      >
+                        ></v-text-field>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -285,7 +283,7 @@
                           outlined
                           class="bordeRedondoElement"
                           :rules="rules"
-                          v-model="docenteCedula.nombre"
+                          v-model="docenteCedula.fullname"
                           disabled
                         ></v-text-field>
                       </v-col>
@@ -989,8 +987,7 @@
                           class="bordeRedondoElement"
                           :rules="rules"
                           v-model="editedItem.Descripcion"
-                        ></v-text-field
-                      >
+                        ></v-text-field>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -1789,19 +1786,19 @@
             </v-dialog>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
-            <v-btn v-if="!item.esValido_DT" text @click="validItem(item)"
-              ><v-icon small>mdi-check</v-icon><small>Validar</small></v-btn
+            <v-btn v-if="!item.esValido_DT" text @click="validItem(item)">
+              <v-icon small>mdi-check</v-icon><small>Validar</small>
+            </v-btn>
+            <v-btn text @click="verItem(item)">
+              <v-icon small>mdi-eye-outline</v-icon><small>Ver</small>
+            </v-btn>
+            <v-btn
+              v-if="!item.esValido_DT && !item.esValido"
+              text
+              @click="editItem(item)"
             >
-            <v-btn text @click="verItem(item)"
-              ><v-icon small>mdi-eye-outline</v-icon><small>Ver</small></v-btn
-            >
-            <v-btn v-if="!item.esValido_DT && !item.esValido" text @click="editItem(item)"
-              ><v-icon small>mdi-pencil</v-icon><small>Editar</small></v-btn
-            >
-            <v-btn v-if="!item.esValido_DT || !item.esValido_DA && !item.esValido" text @click="deleteItem(item)">
-              <v-icon small>mdi-window-close</v-icon
-              ><small>Eliminar</small></v-btn
-            >
+              <v-icon small>mdi-pencil</v-icon><small>Editar</small>
+            </v-btn>
           </template></v-data-table
         >
       </v-card>
@@ -2076,6 +2073,7 @@ export default {
       this.horariosCedula = response_h.data;
       const response_d = await AuthService.getDocente(item_data.idDocente);
       this.docenteCedula = response_d.data;
+      this.docenteCedula.fullname = `${this.docenteCedula.nombre} ${this.docenteCedula.apellido_paterno} ${this.docenteCedula.apellido_materno}`;
     },
 
     async calcular() {

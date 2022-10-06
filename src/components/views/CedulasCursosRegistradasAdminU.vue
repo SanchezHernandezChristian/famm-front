@@ -226,14 +226,19 @@
                     >
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-text-field
+                        <v-select
+                          v-model="editedItem.c_Municipio"
+                          :items="items_municipios"
+                          item-text="Descripcion"
+                          item-value="c_Municipio"
+                          :rules="rules"
+                          required
+                          return-object
+                          dense
                           outlined
                           class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="editedItem.Descripcion"
                           disabled
-                        ></v-text-field
-                      >
+                        ></v-select>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -287,13 +292,19 @@
                     >
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-text-field
+                        <v-select
+                          v-model="docenteCedula.idDocente"
+                          :items="items_docentes"
+                          item-text="fullname"
+                          item-value="idDocente"
+                          :rules="rules"
+                          required
+                          return-object
+                          dense
                           outlined
                           class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="docenteCedula.nombre"
                           disabled
-                        ></v-text-field>
+                        ></v-select>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -990,13 +1001,18 @@
                     >
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-text-field
+                        <v-select
+                          v-model="editedItem.c_Municipio"
+                          :items="items_municipios"
+                          item-text="Descripcion"
+                          item-value="c_Municipio"
+                          :rules="rules"
+                          required
+                          return-object
+                          dense
                           outlined
                           class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="editedItem.Descripcion"
-                        ></v-text-field
-                      >
+                        ></v-select>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -1048,12 +1064,18 @@
                     >
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-text-field
+                        <v-select
+                          v-model="docenteCedula.idDocente"
+                          :items="items_docentes"
+                          item-text="fullname"
+                          item-value="idDocente"
+                          :rules="rules"
+                          required
+                          return-object
+                          dense
                           outlined
                           class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="docenteCedula.nombre"
-                        ></v-text-field>
+                        ></v-select>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -1900,12 +1922,21 @@ export default {
     especialidad: [],
     horariosCedula: [],
     docenteCedula: [],
+    items_municipios: [],
+    items_docentes: [],
   }),
 
   async mounted() {
     try {
       const response = await AuthService.getAllCedulas();
+      const response2 = await AuthService.getMunicipios();
+      const response3 = await AuthService.getDocentes();
       this.cedulas = response.data;
+      this.items_municipios = response2.municipios;
+      this.items_docentes = response3.data.map((item) => {
+        item.fullname = `${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}`;
+        return item;
+      });
       console.log("cedulas", this.cedulas);
     } catch (error) {
       console.log(error);
@@ -2045,6 +2076,7 @@ export default {
       this.editedIndex = this.cedulas.indexOf(item);
       console.log("verIndex ", this.editedIndex);
       this.editedItem = Object.assign({}, item);
+      this.editedItem.c_Municipio = parseInt(item.c_Municipio, 10);
       console.log("verItem ", this.editedItem);
       this.dialogVer = true;
       console.log("item ver ", item);
@@ -2056,6 +2088,7 @@ export default {
       this.editedIndex = this.cedulas.indexOf(item);
       console.log("editedIndex ", this.editedIndex);
       this.editedItem = Object.assign({}, item);
+      this.editedItem.c_Municipio = parseInt(item.c_Municipio, 10);
       console.log("editedItem ", this.editedItem);
       this.dialogEdit = true;
       console.log("item edit ", item);
