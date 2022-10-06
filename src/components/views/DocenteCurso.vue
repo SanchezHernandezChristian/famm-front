@@ -38,7 +38,7 @@
                       Ver/Editar
                     </v-btn>
                     <v-btn
-                      v-if="!valido && capturado"
+                      v-if="!valido_c"
                       color="white"
                       text
                       small
@@ -131,14 +131,18 @@
                   <v-flex align-self-center xs12>
                     <p></p>
                     <br />
-                    <label><strong>INICIO DE CURSO:</strong>2022-08-25</label>
+                    <label
+                      ><strong>INICIO DE CURSO:</strong
+                      >{{ this.item_cedula.periodoInicio }}</label
+                    >
                   </v-flex>
                   <v-flex
                     ><br />
                     <p></p>
                     <br />
                     <label
-                      ><strong>TÉRMINO DE CURSO:</strong>2022-12-20</label
+                      ><strong>TÉRMINO DE CURSO:</strong
+                      >{{ this.item_cedula.periodoTermino }}</label
                     ></v-flex
                   >
                 </v-card>
@@ -155,7 +159,10 @@
                   <v-flex align-self-center xs12>
                     <p></p>
                     <br />
-                    <label><strong>Alumnos inscritos:</strong>15</label>
+                    <label
+                      ><strong>Alumnos inscritos:</strong
+                      >{{ this.item_cedula.totalInscritos }}</label
+                    >
                   </v-flex>
                   <v-flex> </v-flex>
                   <v-flex
@@ -186,14 +193,26 @@ export default {
   data: () => ({
     nombre_curso: "",
     distancia: false,
-    valido: false,
+    valido_c: false,
     capturado: false,
+    id_curso: null,
+    item_cedula: [],
+    item_cronograma: [],
   }),
   async created() {
     let clave_curso = this.$route.params.clave_curso;
     if (clave_curso) {
       let response = await AuthService.getCursoIndividual(clave_curso);
       this.nombre_curso = response.curso.nombre_curso;
+      this.id_curso = response.curso.idCurso;
+      let response2 = await AuthService.getCedulaIdCurso(this.id_curso);
+      this.item_cedula = response2.data;
+      console.log("cedulacurso ", this.item_cedula);
+      let response3 = await AuthService.getCronogramaIdCurso(this.id_curso);
+      this.item_cronograma = response3.data;
+      console.log("cronogramacurso ", this.item_cronograma);
+      this.valido_c = this.item_cronograma.valido;
+      if (this.item_cronograma.tipo_curso === 3) this.distancia = true;
     }
   },
   methods: {
