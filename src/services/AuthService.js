@@ -289,5 +289,11 @@ export default {
     },
     getCenterUnic(id_c) {
         return axios.get(`${url}get-training-center/${id_c}`).then(response => response.data);
+    },    
+    getCedulaIdCurso(id_cur) {
+        return axios.get(`${url}get-cedula-by-id-curso/${id_cur}`).then(response => response.data);
+    }, 
+    getCronogramaIdCurso(id_cur) {
+        return axios.get(`${url}get-cronograma-by-id-curso/${id_cur}`).then(response => response.data);
     },
 };

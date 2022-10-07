@@ -57,7 +57,7 @@
         Mis datos
       </v-btn>
     </v-col>
-    <v-col cols="1">
+    <!--<v-col cols="1">
       <v-menu transition="scroll-y-transition">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -73,12 +73,13 @@
           </v-btn>
         </template>
       </v-menu>
-    </v-col>
+    </v-col>-->
   </v-row>
 </template>
 
 <script>
 import AuthService from "@/services/AuthService.js";
+import EventBus from "@/services/EventBus.js";
 
 export default {
   data: () => ({
@@ -96,12 +97,16 @@ export default {
   },
   methods: {
     selectItem(clave_curso) {
-      this.$router.push({
-        name: "ViewDocenteCurso",
-        params: {
-          clave_curso: clave_curso,
-        },
-      });
+      if (this.$route.name == "ViewDocenteCurso") {
+        EventBus.$emit("change_curso", clave_curso);
+      } else {
+        this.$router.push({
+          name: "ViewDocenteCurso",
+          params: {
+            clave_curso: clave_curso,
+          },
+        });
+      }
     },
 
     goHome() {
