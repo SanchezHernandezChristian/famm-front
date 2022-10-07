@@ -79,6 +79,7 @@
 
 <script>
 import AuthService from "@/services/AuthService.js";
+import EventBus from "@/services/EventBus.js";
 
 export default {
   data: () => ({
@@ -96,12 +97,16 @@ export default {
   },
   methods: {
     selectItem(clave_curso) {
-      this.$router.push({
-        name: "ViewDocenteCurso",
-        params: {
-          clave_curso: clave_curso,
-        },
-      });
+      if (this.$route.name == "ViewDocenteCurso") {
+        EventBus.$emit("change_curso", clave_curso);
+      } else {
+        this.$router.push({
+          name: "ViewDocenteCurso",
+          params: {
+            clave_curso: clave_curso,
+          },
+        });
+      }
     },
 
     goHome() {

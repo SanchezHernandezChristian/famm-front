@@ -33,7 +33,7 @@
                       small
                       class="orange--text mr-3"
                       style="font-size: 18px"
-                      @click="redirect('ViewAddCronograma')"
+                      @click="editCronograma()"
                     >
                       Ver/Editar
                     </v-btn>
@@ -133,7 +133,7 @@
                     <br />
                     <label
                       ><strong>INICIO DE CURSO:</strong
-                      >{{ this.item_cedula.periodoInicio }}</label
+                      >{{ item_cedula.periodoInicio }}</label
                     >
                   </v-flex>
                   <v-flex
@@ -142,7 +142,7 @@
                     <br />
                     <label
                       ><strong>TÉRMINO DE CURSO:</strong
-                      >{{ this.item_cedula.periodoTermino }}</label
+                      >{{ item_cedula.periodoTermino }}</label
                     ></v-flex
                   >
                 </v-card>
@@ -161,7 +161,7 @@
                     <br />
                     <label
                       ><strong>Alumnos inscritos:</strong
-                      >{{ this.item_cedula.totalInscritos }}</label
+                      >{{ item_cedula.totalInscritos }}</label
                     >
                   </v-flex>
                   <v-flex> </v-flex>
@@ -172,68 +172,98 @@
                     <br />
                     <strong>ENLACES</strong></v-flex
                   >
-                  <v-flex v-if="distancia"><a href="">zoom</a></v-flex>
+                  <v-flex v-if="distancia"><a href="">zooom</a></v-flex>
                 </v-card>
               </v-row></v-flex
             >
           </v-layout>
         </v-row>
       </div>
+      <v-dialog v-model="dialog" persistent max-width="1200px">
+        <v-card>
+          <v-card-title>
+            <v-btn icon outlined @click="closeCronograma" class="mr-2">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <span class="text-h5">Editar cronograma</span>
+          </v-card-title>
+
+          <v-card-text>
+            <FormCronograma
+              :id="item_cronograma.cronograma.idCronograma"
+              :mode="1"
+              @close="closeCronograma"
+              v-if="dialog"
+            />
+          </v-card-text>
+        </v-card>
+      </v-dialog>
     </v-row>
-    <!-- <v-row>
-      <div style="height: 200px"></div>
-    </v-row> -->
   </v-container>
 </template>
 
 <script>
 import AuthService from "@/services/AuthService.js";
+import EventBus from "@/services/EventBus.js";
+import FormCronograma from "@/components/views/FormCronograma.vue";
 
 export default {
+  components: {
+    FormCronograma,
+  },
   data: () => ({
+    id_curso: null,
     nombre_curso: "",
+    tipo_curso: "",
     distancia: false,
     valido_c: false,
     capturado: false,
-    id_curso: null,
     item_cedula: [],
     item_cronograma: [],
+    dialog: false,
   }),
   async created() {
     let clave_curso = this.$route.params.clave_curso;
     if (clave_curso) {
-      let response = await AuthService.getCursoIndividual(clave_curso);
-      this.nombre_curso = response.curso.nombre_curso;
-      this.id_curso = response.curso.idCurso;
-      let response2 = await AuthService.getCedulaIdCurso(this.id_curso);
-      this.item_cedula = response2.data;
-      console.log("cedulacurso ", this.item_cedula);
-      let response3 = await AuthService.getCronogramaIdCurso(this.id_curso);
-      this.item_cronograma = response3.data;
-      console.log("cronogramacurso ", this.item_cronograma);
-      this.valido_c = this.item_cronograma.valido;
-      if (this.item_cronograma.tipo_curso === 3) this.distancia = true;
+      this.fetchData(clave_curso);
     }
+    EventBus.$on("change_curso", this.fetchData);
+  },
+  beforeDestroy() {
+    EventBus.$off("change_curso", this.fetchData);
   },
   methods: {
+    async fetchData(clave_curso) {
+      let response = await AuthService.getCursoIndividual(clave_curso);
+      this.id_curso = response.curso.idCurso;
+      let response2 = await AuthService.getCedulaIdCurso(this.id_curso);
+      let response3 = await AuthService.getCronogramaIdCurso(this.id_curso);
+      this.nombre_curso = response.curso.nombre_curso;
+      this.tipo_curso = response2.data[0].modalidadCurso;
+      this.item_cedula = response2.data[0];
+      this.item_cronograma = response3.data[0];
+      this.valido_c = this.item_cronograma.valido;
+      if (this.item_cronograma.cronograma.tipo_curso === 4)
+        this.distancia = true;
+    },
+
     redirect(route) {
-      this.$router
-        .push({
-          name: route,
-          params: {
-            e: 1,
-          },
-        })
-        .catch((error) => {
-          if (
-            error.name !== "NavigationDuplicated" &&
-            !error.message.includes(
-              "Avoided redundant navigation to current location"
-            )
-          ) {
-            console.log(error);
-          }
-        });
+      this.$router.push({
+        name: route,
+        params: {
+          id: this.id_curso,
+          tipo: this.tipo_curso,
+        },
+      });
+    },
+
+    editCronograma() {
+      this.dialog = true;
+    },
+
+    closeCronograma() {
+      this.fetchData(this.item_cedula.clave_curso);
+      this.dialog = false;
     },
   },
 };
