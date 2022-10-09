@@ -4,6 +4,22 @@
       <v-col cols="12">
         <span class="text-h5">{{ cronograma.nombre_curso }}</span>
       </v-col>
+      <v-col cols="12">
+        <v-list-item
+          two-line
+          v-for="(item, index) in cronograma.contenido_cronograma"
+          :key="index"
+        >
+          <v-list-item-content>
+            <v-list-item-title class="font-weight-bold">
+              {{ item.unidad }}. {{ item.tema }} / {{ item.periodo }}
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              {{ item.unidad }}.1 {{ item.subtema }} ({{ item.horas }} hrs.)
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </v-col>
     </v-row>
     <v-row justify="center" align="center">
       <v-col cols="12" class="text-center">
