@@ -241,7 +241,7 @@
                 <v-select
                   v-model="selectDocente"
                   :items="items_docentes"
-                  item-text="nombre"
+                  item-text="fullname"
                   item-value="idDocente"
                   :rules="rules"
                   required
@@ -900,7 +900,11 @@ export default {
         me.items_municipios = response.municipios;
         me.items_escolaridad = response2.data;
         //me.items_cursos = response3.cursos;
-        me.items_docentes = response4.data;
+        //me.items_docentes = response4.data;
+        me.items_docentes = response4.data.map((item) => {
+        item.fullname = `${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}`;
+        return item;
+      });
         me.items_especialidades = response5.especialidades;
         const response3 = await AuthService.getProfile();
         this.user.idUnidad = response3.idCentro_capacitacion;

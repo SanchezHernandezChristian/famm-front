@@ -168,7 +168,7 @@
                     <v-flex align-self-center xs2><label>DOCENTE</label></v-flex>
                     <v-flex align-self-center xs3>
                       <v-col>
-                        <v-text-field outlined class="bordeRedondoElement" :rules="rules" v-model="docenteCedula.nombre" disabled></v-text-field>
+                        <v-text-field outlined class="bordeRedondoElement" :rules="rules" v-model="docenteCedula.fullname" disabled></v-text-field>
                       </v-col>
                     </v-flex>
                     <v-flex align-self-center xs3> </v-flex>
@@ -1410,6 +1410,7 @@ export default {
       this.horariosCedula = response_h.data;
       const response_d = await AuthService.getDocente(item_data.idDocente);
       this.docenteCedula = response_d.data;
+      this.docenteCedula.fullname = `${this.docenteCedula.nombre} ${this.docenteCedula.apellido_paterno} ${this.docenteCedula.apellido_materno}`;
     },
 
     async calcular() {
