@@ -6,6 +6,7 @@
         color="#FFFFFF"
         elevation="0"
         style="font-size: 12px; color: #8996a0"
+        @click="goHome()"
         ><v-icon color="#8996a0">mdi-home</v-icon>
         Inicio
       </v-btn>
@@ -78,6 +79,7 @@
 
 <script>
 import AuthService from "@/services/AuthService.js";
+import EventBus from "@/services/EventBus.js";
 
 export default {
   data: () => ({
@@ -86,7 +88,8 @@ export default {
   async created() {
     const response = await AuthService.getProfileDocente();
     if (response) {
-      const response2 = await AuthService.getAllAssignGradeByTeacher(
+      // Se cambia la llamada a getAllAssignGradeByTeacher por getCursosDocenteCedula
+      const response2 = await AuthService.getCursosDocenteCedula(
         response.idDocente
       );
       this.items_cursos = response2.data;
@@ -94,12 +97,20 @@ export default {
   },
   methods: {
     selectItem(clave_curso) {
-      this.$router.push({
-        name: "ViewDocenteCurso",
-        params: {
-          clave_curso: clave_curso,
-        },
-      });
+      if (this.$route.name == "ViewDocenteCurso") {
+        EventBus.$emit("change_curso", clave_curso);
+      } else {
+        this.$router.push({
+          name: "ViewDocenteCurso",
+          params: {
+            clave_curso: clave_curso,
+          },
+        });
+      }
+    },
+
+    goHome() {
+      this.$router.push("dashboard-instructor");
     },
 
     editProfile() {

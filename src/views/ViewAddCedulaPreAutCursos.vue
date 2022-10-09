@@ -1,5 +1,5 @@
 <template>
-  <div class="form-cedula-cursos">
+  <div class="max-height">
     <MenuAdminUnidad />
     <AddCedulaPreAutCursos />
     <FooterDashboardAdmin />

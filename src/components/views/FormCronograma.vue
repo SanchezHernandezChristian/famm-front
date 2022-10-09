@@ -53,22 +53,11 @@
           >
             <v-radio
               dense
-              label="CURSO DE EXTENSIÓN"
-              value="1"
+              :label="item.descripcion"
+              :value="item.idTipoCurso"
               class="font-weight-black"
-              :readonly="mode > 1"
-            ></v-radio>
-            <v-radio
-              dense
-              label="CRUSO CAE"
-              value="2"
-              class="font-weight-black"
-            ></v-radio>
-            <v-radio
-              dense
-              label="A DISTANCIA"
-              value="3"
-              class="font-weight-black"
+              v-for="(item, index) in items_tiposcursos"
+              :key="index"
               :readonly="mode > 1"
             ></v-radio>
             <v-spacer></v-spacer>
@@ -312,6 +301,7 @@ export default {
     },
     items_cursos: [],
     items_docentes: [],
+    items_tiposcursos: [],
     role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = INSTRUCTOR
   }),
 
@@ -320,6 +310,7 @@ export default {
     let auth;
 
     me.fetchCursos();
+    me.fetchTiposCursos();
     me.fetchDocentes();
     auth = await AuthService.getProfile();
 
@@ -327,8 +318,13 @@ export default {
     else me.role = 1;
 
     if (me.id) me.getCronograma(me.id);
-    else
+    else {
+      let id_curso = this.$route.params.id;
+      let tipo_curso = this.$route.params.tipo;
+
+      if (id_curso && tipo_curso) me.setCurso(id_curso, tipo_curso);
       me.cronograma.encargado_curso = `${auth.nombres} ${auth.primer_apellido} ${auth.segundo_apellido}`;
+    }
   },
 
   computed: {
@@ -348,6 +344,14 @@ export default {
       this.items_docentes = response.data;
     },
 
+    async fetchTiposCursos() {
+      let response = await AuthService.getTiposCursos();
+      this.items_tiposcursos = response.data.map((item) => {
+        item.descripcion = item.descripcion.toUpperCase();
+        return item;
+      });
+    },
+
     async getCronograma(id) {
       let me = this;
       try {
@@ -356,7 +360,7 @@ export default {
         me.cronograma = {
           idCronograma: data.cronograma.idCronograma,
           idCurso: data.cronograma.idCurso,
-          tipo_curso: data.cronograma.tipo_curso.toString(),
+          tipo_curso: data.cronograma.tipo_curso,
           encargado_curso: data.cronograma.encargado_curso,
           contenido_cronograma: data.contenido_cronograma,
           valido: data.valido == 1 ? 1 : 0,
@@ -436,8 +440,38 @@ export default {
       this.update();
     },
 
+    setCurso(id, type) {
+      this.cronograma.idCurso = id;
+      switch (type.toUpperCase()) {
+        case "curso de competencia laboral":
+          this.cronograma.tipo_curso = 1;
+          break;
+        case "curso regular EBC":
+          this.cronograma.tipo_curso = 2;
+          break;
+        case "curso regular":
+          this.cronograma.tipo_curso = 3;
+          break;
+        case "curso de capacitación acelerada específica a distancia":
+          this.cronograma.tipo_curso = 4;
+          break;
+        case "curso de extensión":
+          this.cronograma.tipo_curso = 5;
+          break;
+        case "evaluación ROCO":
+          this.cronograma.tipo_curso = 6;
+          break;
+
+        default:
+          this.cronograma.tipo_curso = 5;
+          break;
+      }
+    },
+
     redirect() {
-      if (this.$route.name != "ViewDashboardInstructor") this.$router.push("dashboard-instructor");
+      // if (this.$route.name != "ViewCronograma") this.$router.push("cronograma");
+      if (this.$route.name != "ViewDashboardInstructor")
+        this.$router.push("dashboard-instructor");
       else this.$emit("close");
     },
 
