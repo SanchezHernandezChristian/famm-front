@@ -1,6 +1,6 @@
 <template>
     <div class="factibilidad-registradas-academico">
-      <NavbarApp color="orange" actions="NavOptionesDepartamentoApoyoAcademico" />
+      <NavbarApp color="orange" actions="NavOptionsDepartamentoApoyoAcademico" />
       <FactibilidadJustificacionRegistradasApoyoAcademico />
       <FooterDashboardAdmin />
     </div>
