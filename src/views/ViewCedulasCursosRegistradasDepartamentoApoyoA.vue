@@ -1,6 +1,6 @@
 <template>
   <div class="cedula-pre-autorizada-apoyo">
-    <NavbarApp color="orange" actions="NavOptionesDepartamentoApoyoAcademico" />
+    <NavbarApp color="orange" actions="NavOptionsDepartamentoApoyoAcademico" />
     <CedulasCursosRegistradasDepartamentoApoyoAcademico />
     <FooterDashboardAdmin />
   </div>
