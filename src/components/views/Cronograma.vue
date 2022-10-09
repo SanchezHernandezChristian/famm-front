@@ -19,7 +19,7 @@
       <v-data-table
         :headers="headers"
         :items="items_cronogramas"
-        :items-per-page="5"
+        :items-per-page="15"
         item-key="id"
         class="elevation-1"
       >
@@ -160,10 +160,7 @@ export default {
           );
           if (me.role < 1) {
             me.items_cronogramas = cronogramas.filter((item) => {
-              return (
-                item.cronograma.is_enviado_validacion == 1 ||
-                item.cronograma.valido > 0
-              );
+              return item.cronograma.is_enviado_validacion == 1;
             });
           } else {
             me.items_cronogramas = cronogramas;
