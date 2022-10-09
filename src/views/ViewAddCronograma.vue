@@ -13,11 +13,11 @@ import FormCronograma from "@/components/views/FormCronograma.vue";
 import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
-  name: "ViewUsers",
+  name: "ViewAddCronograma",
   components: {
     NavbarApp,
     FormCronograma,
     FooterDashboardAdmin,
-},
+  },
 };
 </script>

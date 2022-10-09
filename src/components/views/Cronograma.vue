@@ -155,9 +155,19 @@ export default {
       if (me.$store.getters.isLoggedIn) {
         try {
           const response = await AuthService.fetchCronogramas();
-          me.items_cronogramas = await CronogramaService.mapCronogramas(
+          let cronogramas = await CronogramaService.mapCronogramas(
             response.data
           );
+          if (me.role < 1) {
+            me.items_cronogramas = cronogramas.filter((item) => {
+              return (
+                item.cronograma.is_enviado_validacion == 1 ||
+                item.cronograma.valido > 0
+              );
+            });
+          } else {
+            me.items_cronogramas = cronogramas;
+          }
         } catch (error) {
           console.log(error);
         }
