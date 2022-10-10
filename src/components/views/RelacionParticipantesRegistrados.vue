@@ -1,211 +1,261 @@
 <template>
   <v-container fluid class="max-height" pt-6>
     <v-row justify="center" align="center">
-      <h2 style="color: #2b4c7b">Relación de participantes registrados</h2>
+      <h2>RELACIÓN DE PARTICIPANTES FORMATO RUDC-05</h2>
     </v-row>
     <v-row justify="center" align="center" style="height: 70px">
       <v-layout row justify-start>
-        <v-flex align-self-center xs10> </v-flex>
-        <v-flex align-self-start xs1> </v-flex>
-        <v-flex align-self-center xs1>
-          <v-btn color="orange" @click="newForm">Crear Nuevo</v-btn>
+        <v-flex align-self-center xs3
+          ><h3 style="color: #2b4c7b">
+            Relaciones de participante registradas
+          </h3>
         </v-flex>
+        <v-flex align-self-start xs1>
+          <!-- <v-btn color="orange" @click="newForm">NUEVA RELACIÓN</v-btn> -->
+        </v-flex>
+        <v-flex align-self-center xs8> </v-flex>
       </v-layout>
     </v-row>
     <v-row>
-      <v-data-table
-        :headers="headers"
-        :items="participantes"
-        item-key="nombre_curso"
-        class="elevation-1"
-      >
-        <template v-slot:[`item.nombres`]="{ item }">
-          <v-chip color="yellow">
-            {{ item.nombres }}
-          </v-chip>
-        </template>
-        <template v-slot:[`item.apellido_paterno`]="{ item }">
-          <v-chip color="blue">
-            {{ item.apellido_paterno }}
-          </v-chip>
-        </template>
-        <template v-slot:[`item.apellido_materno`]="{ item }">
-          <v-chip color="orange">
-            {{ item.apellido_materno }}
-          </v-chip>
-        </template>
-        <template v-slot:top>
-          <v-toolbar flat>
-            <v-divider class="mx-4" inset vertical></v-divider>
-            <v-spacer></v-spacer>
-            <v-dialog v-model="dialogEdit" width="1200">
-              <v-card class="p-5">
-                <v-row justify="center" align="center">
-                  <br />
-                  <h2 style="color: #2b4c7b">Editar relación participante</h2>
-                </v-row>
-                <v-row justify="center" align="center">
-                  <v-layout row justify-center>
-                    <v-flex align-self-center xs1> </v-flex>
-                    <v-flex align-self-baseline xs2
-                      ><label>APELLIDO PATERNO</label></v-flex
+      <v-card>
+        <v-card-title>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Buscar"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-card-title>
+        <v-data-table
+          :headers="headers"
+          :items="items_cursos"
+          item-key="nombre_curso"
+          class="elevation-1"
+          :search="search"
+          multi-sort
+        >
+          <!-- <template v-slot:[`item.nombres`]="{ item }">
+            <v-chip color="yellow">
+              {{ item.nombres }}
+            </v-chip>
+          </template>
+          <template v-slot:[`item.apellido_paterno`]="{ item }">
+            <v-chip color="blue">
+              {{ item.apellido_paterno }}
+            </v-chip>
+          </template> -->
+          <template v-slot:[`item.duracion_horas`]="{ item }">
+            <v-chip color="orange">
+              {{ item.duracion_horas }}
+            </v-chip>
+          </template>
+          <template v-slot:top>
+            <v-toolbar flat>
+              <v-divider class="mx-4" inset vertical></v-divider>
+              <v-spacer></v-spacer>
+              <v-dialog v-model="dialogEdit" width="1200">
+                <v-card class="p-5">
+                  <v-row justify="center" align="center">
+                    <br />
+                    <h2 style="color: #2b4c7b">
+                      Capturar/Editar relación participantes
+                    </h2>
+                  </v-row>
+                  <v-row>
+                    <v-row justify="center" align="center">
+                      <v-layout row justify-center>
+                        <v-flex align-self-center xs4> </v-flex>
+                        <v-flex align-self-center xs2
+                          ><label>Factibilidad y justiticación</label></v-flex
+                        >
+                        <v-flex align-self-center xs3>
+                          <v-col>
+                            <v-text-field
+                              outlined
+                              class="bordeRedondoElement"
+                              v-model="items_cursos.factibilidad.detalles"
+                              disabled
+                            ></v-text-field
+                          ></v-col>
+                        </v-flex>
+                        <v-flex align-self-center xs3> </v-flex>
+                      </v-layout>
+                    </v-row>
+                    <v-row justify="center" align="center">
+                      <v-layout row justify-center>
+                        <v-flex align-self-center xs4> </v-flex>
+                        <v-flex align-self-center xs2
+                          ><label>Seleccione un capacitando</label></v-flex
+                        >
+                        <v-flex align-self-center xs3>
+                          <v-col>
+                            <v-select
+                              v-model="selectStudent"
+                              :items="items_students"
+                              item-text="fullnameStudent"
+                              item-value="id"
+                              :rules="rules"
+                              required
+                              return-object
+                              dense
+                              outlined
+                              class="bordeRedondoElement"
+                            ></v-select>
+                          </v-col>
+                        </v-flex>
+                        <v-flex align-self-center xs3> </v-flex>
+                      </v-layout>
+                    </v-row>
+                    <v-row justify="center" align="center" style="height: 65px">
+                      <v-layout row justify-center>
+                        <v-flex align-self-center xs4> </v-flex>
+                        <v-flex align-self-center xs2></v-flex>
+                        <v-flex align-self-center xs2>
+                          <v-btn text @click="addAlumno">
+                            <small>Añadir</small></v-btn
+                          >
+                        </v-flex>
+                        <v-flex align-self-center xs2> </v-flex>
+                        <v-flex align-self-center xs2> </v-flex>
+                      </v-layout>
+                    </v-row>
+                    <v-row
+                      justify="center"
+                      align="center"
+                      style="height: 220px"
                     >
-                    <v-flex align-self-baseline xs3>
-                      <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="editedItem.apellido_paterno"
-                        ></v-text-field
-                      ></v-col>
-                    </v-flex>
-                    <v-flex align-self-baseline xs2
-                      ><label>APELLIDO MATERNO</label></v-flex
+                      <v-layout row justify-start>
+                        <v-flex align-self-center xs4> </v-flex>
+                        <v-flex align-self-start xs6>
+                          <v-data-table
+                            :headers="headers"
+                            :items="items_relacionP"
+                            item-key="fullname"
+                            class="elevation-1"
+                          >
+                            <template v-slot:top>
+                              <v-toolbar flat>
+                                <v-dialog v-model="dialogDelete" width="500">
+                                  <v-card>
+                                    <v-card-title
+                                      class="text-h5 white lighten-2"
+                                    >
+                                      Eliminar alumno
+                                    </v-card-title>
+                                    <v-card-text>
+                                      ¿Estás seguro que quieres eliminar el
+                                      alumno seleccionado? Recuerda que no
+                                      podrás recuperar la información.
+                                    </v-card-text>
+                                    <v-card-actions>
+                                      <v-btn
+                                        outlined
+                                        color="gray"
+                                        class="bordeRedondoElement"
+                                        @click="dialogDelete = false"
+                                      >
+                                        Cancelar
+                                      </v-btn>
+                                      <v-btn
+                                        outlined
+                                        style="
+                                          color: #ffffff;
+                                          background-color: #2b4c7b;
+                                        "
+                                        class="bordeRedondoElement"
+                                        @click="deleteAlumno()"
+                                        >Continuar</v-btn
+                                      >
+                                    </v-card-actions>
+                                  </v-card>
+                                </v-dialog>
+                              </v-toolbar>
+                            </template>
+                            <template v-slot:[`item.actions`]="{ item }">
+                              <v-btn text @click="deleteItem(item)">
+                                <v-icon small>mdi-window-close</v-icon
+                                ><small>Eliminar</small></v-btn
+                              >
+                            </template></v-data-table
+                          ></v-flex
+                        >
+                        <v-flex align-self-center xs2> </v-flex>
+                      </v-layout>
+                    </v-row>
+                  </v-row>
+                  <v-card-actions>
+                    <v-btn
+                      outlined
+                      color="gray"
+                      class="bordeRedondoElement"
+                      @click="
+                        editParticipante(
+                          editedItem.nombres,
+                          editedItem.apellido_paterno,
+                          editedItem.apellido_materno,
+                          editedItem.sexo,
+                          editedItem.telefono,
+                          editedItem.celular
+                        )
+                      "
+                      >Guardar cambios</v-btn
                     >
-                    <v-flex align-self-center xs3>
-                      <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="editedItem.apellido_materno"
-                        ></v-text-field
-                      ></v-col>
-                    </v-flex>
-                    <v-flex align-self-center xs1> </v-flex>
-                  </v-layout>
-                </v-row>
-                <v-row justify="center" align="center">
-                  <v-layout row justify-center>
-                    <v-flex align-self-center xs1> </v-flex>
-                    <v-flex align-self-baseline xs2
-                      ><label>NOMBRE</label></v-flex
+                    <v-btn
+                      outlined
+                      color="gray"
+                      class="bordeRedondoElement"
+                      @click="dialogEdit = false"
                     >
-                    <v-flex align-self-baseline xs3>
-                      <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="editedItem.nombres"
-                        ></v-text-field
-                      ></v-col>
-                    </v-flex>
-                    <v-flex align-self-baseline xs2><label>SEXO</label></v-flex>
-                    <v-flex align-self-center xs3>
-                      <v-radio-group
-                        row
-                        :rules="rules"
-                        v-model="editedItem.sexo"
-                      >
-                        <v-radio label="MASCULINO" value="M"></v-radio>
-                        <v-radio label="FEMENINO" value="F"></v-radio>
-                      </v-radio-group>
-                    </v-flex>
-                    <v-flex align-self-center xs1> </v-flex>
-                  </v-layout>
-                </v-row>
-                <v-row justify="center" align="center">
-                  <v-layout row justify-center>
-                    <v-flex align-self-center xs1> </v-flex>
-                    <v-flex align-self-baseline xs2
-                      ><label>TELÉFONO</label></v-flex
+                      Cancelar
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+              <v-dialog v-model="dialogDelete" width="500">
+                <v-card>
+                  <v-card-title class="text-h5 white lighten-2">
+                    Eliminar relación participante
+                  </v-card-title>
+                  <v-card-text>
+                    ¿Estás seguro que quieres eliminar la relación del
+                    participante seleccionado? Recuerda que no podrás recuperar
+                    la información.
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-btn
+                      outlined
+                      color="gray"
+                      class="bordeRedondoElement"
+                      @click="dialogDelete = false"
                     >
-                    <v-flex align-self-baseline xs3>
-                      <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="editedItem.telefono"
-                        ></v-text-field
-                      ></v-col>
-                    </v-flex>
-                    <v-flex align-self-baseline xs2
-                      ><label>CELULAR</label></v-flex
+                      Cancelar
+                    </v-btn>
+                    <v-btn
+                      outlined
+                      style="color: #ffffff; background-color: #2b4c7b"
+                      class="bordeRedondoElement"
+                      @click="deleteRelacion()"
+                      >Continuar</v-btn
                     >
-                    <v-flex align-self-center xs3>
-                      <v-col>
-                        <v-text-field
-                          outlined
-                          class="bordeRedondoElement"
-                          :rules="rules"
-                          v-model="editedItem.celular"
-                        ></v-text-field
-                      ></v-col>
-                    </v-flex>
-                    <v-flex align-self-center xs1> </v-flex>
-                  </v-layout>
-                </v-row>
-                <v-card-actions>
-                  <v-btn
-                    outlined
-                    color="gray"
-                    class="bordeRedondoElement"
-                    @click="
-                      editParticipante(
-                        editedItem.nombres,
-                        editedItem.apellido_paterno,
-                        editedItem.apellido_materno,
-                        editedItem.sexo,
-                        editedItem.telefono,
-                        editedItem.celular
-                      )
-                    "
-                    >Guardar cambios</v-btn
-                  >
-                  <v-btn
-                    outlined
-                    color="gray"
-                    class="bordeRedondoElement"
-                    @click="dialogEdit = false"
-                  >
-                    Cancelar
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-            <v-dialog v-model="dialogDelete" width="500">
-              <v-card>
-                <v-card-title class="text-h5 white lighten-2">
-                  Eliminar relación participante
-                </v-card-title>
-                <v-card-text>
-                  ¿Estás seguro que quieres eliminar la relación del participante seleccionado?
-                  Recuerda que no podrás recuperar la información.
-                </v-card-text>
-                <v-card-actions>
-                  <v-btn
-                    outlined
-                    color="gray"
-                    class="bordeRedondoElement"
-                    @click="dialogDelete = false"
-                  >
-                    Cancelar
-                  </v-btn>
-                  <v-btn
-                    outlined
-                    style="color: #ffffff; background-color: #2b4c7b"
-                    class="bordeRedondoElement"
-                    @click="deleteRelacion()"
-                    >Continuar</v-btn
-                  >
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </v-toolbar>
-        </template>
-        <template v-slot:[`item.actions`]="{ item }">
-          <v-btn text @click="editItem(item)"
-            ><v-icon small>mdi-pencil</v-icon><small>Editar</small></v-btn
-          >
-          <v-btn text @click="deleteItem(item)">
-            <v-icon small>mdi-window-close</v-icon
-            ><small>Eliminar</small></v-btn
-          >
-        </template></v-data-table
-      >
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-toolbar>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-btn text @click="editItem(item)"
+              ><v-icon small>mdi-pencil</v-icon><small>Capturar</small
+              ><strong>/</strong><small>Editar</small>
+              <!-- <v-icon small>mdi-eye-outline</v-icon><small>Ver</small> -->
+            </v-btn>
+            <v-btn text @click="deleteItem(item)">
+              <v-icon small>mdi-window-close</v-icon
+              ><small>Eliminar</small></v-btn
+            >
+          </template></v-data-table
+        >
+      </v-card>
     </v-row>
   </v-container>
 </template>
@@ -225,19 +275,18 @@ export default {
     dialog: false,
     dialogDelete: false,
     dialogEdit: false,
+    dialogCaptura: false,
     //Elementos para la tabla
     headers: [
       {
-        text: "Nombre del participante",
+        text: "Nombre del curso",
         align: "start",
         sortable: false,
-        value: "nombres",
+        value: "nombre_curso",
       },
-      { text: "Apellido Paterno", value: "apellido_paterno" },
-      { text: "Apellido Materno", value: "apellido_materno" },
-      { text: "Sexo", value: "sexo" },
-      { text: "Teléfono", value: "telefono" },
-      { text: "Celular", value: "celular" },
+      { text: "Clave del curso", value: "clave_curso" },
+      { text: "Horas", value: "duracion_horas" },
+      { text: "Especialidad", value: "nombre_especialidad" },
       { text: " ", value: "actions" },
     ],
     participantes: [],
@@ -245,13 +294,37 @@ export default {
     deleteId: 0,
     editedIndex: -1,
     editId: 0,
+    search: "",
+    cursos: [],
+    items_students: [],
+    user: {
+      idUnidad: null,
+    },
+    items_cursos: [],
+    relacionCapturada: false,
+    items_factibilidades: [],
+    items_relacionP: [],
+    selectStudent: {},
   }),
 
   async mounted() {
     try {
-      const response = await AuthService.getAllParticipantes();
-      this.participantes = response.data;
-      console.log("relacionParticipantes", this.participantes);
+      //Pruebas
+      const responseProfile = await AuthService.getProfile();
+      this.user.idUnidad = responseProfile.idCentro_capacitacion;
+      const response6 = await AuthService.getAllAssignUnidad(
+        this.user.idUnidad
+      );
+      this.items_cursos = response6.cursos;
+      const response3 = await AuthService.fetchUsers();
+      this.items_students = response3.data.filter((item) => {
+        if (item.idRol == 1) return item;
+      });
+      console.log("item_students", this.items_students);
+      //const response2 = await AuthService.getCursoFactibilidadIdCenter();
+      //this.items_cursos = response2.data;
+      const responseFact = await AuthService.getAllFactibilidades();
+      this.items_factibilidades = responseFact.data;
     } catch (error) {
       console.log(error);
     }
@@ -266,7 +339,7 @@ export default {
 
     async newForm() {
       try {
-        this.$router.push('form-relacion-participantes');
+        //this.$router.push("form-relacion-participantes");
       } catch (error) {
         console.log(error);
       }
@@ -337,12 +410,18 @@ export default {
       try {
         let idDeleteCurso = this.deleteId;
         console.log("confirmDeleteid ", idDeleteCurso);
-        const response = await AuthService.deleteRelacionParticipante(idDeleteCurso);
+        const response = await AuthService.deleteRelacionParticipante(
+          idDeleteCurso
+        );
         this.datarespuestaDelete = response;
         if (response.serverCode == 200) {
           this.dialogDelete = false;
           //this.mostrarAlertDelete = true;
-          this.$swal("Eliminado", "Relación del participante eliminada correctamente.", "success");
+          this.$swal(
+            "Eliminado",
+            "Relación del participante eliminada correctamente.",
+            "success"
+          );
           this.reloadTable();
         } else {
           let error_msg =
@@ -361,24 +440,47 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.participantes.indexOf(item);
+      this.editedIndex = this.items_cursos.indexOf(item);
       console.log("editedIndex ", this.editedIndex);
       this.editedItem = Object.assign({}, item);
       console.log("editedItem ", this.editedItem);
       this.dialogEdit = true;
       console.log("item edit ", item);
-      this.editId = this.editedItem.idParticipante;
-      console.log("editedItem.idParticipante ", this.editId);
+      this.editId = this.editedItem.factibilidad.idFactibilidad;
+      console.log("editedItem.idFactibilidad ", this.editId);
+      this.rellenar(this.editedItem);
     },
     deleteItem(item) {
-      this.editedIndex = this.participantes.indexOf(item);
+      this.editedIndex = this.items_cursos.indexOf(item);
       console.log("deleteIndex ", this.editedIndex);
       this.editedItem = Object.assign({}, item);
       console.log("deleteItem ", this.editedItem);
-      this.deleteId = this.editedItem.idParticipante;
-      console.log("editedItem.idParticipante ", this.deleteId);
+      this.deleteId = this.editedItem.factibilidad.idFactibilidad;
+      console.log("editedItem.idFactibilidad ", this.deleteId);
       this.dialogDelete = true;
     },
+
+    async rellenar(data_p) {
+      this.items_students = response.data.map((item) => {
+        item.fullnameStudent = `${item.nombres} ${item.primer_apellido} ${item.segundo_apellido}`;
+        return item;
+      });
+      let idFact = data_p.factibilidad.idFactibilidad;
+      const response = await AuthService.getAllParticipantes();
+      // this.participantes = response.data;
+      // console.log("relacionParticipantes", this.participantes);
+      this.items_relacionP = response.data.filter((item) => {
+        if (item.idFactibilidad == idFact) return item;
+      });
+      this.items_relacionP = response.data.map((item) => {
+        item.fullname = `${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}`;
+        return item;
+      });
+    },
+
+    async deleteAlumno() {},
+
+    async addAlumno() {},
   },
 };
 </script>

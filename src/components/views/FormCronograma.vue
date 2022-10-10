@@ -469,9 +469,10 @@ export default {
     },
 
     redirect() {
-      // if (this.$route.name != "ViewCronograma") this.$router.push("cronograma");
-      if (this.$route.name != "ViewDashboardInstructor")
-        this.$router.push("dashboard-instructor");
+      if (this.$route.name == "ViewAddCronograma")
+        if (this.$store.getters.getUser.Rol == "PROFESOR")
+          this.$router.push("dashboard-instructor");
+        else this.$router.push("cronograma");
       else this.$emit("close");
     },
 
