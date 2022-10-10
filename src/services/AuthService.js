@@ -296,4 +296,7 @@ export default {
     getCronogramaIdCurso(id_cur) {
         return axios.get(`${url}get-cronograma-by-id-curso/${id_cur}`).then(response => response.data);
     },
+    getCursoFactibilidadIdCenter() {
+        return axios.get(`${url}all-assign-grade-by-unidad`).then(response => response.data);
+    },
 };
