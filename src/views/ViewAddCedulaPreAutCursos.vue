@@ -1,6 +1,6 @@
 <template>
   <div class="max-height">
-    <MenuAdminUnidad />
+    <NavbarApp color="orange" actions="NavOptionsAdminUnidad" />
     <AddCedulaPreAutCursos />
     <FooterDashboardAdmin />
   </div>
@@ -8,14 +8,14 @@
 
 <script>
 // @ is an alias to /src
-import FooterDashboardAdmin from "@/components/views/FooterDashboardAdmin.vue";
-import AddCedulaPreAutCursos from "@/components/views/AddCedulaPreAutCursos.vue";
-import MenuAdminUnidad from "@/components/views/MenuAdminUnidad.vue";
+import FooterDashboardAdmin from '@/components/views/FooterDashboardAdmin.vue';
+import AddCedulaPreAutCursos from '@/components/views/AddCedulaPreAutCursos.vue';
+import NavbarApp from '@/components/views/NavbarApp.vue';
 
 export default {
-  name: "ViewAddCedulaPreAutCursos",
+  name: 'ViewAddCedulaPreAutCursos',
   components: {
-    MenuAdminUnidad,
+    NavbarApp,
     AddCedulaPreAutCursos,
     FooterDashboardAdmin,
   },

@@ -694,16 +694,6 @@
                     <v-flex align-self-center xs3> </v-flex>
                   </v-layout>
                 </v-row>
-                <v-row justify="center" align="center">
-                  <v-layout row justify-center>
-                    <v-flex align-self-center xs4> </v-flex>
-                    <v-flex align-self-center xs2><label>PROFESIÓN</label></v-flex>
-                    <v-flex align-self-center xs3>
-                      <v-col> <v-text-field outlined class="bordeRedondoElement" :rules="rules" v-model="docenteCedula.profesion"></v-text-field></v-col>
-                    </v-flex>
-                    <v-flex align-self-center xs3> </v-flex>
-                  </v-layout>
-                </v-row>
                 <v-row justify="center" align="start">
                   <v-layout row justify-center>
                     <v-flex align-self-center xs4> </v-flex>

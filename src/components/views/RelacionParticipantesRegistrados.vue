@@ -48,7 +48,7 @@
                       <v-flex align-self-center xs2> </v-flex>
                       <v-flex align-self-center xs3><label>Relación de participantes</label></v-flex>
                       <v-flex align-self-center xs3>
-                        <v-col> <v-text-field outlined class="bordeRedondoElement" v-model="editedItem.detalles" disabled></v-text-field></v-col>
+                        <v-col> <v-text-field outlined class="bordeRedondoElement" v-model="editedItem.nombre_curso" disabled></v-text-field></v-col>
                       </v-flex>
                       <v-flex align-self-center xs3> </v-flex>
                     </v-layout>
@@ -176,7 +176,6 @@ export default {
       },
       { text: 'Clave del curso', value: 'clave_curso' },
       { text: 'Horas', value: 'duracion_horas' },
-      // { text: "Especialidad", value: "item_especialidad.nombre_especialidad" },
       { text: ' ', value: 'actions' },
     ],
     headers_alumno: [
@@ -227,9 +226,11 @@ export default {
 
   async mounted() {
     try {
-      const response2 = await AuthService.getCursoFactibilidadIdCenter();
-      this.items_cursos = response2.cursos;
-      console.log('item_cursos', this.item_cursos);
+      const response1 = await AuthService.getProfile();
+      this.user.idUnidad = response1.idCentro_capacitacion;
+      const response2 = await AuthService.getValidFactibility(this.user.idUnidad);
+      this.items_cursos = response2.data;
+      console.log('item_cursos nuevo', this.item_cursos);
       const response3 = await AuthService.fetchUsers();
       this.items_students = response3.data.filter((item) => {
         if (item.idRol == 1) return item;
@@ -239,27 +240,16 @@ export default {
         return item;
       });
       console.log('items_full', this.items_full);
-      // const responseProfile = await AuthService.getProfile();
-      // this.user.idUnidad = responseProfile.idCentro_capacitacion;
-      // const response3 = await AuthService.fetchUsers();
-      // this.items_students = response3.data.filter((item) => {
-      //   if (item.idRol == 1) return item;
-      // });
-      // console.log("item_students", this.items_students);
-      // const responseFact = await AuthService.getAllFactibilidades();
-      // this.items_factibilidades = responseFact.data;
     } catch (error) {
       console.log(error);
     }
   },
 
   methods: {
-    async reloadTable() {
-      const response = await AuthService.getAllParticipantes();
-      /*this.items_relacionP = response.data.filter((item) => {
-        if (item.idFactibilidad == idFact) return item;
-      });*/
+    async reloadTable(idFact) {
+      const response = await AuthService.getAllParticipantes(idFact);
       console.log('items_relacionparticipantes ', response);
+      this.items_relacionP = response.data;
     },
 
     async newForm() {
@@ -282,7 +272,7 @@ export default {
     async deleteRelacion(delete_data) {
       try {
         let idFact = delete_data.idFactibilidad;
-        const responseAll = await AuthService.getAllParticipantes();
+        const responseAll = await AuthService.getAllParticipantes(idFact);
         this.items_deleteFull = responseAll.data.filter((item) => {
           if (item.idFactibilidad == idFact) return item;
         });
@@ -291,7 +281,7 @@ export default {
           const response = await AuthService.deleteRelacionParticipante(this.items_deleteFull[i].idParticipante);
           this.datarespuestaDelete = response;
         }
-        this.reloadTable();
+        this.reloadTable(idFact);
       } catch (error) {
         console.log(error);
         console.log(error.response.data.errors);
@@ -323,20 +313,15 @@ export default {
 
     async rellenar(data_p) {
       let idFact = data_p.idFactibilidad;
-      const response = await AuthService.getAllParticipantes();
-      this.items_relacionP = response.data.filter((item) => {
-        if (item.idFactibilidad == idFact) return item;
-      });
-      console.log('items_relacionparticipantes ', this.items_relacionP);
-      // this.items_relacionP = response.data.map((item) => {
-      //   item.fullname = `${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}`;
-      //   return item;
-      // });
+      const response = await AuthService.getAllParticipantes(idFact);
+      console.log('items_relacionparticipantes ', response);
+      this.items_relacionP = response.data;
     },
 
     async deleteAlumno() {},
 
     async addAlumno(data) {
+      let idFact = data.idFactibilidad;
       let alumno = {
         nombres: this.selectStudent.nombres,
         apellido_paterno: this.selectStudent.primer_apellido,
@@ -344,7 +329,7 @@ export default {
         sexo: 'N',
         telefono: null,
         celular: null,
-        idFactibilidad: data.idFactibilidad,
+        idFactibilidad: idFact,
         numero_identificacion: this.selectStudent.id,
         edad: null,
       };
@@ -352,6 +337,7 @@ export default {
       const responseAdd = await AuthService.addRelacionParticipante(alumno);
       let statusadd = responseAdd.data;
       console.log(statusadd);
+      this.reloadTable(idFact);
     },
 
     async guardar() {
