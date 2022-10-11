@@ -7,7 +7,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-data-table :headers="headers" :items="items_cronogramas" :items-per-page="5" item-key="id" class="elevation-1">
+      <v-data-table :headers="headers" :items="items_cronogramas" :items-per-page="15" item-key="id" class="elevation-1">
         <template v-slot:top>
           <v-toolbar flat>
             <v-toolbar-title>Contenido</v-toolbar-title>
@@ -117,7 +117,14 @@ export default {
       if (me.$store.getters.isLoggedIn) {
         try {
           const response = await AuthService.fetchCronogramas();
-          me.items_cronogramas = await CronogramaService.mapCronogramas(response.data);
+          let cronogramas = await CronogramaService.mapCronogramas(response.data);
+          if (me.role < 1) {
+            me.items_cronogramas = cronogramas.filter((item) => {
+              return item.cronograma.is_enviado_validacion == 1;
+            });
+          } else {
+            me.items_cronogramas = cronogramas;
+          }
         } catch (error) {
           console.log(error);
         }

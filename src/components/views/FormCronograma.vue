@@ -383,12 +383,10 @@ export default {
     },
 
     redirect() {
-      this.$router.push({
-        name: 'ViewDocenteCurso',
-        params: {
-          clave_curso: this.claveCurso,
-        },
-      });
+      if (this.$route.name == 'ViewAddCronograma')
+        if (this.$store.getters.getUser.Rol == 'PROFESOR') this.$router.push('dashboard-instructor');
+        else this.$router.push('cronograma');
+      else this.$emit('close');
     },
 
     editItem(item) {
