@@ -6,126 +6,46 @@
           <v-list>
             <v-list-item>
               <v-list-item-title style="font-size: 25px"
-                ><strong>Curso: </strong>
-                <strong class="orange--text">
-                  {{ nombre_curso }}</strong
-                ></v-list-item-title
+                ><strong>Curso: </strong> <strong class="orange--text"> {{ nombre_curso }}</strong></v-list-item-title
               >
             </v-list-item>
             <v-list-item>
               <v-list-item-title style="font-size: 20px"
                 >Cronograma
-                <v-btn
-                  color="white"
-                  text
-                  small
-                  class="orange--text"
-                  style="font-size: 14px"
-                  @click="redirect('ViewAddCronograma')"
-                  v-if="!valido_c"
-                >
+                <v-btn color="white" text small class="orange--text" style="font-size: 14px" @click="redirect('ViewAddCronograma')" v-if="!valido_c">
                   Capturar
                 </v-btn>
-                <v-btn
-                  color="white"
-                  text
-                  small
-                  class="orange--text"
-                  style="font-size: 14px"
-                  @click="validateCronograma(3)"
-                >
-                  Ver
-                </v-btn>
-                <v-btn
-                  color="white"
-                  text
-                  small
-                  class="orange--text"
-                  style="font-size: 14px"
-                  @click="editCronograma(1)"
-                  v-if="!valido_c"
-                >
-                  Editar
-                </v-btn>
-                <v-btn
-                  color="white"
-                  text
-                  small
-                  class="orange--text"
-                  style="font-size: 14px"
-                  @click="validateCronograma(2)"
-                  v-if="!valido_c"
-                >
-                  Validar
-                </v-btn>
+                <v-btn color="white" text small class="orange--text" style="font-size: 14px" @click="validateCronograma(3)"> Ver </v-btn>
+                <v-btn color="white" text small class="orange--text" style="font-size: 14px" @click="editCronograma(1)" v-if="!valido_c"> Editar </v-btn>
+                <v-btn color="white" text small class="orange--text" style="font-size: 14px" @click="validateCronograma(2)" v-if="!valido_c"> Validar </v-btn>
               </v-list-item-title>
             </v-list-item>
             <v-list-item>
               <v-list-item-title style="font-size: 20px"
                 >Lista de asistencia
-                <a
-                  href=""
-                  class="orange--text text-decoration-none mr-4"
-                  style="font-size: 18px"
-                  >Capturar</a
-                >
-                <a
-                  href=""
-                  class="orange--text text-decoration-none"
-                  style="font-size: 18px"
-                  >Ver/Editar</a
-                >
+                <a href="" class="orange--text text-decoration-none mr-4" style="font-size: 18px">Capturar</a>
+                <a href="" class="orange--text text-decoration-none" style="font-size: 18px">Ver/Editar</a>
               </v-list-item-title>
             </v-list-item>
             <v-list-item>
               <v-list-item-title style="font-size: 20px"
                 >Memoria RUDC-18
-                <a
-                  href=""
-                  class="orange--text text-decoration-none mr-4"
-                  style="font-size: 18px"
-                  >Capturar</a
-                >
-                <a
-                  href=""
-                  class="orange--text text-decoration-none"
-                  style="font-size: 18px"
-                  >Ver/Editar</a
-                >
+                <a href="" class="orange--text text-decoration-none mr-4" style="font-size: 18px">Capturar</a>
+                <a href="" class="orange--text text-decoration-none" style="font-size: 18px">Ver/Editar</a>
               </v-list-item-title>
             </v-list-item>
             <v-list-item>
               <v-list-item-title style="font-size: 20px"
                 >Calificaciones
-                <a
-                  href=""
-                  class="orange--text text-decoration-none mr-4"
-                  style="font-size: 18px"
-                  >Capturar</a
-                >
-                <a
-                  href=""
-                  class="orange--text text-decoration-none"
-                  style="font-size: 18px"
-                  >Ver/Editar</a
-                >
+                <a href="" class="orange--text text-decoration-none mr-4" style="font-size: 18px">Capturar</a>
+                <a href="" class="orange--text text-decoration-none" style="font-size: 18px">Ver/Editar</a>
               </v-list-item-title>
             </v-list-item>
             <v-list-item>
               <v-list-item-title style="font-size: 20px">
                 Reporte de supervisión
-                <a
-                  href=""
-                  class="orange--text text-decoration-none mr-4"
-                  style="font-size: 18px"
-                  >Capturar</a
-                >
-                <a
-                  href=""
-                  class="orange--text text-decoration-none"
-                  style="font-size: 18px"
-                  >Ver/Editar</a
-                >
+                <a href="" class="orange--text text-decoration-none mr-4" style="font-size: 18px">Capturar</a>
+                <a href="" class="orange--text text-decoration-none" style="font-size: 18px">Ver/Editar</a>
               </v-list-item-title>
             </v-list-item>
           </v-list>
@@ -133,27 +53,17 @@
         <v-flex xs1><br /></v-flex>
         <v-flex xs3
           ><v-row>
-            <v-card
-              color="white darken-2"
-              class="gray--text"
-              style="height: 250px; width: 400px; font-size: 20px"
-            >
+            <v-card color="white darken-2" class="gray--text" style="height: 250px; width: 400px; font-size: 20px">
               <v-flex align-self-center xs12>
                 <p></p>
                 <br />
-                <label
-                  ><strong>INICIO DE CURSO:</strong
-                  >{{ item_cedula.periodoInicio }}
-                </label>
+                <label><strong>INICIO DE CURSO:</strong>{{ item_cedula.periodoInicio }} </label>
               </v-flex>
               <v-flex>
                 <br />
                 <p></p>
                 <br />
-                <label
-                  ><strong>TÉRMINO DE CURSO:</strong
-                  >{{ item_cedula.periodoTermino }}
-                </label>
+                <label><strong>TÉRMINO DE CURSO:</strong>{{ item_cedula.periodoTermino }} </label>
               </v-flex>
             </v-card>
           </v-row>
@@ -161,18 +71,11 @@
         <v-flex xs1></v-flex>
         <v-flex xs3>
           <v-row>
-            <v-card
-              color="white darken-2"
-              class="gray--text"
-              style="height: 250px; width: 400px; font-size: 20px"
-            >
+            <v-card color="white darken-2" class="gray--text" style="height: 250px; width: 400px; font-size: 20px">
               <v-flex align-self-center xs12>
                 <p></p>
                 <br />
-                <label
-                  ><strong>Alumnos inscritos:</strong
-                  >{{ item_cedula.totalInscritos }}
-                </label>
+                <label><strong>Alumnos inscritos:</strong>{{ item_cedula.totalInscritos }} </label>
               </v-flex>
               <v-flex> </v-flex>
               <v-flex>
@@ -198,12 +101,7 @@
         </v-card-title>
 
         <v-card-text>
-          <FormCronograma
-            :id="item_cronograma.cronograma.idCronograma"
-            :mode="mode"
-            @close="closeCronograma"
-            v-if="dialog"
-          />
+          <FormCronograma :id="item_cronograma.cronograma.idCronograma" :mode="mode" @close="closeCronograma" v-if="dialog" />
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -217,12 +115,7 @@
         </v-card-title>
 
         <v-card-text>
-          <FormCronogramaPreview
-            :id="item_cronograma.cronograma.idCronograma"
-            :mode="mode"
-            @close="closeCronograma"
-            v-if="dialogPreview"
-          />
+          <FormCronogramaPreview :id="item_cronograma.cronograma.idCronograma" :mode="mode" @close="closeCronograma" v-if="dialogPreview" />
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -230,10 +123,10 @@
 </template>
 
 <script>
-import AuthService from "@/services/AuthService.js";
-import EventBus from "@/services/EventBus.js";
-import FormCronograma from "@/components/views/FormCronograma.vue";
-import FormCronogramaPreview from "@/components/views/FormCronogramaPreview.vue";
+import AuthService from '@/services/AuthService.js';
+import EventBus from '@/services/EventBus.js';
+import FormCronograma from '@/components/views/FormCronograma.vue';
+import FormCronogramaPreview from '@/components/views/FormCronogramaPreview.vue';
 
 export default {
   components: {
@@ -242,8 +135,8 @@ export default {
   },
   data: () => ({
     id_curso: null,
-    nombre_curso: "",
-    tipo_curso: "",
+    nombre_curso: '',
+    tipo_curso: '',
     distancia: false,
     valido_c: false,
     capturado: false,
@@ -258,11 +151,12 @@ export default {
     if (clave_curso) {
       this.fetchData(clave_curso);
     }
-    EventBus.$on("change_curso", this.fetchData);
+    EventBus.$on('change_curso', this.fetchData);
   },
   beforeDestroy() {
-    EventBus.$off("change_curso", this.fetchData);
+    EventBus.$off('change_curso', this.fetchData);
   },
+  //Pendiente carga de curso
   methods: {
     async fetchData(clave_curso) {
       let response = await AuthService.getCursoIndividual(clave_curso);
@@ -273,10 +167,8 @@ export default {
       this.tipo_curso = response2.data[0].modalidadCurso;
       this.item_cedula = response2.data[0];
       this.item_cronograma = response3.data[0];
-      this.valido_c =
-        this.item_cronograma.cronograma.is_enviado_validacion == 1;
-      if (this.item_cronograma.cronograma.tipo_curso === 4)
-        this.distancia = true;
+      this.valido_c = this.item_cronograma.cronograma.is_enviado_validacion == 1;
+      if (this.item_cronograma.cronograma.tipo_curso === 4) this.distancia = true;
     },
 
     redirect(route) {
@@ -288,36 +180,21 @@ export default {
             tipo: this.tipo_curso,
           },
         });
-      } else
-        this.$swal(
-          "Advertencia",
-          "No ha seleccionado ningún curso.",
-          "warning"
-        );
+      } else this.$swal('Advertencia', 'No ha seleccionado ningún curso.', 'warning');
     },
 
     editCronograma(mode) {
       if (this.item_cronograma.cronograma) {
         this.mode = mode;
         this.dialog = true;
-      } else
-        this.$swal(
-          "Advertencia",
-          "No ha seleccionado ningún curso.",
-          "warning"
-        );
+      } else this.$swal('Advertencia', 'No ha seleccionado ningún curso.', 'warning');
     },
 
     validateCronograma(mode) {
       if (this.item_cronograma.cronograma) {
         this.mode = mode;
         this.dialogPreview = true;
-      } else
-        this.$swal(
-          "Advertencia",
-          "No ha seleccionado ningún curso.",
-          "warning"
-        );
+      } else this.$swal('Advertencia', 'No ha seleccionado ningún curso.', 'warning');
     },
 
     closeCronograma() {

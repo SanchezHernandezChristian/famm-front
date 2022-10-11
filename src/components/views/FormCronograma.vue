@@ -18,9 +18,7 @@
       <v-col cols="12" class="m-0 p-0">
         <div class="text-center">
           <p style="color: #aeacac">
-            <strong
-              >Rellena todos los campos para completar tu registro.</strong
-            >
+            <strong>Rellena todos los campos para completar tu registro.</strong>
           </p>
           <p style="color: #aeacac">
             <strong>*Todos los campos son obligatorios.</strong>
@@ -40,17 +38,13 @@
             item-value="idCurso"
             label="Nombre del curso"
             v-model="cronograma.idCurso"
-            :readonly="mode > 1"
+            :readonly="true"
           ></v-autocomplete>
         </v-col>
       </v-row>
       <v-row justify="center" class="mt-0">
         <v-col cols="5">
-          <v-radio-group
-            dense
-            :rules="[rules.required]"
-            v-model="cronograma.tipo_curso"
-          >
+          <v-radio-group dense :rules="[rules.required]" v-model="cronograma.tipo_curso" :readonly="true">
             <v-radio
               dense
               :label="item.descripcion"
@@ -66,13 +60,7 @@
       </v-row>
       <v-row justify="center" align="center" class="mb-4">
         <v-col cols="10">
-          <v-data-table
-            :headers="headers"
-            :items="cronograma.contenido_cronograma"
-            hide-default-footer
-            sort-by="tema"
-            class="elevation-1"
-          >
+          <v-data-table :headers="headers" :items="cronograma.contenido_cronograma" hide-default-footer sort-by="tema" class="elevation-1">
             <template v-slot:top>
               <v-toolbar flat>
                 <v-toolbar-title>Contenido</v-toolbar-title>
@@ -80,16 +68,7 @@
                 <v-spacer></v-spacer>
                 <v-dialog v-model="dialog" max-width="800px">
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      color="orange"
-                      dark
-                      class="mb-2"
-                      v-bind="attrs"
-                      v-on="on"
-                      :disabled="mode > 1"
-                    >
-                      Nuevo elemento
-                    </v-btn>
+                    <v-btn color="orange" dark class="mb-2" v-bind="attrs" v-on="on" :disabled="mode > 1"> Nuevo elemento </v-btn>
                   </template>
                   <v-card>
                     <v-card-title>
@@ -100,34 +79,19 @@
                       <v-container>
                         <v-row>
                           <v-col cols="12" sm="6" md="4">
-                            <v-text-field
-                              v-model="editedItem.unidad"
-                              label="Unidad"
-                            ></v-text-field>
+                            <v-text-field v-model="editedItem.unidad" label="Unidad"></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6" md="4">
-                            <v-text-field
-                              v-model="editedItem.tema"
-                              label="Tema"
-                            ></v-text-field>
+                            <v-text-field v-model="editedItem.tema" label="Tema"></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6" md="4">
-                            <v-text-field
-                              v-model="editedItem.subtema"
-                              label="Subtema"
-                            ></v-text-field>
+                            <v-text-field v-model="editedItem.subtema" label="Subtema"></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6" md="4">
-                            <v-text-field
-                              v-model="editedItem.horas"
-                              label="Horas"
-                            ></v-text-field>
+                            <v-text-field v-model="editedItem.horas" label="Horas"></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6" md="4">
-                            <v-text-field
-                              v-model="editedItem.periodo"
-                              label="Periodo"
-                            ></v-text-field>
+                            <v-text-field v-model="editedItem.periodo" label="Periodo"></v-text-field>
                           </v-col>
                         </v-row>
                       </v-container>
@@ -135,12 +99,8 @@
 
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn color="blue darken-1" text @click="close">
-                        Cancelar
-                      </v-btn>
-                      <v-btn color="blue darken-1" text @click="save">
-                        Guardar
-                      </v-btn>
+                      <v-btn color="blue darken-1" text @click="close"> Cancelar </v-btn>
+                      <v-btn color="blue darken-1" text @click="save"> Guardar </v-btn>
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
@@ -149,15 +109,8 @@
                     <v-card-title class="text-h5">¿Desea remover?</v-card-title>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn color="blue darken-1" text @click="closeDelete"
-                        >Cancelar</v-btn
-                      >
-                      <v-btn
-                        color="blue darken-1"
-                        text
-                        @click="deleteItemConfirm"
-                        >OK</v-btn
-                      >
+                      <v-btn color="blue darken-1" text @click="closeDelete">Cancelar</v-btn>
+                      <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
                       <v-spacer></v-spacer>
                     </v-card-actions>
                   </v-card>
@@ -178,15 +131,13 @@
         </v-col>
       </v-row>
       <v-row justify="center" align="center">
-        <v-col cols="5">
-          <v-text-field
-            label="NOMBRE DEL INSTRUCTOR QUE ELABORÓ"
-            dense
-            outlined
-            :rules="[rules.required, rules.letras]"
-            v-model="cronograma.encargado_curso"
-            :readonly="mode > 1"
-          ></v-text-field>
+        <v-col cols="2" pl-6>
+          <h5>Instructor que elaboró:</h5>
+        </v-col>
+        <v-col cols="2">
+          <h5>
+            <u>{{ cronograma.encargado_curso }}</u>
+          </h5>
         </v-col>
       </v-row>
       <v-row justify="center" v-if="mode == 2">
@@ -207,41 +158,12 @@
       </v-row>
       <v-row justify="center" align="center">
         <v-col cols="12" class="text-center">
-          <v-btn
-            color="orange"
-            elevation="2"
-            raised
-            rounded
-            class="m-1"
-            @click="validate()"
-            v-show="role < 1 && mode == 2 && cronograma.valido < 1"
-          >
+          <v-btn color="orange" elevation="2" raised rounded class="m-1" @click="validate()" v-show="role < 1 && mode == 2 && cronograma.valido < 1">
             Validar
           </v-btn>
-          <v-btn
-            elevation="2"
-            raised
-            rounded
-            class="m-1"
-            @click="reject()"
-            v-show="role < 1 && mode == 2 && cronograma.valido < 1"
-          >
-            Rechazar
-          </v-btn>
-          <v-btn
-            color="orange"
-            elevation="2"
-            raised
-            rounded
-            class="mr-3"
-            @click="store()"
-            v-show="mode < 2"
-          >
-            Guardar cambios
-          </v-btn>
-          <v-btn elevation="2" raised rounded @click="redirect()">
-            Cancelar
-          </v-btn>
+          <v-btn elevation="2" raised rounded class="m-1" @click="reject()" v-show="role < 1 && mode == 2 && cronograma.valido < 1"> Rechazar </v-btn>
+          <v-btn color="orange" elevation="2" raised rounded class="mr-3" @click="store()" v-show="mode < 2"> Guardar cambios </v-btn>
+          <v-btn elevation="2" raised rounded @click="redirect()"> Cancelar </v-btn>
         </v-col>
       </v-row>
     </v-form>
@@ -249,10 +171,10 @@
 </template>
 
 <script>
-import AuthService from "@/services/AuthService.js";
+import AuthService from '@/services/AuthService.js';
 
 export default {
-  name: "FormCronograma",
+  name: 'FormCronograma',
   props: {
     id: {
       type: Number,
@@ -262,24 +184,28 @@ export default {
       type: Number,
       default: 0, // 0 = Registro, 1 = Edición, 2 = Validación, 3 = Visualización
     },
+    claveCurso: {
+      type: Number,
+      default: 0,
+    },
   },
   data: () => ({
     rules: {
-      required: (value) => !!value || "Campo requerido",
+      required: (value) => !!value || 'Campo requerido',
       letras: (value) => {
         const pattern_pnumber = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\\ ]+$/i;
-        return pattern_pnumber.test(value) || "Nombre inválido";
+        return pattern_pnumber.test(value) || 'Nombre inválido';
       },
     },
     dialog: false,
     dialogDelete: false,
     headers: [
-      { text: "UNIDADES", value: "unidad" },
-      { text: "TEMA", value: "tema" },
-      { text: "SUBTEMA", value: "subtema" },
-      { text: "NO. DE HORAS", value: "horas" },
-      { text: "PERIODO", value: "periodo" },
-      { text: "", value: "actions", sortable: false },
+      { text: 'UNIDADES', value: 'unidad' },
+      { text: 'TEMA', value: 'tema' },
+      { text: 'SUBTEMA', value: 'subtema' },
+      { text: 'NO. DE HORAS', value: 'horas' },
+      { text: 'PERIODO', value: 'periodo' },
+      { text: '', value: 'actions', sortable: false },
     ],
     editedIndex: -1,
     editedItem: {},
@@ -303,6 +229,7 @@ export default {
     items_docentes: [],
     items_tiposcursos: [],
     role: 0, // 0 = ADMINISTRADOR UNIDAD, 1 = INSTRUCTOR
+    prevRoute: null,
   }),
 
   async created() {
@@ -314,7 +241,7 @@ export default {
     me.fetchDocentes();
     auth = await AuthService.getProfile();
 
-    if (auth.Rol == "ADMINISTRADOR UNIDAD") me.role = 0;
+    if (auth.Rol == 'ADMINISTRADOR UNIDAD') me.role = 0;
     else me.role = 1;
 
     if (me.id) me.getCronograma(me.id);
@@ -329,7 +256,10 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "Nuevo" : "Editar";
+      return this.editedIndex === -1 ? 'Nuevo' : 'Editar';
+    },
+    prevRoutePath() {
+      return this.prevRoute ? this.prevRoute.path : '/';
     },
   },
 
@@ -368,11 +298,7 @@ export default {
         };
       } catch (error) {
         console.log(error);
-        me.$swal(
-          "Error",
-          "No se pudo recuperar la información del cronograma.",
-          "error"
-        );
+        me.$swal('Error', 'No se pudo recuperar la información del cronograma.', 'error');
       }
     },
 
@@ -386,22 +312,14 @@ export default {
           await AuthService.addCronograma(me.cronograma);
           Object.assign(me.$data, me.$options.data());
           me.$refs.form_addcron.resetValidation();
-          me.$swal(
-            "Hecho",
-            "La información del cronograma se ha guardado correctamente.",
-            "success"
-          ).then(() => {
+          me.$swal('Hecho', 'La información del cronograma se ha guardado correctamente.', 'success').then(() => {
             me.redirect();
           });
         } catch (error) {
-          me.$swal("Error", error.response.data.message, "error");
+          me.$swal('Error', error.response.data.message, 'error');
         }
       } else {
-        me.$swal(
-          "Advertencia",
-          "No ha completado la información solicitada",
-          "warning"
-        );
+        me.$swal('Advertencia', 'No ha completado la información solicitada', 'warning');
       }
     },
 
@@ -416,16 +334,12 @@ export default {
             comentarios: me.cronograma.comentarios,
           };
           await AuthService.updateCronograma(data);
-          me.$swal(
-            "Hecho",
-            "La información del cronograma se ha guardado correctamente.",
-            "success"
-          ).then(() => {
+          me.$swal('Hecho', 'La información del cronograma se ha guardado correctamente.', 'success').then(() => {
             Object.assign(me.$data, me.$options.data());
             me.redirect();
           });
         } catch (error) {
-          me.$swal("Error", error.response.data.message, "error");
+          me.$swal('Error', error.response.data.message, 'error');
         }
       }
     },
@@ -443,22 +357,22 @@ export default {
     setCurso(id, type) {
       this.cronograma.idCurso = id;
       switch (type.toUpperCase()) {
-        case "curso de competencia laboral":
+        case 'curso de competencia laboral':
           this.cronograma.tipo_curso = 1;
           break;
-        case "curso regular EBC":
+        case 'curso regular EBC':
           this.cronograma.tipo_curso = 2;
           break;
-        case "curso regular":
+        case 'curso regular':
           this.cronograma.tipo_curso = 3;
           break;
-        case "curso de capacitación acelerada específica a distancia":
+        case 'curso de capacitación acelerada específica a distancia':
           this.cronograma.tipo_curso = 4;
           break;
-        case "curso de extensión":
+        case 'curso de extensión':
           this.cronograma.tipo_curso = 5;
           break;
-        case "evaluación ROCO":
+        case 'evaluación ROCO':
           this.cronograma.tipo_curso = 6;
           break;
 
@@ -469,11 +383,10 @@ export default {
     },
 
     redirect() {
-      if (this.$route.name == "ViewAddCronograma")
-        if (this.$store.getters.getUser.Rol == "PROFESOR")
-          this.$router.push("dashboard-instructor");
-        else this.$router.push("cronograma");
-      else this.$emit("close");
+      if (this.$route.name == 'ViewAddCronograma')
+        if (this.$store.getters.getUser.Rol == 'PROFESOR') this.$router.push('dashboard-instructor');
+        else this.$router.push('cronograma');
+      else this.$emit('close');
     },
 
     editItem(item) {
@@ -511,10 +424,7 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(
-          this.cronograma.contenido_cronograma[this.editedIndex],
-          this.editedItem
-        );
+        Object.assign(this.cronograma.contenido_cronograma[this.editedIndex], this.editedItem);
       } else {
         this.cronograma.contenido_cronograma.push(this.editedItem);
       }
