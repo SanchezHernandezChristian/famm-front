@@ -59,14 +59,14 @@
                   <v-row justify="center" align="center">
                     <br />
                     <h2 style="color: #2b4c7b">
-                      Ver/Editar Factibilidad y Justificación
+                      Ver/Editar Relación de Participantes
                     </h2>
                   </v-row>
                   <v-row justify="center" align="center">
                     <v-layout row justify-center>
                       <v-flex align-self-center xs2> </v-flex>
                       <v-flex align-self-center xs3
-                        ><label>Factibilidad y justiticación</label></v-flex
+                        ><label>Relación de participantes</label></v-flex
                       >
                       <v-flex align-self-center xs3>
                         <v-col>
@@ -178,7 +178,7 @@
                       outlined
                       color="gray"
                       class="bordeRedondoElement"
-                      @click="editFactibilidad(editedItem)"
+                      @click="guardar"
                       >Guardar cambios</v-btn
                     >
                     <v-btn
@@ -313,6 +313,7 @@ export default {
     },
     item_especialidad: [],
     items_full: [],
+    items_deleteFull: [],
   }),
 
   async mounted() {
@@ -346,8 +347,10 @@ export default {
   methods: {
     async reloadTable() {
       const response = await AuthService.getAllParticipantes();
-      this.participantes = response.data;
-      console.log("relacionParticipantes", this.participantes);
+      this.items_relacionP = response.data.filter((item) => {
+        if (item.idFactibilidad == idFact) return item;
+      });
+      console.log("items_relacionparticipantes ", this.items_relacionP);
     },
 
     async newForm() {
@@ -367,80 +370,90 @@ export default {
       }
     },
 
-    async editParticipante(
-      nombresEdit,
-      apaternoEdit,
-      amaternoEdit,
-      sexoEdit,
-      telEdit,
-      celEdit
-    ) {
-      try {
-        let data = {
-          id: this.editId,
-          nombres: nombresEdit,
-          apellido_paterno: apaternoEdit,
-          apellido_materno: amaternoEdit,
-          sexo: sexoEdit,
-          telefono: telEdit,
-          celular: celEdit,
-        };
-        console.log("dataEdit", data);
-        const responseUpdate = await AuthService.updateRelacionParticipante(
-          data
-        );
-        this.datarespuestaEdit = responseUpdate;
-        if (responseUpdate.serverCode == 200) {
-          this.dialogEdit = false;
-          //this.mostrarAlertEdit = true;
-          this.$swal(
-            "Editado",
-            "Relación de participante editada correctamente.",
-            "success"
-          );
-          this.reloadTable();
-        } else {
-          console.log(responseUpdate.data.errors);
-          let error_msg =
-            responseUpdate.data.errors[
-              Object.keys(responseUpdate.data.errors)[0]
-            ][0];
-          this.$swal("Error", error_msg, "error");
-        }
-        console.log(data);
-      } catch (error) {
-        console.log(error);
-        console.log(error.response.data.errors);
-        let error_msg =
-          error.response.data.errors[
-            Object.keys(error.response.data.errors)[0]
-          ][0];
-        this.$swal("Error", error_msg, "error");
-      }
-    },
+    // async editParticipante(
+    //   nombresEdit,
+    //   apaternoEdit,
+    //   amaternoEdit,
+    //   sexoEdit,
+    //   telEdit,
+    //   celEdit
+    // ) {
+    //   try {
+    //     let data = {
+    //       id: this.editId,
+    //       nombres: nombresEdit,
+    //       apellido_paterno: apaternoEdit,
+    //       apellido_materno: amaternoEdit,
+    //       sexo: sexoEdit,
+    //       telefono: telEdit,
+    //       celular: celEdit,
+    //     };
+    //     console.log("dataEdit", data);
+    //     const responseUpdate = await AuthService.updateRelacionParticipante(
+    //       data
+    //     );
+    //     this.datarespuestaEdit = responseUpdate;
+    //     if (responseUpdate.serverCode == 200) {
+    //       this.dialogEdit = false;
+    //       //this.mostrarAlertEdit = true;
+    //       this.$swal(
+    //         "Editado",
+    //         "Relación de participante editada correctamente.",
+    //         "success"
+    //       );
+    //       this.reloadTable();
+    //     } else {
+    //       console.log(responseUpdate.data.errors);
+    //       let error_msg =
+    //         responseUpdate.data.errors[
+    //           Object.keys(responseUpdate.data.errors)[0]
+    //         ][0];
+    //       this.$swal("Error", error_msg, "error");
+    //     }
+    //     console.log(data);
+    //   } catch (error) {
+    //     console.log(error);
+    //     console.log(error.response.data.errors);
+    //     let error_msg =
+    //       error.response.data.errors[
+    //         Object.keys(error.response.data.errors)[0]
+    //       ][0];
+    //     this.$swal("Error", error_msg, "error");
+    //   }
+    // },
 
-    async deleteRelacion() {
+    async deleteRelacion(delete_data) {
       try {
-        let idDeleteCurso = this.deleteId;
-        console.log("confirmDeleteid ", idDeleteCurso);
-        const response = await AuthService.deleteRelacionParticipante(
-          idDeleteCurso
-        );
-        this.datarespuestaDelete = response;
-        if (response.serverCode == 200) {
-          this.dialogDelete = false;
-          //this.mostrarAlertDelete = true;
-          this.$swal(
-            "Eliminado",
-            "Relación del participante eliminada correctamente.",
-            "success"
+        let idFact = delete_data.idFactibilidad;
+        const responseAll = await AuthService.getAllParticipantes();
+        this.items_deleteFull = responseAll.data.filter((item) => {
+          if (item.idFactibilidad == idFact) return item;
+        });
+        console.log("elementos a borrar: ", this.items_deleteFull);
+        for (var i = 0; i < this.items_deleteFull.length; i++) {
+          const response = await AuthService.deleteRelacionParticipante(
+            this.items_deleteFull[i].idParticipante
           );
-          this.reloadTable();
-        } else {
-          let error_msg =
-            response.data.errors[Object.keys(response.data.errors)[0]][0];
-          this.$swal("Error", error_msg, "error");
+          this.datarespuestaDelete = response;
         }
+        // const response = await AuthService.deleteRelacionParticipante(
+        //   idDeleteCurso
+        // );
+        // this.datarespuestaDelete = response;
+        // if (response.serverCode == 200) {
+        //   this.dialogDelete = false;
+        //   //this.mostrarAlertDelete = true;
+        //   this.$swal(
+        //     "Eliminado",
+        //     "Relación del participante eliminada correctamente.",
+        //     "success"
+        //   );
+        this.reloadTable();
+        // } else {
+        //   let error_msg =
+        //     response.data.errors[Object.keys(response.data.errors)[0]][0];
+        //   this.$swal("Error", error_msg, "error");
+        // }
       } catch (error) {
         console.log(error);
         console.log(error.response.data.errors);
@@ -485,7 +498,7 @@ export default {
       this.items_relacionP = response.data.filter((item) => {
         if (item.idFactibilidad == idFact) return item;
       });
-      console.log("items_relacionparticipantes ",this.items_relacionP);
+      console.log("items_relacionparticipantes ", this.items_relacionP);
       // this.items_relacionP = response.data.map((item) => {
       //   item.fullname = `${item.nombre} ${item.apellido_paterno} ${item.apellido_materno}`;
       //   return item;
@@ -506,10 +519,18 @@ export default {
         numero_identificacion: this.selectStudent.id,
         edad: null,
       };
-      console.log("data_alumno ",alumno);
+      console.log("data_alumno ", alumno);
       const responseAdd = await AuthService.addRelacionParticipante(alumno);
       let statusadd = responseAdd.data;
       console.log(statusadd);
+    },
+
+    async guardar() {
+      this.$swal(
+        "Guardado",
+        "Relación del participantes guardada correctamente.",
+        "success"
+      );
     },
   },
 };
