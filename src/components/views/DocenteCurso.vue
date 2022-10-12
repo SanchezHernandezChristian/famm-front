@@ -172,15 +172,13 @@ export default {
     },
 
     redirect(route) {
-      if (this.item_cronograma.cronograma) {
-        this.$router.push({
-          name: route,
-          params: {
-            id: this.id_curso,
-            tipo: this.tipo_curso,
-          },
-        });
-      } else this.$swal('Advertencia', 'No ha seleccionado ningún curso.', 'warning');
+      this.$router.push({
+        name: route,
+        params: {
+          id: this.id_curso,
+          tipo: this.tipo_curso,
+        },
+      });
     },
 
     editCronograma(mode) {
