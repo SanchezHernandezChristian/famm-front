@@ -165,8 +165,8 @@ export default {
     deleteCedulaPreAutorizacion(idCedula) {
         return axios.delete(url + 'delete-cedula/' + idCedula).then(response => response.data);
     },
-    getAllParticipantes() {
-        return axios.get(url + 'all-competitor').then(response => response.data);
+    getAllParticipantes(idFactibilidad) {
+        return axios.get(url + 'all-competitor/' + idFactibilidad).then(response => response.data);
     },
     addRelacionParticipante(participante_data) {
         return axios
@@ -218,6 +218,9 @@ export default {
     //     return axios.get(url + 'all-assign-grade').then(response => response.data);
     // },
     getAllAssignUnidad(idUnidad) {
+        return axios.get(`${url}all-assign-grade/${idUnidad}`).then(response => response.data);
+    },
+    getAllAssignSolicitudUnidad(idUnidad) {
         return axios.get(`${url}all-assign-grade-solicitud/${idUnidad}`).then(response => response.data);
     },
     deleteAssignGrade(idCurso, idUnidad) {
@@ -263,6 +266,9 @@ export default {
     getOficiosSolicitud() {
         return axios.get(`${url}all-oficios-solicitud`).then(response => response.data);
     },
+    getOficiosSolicitudUnidad(idUnidad) {
+        return axios.get(`${url}all-oficios-solicitud-unidad/` + idUnidad).then(response => response.data);
+    },
     getOficioSolicitud(id) {
         return axios.get(`${url}get-oficio-solicitud/${id}`).then(response => response.data);
     },
@@ -284,6 +290,9 @@ export default {
     getPreValidFactibility() {
         return axios.get(url + 'get-prevalid-factibility').then(response => response.data);
     },
+    getValidFactibility(idUnidad) {
+        return axios.get(url + 'get-valid-factibility/' + idUnidad).then(response => response.data);
+    },
     getUserByCenter(id_u) {
         return axios.get(`${url}get-user-assign-b-center/${id_u}`).then(response => response.data);
     },
@@ -296,7 +305,10 @@ export default {
     getCronogramaIdCurso(id_cur) {
         return axios.get(`${url}get-cronograma-by-id-curso/${id_cur}`).then(response => response.data);
     },
-    getCursoFactibilidadIdCenter() {
-        return axios.get(`${url}all-assign-grade-by-unidad`).then(response => response.data);
+    getCursoFactibilidadIdCenter(idUnidad) {
+        return axios.get(`${url}all-assign-grade-solicitud-valida/` + idUnidad).then(response => response.data);
+    },
+    getCursoSolicitudValida(idUnidad) {
+        return axios.get(`${url}all-oficios-solicitud-valida-unidad/` + idUnidad).then(response => response.data);
     },
 };
