@@ -1,0 +1,165 @@
+<template>
+    <v-container fluid pt-6>
+      <v-row justify="center" align="center">
+        <h2 style="color: #2b4c7b">Cursos asignados registrados</h2>
+      </v-row>
+      <v-row justify="center" align="center" style="height: 70px">
+        <v-layout row justify-start>
+          <v-flex align-self-center xs10> </v-flex>
+          <v-flex align-self-start xs1> </v-flex>
+          <v-flex align-self-center xs1>
+          </v-flex>        
+        </v-layout>
+        <p>
+  
+        </p>
+        <br />
+      </v-row>
+      <v-row>
+        <v-data-table
+          :headers="headers"
+          :items="cursosAsignados"
+          item-key="nombre_curso"
+          class="elevation-1"
+        >
+          <template v-slot:[`item.clave_curso`]="{ item }">
+            <v-chip color="blue">
+              {{ item.clave_curso }}
+            </v-chip>
+          </template>
+          <template v-slot:top>
+            <v-toolbar flat>
+              <v-divider class="mx-4" inset vertical></v-divider>
+              <v-spacer></v-spacer>            
+              <v-dialog v-model="dialogDelete" width="500">
+                <v-card>
+                  <v-card-title class="text-h5 white lighten-2">
+                    Eliminar curso asignado
+                  </v-card-title>
+                  <v-card-text>
+                    ¿Estás seguro que quieres eliminar el curso asignado?
+                    Recuerda que no podrás recuperar la información.
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-btn
+                      outlined
+                      color="gray"
+                      class="bordeRedondoElement"
+                      @click="dialogDelete = false"
+                    >
+                      Cancelar
+                    </v-btn>
+                    <v-btn
+                      outlined
+                      style="color: #ffffff; background-color: #2b4c7b"
+                      class="bordeRedondoElement"
+                      @click="deleteCursoAsignado()"
+                      >Continuar</v-btn
+                    >
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-toolbar>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-btn text @click="cursoItem(item)">
+              <v-icon small>mdi-window-close</v-icon
+              ><small>Eliminar</small></v-btn
+            >
+          </template></v-data-table
+        >
+      </v-row>
+    </v-container>
+  </template>
+  
+  <script>
+  import AuthService from "@/services/AuthService.js";
+  
+  export default {
+    name: "RelacionParticpantesRegistrados",
+  
+    data: () => ({
+      dialog: false,
+      dialogGenerar: false,
+      //Elementos para la tabla
+      headers: [
+        {
+          text: "Nombre del curso",
+          align: "start",
+          sortable: false,
+          value: "nombre_curso",
+        },
+        { text: "Clave del curso", value: "clave_curso" },
+        { text: "Unidad de capacitación", value: "nombre" },
+        { text: " ", value: "actions" },
+      ],
+      cursosAsignados: [],
+      editedItem: "",
+      cursoId: 0,
+      editedIndex: -1,
+      editId: 0,
+      idCursoDelete: null,
+      idUnidadDelete: null,
+    }),
+  
+    async mounted() {
+      try {
+        const response = await AuthService.getAllAssignGrade();
+        this.cursosAsignados = response.cursos;
+        console.log("cursosAsignados", this.cursosAsignados);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  
+    methods: {
+      async reloadTable() {
+        const response = await AuthService.getAllAssignGrade();
+        this.cursosAsignados = response.cursos;
+        console.log("cursosAsignados", this.cursosAsignados);
+      },
+  
+      async deleteCursoAsignado() {
+        try {
+          let idDeleteCurso = this.deleteId;
+          console.log("confirmDeleteid ", idDeleteCurso);
+          const response = await AuthService.deleteAssignGrade(this.idCursoDelete,this.idUnidadDelete);
+          this.datarespuestaDelete = response;
+          if (response.serverCode == 200) {
+            this.dialogDelete = false;
+            //this.mostrarAlertDelete = true;
+            this.$swal("Eliminado", "Curso asignado eliminado correctamente.", "success");
+            this.reloadTable();
+          } else {
+            let error_msg =
+              response.data.errors[Object.keys(response.data.errors)[0]][0];
+            this.$swal("Error", error_msg, "error");
+          }
+        } catch (error) {
+          console.log(error);
+          console.log(error.response.data.errors);
+          let error_msg =
+            error.response.data.errors[
+              Object.keys(error.response.data.errors)[0]
+            ][0];
+          this.$swal("Error", error_msg, "error");
+        }
+      },
+  
+      cursoItem(item) {
+        this.editedIndex = this.cursosAsignados.indexOf(item);
+        console.log("cursoIndex ", this.editedIndex);
+        this.editedItem = Object.assign({}, item);
+        console.log("cursoItem ", this.editedItem);
+        this.cursoId = this.editedItem.id;
+        console.log("editedItem.id ", this.deleteId);
+        this.dialogGenerar = true;
+        this.idCursoDelete = this.editedItem.idCurso;
+        console.log("idCursoDelete ", this.idCursoDelete);
+        this.idUnidadDelete = this.editedItem.idUnidad;
+        console.log("idUnidadDelete ", this.idUnidadDelete);
+      },
+    },
+  };
+  </script>
+  
