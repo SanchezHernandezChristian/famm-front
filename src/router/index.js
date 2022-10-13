@@ -259,6 +259,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewFactibilidadJustificacionRegistradasApoyoAcademico.vue')
   },
   {
+    path: '/generar-accesos',
+    name: 'ViewGenerarAccesosAdministrador',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewGenerarAccesosAdministrador.vue')
+  },
+  {
     path: '/curso',
     name: 'ViewCronogramaCapacitando',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewCronogramaCapacitando.vue')

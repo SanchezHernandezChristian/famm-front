@@ -311,4 +311,9 @@ export default {
     getAllAssignUnidadCronogramaValido(idUnidad) {
         return axios.get(`${url}all-assign-grade-cronograma-valido/${idUnidad}`).then(response => response.data);
     },
+    updateGradeLink(update_data){
+        return axios
+            .post(url + 'update-assign-grade', update_data)
+            .then(response => response.data);
+    },
 };
