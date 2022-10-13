@@ -106,34 +106,46 @@
       <v-col cols="8">
         <div style="margin-top: 50px">
           <v-row justify="center">
-            <v-col cols="5" v-for="(item, index) in items" :key="index" pt-10>
+            <v-col
+              cols="5"
+              v-for="(item, index) in data_curso"
+              :key="index"
+              pt-10
+            >
               <v-row>
                 <v-img
                   class="logo-curso-b"
-                  :src="require(`@/assets/img/${item.img}`)"
-                  :alt="item.img"
+                  :src="require(`@/assets/img/${img}`)"
+                  :alt="img"
                   max-width="75%"
                   height="60%"
                 ></v-img>
               </v-row>
+            </v-col>
+            <v-col
+              cols="5"
+              v-for="(item, index) in items_cedula"
+              :key="index"
+              pt-10
+            >
               <v-row align-content-md="center">
                 <v-col style="color: #394f79; font-size: 25px"
-                  >{{ item.title }}
+                  >{{ item.nombre_curso }}
+                </v-col>
+              </v-row>
+              <!-- <v-row align-content-md="center">
+                <v-col style="color: #394f79; font-size: 20px"
+                  >INSTRUCTOR: {{}}
+                </v-col>
+              </v-row> -->
+              <v-row align-content-md="center">
+                <v-col style="color: #394f79; font-size: 20px"
+                  >Fecha de inicio: {{items_cedula.fechaInicio}}
                 </v-col>
               </v-row>
               <v-row align-content-md="center">
                 <v-col style="color: #394f79; font-size: 20px"
-                  >INSTRUCTOR:
-                </v-col>
-              </v-row>
-              <v-row align-content-md="center">
-                <v-col style="color: #394f79; font-size: 20px"
-                  >Fecha de inicio:
-                </v-col>
-              </v-row>
-              <v-row align-content-md="center">
-                <v-col style="color: #394f79; font-size: 20px"
-                  >Fecha de término:
+                  >Fecha de término: {{items_cedula.fechaTermino}}
                 </v-col>
               </v-row>
               <v-row align-content-md="center">
@@ -192,13 +204,29 @@ export default {
       extras: [{ title: "Configuración" }, { title: "Ayuda" }],
       items_cursos: [],
       data_user: [],
+      data_curso: [],
+      img: "hoteleria.png",
+      items_cedula: [],
     };
   },
 
+  
   async mounted() {
     try {
       const responseProfile = await AuthService.getProfile();
-      this.data_user = responseProfile.data;
+      this.data_user = responseProfile;
+      console.log("data_user: ", this.data_user);
+      const responseCursos = await AuthService.getParticipante(
+        this.data_user.id
+      );
+      this.data_curso = responseCursos.data;
+      console.log("Participante: ", this.data_curso);
+      for (var i = 0; i < this.data_curso.length; i++) {
+        const responseCedula = await AuthService.getCedulaIdCurso(
+          this.data_curso[i].idCurso
+        );
+        this.items_cedula.push(responseCedula.data[0]);
+      }
     } catch (error) {
       console.log(error);
     }

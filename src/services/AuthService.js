@@ -316,4 +316,7 @@ export default {
             .post(url + 'update-assign-grade', update_data)
             .then(response => response.data);
     },
+    getParticipante(idParticipante) {
+        return axios.get(url + 'get-competitor/' + idParticipante).then(response => response.data);
+    },
 };
