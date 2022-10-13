@@ -258,6 +258,11 @@ const routes = [
     name: 'ViewFactibilidadJustificacionRegistradasApoyoAcademico',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewFactibilidadJustificacionRegistradasApoyoAcademico.vue')
   },
+  {
+    path: '/generar-accesos',
+    name: 'ViewGenerarAccesosAdministrador',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewGenerarAccesosAdministrador.vue')
+  },
 ]
 
 const router = new VueRouter({
