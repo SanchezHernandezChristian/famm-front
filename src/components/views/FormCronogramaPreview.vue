@@ -9,7 +9,7 @@
             target="_blank"
             rel="noopener noreferrer"
             class="orange--text text-decoration-none"
-            v-if="student"
+            v-if="student && zoom_link"
             >Iniciar curso
           </a>
         </span>
