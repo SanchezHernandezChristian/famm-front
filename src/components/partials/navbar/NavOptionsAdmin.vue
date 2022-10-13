@@ -156,7 +156,7 @@
               v-bind="attrs"
               v-on="on"
               style="font-size: 20px; color: #bdbbbd"
-              ><v-icon color="#bdbbbd">mdi-map</v-icon>
+              >
               Inicio de Cursos
             </v-btn>
           </template>

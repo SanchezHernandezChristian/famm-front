@@ -311,4 +311,9 @@ export default {
     getCursoSolicitudValida(idUnidad) {
         return axios.get(`${url}all-oficios-solicitud-valida-unidad/` + idUnidad).then(response => response.data);
     },
+    updateGradeLink(update_data){
+        return axios
+            .post(url + 'update-assign-grade', update_data)
+            .then(response => response.data);
+    },
 };
