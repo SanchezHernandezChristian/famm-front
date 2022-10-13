@@ -214,9 +214,6 @@ export default {
     deleteFactibilidadJustificacion(idFactibilidad) {
         return axios.delete(url + 'delete-factibility/' + idFactibilidad).then(response => response.data);
     },
-    // getAllAssign() {
-    //     return axios.get(url + 'all-assign-grade').then(response => response.data);
-    // },
     getAllAssignUnidad(idUnidad) {
         return axios.get(`${url}all-assign-grade/${idUnidad}`).then(response => response.data);
     },
@@ -310,5 +307,13 @@ export default {
     },
     getCursoSolicitudValida(idUnidad) {
         return axios.get(`${url}all-oficios-solicitud-valida-unidad/` + idUnidad).then(response => response.data);
+    },
+    getAllAssignUnidadCronogramaValido(idUnidad) {
+        return axios.get(`${url}all-assign-grade-cronograma-valido/${idUnidad}`).then(response => response.data);
+    },
+    updateGradeLink(update_data){
+        return axios
+            .post(url + 'update-assign-grade', update_data)
+            .then(response => response.data);
     },
 };
