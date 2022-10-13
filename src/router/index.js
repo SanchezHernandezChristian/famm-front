@@ -263,6 +263,11 @@ const routes = [
     name: 'ViewGenerarAccesosAdministrador',
     component: () => import(/* webpackChunkName: "about" */ '../views/ViewGenerarAccesosAdministrador.vue')
   },
+  {
+    path: '/curso',
+    name: 'ViewCronogramaCapacitando',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ViewCronogramaCapacitando.vue')
+  },
 ]
 
 const router = new VueRouter({
