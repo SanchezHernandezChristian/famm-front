@@ -1,10 +1,22 @@
 <template>
   <v-container>
     <v-row justify="center" align="center">
-      <v-col cols="12">
-        <span class="text-h5">{{ cronograma.nombre_curso }}</span>
+      <v-col cols="12" class="d-flex flex-column">
+        <span class="text-h5"
+          >{{ cronograma.nombre_curso }}
+          <a
+            :href="zoom_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="orange--text text-decoration-none"
+            v-if="student"
+            >Iniciar curso
+          </a>
+        </span>
+        <span>{{ cronograma.encargado_curso }}</span>
       </v-col>
       <v-col cols="12">
+        <span class="font-weight-bold">Temario</span>
         <v-list-item
           two-line
           v-for="(item, index) in cronograma.contenido_cronograma"
@@ -23,7 +35,9 @@
     </v-row>
     <v-row justify="center" align="center">
       <v-col cols="12" class="text-center">
-        <v-btn elevation="2" raised rounded @click="close()"> Cancelar </v-btn>
+        <v-btn elevation="2" raised rounded @click="close()" v-if="!student">
+          Cancelar
+        </v-btn>
         <v-btn
           color="orange"
           elevation="2"
@@ -51,11 +65,20 @@ export default {
       type: Number,
       default: 0, // 2 = Validación, 3 = Visualización
     },
+    student: {
+      type: Boolean,
+      default: false,
+    },
+    zoom_link: {
+      type: String,
+      default: "",
+    },
   },
   data: () => ({
     cronograma: {
       idCurso: 0,
       nombre_curso: "",
+      encargado_curso: "",
       contenido_cronograma: [],
       is_enviado_validacion: 1,
     },
@@ -74,6 +97,7 @@ export default {
         this.cronograma = {
           idCurso: data.cronograma.idCurso,
           nombre_curso: response2.curso.nombre_curso,
+          encargado_curso: data.cronograma.encargado_curso,
           contenido_cronograma: data.contenido_cronograma,
           is_enviado_validacion: data.cronograma.is_enviado_validacion,
         };
