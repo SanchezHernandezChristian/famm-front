@@ -18,9 +18,7 @@
       <v-col cols="12" class="m-0 p-0">
         <div class="text-center">
           <p style="color: #aeacac">
-            <strong
-              >Rellena todos los campos para completar tu registro.</strong
-            >
+            <strong>Rellena todos los campos para completar tu registro.</strong>
           </p>
           <p style="color: #aeacac">
             <strong>*Todos los campos son obligatorios.</strong>
@@ -40,16 +38,14 @@
         <v-row justify="center" align="center" style="height: 100px">
           <v-layout row justify-center>
             <v-flex align-self-center xs3> </v-flex>
-            <v-flex align-self-center xs2
-              ><label>CURSO SOLICITADO</label></v-flex
-            >
+            <v-flex align-self-center xs2><label>CURSO SOLICITADO</label></v-flex>
             <v-flex align-self-center xs5>
               <v-col>
                 <v-select
                   v-model="selectCurso"
                   :items="items_cursos"
                   item-text="nombre_curso"
-                  item-value="idCurso"
+                  item-value="idCronograma"
                   :rules="rules.required"
                   required
                   return-object
@@ -96,41 +92,22 @@
               <div class="text-center">
                 <v-dialog v-model="dialog" width="500">
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn color="primary" v-bind="attrs" v-on="on">
-                      GUARDAR
-                    </v-btn>
+                    <v-btn color="primary" v-bind="attrs" v-on="on"> GUARDAR </v-btn>
                   </template>
                   <v-card>
-                    <v-card-title class="text-h5 white lighten-2">
-                      ¡ATENCIÓN!
-                    </v-card-title>
-                    <v-card-text>
-                      SI TODOS LOS DATOS SON CORRECTOS DA CLICK EN CONTINUAR
-                    </v-card-text>
+                    <v-card-title class="text-h5 white lighten-2"> ¡ATENCIÓN! </v-card-title>
+                    <v-card-text> SI TODOS LOS DATOS SON CORRECTOS DA CLICK EN CONTINUAR </v-card-text>
                     <v-card-actions>
-                      <v-btn outlined color="gray" @click="dialog = false">
-                        Cancelar
-                      </v-btn>
-                      <v-btn
-                        outlined
-                        style="color: #ffffff; background-color: #2b4c7b"
-                        @click="createPayment"
-                        >Continuar</v-btn
-                      >
+                      <v-btn outlined color="gray" @click="dialog = false"> Cancelar </v-btn>
+                      <v-btn outlined style="color: #ffffff; background-color: #2b4c7b" @click="createPayment">Continuar</v-btn>
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
               </div>
             </template>
           </v-flex>
-          <v-flex align-self-center xs2
-            ><v-btn outlined color="gray" @click="clean">LIMPIAR</v-btn></v-flex
-          >
-          <v-flex align-self-center xs2
-            ><v-btn outlined color="gray" @click="cancelar"
-              >CANCELAR</v-btn
-            ></v-flex
-          >
+          <v-flex align-self-center xs2><v-btn outlined color="gray" @click="clean">LIMPIAR</v-btn></v-flex>
+          <v-flex align-self-center xs2><v-btn outlined color="gray" @click="cancelar">CANCELAR</v-btn></v-flex>
           <v-flex align-self-center xs3></v-flex>
         </v-layout>
       </div>
@@ -139,15 +116,14 @@
 </template>
 
 <script>
-import AuthService from "@/services/AuthService.js";
+import AuthService from '@/services/AuthService.js';
 
 export default {
   data() {
     return {
       rules: {
-        required: (v) => !!v || "Campo requerido",
-        size: (v) =>
-          !v || v.size < 1000000 || "El archivo debe pesar menos de 1 MB!",
+        required: (v) => !!v || 'Campo requerido',
+        size: (v) => !v || v.size < 1000000 || 'El archivo debe pesar menos de 1 MB!',
       },
       dialog: false,
       form_participantes: {
@@ -173,15 +149,11 @@ export default {
       try {
         const response = await AuthService.getProfile();
         this.user.idUnidad = response.idCentro_capacitacion;
-        console.log("idUnidad", this.user.idUnidad);
-        const response2 = await AuthService.getAllAssignUnidad(
-          this.user.idUnidad
-        );
-        //const response2 = await AuthService.getCursos();
-        this.items_cursos = response2.cursos;
-        console.log("cursosAsignados", this.items_cursos);
+        const response2 = await AuthService.getAllAssignUnidadCronogramaValido(this.user.idUnidad);
+        this.items_cursos = response2.data;
+        console.log('cursosAsignados', this.items_cursos);
       } catch (error) {
-        console.log("Error", error.response);
+        console.log('Error', error.response);
       }
     }
   },
@@ -199,27 +171,15 @@ export default {
           await AuthService.createPayment(data);
           Object.assign(me.$data, me.$options.data());
           me.$refs.form_formato_pago.resetValidation();
-          me.$swal(
-            "Guardado",
-            "Información guardada correctamente.",
-            "success"
-          ).then(() => {
-            me.$router.push("/formatos-pago-registrados");
+          me.$swal('Guardado', 'Información guardada correctamente.', 'success').then(() => {
+            me.$router.push('/formatos-pago-registrados');
           });
         } catch (error) {
           console.log(error.response);
-          me.$swal(
-            "Error",
-            "Error al intentar guardar la información.",
-            "error"
-          );
+          me.$swal('Error', 'Error al intentar guardar la información.', 'error');
         }
       } else {
-        me.$swal(
-          "Advertencia",
-          "No ha completado la información solicitada.",
-          "warning"
-        );
+        me.$swal('Advertencia', 'No ha completado la información solicitada.', 'warning');
       }
     },
 
@@ -234,7 +194,7 @@ export default {
     async cancelar() {
       try {
         this.$refs.form_formato_pago.reset();
-        this.$router.push("/formatos-pago-registrados");
+        this.$router.push('/formatos-pago-registrados');
       } catch (error) {
         console.log(error);
       }
