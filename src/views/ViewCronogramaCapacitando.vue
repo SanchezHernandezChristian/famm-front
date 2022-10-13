@@ -12,7 +12,7 @@ import CronogramaCapacitando from "@/components/views/CronogramaCapacitando.vue"
 import NavbarApp from "@/components/views/NavbarApp.vue";
 
 export default {
-  name: "users",
+  name: "cursos-capacitando",
   components: {
     NavbarApp,
     CronogramaCapacitando,
