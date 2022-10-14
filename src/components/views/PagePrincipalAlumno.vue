@@ -8,8 +8,8 @@
               <v-flex>
                 <v-list>
                   <v-list-item v-for="(item, index) in misCursos" :key="index">
-                    <v-list-item-title style="color: #394f79; font-size: 25px"
-                      ><strong>{{ item.title }}</strong>
+                    <v-list-item-title style="color: #394f79; font-size: 25px">
+                      <strong>{{ item.title }}</strong>
                     </v-list-item-title>
                   </v-list-item>
                 </v-list>
@@ -18,18 +18,18 @@
               <v-flex>
                 <v-list>
                   <v-list-item v-for="(item, index) in main" :key="index">
-                    <v-list-item-title style="color: #aeacac; font-size: 20px"
-                      >{{ item.title }}
+                    <v-list-item-title style="color: #aeacac; font-size: 20px">
+                      {{ item.title }}
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item>
-                    <v-list-item-title style="color: #394f79; font-size: 20px"
-                      >TODAS LAS ESPECIALIDADES
+                    <v-list-item-title style="color: #394f79; font-size: 20px">
+                      TODAS LAS ESPECIALIDADES
                       <i
                         class="fa fa-arrow-circle-right fa-lg"
                         aria-hidden="true"
-                      ></i
-                    ></v-list-item-title>
+                      ></i>
+                    </v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-flex>
@@ -37,8 +37,8 @@
               <v-flex>
                 <v-list>
                   <v-list-item v-for="(item, index) in extras" :key="index">
-                    <v-list-item-title style="color: #aeacac; font-size: 20px"
-                      >{{ item.title }}
+                    <v-list-item-title style="color: #aeacac; font-size: 20px">
+                      {{ item.title }}
                     </v-list-item-title>
                   </v-list-item>
                 </v-list>
@@ -50,38 +50,50 @@
       <v-col cols="8">
         <div style="margin-top: 50px">
           <v-row justify="center">
-            <v-col cols="5" v-for="(item, index) in items" :key="index" pt-10>
+            <v-col
+              cols="5"
+              v-for="(item, index) in items_cursos"
+              :key="index"
+              pt-10
+            >
               <v-row>
                 <v-img
                   class="logo-curso-b"
-                  :src="require(`@/assets/img/${item.img}`)"
-                  :alt="item.img"
+                  :src="require(`@/assets/img/${img}`)"
+                  :alt="img"
                   max-width="75%"
                   height="60%"
                 ></v-img>
               </v-row>
+            </v-col>
+            <v-col
+              cols="5"
+              v-for="(item, index) in items_cedula"
+              :key="index"
+              pt-10
+            >
               <v-row align-content-md="center">
-                <v-col style="color: #394f79; font-size: 25px"
-                  >{{ item.title }}
+                <v-col style="color: #394f79; font-size: 25px">
+                  {{ item.nombre_curso }}
                 </v-col>
               </v-row>
-              <v-row align-content-md="center">
+              <!-- <v-row align-content-md="center">
                 <v-col style="color: #394f79; font-size: 20px"
-                  >INSTRUCTOR:
+                  >INSTRUCTOR: {{}}
+                </v-col>
+              </v-row> -->
+              <v-row align-content-md="center">
+                <v-col style="color: #394f79; font-size: 20px">
+                  Fecha de inicio: {{ items_cedula.fechaInicio }}
                 </v-col>
               </v-row>
               <v-row align-content-md="center">
-                <v-col style="color: #394f79; font-size: 20px"
-                  >Fecha de inicio:
+                <v-col style="color: #394f79; font-size: 20px">
+                  Fecha de término: {{ items_cedula.fechaTermino }}
                 </v-col>
               </v-row>
               <v-row align-content-md="center">
-                <v-col style="color: #394f79; font-size: 20px"
-                  >Fecha de término:
-                </v-col>
-              </v-row>
-              <v-row align-content-md="center">
-                <v-btn style="width: 10px" @click="curso_access(item.id)">
+                <v-btn style="width: 10px" @click="curso_access(item.idCurso)">
                   Entrar
                 </v-btn>
               </v-row>
@@ -108,7 +120,7 @@
           <v-row justify="center">
             <v-col
               cols="5"
-              v-for="(item, index) in data_curso"
+              v-for="(item, index) in items_cursos"
               :key="index"
               pt-10
             >
@@ -129,8 +141,8 @@
               pt-10
             >
               <v-row align-content-md="center">
-                <v-col style="color: #394f79; font-size: 25px"
-                  >{{ item.nombre_curso }}
+                <v-col style="color: #394f79; font-size: 25px">
+                  {{ item.nombre_curso }}
                 </v-col>
               </v-row>
               <!-- <v-row align-content-md="center">
@@ -139,17 +151,19 @@
                 </v-col>
               </v-row> -->
               <v-row align-content-md="center">
-                <v-col style="color: #394f79; font-size: 20px"
-                  >Fecha de inicio: {{items_cedula.fechaInicio}}
+                <v-col style="color: #394f79; font-size: 20px">
+                  Fecha de inicio: {{ items_cedula.fechaInicio }}
                 </v-col>
               </v-row>
               <v-row align-content-md="center">
-                <v-col style="color: #394f79; font-size: 20px"
-                  >Fecha de término: {{items_cedula.fechaTermino}}
+                <v-col style="color: #394f79; font-size: 20px">
+                  Fecha de término: {{ items_cedula.fechaTermino }}
                 </v-col>
               </v-row>
               <v-row align-content-md="center">
-                <v-btn style="width: 10px">Ver</v-btn>
+                <v-btn style="width: 10px" @click="curso_access(item.idCurso)">
+                  Ver
+                </v-btn>
               </v-row>
             </v-col>
           </v-row>
@@ -169,25 +183,6 @@ export default {
   name: "PagePrincipalAlumno",
   data() {
     return {
-      items: [
-        {
-          id: 10,
-          title: "Hotelería",
-          img: "hoteleria.png",
-        },
-        // {
-        //   title: 'Informática',
-        //   img: 'informatica.png',
-        // },
-        // {
-        //   title: 'Estilismo y Diseño de Imagen',
-        //   img: 'estilismo.png',
-        // },
-        // {
-        //   title: 'Inglés',
-        //   img: 'ingles.png',
-        // },
-      ],
       misCursos: [
         { title: "MIS CURSOS" },
         { title: "Mis apuntes" },
@@ -202,28 +197,19 @@ export default {
         { title: "Cursos cerca de tu localidad" },
       ],
       extras: [{ title: "Configuración" }, { title: "Ayuda" }],
-      items_cursos: [],
-      data_user: [],
-      data_curso: [],
       img: "hoteleria.png",
       items_cedula: [],
+      items_cursos: [],
     };
   },
 
-  
   async mounted() {
     try {
-      const responseProfile = await AuthService.getProfile();
-      this.data_user = responseProfile;
-      console.log("data_user: ", this.data_user);
-      const responseCursos = await AuthService.getParticipante(
-        this.data_user.id
-      );
-      this.data_curso = responseCursos.data;
-      console.log("Participante: ", this.data_curso);
-      for (var i = 0; i < this.data_curso.length; i++) {
+      const responseCursos = await AuthService.fetchCursosCapacitando();
+      this.items_cursos = responseCursos.data;
+      for (var i = 0; i < this.items_cursos.length; i++) {
         const responseCedula = await AuthService.getCedulaIdCurso(
-          this.data_curso[i].idCurso
+          this.items_cursos[i].idCurso
         );
         this.items_cedula.push(responseCedula.data[0]);
       }
