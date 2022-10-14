@@ -311,7 +311,7 @@ export default {
     getAllAssignUnidadCronogramaValido(idUnidad) {
         return axios.get(`${url}all-assign-grade-cronograma-valido/${idUnidad}`).then(response => response.data);
     },
-    updateGradeLink(update_data){
+    updateGradeLink(update_data) {
         return axios
             .post(url + 'update-assign-grade', update_data)
             .then(response => response.data);
@@ -319,4 +319,7 @@ export default {
     getParticipante(idParticipante) {
         return axios.get(url + 'get-competitor/' + idParticipante).then(response => response.data);
     },
+    fetchCursosCapacitando() {
+        return axios.get(url + 'get-curses').then(response => response.data);
+    }
 };
