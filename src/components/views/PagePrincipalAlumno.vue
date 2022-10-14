@@ -65,12 +65,6 @@
                   height="60%"
                 ></v-img>
               </v-row>
-            </v-col>
-            <v-col
-              cols="5"
-              v-for="(item, index) in items_cedula"
-              :key="index"
-              pt-10
             >
               <v-row align-content-md="center">
                 <v-col style="color: #394f79; font-size: 25px">
@@ -84,12 +78,12 @@
               </v-row> -->
               <v-row align-content-md="center">
                 <v-col style="color: #394f79; font-size: 20px">
-                  Fecha de inicio: {{ items_cedula.fechaInicio }}
+                  Fecha de inicio: {{ item.periodoInicio }}
                 </v-col>
               </v-row>
               <v-row align-content-md="center">
                 <v-col style="color: #394f79; font-size: 20px">
-                  Fecha de término: {{ items_cedula.fechaTermino }}
+                  Fecha de término: {{ item.periodoTermino }}
                 </v-col>
               </v-row>
               <v-row align-content-md="center">
@@ -145,19 +139,19 @@
                   {{ item.nombre_curso }}
                 </v-col>
               </v-row>
-              <!-- <v-row align-content-md="center">
-                <v-col style="color: #394f79; font-size: 20px"
-                  >INSTRUCTOR: {{}}
-                </v-col>
-              </v-row> -->
               <v-row align-content-md="center">
-                <v-col style="color: #394f79; font-size: 20px">
-                  Fecha de inicio: {{ items_cedula.fechaInicio }}
+                <v-col style="color: #394f79; font-size: 20px"
+                  >INSTRUCTOR: {{item.nombre}}
                 </v-col>
               </v-row>
               <v-row align-content-md="center">
                 <v-col style="color: #394f79; font-size: 20px">
-                  Fecha de término: {{ items_cedula.fechaTermino }}
+                  Fecha de inicio: {{ item.periodoInicio }}
+                </v-col>
+              </v-row>
+              <v-row align-content-md="center">
+                <v-col style="color: #394f79; font-size: 20px">
+                  Fecha de término: {{ item.periodoTermino }}
                 </v-col>
               </v-row>
               <v-row align-content-md="center">
@@ -207,12 +201,6 @@ export default {
     try {
       const responseCursos = await AuthService.fetchCursosCapacitando();
       this.items_cursos = responseCursos.data;
-      for (var i = 0; i < this.items_cursos.length; i++) {
-        const responseCedula = await AuthService.getCedulaIdCurso(
-          this.items_cursos[i].idCurso
-        );
-        this.items_cedula.push(responseCedula.data[0]);
-      }
     } catch (error) {
       console.log(error);
     }
